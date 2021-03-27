@@ -8,25 +8,20 @@ import javafx.stage.Stage;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class MainMenu {
+public class MainMenu implements Showable{
 	
-	private Stage mainStage;
+	private Scene scene;
 	
-	public MainMenu() {
-		AudioClip menuThemeSong = AudioLoader.menuThemeSong;
-		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
-		menuThemeSong.play();
-		
+	public MainMenu() {		
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
-		
-		mainStage = new Stage();
-		mainStage.setScene(new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight()));
-		mainStage.setTitle("Main Menu");
+		scene= new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
 	}
 	
-	public Stage getStage() {
-		return this.mainStage;
+
+	@Override
+	public Scene getScene() {
+		return scene;
 	}
 	
 }
