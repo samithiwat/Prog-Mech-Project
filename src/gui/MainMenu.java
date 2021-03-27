@@ -4,13 +4,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
-import javafx.stage.Stage;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class MainMenu {
+public class MainMenu implements Showable{
 	
-	private Stage mainStage;
+	private Scene scene;
 	
 	public MainMenu() {
 		AudioClip menuThemeSong = AudioLoader.menuThemeSong;
@@ -20,13 +19,11 @@ public class MainMenu {
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		
-		mainStage = new Stage();
-		mainStage.setScene(new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight()));
-		mainStage.setTitle("Main Menu");
+		scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
 	}
 	
-	public Stage getStage() {
-		return this.mainStage;
+	public Scene getScene() {
+		return this.scene;
 	}
 	
 }
