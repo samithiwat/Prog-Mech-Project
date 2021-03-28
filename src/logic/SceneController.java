@@ -31,6 +31,10 @@ public class SceneController {
 	public static Stage getStage() {
 		return mainStage;
 	}
+	
+	public static void setScene(Scene scene) {
+		mainStage.setScene(scene);
+	}
 
 	public static void startCredit() {
 		lastTimeTrigger = -1;

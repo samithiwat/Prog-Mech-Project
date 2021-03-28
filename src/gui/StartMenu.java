@@ -123,7 +123,7 @@ public class StartMenu{
 		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
 		scene.setOnKeyPressed(key ->{
 			if(key.getCode() != KeyCode.ALT) {
-				SceneController.getStage().setScene((new MainMenu().getScene()));
+				SceneController.setScene((new TransitionScreen().getScene()));
 			}
 			
 		});
