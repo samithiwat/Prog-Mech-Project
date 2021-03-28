@@ -17,7 +17,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-//		primaryStage.setScene((new LoadingScreen2()).getScene());
+//		primaryStage.setScene((new TransitionScreen()).getScene());
 //		primaryStage.show();
 		SceneController sControl = new SceneController();
 		primaryStage = sControl.getStage();
