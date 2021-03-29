@@ -158,6 +158,8 @@ public class StartMenu{
 		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
 		scene.setOnKeyPressed(key ->{
 			if(key.getCode() != KeyCode.ALT) {
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
 				SceneController.setScene((new TransitionScreen().getScene()));
 			}
 			

@@ -5,8 +5,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import logic.AudioLoader;
 import logic.SceneController;
 import sprites.AnimationSprites;
 
@@ -24,7 +26,8 @@ public class TransitionScreen implements Showable {
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.web("0xF2A388"));
-
+		AudioClip effect = AudioLoader.PopSound;
+		effect.play();
 		ImageView coconut = new ImageView(ClassLoader.getSystemResource("img/BiggerCoconut.png").toString());
 		coconut.setViewport(new Rectangle2D(0, 0, 900, 900));
 		coconut.setX(330);
