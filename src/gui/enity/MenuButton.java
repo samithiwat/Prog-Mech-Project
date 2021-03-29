@@ -1,6 +1,5 @@
 package gui.enity;
 
-import implement.Clickable;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +18,7 @@ public class MenuButton extends Button implements Clickable {
 
 	public MenuButton(String content,int contentSize,int width,int height,Color textColor) {
 		setTextFill(textColor);
-		getStyleClass().add("mainmenu-button-release-style");
+		setId("mainmenu-button-release-style");
 		setText(content);
 		setFontRegular(contentSize);
 		setPrefHeight(height);
@@ -29,11 +28,11 @@ public class MenuButton extends Button implements Clickable {
 
 	@Override
 	public void interact() {
-		setOnMouseReleased(new EventHandler<MouseEvent>() {
+		setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				getStyleClass().add("mainmenu-button-release-style");
+				setId("mainmenu-button-release-style");
 			}
 			
 		});
@@ -43,7 +42,7 @@ public class MenuButton extends Button implements Clickable {
 			public void handle(MouseEvent event) {
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
-				getStyleClass().add("mainmenu-button-hold-style");
+				setId("mainmenu-button-hold-style");
 			}
 			
 		});

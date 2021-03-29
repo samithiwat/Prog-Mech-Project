@@ -39,6 +39,7 @@ public class AnimationSprites extends Transition {
 		final int y = (((height + dh) * row)) + offsetY;
 		//System.out.println("x : "+x+" y : "+y);
 		img.setViewport(new Rectangle2D(x, y, width, height));
+		
 	}
 
 }

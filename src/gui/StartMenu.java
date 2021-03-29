@@ -1,6 +1,8 @@
 package gui;
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.Transition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -12,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import logic.AudioLoader;
 import logic.SceneController;
 
@@ -56,6 +59,9 @@ public class StartMenu{
 			setCurrentScene(JavaIcon());
 			break;
 		case 2 :
+			setCurrentScene(WelcomeText());
+			break;
+		case 3 :
 			setCurrentScene(StartBG());
 			break;
 		}
@@ -76,6 +82,36 @@ public class StartMenu{
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
 		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+	}
+	
+	public static Scene WelcomeText() {
+		AudioClip effect = AudioLoader.keyBoardTypingEffect;
+		effect.play();
+		StackPane root = new StackPane();
+		root.setAlignment(Pos.CENTER);
+		
+		final String content = "Welcome to Coconut Island.";
+		Text welcome = new Text("");
+		welcome.setFont(Font.font("Bai Jamjuree",FontWeight.MEDIUM,100));
+		
+		 final Animation animation = new Transition() {
+		     {
+		         setCycleDuration(Duration.millis(3000));
+		     }
+		 
+		     protected void interpolate(double frac) {
+		    	 System.out.println(frac);
+		         final int length = content.length();
+		         final int n = Math.round(length * (float) frac);
+		         welcome.setText(content.substring(0, n));
+		     }
+		 
+		 };
+		 
+		 animation.play();
+		
+		root.getChildren().add(welcome);
+		return new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
 	}
 	
 	public static Scene StartBG() {

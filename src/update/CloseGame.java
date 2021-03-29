@@ -9,5 +9,6 @@ public class CloseGame {
 		if(isCloseGame) {
 			System.exit(1);
 		}
+		
 	}
 }
