@@ -100,7 +100,6 @@ public class StartMenu{
 		     }
 		 
 		     protected void interpolate(double frac) {
-		    	 System.out.println(frac);
 		         final int length = content.length();
 		         final int n = Math.round(length * (float) frac);
 		         welcome.setText(content.substring(0, n));

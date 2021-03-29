@@ -1,9 +1,12 @@
 package gui;
 
 import gui.enity.MenuButton;
+import gui.enity.MenuIcon;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
@@ -13,6 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import logic.AudioLoader;
 import logic.SceneController;
+import update.CloseGame;
 
 public class MainMenu implements Showable {
 
@@ -23,13 +27,13 @@ public class MainMenu implements Showable {
 		AnchorPane root = new AnchorPane();
 
 		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/MainMenuBG.png").toString());
-		ImageView creditIcon = new ImageView(ClassLoader.getSystemResource("img/About.png").toString());
+		MenuIcon creditIcon = new MenuIcon("img/About.png");
 		creditIcon.setX(75);
 		creditIcon.setY(60);
-		ImageView helpIcon = new ImageView(ClassLoader.getSystemResource("img/Help.png").toString());
+		MenuIcon helpIcon = new MenuIcon("img/Help.png");
 		helpIcon.setX(223);
 		helpIcon.setY(60);
-		ImageView settingIcon = new ImageView(ClassLoader.getSystemResource("img/Setting.png").toString());
+		MenuIcon settingIcon = new MenuIcon("img/Setting.png");
 		settingIcon.setX(1300);
 		settingIcon.setY(55);
 
@@ -49,6 +53,15 @@ public class MainMenu implements Showable {
 		MenuButton load = new MenuButton("Load", 64, 400, 150, Color.WHITE);
 
 		MenuButton quit = new MenuButton("Quit", 64, 400, 150, Color.WHITE);
+		quit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				CloseGame.setIsCloseGame(true);
+				CloseGame.update();
+			}
+			
+		});
 
 		buttonBar.add(start, 0, 0);
 		buttonBar.add(load, 1, 0);

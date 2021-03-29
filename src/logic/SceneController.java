@@ -59,7 +59,7 @@ public class SceneController {
 					Input_StartMenu.isSkip = false;
 					lastTimeTrigger = now;
 				}
-				if (count == 7) {
+				if (count == 9) {
 					animationTimer.stop();
 				}
 				CloseGame.update();
