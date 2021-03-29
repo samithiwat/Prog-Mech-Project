@@ -1,3 +1,7 @@
-.menu-button {
-  -fx-background-color: rgba(120, 120, 120, 0.75);
+.mainmenu-button-hold-style {
+  -fx-background-color: rgba(185, 185, 185, 0.9);
+}
+
+.mainmenu-button-release-style {
+  -fx-background-color: rgba(120, 120, 120, 0.9);
 }

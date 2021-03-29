@@ -1,4 +1,4 @@
-package gui.enity;
+package implement;
 
 public interface Clickable {
 	public void interact();

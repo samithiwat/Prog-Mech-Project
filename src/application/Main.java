@@ -3,7 +3,9 @@ package application;
 import gui.MainMenu;
 import gui.StartMenu;
 import javafx.application.Application;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import logic.AudioLoader;
 import logic.SceneController;
 
 public class Main extends Application {
@@ -19,7 +21,7 @@ public class Main extends Application {
 //		SceneController.setScene((new StartMenu()).getScene());
 //		SceneController.getStage().show();
 //		SceneController.getStage().setResizable(false);
-////		//primaryStage.setMaximized(true);
+//		//primaryStage.setMaximized(true);
 //		SceneController.startCredit();
 		
 	}
