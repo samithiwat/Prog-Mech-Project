@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class SceneController {
 
-	private static Stage mainStage;
+	private static Stage mainStage = new Stage();
 	private final static int FULLSCREEN_WIDTH = 1540;
 	private final static int FULLSCREEN_HEIGHT = 880;
 	private static long lastTimeTrigger;
@@ -16,7 +16,6 @@ public class SceneController {
 	private static AnimationTimer animationTimer;
 
 	public SceneController() throws Exception {
-		mainStage = new Stage();
 		mainStage.setScene((new StartMenu()).getScene());
 	}
 

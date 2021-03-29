@@ -22,10 +22,9 @@ public class TransitionScreen implements Showable {
 		AnchorPane root = new AnchorPane();
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		//bg.setY(210);
 		bg.setFill(Color.web("0xF2A388"));
 
-		ImageView coconut = new ImageView(ClassLoader.getSystemResource("img/BiggerCoconut1.png").toString());
+		ImageView coconut = new ImageView(ClassLoader.getSystemResource("img/BiggerCoconut.png").toString());
 		coconut.setViewport(new Rectangle2D(0, 0, 900, 900));
 		coconut.setX(330);
 		coconut.setY(0);
@@ -45,11 +44,10 @@ public class TransitionScreen implements Showable {
 					if (count++ == 3) {
 						ImageView coconutRollingOut = new ImageView(
 								ClassLoader.getSystemResource("img/CoconutRollingOut.png").toString());
-						coconutRollingOut.setViewport(new Rectangle2D(0, 0, 1100, 900));
+						coconutRollingOut.setViewport(new Rectangle2D(0, 0, 1150, 900));
 						coconutRollingOut.setX(330);
 						coconutRollingOut.setY(0);
-						AnimationSprites coconutRollingAnimation = new AnimationSprites(coconutRollingOut, 2000, 0, 0,
-								1100, 900, 0, 200, 0, 19);
+						AnimationSprites coconutRollingAnimation = new AnimationSprites(coconutRollingOut, 2000, 0, 0, 1210, 900, 0, 90, 0, 23);
 						coconutRollingAnimation.play();
 						root.getChildren().add(coconutRollingOut);
 						
