@@ -1,5 +1,8 @@
 package gui;
 
+import input.Input_StartMenu;
+import input.Input_TransitionScene;
+import update.CloseGame;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,7 +18,7 @@ import javafx.scene.text.Text;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class StartMenu{
+public class StartMenu {
 
 	private static boolean isVisible = true;
 	private static int count;
@@ -33,21 +36,23 @@ public class StartMenu{
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
 
-		currentScene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+//		currentScene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Scene scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Input_StartMenu.input(scene);
+		setCurrentScene(scene);
 	}
 
 	public static Scene getScene() {
-		//System.out.println("get Scene");
+		// System.out.println("get Scene");
 		return currentScene;
 	}
-	
-	
+
 	public static void setCurrentScene(Scene scene) {
 		currentScene = scene;
 	}
 
 	public static void setCreditScene(int count) {
-		//System.out.println("Switch case :" + count);
+		// System.out.println("Switch case :" + count);
 		switch (count) {
 		case 0:
 			setCurrentScene(CUEngineerIcon());
@@ -55,79 +60,85 @@ public class StartMenu{
 		case 1:
 			setCurrentScene(JavaIcon());
 			break;
-		case 2 :
+		case 2:
 			setCurrentScene(StartBG());
 			break;
 		}
 	}
-
 
 	public static Scene CUEngineerIcon() {
 		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/ChulaEngineerLogo.png").toString());
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
-		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Scene scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Input_StartMenu.input(scene);
+		return scene;
 	}
-	
+
 	public static Scene JavaIcon() {
 		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/javaIcon.png").toString());
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
-		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Scene scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Input_StartMenu.input(scene);
+		return scene;
 	}
-	
+
 	public static Scene StartBG() {
 
-		AudioClip menuThemeSong = AudioLoader.menuThemeSong;
-		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
-		menuThemeSong.play();
+//		AudioClip menuThemeSong = AudioLoader.menuThemeSong;
+//		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
+//		menuThemeSong.play();
 		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/StartBg.png").toString());
-		
+
 		AnchorPane root = new AnchorPane();
-		
-		
-		Text text = new Text(380,750,"Press any key to continue");
-		text.setFont(Font.font("Bai Jamjuree",FontWeight.BOLD,72));
+
+		Text text = new Text(380, 750, "Press any key to continue");
+		text.setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, 72));
 		text.setFill(Color.WHITE);
-		root.getChildren().addAll(BG,text);
-		
-		
+		root.getChildren().addAll(BG, text);
+
 		animationTimer = new AnimationTimer() {
 
 			@Override
 			public void handle(long now) {
 				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
-				if(now - lastTimeTrigger >= 700000000) {
-					//System.out.println(count);
-					count ++;
-					if(count%2 == 0) {
-						//System.out.println("visible");
+				if (now - lastTimeTrigger >= 700000000) {
+					// System.out.println(count);
+					count++;
+					if (count % 2 == 0) {
+						// System.out.println("visible");
 						isVisible = true;
 						text.setVisible(isVisible);
-					}
-					else {
-						//System.out.println("unvisible");
+					} else {
+						// System.out.println("unvisible");
 						isVisible = false;
 						text.setVisible(isVisible);
 					}
 					lastTimeTrigger = now;
 				}
-				
+
 			}
-			
+
 		};
-		
+
 		animationTimer.start();
-		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
-		scene.setOnKeyPressed(key ->{
-			if(key.getCode() != KeyCode.ALT) {
-				SceneController.setScene((new TransitionScreen().getScene()));
+		Scene scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene.setOnKeyPressed(key -> {
+			if (key.getCode() == KeyCode.ESCAPE) {
+				System.exit(1);
 			}
-			
+			if (key.getCode() != KeyCode.ALT) {
+				Scene scene_temp = new TransitionScreen().getScene();
+//				SceneController.setScene((new TransitionScreen().getScene()));
+				Input_TransitionScene.input(scene_temp);
+				SceneController.setScene(scene_temp);
+			}
+
 		});
 		return scene;
 	}
-	
+
 }
