@@ -53,7 +53,7 @@ public class TransitionScreen implements Showable {
 						
 					}
 					System.out.println(count);
-					if(count == 250) {
+					if(count == 240) {
 						System.out.println("Stop!");
 						countDown.stop();
 						SceneController.setScene((new MainMenu()).getScene());
