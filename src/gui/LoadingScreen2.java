@@ -1,6 +1,5 @@
 package gui;
 
-import implement.Showable;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;

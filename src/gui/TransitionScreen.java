@@ -1,6 +1,5 @@
 package gui;
 
-import implement.Showable;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;

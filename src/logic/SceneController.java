@@ -10,17 +10,16 @@ import input.Input_StartMenu;
 
 public class SceneController {
 
-	private static Stage mainStage;
-//	private final static int FULLSCREEN_WIDTH = 1540;
-	private final static int FULLSCREEN_WIDTH = 1400;
-//	private final static int FULLSCREEN_HEIGHT = 880;
-	private final static int FULLSCREEN_HEIGHT = 800;
+	private static Stage mainStage = new Stage();
+	private final static int FULLSCREEN_WIDTH = 1540;
+//	private final static int FULLSCREEN_WIDTH = 1400;
+	private final static int FULLSCREEN_HEIGHT = 880;
+//	private final static int FULLSCREEN_HEIGHT = 800;
 	private static long lastTimeTrigger;
 	private static int count;
 	private static AnimationTimer animationTimer;
 
 	public SceneController() throws Exception {
-		mainStage = new Stage();
 		mainStage.setScene((new StartMenu()).getScene());
 	}
 
@@ -60,7 +59,7 @@ public class SceneController {
 					Input_StartMenu.isSkip = false;
 					lastTimeTrigger = now;
 				}
-				if (count == 5) {
+				if (count == 7) {
 					animationTimer.stop();
 				}
 				CloseGame.update();
