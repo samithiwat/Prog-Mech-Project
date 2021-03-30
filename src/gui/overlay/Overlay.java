@@ -1,19 +1,11 @@
 package gui.overlay;
 
-import java.util.ArrayList;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.css.CssMetaData;
-import javafx.css.Styleable;
 import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
-import logic.FileController;
-import logic.SceneController;
 
 public class Overlay extends SubScene implements Overlayable {
 
