@@ -2,8 +2,8 @@ package gui.overlay;
 
 import java.util.ArrayList;
 
-
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.scene.SubScene;
@@ -15,24 +15,18 @@ import javafx.util.Duration;
 import logic.FileController;
 import logic.SceneController;
 
-public class Overlay extends SubScene implements Overlayable{
+public class Overlay extends SubScene implements Overlayable {
 
 	protected AnchorPane root;
-	private static final int HEIGHT = 800;
-	private static final int WIDTH = 1400;
-	
+
 //	protected boolean isVisible = false;
 
-	public Overlay(AnchorPane root) {
-		super(root, WIDTH, HEIGHT);
-		setId("mainmenu-overlay");
-		//setStyle(MAINMENU_OVERLAY_STYLE);
-		setFill(Color.rgb(120,120,120,0.9));
+	public Overlay(AnchorPane root,int width,int height,int initX,int initY) {
+		super(root, width, height);
+		//setFill(Color.TRANSPARENT);
 		setRoot((AnchorPane) this.getRoot());
-		prefHeight(HEIGHT);
-		prefWidth(WIDTH);
-		setLayoutX(75);
-		setLayoutY(-800);
+		setLayoutX(initX);
+		setLayoutY(initY);
 		setVisible(false);
 	}
 
@@ -44,19 +38,16 @@ public class Overlay extends SubScene implements Overlayable{
 		this.root = root;
 	}
 
-	public static int getOverlayHeight() {
-		return HEIGHT;
-	}
+	public void triggerOverlay(int dx,int dy,int delay) {
 
-	public static int getOverlayWidth() {
-		return WIDTH;
-	}
-
-	public void triggerOverlay() {
-		
 //		//FOR DEBIG ONLY
-//		System.out.println("visible : " + isVisible());
-//		System.out.println("x :"+getLayoutX()+" , y : "+getLayoutY());
+//		System.out.println(styleProperty());
+//		System.out.println(rootProperty());
+//		System.out.println(fillProperty());
+//		System.out.println(root.getChildren());
+//		System.out.println(userAgentStylesheetProperty());
+		System.out.println("visible : " + isVisible());
+		System.out.println("x : "+getLayoutX()+" , y : "+getLayoutY());
 //		//System.out.println("Style : "+getCssMetaData());
 //		ArrayList<String> log = new ArrayList<String>();
 //		for(CssMetaData<? extends Styleable, ?> data : getCssMetaData()) {
@@ -72,15 +63,34 @@ public class Overlay extends SubScene implements Overlayable{
 //			e.printStackTrace();
 //		}
 //		//END OF DEBUG
-		
-		TranslateTransition tt = new TranslateTransition(Duration.millis(10));
+
+		TranslateTransition tt = new TranslateTransition(Duration.millis(delay));
 		tt.setNode(this);
-		if(!isVisible()) {
-			tt.setToY(825);
-			setVisible(true);;
-		}else {
-			tt.setToY(-825);
-			setVisible(false);;
+		if (!isVisible()) {
+			tt.setToX(dx);
+			tt.setToY(dy);
+			setVisible(true);
+		} else {
+			tt.setToX(-dx);
+			tt.setToY(-dy);
+			
+			Thread t = new Thread(()->{
+				try {
+					Thread.sleep(1000);
+				}catch(InterruptedException e) {
+					
+				}
+				Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						setVisible(false);
+					}
+				});
+				
+			});
+			t.start();
+			
 		}
 		tt.play();
 	}

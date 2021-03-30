@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -15,10 +16,6 @@ import sprites.AnimationSprites;
 public class TransitionScreen implements Showable {
 
 	Scene scene;
-
-	private static AnimationTimer countDown;
-	private static long lastTimeTrigger;
-	private static int count;
 
 	public TransitionScreen() {
 
@@ -35,43 +32,55 @@ public class TransitionScreen implements Showable {
 		AnimationSprites coconutBigger = new AnimationSprites(coconut, 1100, 0, 0, 900, 900, 0, 150, 0, 13);
 		coconutBigger.play();
 
-		lastTimeTrigger = -1;
-
-		countDown = new AnimationTimer() {
-
-			@Override
-			public void handle(long now) {
-
-				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
-
-				if (now - lastTimeTrigger >= 500000000) {
-					if (count++ == 3) {
-						ImageView coconutRollingOut = new ImageView(
-								ClassLoader.getSystemResource("img/CoconutRollingOut.png").toString());
-						coconutRollingOut.setViewport(new Rectangle2D(0, 0, 1150, 900));
-						coconutRollingOut.setX(330);
-						coconutRollingOut.setY(0);
-						AnimationSprites coconutRollingAnimation = new AnimationSprites(coconutRollingOut, 2000, 0, 0, 1210, 900, 0, 90, 0, 23);
-						coconutRollingAnimation.play();
-						root.getChildren().add(coconutRollingOut);
-						
-					}
-					System.out.println(count);
-					if(count == 240) {
-						System.out.println("Stop!");
-						countDown.stop();
-						SceneController.setScene((new MainMenu()).getScene());
-					}
-				}
-
+		Thread t = new Thread(()->{
+			
+			try {
+				Thread.sleep(975);
 			}
-
-		};
-
-		countDown.start();
-
+			catch(InterruptedException e) {
+				
+			}
+			
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					ImageView coconutRollingOut = new ImageView(
+							ClassLoader.getSystemResource("img/CoconutRollingOut.png").toString());
+					coconutRollingOut.setViewport(new Rectangle2D(0, 0, 1150, 900));
+					coconutRollingOut.setX(330);
+					coconutRollingOut.setY(0);
+					AnimationSprites coconutRollingAnimation = new AnimationSprites(coconutRollingOut, 2000, 0, 0, 1210, 900, 0, 90, 0, 23);
+					coconutRollingAnimation.play();
+					root.getChildren().add(coconutRollingOut);
+					
+					Thread t = new Thread(()->{
+						try {
+							System.out.println("Sleep2");
+							Thread.sleep(2000);
+						}
+						catch(InterruptedException e) {
+							
+						}
+						
+						Platform.runLater(new Runnable() {
+							
+							@Override
+							public void run() {
+								System.out.println("Change Scene");
+								SceneController.setScene((new MainMenu()).getScene());
+							}
+						});
+						
+					});
+					t.start();
+				}
+			});
+		});
+		t.start();
 		root.getChildren().addAll(bg, coconut);
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
+		scene.setCursor(null);
 	}
 
 	@Override

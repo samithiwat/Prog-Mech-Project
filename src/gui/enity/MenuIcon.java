@@ -15,8 +15,10 @@ import logic.FileController;
 
 public class MenuIcon extends ImageView implements Clickable{
 	
-	public MenuIcon(String img_path) {
+	public MenuIcon(String img_path,int x, int y) {
 		super(ClassLoader.getSystemResource(img_path).toString());
+		setX(x);
+		setY(y);
 		interact();
 	}
 
@@ -61,5 +63,9 @@ public class MenuIcon extends ImageView implements Clickable{
 				setEffect(null);
 			}
 		});
+	}
+	
+	public void triggerDisable() {
+		setDisable(!isDisable());
 	}
 }

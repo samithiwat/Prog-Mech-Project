@@ -24,7 +24,9 @@ public class MenuButton extends Button implements Clickable {
 	private final String FONT_PATH_BOLD = "font/Bai_Jamjuree/BaiJamjuree-Bold.ttf";
 	private final String FONT_PATH = "font/Bai_Jamjuree/BaiJamjuree-Bold.ttf";
 
-	public MenuButton(String content,int contentSize,int width,int height,Color textColor) {
+	public MenuButton(String content,int contentSize,int width,int height,Color textColor,int x,int y) {
+		setLayoutX(x);
+		setLayoutY(y);
 		setTextFill(textColor);
 		setId("mainmenu-button-release-style");
 		setText(content);
@@ -86,5 +88,10 @@ public class MenuButton extends Button implements Clickable {
 	public void setFontBold(int size) {
 		setFont(Font.loadFont(getClass().getClassLoader().getResource
 		        (FONT_PATH_BOLD).toExternalForm(), size));
+	}
+
+	@Override
+	public void triggerDisable() {
+		setDisable(!isDisable());
 	}
 }
