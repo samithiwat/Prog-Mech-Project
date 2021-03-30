@@ -4,7 +4,9 @@ import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -156,6 +158,7 @@ public class StartMenu{
 		
 		animationTimer.start();
 		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
+		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 		scene.setOnKeyPressed(key ->{
 			if(key.getCode() != KeyCode.ALT) {
 				AudioClip effect = AudioLoader.clickEffect;

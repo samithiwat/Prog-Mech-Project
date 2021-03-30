@@ -39,6 +39,10 @@ public class SceneController {
 		mainStage.setScene(scene);
 	}
 
+	public static Scene getScene() {
+		return mainStage.getScene();
+	}
+	
 	public static void startCredit() {
 		lastTimeTrigger = -1;
 		animationTimer = new AnimationTimer() {
@@ -59,7 +63,7 @@ public class SceneController {
 					Input_StartMenu.isSkip = false;
 					lastTimeTrigger = now;
 				}
-				if (count == 9) {
+				if (count == 7) {
 					animationTimer.stop();
 				}
 				CloseGame.update();

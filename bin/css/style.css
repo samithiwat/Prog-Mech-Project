@@ -6,3 +6,7 @@
 #mainmenu-button-release-style {
   -fx-background-color: rgba(120, 120, 120, 0.9);
 }
+
+#mainmenu-overlay {
+  -fx-opacity: 0.9;
+}
