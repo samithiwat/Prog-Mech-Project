@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.desktop.QuitEvent;
 import java.util.ArrayList;
 
 import gui.enity.Clickable;
@@ -11,7 +10,6 @@ import gui.overlay.CreditOverlay;
 import gui.overlay.QuitOverlay;
 import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,12 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import logic.AudioLoader;
 import logic.SceneController;
-import update.CloseGame;
 
 public class MainMenu implements Showable {
 

@@ -1,8 +1,11 @@
 package gui.overlay;
 
 import gui.enity.MenuIcon;
+import gui.enity.TextTitle;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -42,27 +45,21 @@ public class CreditOverlay extends Overlay {
 			}
 		});
 
-		Text title = new Text("Programing Methodology Project");
-		title.setFont(Font.font(FONT_NAME, FontWeight.BOLD, 50));
-		title.setFill(Color.WHITE);
-		title.setX(300);
-		title.setY(250);
-		Text by = new Text("By");
-		by.setFont(Font.font(FONT_NAME, FontWeight.BOLD, 50));
-		by.setFill(Color.WHITE);
-		by.setX(680);
-		by.setY(350);
-		Text name1 = new Text("Viritpol Limpawittayakul");
-		name1.setFont(Font.font(FONT_NAME, FontWeight.BOLD, 50));
-		name1.setFill(Color.WHITE);
-		name1.setX(400);
-		name1.setY(450);
-		Text name2 = new Text("Samithiwat Boonchai");
-		name2.setFont(Font.font(FONT_NAME, FontWeight.BOLD, 50));
-		name2.setFill(Color.WHITE);
-		name2.setX(400);
-		name2.setY(550);
+		TextTitle title = new TextTitle("Programing Methodology Project",Color.WHITE,FontWeight.BOLD,50,0,0);
 
-		root.getChildren().addAll(mainBG, bg1, title, by, name1, name2, closeIcon);
+		TextTitle by = new TextTitle("By",Color.WHITE,FontWeight.BOLD,50,0,0);
+
+		TextTitle name1 = new TextTitle("Viritpol Limpawittayakul",Color.WHITE,FontWeight.BOLD,50,0,0);
+
+		TextTitle name2 = new TextTitle("Samithiwat Boonchai",Color.WHITE,FontWeight.BOLD,50,0,0);
+
+		
+		VBox textBox = new VBox(title,by,name1,name2);
+		textBox.setAlignment(Pos.CENTER);
+		textBox.setSpacing(50);
+		textBox.setLayoutX(300);
+		textBox.setLayoutY(200);
+
+		root.getChildren().addAll(mainBG, bg1, textBox, closeIcon);
 	}
 }
