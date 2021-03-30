@@ -41,32 +41,7 @@ public class QuitOverlay extends Overlay {
 		textBox.setLayoutY(100);
 
 		MenuButton yes = new MenuButton("Yes", 50, 400, 100, Color.WHITE,68,350);
-		yes.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-			@Override
-			public void handle(MouseEvent event) {
-				AudioClip effect = AudioLoader.quitSound;
-				effect.play();
-				Thread t = new Thread(()->{
-					try {
-						Thread.sleep(1500);
-					}
-					catch(InterruptedException e) {
-						
-					}
-					
-					Platform.runLater(new Runnable() {
-						
-						@Override
-						public void run() {
-							CloseGame.setIsCloseGame(true);
-							CloseGame.update();
-						}
-					});
-				});
-				t.start();
-			}
-		});
 
 		MenuButton no = new MenuButton("No", 50, 400, 100, Color.WHITE,533,350);
 		no.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -94,6 +69,40 @@ public class QuitOverlay extends Overlay {
 				t.start();
 			}
 			
+		});
+		
+		yes.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.quitSound;
+				effect.play();
+				line1.setText("We hope you will be back :)");
+				line1.setX(180);
+				line1.setY(150);
+				root.getChildren().remove(textBox);
+				root.getChildren().add(line1);
+				yes.setDisable(true);
+				no.setDisable(true);
+				Thread t = new Thread(()->{
+					try {
+						Thread.sleep(1500);
+					}
+					catch(InterruptedException e) {
+						
+					}
+					
+					Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							CloseGame.setIsCloseGame(true);
+							CloseGame.update();
+						}
+					});
+				});
+				t.start();
+			}
 		});
 
 		root.getChildren().addAll(bg, yes, no, textBox);
