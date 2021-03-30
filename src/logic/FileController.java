@@ -7,8 +7,9 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class FileController {
-
+	
 	public static ArrayList<String[]> read(String filePath, String regEx) throws Exception {
+		
 		ArrayList<String[]> data = new ArrayList<String[]>();
 
 		FileReader frIn = new FileReader(filePath);

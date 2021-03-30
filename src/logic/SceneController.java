@@ -39,6 +39,10 @@ public class SceneController {
 		mainStage.setScene(scene);
 	}
 
+	public static Scene getScene() {
+		return mainStage.getScene();
+	}
+	
 	public static void startCredit() {
 		lastTimeTrigger = -1;
 		animationTimer = new AnimationTimer() {

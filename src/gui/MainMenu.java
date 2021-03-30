@@ -2,19 +2,19 @@ package gui;
 
 import gui.enity.MenuButton;
 import gui.enity.MenuIcon;
+import gui.overlay.CreditOverlay;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import logic.AudioLoader;
 import logic.SceneController;
 import update.CloseGame;
 
@@ -25,11 +25,21 @@ public class MainMenu implements Showable {
 	public MainMenu() {
 
 		AnchorPane root = new AnchorPane();
+		
+		CreditOverlay creditOverlay = new CreditOverlay();
 
 		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/MainMenuBG.png").toString());
 		MenuIcon creditIcon = new MenuIcon("img/About.png");
 		creditIcon.setX(75);
 		creditIcon.setY(60);
+		creditIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("Clicked");
+				creditOverlay.triggerOverlay();
+			}
+		});
 		MenuIcon helpIcon = new MenuIcon("img/Help.png");
 		helpIcon.setX(223);
 		helpIcon.setY(60);
@@ -66,10 +76,13 @@ public class MainMenu implements Showable {
 		buttonBar.add(start, 0, 0);
 		buttonBar.add(load, 1, 0);
 		buttonBar.add(quit, 2, 0);
+		
+		
 
-		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon);
+		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay);
 //		root.getChildren().addAll(bg,title,start);
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 //		System.out.println(ClassLoader.getSystemResource("css/style.css"));
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/style.css").toExternalForm());
 		
