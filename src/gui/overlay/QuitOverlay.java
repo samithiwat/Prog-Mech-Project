@@ -1,7 +1,7 @@
 package gui.overlay;
 
-import gui.enity.MenuButton;
-import gui.enity.TextTitle;
+import gui.entity.MenuButton;
+import gui.entity.TextTitle;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -32,45 +32,45 @@ public class QuitOverlay extends Overlay {
 		VBox textBox = new VBox();
 		textBox.setAlignment(Pos.CENTER);
 
-		TextTitle line1 = new TextTitle("Do you want to leave?",Color.WHITE,FontWeight.BOLD,50,0,0);
-		
-		TextTitle line2 = new TextTitle("We will miss you",Color.WHITE,FontWeight.BOLD,50,0,0);
+		TextTitle line1 = new TextTitle("Do you want to leave?", Color.WHITE, FontWeight.BOLD, 50, 0, 0);
+
+		TextTitle line2 = new TextTitle("We will miss you", Color.WHITE, FontWeight.BOLD, 50, 0, 0);
 
 		textBox.getChildren().addAll(line1, line2);
 		textBox.setLayoutX(250);
 		textBox.setLayoutY(100);
 
-		MenuButton yes = new MenuButton("Yes", 50, 400, 100, Color.WHITE,68,350);
+		MenuButton yes = new MenuButton("Yes", 50, 400, 100, Color.WHITE, 68, 350);
 
-
-		MenuButton no = new MenuButton("No", 50, 400, 100, Color.WHITE,533,350);
+		MenuButton no = new MenuButton("No", 50, 400, 100, Color.WHITE, 533, 350);
 		no.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				triggerOverlay(0,1000,1000);
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
+				triggerOverlay(0, 1000, 1000);
 				setVisible(false);
-				Thread t = new Thread(()->{
+				Thread t = new Thread(() -> {
 					try {
 						Thread.sleep(1000);
-					}
-					catch(InterruptedException e) {
-						
+					} catch (InterruptedException e) {
+
 					}
 					Platform.runLater(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							CloseGame.backed();
 						}
 					});
-					
+
 				});
 				t.start();
 			}
-			
+
 		});
-		
+
 		yes.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -84,16 +84,15 @@ public class QuitOverlay extends Overlay {
 				root.getChildren().add(line1);
 				yes.setDisable(true);
 				no.setDisable(true);
-				Thread t = new Thread(()->{
+				Thread t = new Thread(() -> {
 					try {
 						Thread.sleep(1500);
+					} catch (InterruptedException e) {
+
 					}
-					catch(InterruptedException e) {
-						
-					}
-					
+
 					Platform.runLater(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							CloseGame.setIsCloseGame(true);

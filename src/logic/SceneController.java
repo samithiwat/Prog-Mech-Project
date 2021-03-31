@@ -51,7 +51,7 @@ public class SceneController {
 			public void handle(long now) {
 				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
 				if (now - lastTimeTrigger >= 2000000000 || Input_StartMenu.isSkip ) {
-					System.out.println(count);
+					//System.out.println(count);
 					if(Input_StartMenu.isSkip) {
 						System.out.println("Skipped" + count);
 					}

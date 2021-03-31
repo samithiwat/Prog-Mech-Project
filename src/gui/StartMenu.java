@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -27,6 +28,7 @@ public class StartMenu{
 	private static long lastTimeTrigger = -1;
 	private static Scene currentScene;
 	private static AnimationTimer animationTimer;
+	private static AudioClip menuThemeSong;
 
 	public StartMenu() throws Exception {
 		
@@ -39,6 +41,7 @@ public class StartMenu{
 		root.getChildren().add(logo);
 
 		currentScene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		currentScene.setCursor(Cursor.DISAPPEAR);
 	}
 
 	public static Scene getScene() {
@@ -56,15 +59,19 @@ public class StartMenu{
 		switch (count) {
 		case 0:
 			setCurrentScene(CUEngineerIcon());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		case 1:
 			setCurrentScene(JavaIcon());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		case 2 :
 			setCurrentScene(WelcomeText());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		case 3 :
 			setCurrentScene(StartBG());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		}
 	}
@@ -116,8 +123,8 @@ public class StartMenu{
 	}
 	
 	public static Scene StartBG() {
-
-		AudioClip menuThemeSong = AudioLoader.menuThemeSong;
+		
+		menuThemeSong = AudioLoader.menuThemeSong;
 		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
 		menuThemeSong.play();
 		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/StartBg.png").toString());
@@ -170,4 +177,7 @@ public class StartMenu{
 		return scene;
 	}
 	
+	public static AudioClip getMenuThemeSong() {
+		return menuThemeSong;
+	}
 }

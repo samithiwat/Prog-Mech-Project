@@ -38,8 +38,8 @@ public class Overlay extends SubScene implements Overlayable {
 //		System.out.println(fillProperty());
 //		System.out.println(root.getChildren());
 //		System.out.println(userAgentStylesheetProperty());
-		System.out.println("visible : " + isVisible());
-		System.out.println("x : "+getLayoutX()+" , y : "+getLayoutY());
+//		System.out.println("visible : " + isVisible());
+//		System.out.println("x : "+getLayoutX()+" , y : "+getLayoutY());
 //		//System.out.println("Style : "+getCssMetaData());
 //		ArrayList<String> log = new ArrayList<String>();
 //		for(CssMetaData<? extends Styleable, ?> data : getCssMetaData()) {

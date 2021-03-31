@@ -1,7 +1,7 @@
 package gui.overlay;
 
-import gui.enity.MenuIcon;
-import gui.enity.TextTitle;
+import gui.entity.MenuIcon;
+import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
@@ -49,9 +49,9 @@ public class CreditOverlay extends Overlay {
 
 		TextTitle by = new TextTitle("By",Color.WHITE,FontWeight.BOLD,50,0,0);
 
-		TextTitle name1 = new TextTitle("Viritpol Limpawittayakul",Color.WHITE,FontWeight.BOLD,50,0,0);
+		TextTitle name1 = new TextTitle("Viritpol Limpawittayakul",Color.WHITE,FontWeight.MEDIUM,50,0,0);
 
-		TextTitle name2 = new TextTitle("Samithiwat Boonchai",Color.WHITE,FontWeight.BOLD,50,0,0);
+		TextTitle name2 = new TextTitle("Samithiwat Boonchai",Color.WHITE,FontWeight.MEDIUM,50,0,0);
 
 		
 		VBox textBox = new VBox(title,by,name1,name2);
