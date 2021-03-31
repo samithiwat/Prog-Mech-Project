@@ -27,6 +27,8 @@ public class GameSettingMenu implements Showable {
 		bgm = AudioLoader.lobbyThemeSong;
 		bgm.play();
 		
+		
+		
 		AnchorPane root = new AnchorPane();
 
 		TextTitle title = new TextTitle("Game Lobby", Color.WHITE, FontWeight.BOLD, 72, 554, 113);
@@ -55,6 +57,7 @@ public class GameSettingMenu implements Showable {
 		root.getChildren().addAll(title, titleBox, label, characterOverlay1, characterOverlay2);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
+		scene.setCursor(CURSOR_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/style.css").toExternalForm());
 	}
 

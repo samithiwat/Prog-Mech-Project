@@ -18,7 +18,7 @@ public class SceneController {
 	private static long lastTimeTrigger;
 	private static int count;
 	private static AnimationTimer animationTimer;
-
+	
 	public SceneController() throws Exception {
 		mainStage.setScene((new StartMenu()).getScene());
 	}

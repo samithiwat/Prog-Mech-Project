@@ -2,6 +2,8 @@ package gui.entity;
 
 import gui.GameSettingMenu;
 import javafx.event.EventHandler;
+import javafx.scene.ImageCursor;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
@@ -44,6 +46,7 @@ public class CharacterBox extends AnchorPane {
 				bg.setId("character-box-selected");
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
+				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursorSelected.png").toString()))));
 			}
 		});
 		
@@ -52,6 +55,7 @@ public class CharacterBox extends AnchorPane {
 			@Override
 			public void handle(MouseEvent arg0) {
 				bg.setId("character-box");
+				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 			}
 		});
 		
