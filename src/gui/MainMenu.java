@@ -2,10 +2,11 @@ package gui;
 
 import java.util.ArrayList;
 
-import gui.enity.Clickable;
-import gui.enity.MenuButton;
-import gui.enity.MenuIcon;
-import gui.enity.TextTitle;
+import gui.entity.CharacterCard;
+import gui.entity.Clickable;
+import gui.entity.MenuButton;
+import gui.entity.MenuIcon;
+import gui.entity.TextTitle;
 import gui.overlay.CreditOverlay;
 import gui.overlay.QuitOverlay;
 import javafx.event.EventHandler;
@@ -28,6 +29,8 @@ public class MainMenu implements Showable {
 	private static ArrayList<Clickable> components;
 
 	public MainMenu() {
+		
+		//CharacterCard test = new CharacterCard("img/BlackSkullCard.png", AudioLoader.blackSkullSelectBGM, 970, 150);
 
 		AnchorPane root = new AnchorPane();
 
@@ -56,6 +59,17 @@ public class MainMenu implements Showable {
 		buttonBar.setLayoutY(680);
 
 		MenuButton start = new MenuButton("Start", 64, 400, 150, Color.WHITE,0,0);
+		
+		start.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
+				SceneController.setScene((new GameSettingMenu()).getScene());
+				System.out.println("Change to Start Menu...");
+			}
+		});
 
 		MenuButton load = new MenuButton("Load", 64, 400, 150, Color.WHITE,0,0);
 
@@ -95,7 +109,10 @@ public class MainMenu implements Showable {
 		components.add(load);
 		components.add(quit);
 		
+		
 		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay, quitOverlay);
+		
+//		root.getChildren().add(test);
 //		root.getChildren().addAll(bg,title,start);
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));

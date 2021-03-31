@@ -10,3 +10,27 @@
 #mainmenu-overlay {
   -fx-opacity: 0.9;
 }
+
+#character-box {
+  -fx-fill: rgba(254, 253, 232, 0.9);
+}
+
+#character-box-selected {
+  -fx-fill: rgba(254, 253, 232, 0.9);
+  -fx-stroke: rgba(0, 0, 0, 0.9);
+  -fx-stroke-width: 10;
+}
+
+#character-select-overlay {
+  -fx-opacity: 0.9;
+}
+
+#character-card {
+  opacity: 1;
+  -fx-background-color: rgb(165, 165, 165);
+}
+
+#character-card-selected {
+  opacity: 1;
+  -fx-background-color: rgb(0, 0, 0);
+}

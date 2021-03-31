@@ -1,7 +1,7 @@
 package update;
 
 import gui.MainMenu;
-import gui.enity.Clickable;
+import gui.entity.Clickable;
 
 public class CloseGame {
 	private static boolean isCloseGame = false;

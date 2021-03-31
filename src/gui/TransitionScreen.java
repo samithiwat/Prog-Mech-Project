@@ -3,6 +3,7 @@ package gui;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,7 +24,7 @@ public class TransitionScreen implements Showable {
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.web("0xF2A388"));
-		AudioClip effect = AudioLoader.PopSound;
+		AudioClip effect = AudioLoader.popSound;
 		effect.play();
 		ImageView coconut = new ImageView(ClassLoader.getSystemResource("img/BiggerCoconut.png").toString());
 		coconut.setViewport(new Rectangle2D(0, 0, 900, 900));
@@ -56,7 +57,7 @@ public class TransitionScreen implements Showable {
 					
 					Thread t = new Thread(()->{
 						try {
-							System.out.println("Sleep2");
+							//System.out.println("Sleep2");
 							Thread.sleep(2000);
 						}
 						catch(InterruptedException e) {
@@ -67,7 +68,7 @@ public class TransitionScreen implements Showable {
 							
 							@Override
 							public void run() {
-								System.out.println("Change Scene");
+								//System.out.println("Change Scene");
 								SceneController.setScene((new MainMenu()).getScene());
 							}
 						});
@@ -80,7 +81,7 @@ public class TransitionScreen implements Showable {
 		t.start();
 		root.getChildren().addAll(bg, coconut);
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
-		scene.setCursor(null);
+		scene.setCursor(Cursor.DISAPPEAR);
 	}
 
 	@Override
