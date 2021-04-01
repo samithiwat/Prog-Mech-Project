@@ -2,9 +2,9 @@ package character;
 
 import java.util.ArrayList;
 
+import component.entity.Minion;
+import component.location.Location;
 import component.weaponCard.WeaponCard;
-import entity.Minion;
-import location.Location;
 
 public abstract class MainCharacter extends Character{
 	public final static int M = 1000000;
