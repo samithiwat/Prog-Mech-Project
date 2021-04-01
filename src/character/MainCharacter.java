@@ -2,19 +2,24 @@ package character;
 
 import java.util.ArrayList;
 
+import component.weaponCard.WeaponCard;
 import entity.Minion;
-import weaponCard.WeaponCard;
+import location.Location;
 
 public abstract class MainCharacter extends Character{
 	public final static int M = 1000000;
 	private ArrayList<WeaponCard> weaponOnHand;
 	private ArrayList<ArrayList<Minion>> myEntity;
+	private ArrayList<Location> possessedArea;
+	private int goodPoint;
 	private int money;
 	public MainCharacter(String name, String description) {
 		super(name,description);
 		this.money = 7*M;
 		this.weaponOnHand = new ArrayList<WeaponCard>();
 		this.myEntity = new ArrayList<ArrayList<Minion>>();
+		this.possessedArea = new ArrayList<Location>();
+		this.goodPoint = 0;
 	}
 	public void addCardtoHand(WeaponCard card) {
 		this.weaponOnHand.add(card);
@@ -25,10 +30,21 @@ public abstract class MainCharacter extends Character{
 		return removedCard;
 	}
 	
+	public void addPossessedLocation(Location location) {
+		this.possessedArea.add(location);
+	}
+	
 	public abstract boolean isWin();
 	//----------------------getter/setter---------------------
+	
 	public ArrayList<WeaponCard> getWeaponHand() {
 		return weaponOnHand;
+	}
+	public ArrayList<Location> getPossessedArea() {
+		return possessedArea;
+	}
+	public void setPossessedArea(ArrayList<Location> possessedArea) {
+		this.possessedArea = possessedArea;
 	}
 	public void setWeaponHand(ArrayList<WeaponCard> weaponOnHand) {
 		this.weaponOnHand = weaponOnHand;
@@ -51,6 +67,13 @@ public abstract class MainCharacter extends Character{
 	public void setMyEntity(ArrayList<ArrayList<Minion>> myEntity) {
 		this.myEntity = myEntity;
 	}
+	public int getGoodPoint() {
+		return goodPoint;
+	}
+	public void setGoodPoint(int goodPoint) {
+		this.goodPoint = goodPoint;
+	}
+	
 	
 	
 	

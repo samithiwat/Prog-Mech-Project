@@ -1,4 +1,4 @@
-package weaponCard;
+package component.weaponCard;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package weaponCard;
+package component.weaponCard;
 
 public class Axe extends WeaponCard {
 	public Axe() {
