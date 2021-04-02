@@ -34,3 +34,11 @@
   opacity: 1;
   -fx-background-color: rgb(0, 0, 0);
 }
+
+#setting-menu {
+  -fx-background-color: rgb(254, 253, 232);
+}
+
+#box {
+  -fx-fill: rgb(97, 101, 107);
+}

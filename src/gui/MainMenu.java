@@ -66,7 +66,7 @@ public class MainMenu implements Showable {
 			public void handle(MouseEvent event) {
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
-				SceneController.setScene((new GameSettingMenu()).getScene());
+				SceneController.setScene(SceneController.getGameSettingMenu());
 				System.out.println("Change to Start Menu...");
 			}
 		});

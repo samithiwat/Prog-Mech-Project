@@ -19,6 +19,8 @@ public class SceneController {
 	private static int count;
 	private static AnimationTimer animationTimer;
 	
+	private static Scene GameSettingMenu;
+	
 	public SceneController() throws Exception {
 		mainStage.setScene((new StartMenu()).getScene());
 	}
@@ -60,7 +62,7 @@ public class SceneController {
 						mainStage.setScene(StartMenu.getScene());
 					}
 					count++;
-					Input_StartMenu.isSkip = false;
+					//Input_StartMenu.isSkip = false;
 					lastTimeTrigger = now;
 				}
 				if (count == 7) {
@@ -72,4 +74,13 @@ public class SceneController {
 		};
 		animationTimer.start();
 	}
+
+	public static Scene getGameSettingMenu() {
+		return GameSettingMenu;
+	}
+
+	public static void setGameSettingMenu(Scene gameSettingMenu) {
+		GameSettingMenu = gameSettingMenu;
+	}
+	
 }
