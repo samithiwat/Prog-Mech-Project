@@ -53,7 +53,7 @@ public class CharacterBox extends AnchorPane {
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent event) {
 				bg.setId("character-box");
 				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 			}

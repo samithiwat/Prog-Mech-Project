@@ -1,6 +1,9 @@
 package gui;
 
+import java.util.ArrayList;
+
 import gui.entity.CharacterBox;
+import gui.entity.GameSetting;
 import gui.entity.TextTitle;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
@@ -19,17 +22,19 @@ public class GameSettingMenu implements Showable {
 	private static CharacterSelectOverlay1 characterOverlay1;
 	private static CharacterSelectOverlay2 characterOverlay2;
 	private static AudioClip bgm;
-
+	private static ArrayList<CharacterBox> cBoxes;
 
 	public GameSettingMenu() {
-		
+
 		StartMenu.getMenuThemeSong().stop();
 		bgm = AudioLoader.lobbyThemeSong;
 		bgm.play();
-		
-		
-		
+
 		AnchorPane root = new AnchorPane();
+
+		GameSetting gameSetting = new GameSetting();
+		gameSetting.setLayoutX(1097);
+		gameSetting.setLayoutY(253);
 
 		TextTitle title = new TextTitle("Game Lobby", Color.WHITE, FontWeight.BOLD, 72, 554, 113);
 		TextTitle label = new TextTitle("Players", Color.WHITE, FontWeight.BOLD, 48, 682, 203);
@@ -53,8 +58,13 @@ public class GameSettingMenu implements Showable {
 		characterOverlay1 = new CharacterSelectOverlay1();
 		characterOverlay2 = new CharacterSelectOverlay2();
 
+		cBoxes = new ArrayList<CharacterBox>();
+		cBoxes.add(cBox4);
+		cBoxes.add(cBox5);
+		cBoxes.add(cBox6);
+
 		root.getChildren().addAll(bg, cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
-		root.getChildren().addAll(title, titleBox, label, characterOverlay1, characterOverlay2);
+		root.getChildren().addAll(title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
@@ -73,9 +83,21 @@ public class GameSettingMenu implements Showable {
 	public static CharacterSelectOverlay2 getOverlay2() {
 		return characterOverlay2;
 	}
-	
+
 	public static AudioClip getBGM() {
 		return bgm;
+	}
+
+	public static ArrayList<CharacterBox> getcBoxes() {
+		return cBoxes;
+	}
+
+	public static void setCBoxes(ArrayList<CharacterBox> cBoxes) {
+		GameSettingMenu.cBoxes = cBoxes;
+	}
+
+	public static ArrayList<CharacterBox> getCBoxes() {
+		return cBoxes;
 	}
 
 }

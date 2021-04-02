@@ -27,16 +27,15 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay{
 			}
 		});
 
-		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402,102);
 		TextTitle sirThousand = new TextTitle("Sir Thousand Year", Color.WHITE, FontWeight.BOLD, 40, 80, 660);
 		TextTitle sirTewada = new TextTitle("Sir Tewada", Color.WHITE, FontWeight.BOLD, 40, 596, 660);
 		TextTitle sirTewadee = new TextTitle("Sir Tewadee", Color.WHITE, FontWeight.BOLD, 40, 1034, 660);
 
-		CharacterCard sirThousandCard = new CharacterCard("img/SirThousandYearCard.png",
+		CharacterCard sirThousandCard = new CharacterCard("SirThousand","img/SirThousandYearCard.png",
 				AudioLoader.sirThousandSelectBGM, 80, 150);
-		CharacterCard sirTewadaCard = new CharacterCard("img/SirTewadaCard.png", AudioLoader.sirTewadaSelectBGM, 525,
+		CharacterCard sirTewadaCard = new CharacterCard("SirTewada","img/SirTewadaCard.png", AudioLoader.sirTewadaSelectBGM, 525,
 				150);
-		CharacterCard sirTewadeeCard = new CharacterCard("img/SirTewadeeCard.png", AudioLoader.sirTewadeeSelectBGM, 970,
+		CharacterCard sirTewadeeCard = new CharacterCard("SirTewadee","img/SirTewadeeCard.png", AudioLoader.sirTewadeeSelectBGM, 970,
 				150);
 
 		root.getChildren().addAll( sirThousand, sirTewada, sirTewadee, sirThousandCard, sirTewadaCard,
