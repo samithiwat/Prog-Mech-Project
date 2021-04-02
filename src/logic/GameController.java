@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.law.LawDeck;
-import component.law.LawParameter;
+import component.law.GameLaw;
 import component.law.LawSlot;
 import component.weaponCard.Axe;
 import component.weaponCard.Bow;
@@ -16,7 +16,7 @@ import component.weaponCard.WeaponDeck;
 
 public class GameController {
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
-	public static LawParameter gameLaw = new LawParameter();
+	public static GameLaw gameLaw = new GameLaw();
 	public static WeaponDeck weaponDeck = new WeaponDeck() ;
 	public static RemovedDeck removedDeck = new RemovedDeck();
 	public static LawSlot lawSlot = new LawSlot();
@@ -26,6 +26,7 @@ public class GameController {
 	public static int cycle = 0;
 	public static boolean isGameEnd = false;
 	public static boolean isEndTurn;
+	public static MainCharacter theGovernment = null;
 	public static void main(String[] args) {
 //----------------------------------Weapon Set Up---------------------------------------------------
 		for(int i = 0 ; i < DUPLICATE ; i++) {
