@@ -29,7 +29,6 @@ public class MenuButton extends Button implements Clickable {
 		setLayoutY(y);
 		setTextFill(textColor);
 		setId("mainmenu-button-release-style");
-		//setOpacity(1.25);
 		setText(content);
 		setFontRegular(contentSize);
 		setPrefHeight(height);
@@ -42,12 +41,7 @@ public class MenuButton extends Button implements Clickable {
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
-			
-			
 			public void handle(MouseEvent event) {
-				
-				System.out.println();
-				
 				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursor.png").toString()))));
 				setId("mainmenu-button-release-style");
 				System.out.println(getStyle());
@@ -60,8 +54,6 @@ public class MenuButton extends Button implements Clickable {
 			public void handle(MouseEvent event) {
 				
 				//FOR DEBIG ONLY
-				System.out.println(getOpacity());
-				
 //				ArrayList<String> log = new ArrayList<String>();
 //				for(CssMetaData<? extends Styleable, ?> data : getCssMetaData()) {
 //					for(String splitedData : data.toString().split("CSSProperty"))

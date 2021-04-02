@@ -42,10 +42,4 @@ public class CharacterSelectUpdate {
 		t.interrupt();
 	}
 	
-	public static void selectCharacterUpdate(CharacterCard cc) {
-		switch(cc.getName()) {
-		case "MrRedFox" :
-			//GameController.
-		}
-	}
 }
