@@ -20,9 +20,10 @@ public class CharacterCard extends StackPane{
 	private AudioClip effect;
 	private final int WIDTH = 350;
 	private final int HEIGHT = 450;
+	private String name;
 	private CharacterCard cc = this;
 
-	public CharacterCard(String img_path,AudioClip effect,int x,int y) {
+	public CharacterCard(String name,String img_path,AudioClip effect,int x,int y) {
 		super();
 //		//FOR DEBIG ONLY
 //		System.out.println(styleProperty());
@@ -48,6 +49,7 @@ public class CharacterCard extends StackPane{
 //		}
 //		//END OF DEBUG
 		
+		
 		setId("character-card");
 		setAlignment(Pos.CENTER);
 		setPrefWidth(WIDTH);
@@ -63,6 +65,7 @@ public class CharacterCard extends StackPane{
 	public AudioClip getSoundEffect() {
 		return this.effect;
 	}
+	
 	
 	public void interact() {
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -81,5 +84,22 @@ public class CharacterCard extends StackPane{
 			}
 		
 		});
+		
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				CharacterSelectUpdate.selectCharacterUpdate(cc);
+			}
+			
+		});
+
+	}
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 }
