@@ -30,5 +30,4 @@ public class AudioLoader {
 		quitSound.setVolume(volume);
 		clickEffect.setVolume(volume);
 	}
-	
 }

@@ -22,7 +22,6 @@ public class SceneController {
 	public SceneController() throws Exception {
 		mainStage.setScene((new StartMenu()).getScene());
 	}
-	
 
 	public static int getFullscreenWidth() {
 		return FULLSCREEN_WIDTH;

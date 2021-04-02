@@ -19,7 +19,6 @@ public class FileController {
 		while ((line = brIn.readLine()) != null) {
 			data.add(line.split(regEx));
 		}
-		
 
 		brIn.close();
 		frIn.close();
