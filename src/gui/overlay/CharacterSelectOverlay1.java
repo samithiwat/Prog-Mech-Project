@@ -14,7 +14,7 @@ public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 
 	public CharacterSelectOverlay1() {
 
-		MenuIcon changePageIcon = new MenuIcon("img/Arrow.png",1255,700);
+		MenuIcon changePageIcon = new MenuIcon("img/Arrow.png", 1255, 700);
 		changePageIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -22,20 +22,29 @@ public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 				triggerOverlay(0, 825, 1);
 				GameSettingMenu.getOverlay2().triggerOverlay(0, 825, 1);
 			}
-		}); 
-		
+		});
+
 		TextTitle mrFox = new TextTitle("Mr.Red Fox", Color.WHITE, FontWeight.BOLD, 40, 160, 660);
 		TextTitle ladyCollector = new TextTitle("Lady Collector", Color.WHITE, FontWeight.BOLD, 40, 565, 660);
 		TextTitle blackSkull = new TextTitle("Black Skull", Color.WHITE, FontWeight.BOLD, 40, 1048, 660);
 
-		CharacterCard mrFoxCard = new CharacterCard("img/MrRedFoxCard.png", AudioLoader.mrFoxSelectBGM, 80, 150);
-		CharacterCard ladyCollectorCard = new CharacterCard("img/LadyCollectorCard.png", AudioLoader.ladySelectBGM, 525,
-				150);
-		CharacterCard BlackSkullCard = new CharacterCard("img/BlackSkullCard.png", AudioLoader.blackSkullSelectBGM, 970,
-				150);
+		CharacterCard mrFoxCard = new CharacterCard(1, "img/MrRedFoxCard.png", AudioLoader.mrFoxSelectBGM, 80, 150);
 
-		root.getChildren().addAll(mrFox, ladyCollector, blackSkull, mrFoxCard, ladyCollectorCard,
-				BlackSkullCard, changePageIcon);
+		mrFoxCard.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+			}
+		});
+
+		CharacterCard ladyCollectorCard = new CharacterCard(2, "img/LadyCollectorCard.png", AudioLoader.ladySelectBGM,
+				525, 150);
+		CharacterCard BlackSkullCard = new CharacterCard(3, "img/BlackSkullCard.png", AudioLoader.blackSkullSelectBGM,
+				970, 150);
+
+		root.getChildren().addAll(mrFox, ladyCollector, blackSkull, mrFoxCard, ladyCollectorCard, BlackSkullCard,
+				changePageIcon);
 	}
 
 }

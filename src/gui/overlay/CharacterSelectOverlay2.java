@@ -12,8 +12,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 
-public class CharacterSelectOverlay2 extends CharacterSelectOverlay{
-	
+public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
+
 	public CharacterSelectOverlay2() {
 
 		MenuIcon changePageIcon = new MenuIcon("img/Arrow.png", 30, 700);
@@ -27,19 +27,19 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay{
 			}
 		});
 
-		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402,102);
+		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
 		TextTitle sirThousand = new TextTitle("Sir Thousand Year", Color.WHITE, FontWeight.BOLD, 40, 80, 660);
 		TextTitle sirTewada = new TextTitle("Sir Tewada", Color.WHITE, FontWeight.BOLD, 40, 596, 660);
 		TextTitle sirTewadee = new TextTitle("Sir Tewadee", Color.WHITE, FontWeight.BOLD, 40, 1034, 660);
 
-		CharacterCard sirThousandCard = new CharacterCard("img/SirThousandYearCard.png",
+		CharacterCard sirThousandCard = new CharacterCard(4, "img/SirThousandYearCard.png",
 				AudioLoader.sirThousandSelectBGM, 80, 150);
-		CharacterCard sirTewadaCard = new CharacterCard("img/SirTewadaCard.png", AudioLoader.sirTewadaSelectBGM, 525,
+		CharacterCard sirTewadaCard = new CharacterCard(5, "img/SirTewadaCard.png", AudioLoader.sirTewadaSelectBGM, 525,
 				150);
-		CharacterCard sirTewadeeCard = new CharacterCard("img/SirTewadeeCard.png", AudioLoader.sirTewadeeSelectBGM, 970,
-				150);
+		CharacterCard sirTewadeeCard = new CharacterCard(6, "img/SirTewadeeCard.png", AudioLoader.sirTewadeeSelectBGM,
+				970, 150);
 
-		root.getChildren().addAll( sirThousand, sirTewada, sirTewadee, sirThousandCard, sirTewadaCard,
-				sirTewadeeCard, changePageIcon);
+		root.getChildren().addAll(sirThousand, sirTewada, sirTewadee, sirThousandCard, sirTewadaCard, sirTewadeeCard,
+				changePageIcon);
 	}
 }

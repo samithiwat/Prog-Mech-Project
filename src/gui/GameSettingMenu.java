@@ -7,7 +7,11 @@ import gui.entity.GameSetting;
 import gui.entity.TextTitle;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -45,6 +49,25 @@ public class GameSettingMenu implements Showable {
 		titleBox.setArcWidth(30);
 		titleBox.setArcHeight(30);
 
+		TextTitle back = new TextTitle("Back to Main Menu", Color.web("0x393E46"), FontWeight.BOLD, 20, 1125, 786);
+
+		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				SceneController.setScene((new MainMenu()).getScene());
+			}
+		});
+
+		Rectangle backBox = new Rectangle(240, 40);
+		backBox.setFill(Color.web("0xFEFDE8"));
+		backBox.setX(1097);
+		backBox.setY(758);
+		backBox.setArcWidth(30);
+		backBox.setArcHeight(30);
+		
+		TextTitle start = new TextTitle("Start", Color.WHITE, FontWeight.BOLD, 48, 682, 203);
+
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.rgb(3, 114, 140));
 
@@ -64,11 +87,21 @@ public class GameSettingMenu implements Showable {
 		cBoxes.add(cBox6);
 
 		root.getChildren().addAll(bg, cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
-		root.getChildren().addAll(title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2);
+		root.getChildren().addAll(backBox, back,  title, titleBox, label, gameSetting, characterOverlay1,
+				characterOverlay2);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/style.css").toExternalForm());
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode() == KeyCode.ESCAPE) {
+					SceneController.setScene((new MainMenu()).getScene());
+				}
+			}
+		});
 	}
 
 	@Override
@@ -86,10 +119,6 @@ public class GameSettingMenu implements Showable {
 
 	public static AudioClip getBGM() {
 		return bgm;
-	}
-
-	public static ArrayList<CharacterBox> getcBoxes() {
-		return cBoxes;
 	}
 
 	public static void setCBoxes(ArrayList<CharacterBox> cBoxes) {

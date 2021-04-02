@@ -2,6 +2,7 @@ package gui.entity;
 
 import java.util.ArrayList;
 
+import gui.GameSettingMenu;
 import javafx.application.Platform;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
@@ -14,6 +15,7 @@ import javafx.scene.media.AudioClip;
 import logic.AudioLoader;
 import logic.FileController;
 import update.CharacterSelectUpdate;
+import update.GameSettingUpdate;
 
 public class CharacterCard extends StackPane{
 	
@@ -21,8 +23,9 @@ public class CharacterCard extends StackPane{
 	private final int WIDTH = 350;
 	private final int HEIGHT = 450;
 	private CharacterCard cc = this;
+	private int id;
 
-	public CharacterCard(String img_path,AudioClip effect,int x,int y) {
+	public CharacterCard(int id,String img_path,AudioClip effect,int x,int y) {
 		super();
 //		//FOR DEBIG ONLY
 //		System.out.println(styleProperty());
@@ -64,6 +67,14 @@ public class CharacterCard extends StackPane{
 		return this.effect;
 	}
 	
+	public int getCardId() {
+		return id;
+	}
+
+	public void setCardId(int id) {
+		this.id = id;
+	}
+
 	public void interact() {
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
@@ -80,6 +91,33 @@ public class CharacterCard extends StackPane{
 				CharacterSelectUpdate.mouseExitedUpdate(cc);
 			}
 		
+		});
+		
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				switch(id) {
+				case 1 :
+					GameSettingUpdate.selectCharacterUpdate(1);
+					break;
+				case 2 :
+					GameSettingUpdate.selectCharacterUpdate(2);
+					break;
+				case 3 :
+					GameSettingUpdate.selectCharacterUpdate(3);
+					break;
+				case 4 :
+					GameSettingUpdate.selectCharacterUpdate(4);
+					break;
+				case 5 :
+					GameSettingUpdate.selectCharacterUpdate(5);
+					break;
+				case 6 :
+					GameSettingUpdate.selectCharacterUpdate(6);
+					break;
+				}
+			}
 		});
 	}
 }
