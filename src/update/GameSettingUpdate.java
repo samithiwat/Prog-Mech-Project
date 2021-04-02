@@ -58,6 +58,14 @@ public class GameSettingUpdate {
 			break;
 		}
 		
+//		for(int i = 0 ; i < cBoxes.size() ; i++) {
+//			if(nPlayer-3 <= i) {
+//				cBoxes.get(i).setVisible(false);
+//			}
+//			else {
+//				cBoxes.get(i).setVisible(true);
+//			}
+//		}
 		//SceneController.setScene((new GameSettingMenu()).getScene());
 		
 	}

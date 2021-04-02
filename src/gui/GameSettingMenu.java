@@ -8,7 +8,10 @@ import gui.entity.TextTitle;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
 import javafx.event.EventHandler;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
@@ -30,9 +34,9 @@ public class GameSettingMenu implements Showable {
 
 	public GameSettingMenu() {
 
-		StartMenu.getMenuThemeSong().stop();
+//		StartMenu.getMenuThemeSong().stop();
 		bgm = AudioLoader.lobbyThemeSong;
-		bgm.play();
+//		bgm.play();
 
 		AnchorPane root = new AnchorPane();
 
@@ -49,25 +53,63 @@ public class GameSettingMenu implements Showable {
 		titleBox.setArcWidth(30);
 		titleBox.setArcHeight(30);
 
-		TextTitle back = new TextTitle("Back to Main Menu", Color.web("0x393E46"), FontWeight.BOLD, 20, 1125, 786);
+		//MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1097, 758);
+		
+		Button back = new Button("Back to Main Menu");
+		back.setTextFill(Color.web("0x393E46"));
+		back.setLayoutX(1097);
+		back.setLayoutY(758);
+		back.setFont(Font.font("Bai Jamjuree",FontWeight.NORMAL,20));
+		back.setPrefHeight(40);
+		back.setPrefWidth(240);
+		
+		back.setId("lobby-button-release");
 
+//		TextTitle back = new TextTitle("Back to Main Menu", Color.web("0x393E46"), FontWeight.BOLD, 20, 1125, 786);
+//		
+		back.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				back.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursorSelected.png").toString()))));
+				AudioClip effect = AudioLoader.mouseEnterSound;
+				effect.play();
+				back.setId("lobby-button");
+			}
+			
+		});
+		
+		back.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				back.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursor.png").toString()))));
+				back.setId("lobby-button-release");
+			}
+		
+		});
+		
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
 				SceneController.setScene((new MainMenu()).getScene());
+				bgm.stop();
+				StartMenu.getMenuThemeSong().play();
 			}
 		});
-
-		Rectangle backBox = new Rectangle(240, 40);
-		backBox.setFill(Color.web("0xFEFDE8"));
-		backBox.setX(1097);
-		backBox.setY(758);
-		backBox.setArcWidth(30);
-		backBox.setArcHeight(30);
-		
-		TextTitle start = new TextTitle("Start", Color.WHITE, FontWeight.BOLD, 48, 682, 203);
-
+//
+//		Rectangle backBox = new Rectangle(240, 40);
+//		backBox.setFill(Color.web("0xFEFDE8"));
+//		backBox.setX(1097);
+//		backBox.setY(758);
+//		backBox.setArcWidth(30);
+//		backBox.setArcHeight(30);
+//		
+//		TextTitle start = new TextTitle("Start", Color.WHITE, FontWeight.BOLD, 48, 682, 203);
+//
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.rgb(3, 114, 140));
 
@@ -87,8 +129,7 @@ public class GameSettingMenu implements Showable {
 		cBoxes.add(cBox6);
 
 		root.getChildren().addAll(bg, cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
-		root.getChildren().addAll(backBox, back,  title, titleBox, label, gameSetting, characterOverlay1,
-				characterOverlay2);
+		root.getChildren().addAll(back, title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
@@ -99,6 +140,8 @@ public class GameSettingMenu implements Showable {
 			public void handle(KeyEvent event) {
 				if (event.getCode() == KeyCode.ESCAPE) {
 					SceneController.setScene((new MainMenu()).getScene());
+					bgm.stop();
+					StartMenu.getMenuThemeSong().play();
 				}
 			}
 		});

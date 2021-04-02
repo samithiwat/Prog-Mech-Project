@@ -18,11 +18,12 @@ public abstract class CharacterSelectOverlay extends Overlay {
 	public CharacterSelectOverlay() {
 		super((new AnchorPane()), WIDTH, HEIGHT, 75, -800);
 
-		setId("character-select-overlay");
+		//setId("character-select-overlay");
 		setCursor(CURSOR_NORMAL);
 
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
 		bg.setFill(Color.web("0x393E46"));
+		bg.setId("overlay-bg");
 		// bg.setStyle("-fx-fill: rgba(57,62,70,0.5)");
 
 		MenuIcon closeIcon = new MenuIcon("img/Cross.png", 1311, 45);
