@@ -52,6 +52,4 @@ public abstract class MainCharacter extends Character{
 		this.myEntity = myEntity;
 	}
 	
-	
-	
 }
