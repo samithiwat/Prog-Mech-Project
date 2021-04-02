@@ -12,6 +12,7 @@ import gui.overlay.QuitOverlay;
 import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,8 +30,6 @@ public class MainMenu implements Showable {
 	private static ArrayList<Clickable> components;
 
 	public MainMenu() {
-		
-		//CharacterCard test = new CharacterCard("img/BlackSkullCard.png", AudioLoader.blackSkullSelectBGM, 970, 150);
 
 		AnchorPane root = new AnchorPane();
 
@@ -67,6 +66,8 @@ public class MainMenu implements Showable {
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
 				SceneController.setScene(SceneController.getGameSettingMenu());
+				StartMenu.getMenuThemeSong().stop();
+				GameSettingMenu.getBGM().play();
 				System.out.println("Change to Start Menu...");
 			}
 		});
@@ -82,11 +83,6 @@ public class MainMenu implements Showable {
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
 				quitOverlay.triggerOverlay(0,1000,1000);
-//				for(Node component : ((AnchorPane) scene.getRoot()).getChildren()) {
-//					if(component instanceof Clickable) {
-//						component.setDisable(true);
-//					}
-//				}
 				start.setDisable(true);
 				load.setDisable(true);
 				quit.setDisable(true);
@@ -112,8 +108,6 @@ public class MainMenu implements Showable {
 		
 		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay, quitOverlay);
 		
-//		root.getChildren().add(test);
-//		root.getChildren().addAll(bg,title,start);
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 //		System.out.println(ClassLoader.getSystemResource("css/style.css"));

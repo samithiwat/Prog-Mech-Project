@@ -44,7 +44,7 @@ public class MenuButton extends Button implements Clickable {
 			public void handle(MouseEvent event) {
 				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursor.png").toString()))));
 				setId("mainmenu-button-release-style");
-				System.out.println(getStyle());
+				//System.out.println(getStyle());
 			}
 			
 		});
@@ -74,7 +74,7 @@ public class MenuButton extends Button implements Clickable {
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
 				setId("mainmenu-button-hold-style");
-				System.out.println(getStyle());
+				//System.out.println(getStyle());
 			}
 			
 		});

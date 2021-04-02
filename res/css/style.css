@@ -12,17 +12,21 @@
 }
 
 #character-box {
-  -fx-fill: rgba(254, 253, 232, 0.9);
+  -fx-fill: rgba(254, 253, 232);
 }
 
 #character-box-selected {
-  -fx-fill: rgba(254, 253, 232, 0.9);
-  -fx-stroke: rgba(0, 0, 0, 0.9);
+  -fx-fill: rgba(254, 253, 232);
+  -fx-stroke: rgba(0, 0, 0);
   -fx-stroke-width: 10;
 }
 
 #character-select-overlay {
   -fx-opacity: 0.9;
+}
+
+#overlay-bg {
+  -fx-fill: rgba(57, 62, 70, 0.9);
 }
 
 #character-card {
@@ -43,6 +47,11 @@
   -fx-fill: rgb(97, 101, 107);
 }
 
-#menu-box {
-  -fx-fill: rgba(254, 253, 232, 0.9);
+#lobby-button {
+  -fx-text-fill: rgb(255, 255, 255);
+  -fx-background-color: rgba(51, 51, 51);
+}
+
+#lobby-button-release {
+  -fx-background-color: rgba(254, 253, 232);
 }
