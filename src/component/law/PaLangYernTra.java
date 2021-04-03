@@ -1,12 +1,12 @@
 package component.law;
 
-import logic.GameController;
+import logic.GameSetUp;
 
 public class PaLangYernTra extends LawCard {
 	public PaLangYernTra() {
 		super("PaLangYernTra","When a fight happen, richer's attack get increased by 1 point.");
 	}
 	public void activateEffectCard() {
-		GameController.gameLaw.richerAdvantage = 1;
+		GameSetUp.gameLaw.richerAdvantage = 1;
 	}
 }

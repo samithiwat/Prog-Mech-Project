@@ -1,6 +1,6 @@
 package component.law;
 
-import logic.GameController;
+import logic.GameSetUp;
 
 public class PaSeeMeung extends LawCard {
 	public PaSeeMeung() {
@@ -8,6 +8,6 @@ public class PaSeeMeung extends LawCard {
 				+ "to the government 1,000,000 each mine the player has");		
 	}
 	public void activateEffectCard() {
-		GameController.gameLaw.taxMine = true;
+		GameSetUp.gameLaw.taxMine = true;
 	}
 }
