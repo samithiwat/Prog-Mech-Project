@@ -8,7 +8,7 @@ public class Collector  extends MainCharacter {
 	public Collector() {
 		super("Ms.Collector","");
 	}
-	
+	 
 	public void checkIsWin() {
 		boolean[] key = {true,true,true,true,true};
 		int count = 0;

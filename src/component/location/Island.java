@@ -10,7 +10,7 @@ public class Island extends Location {
 		super("Island","Get isolated",0,0);
 		banishedMinion = new ArrayList<Minion>();
 	}
-	
+	 
 	public void addToIsland(Minion minion) {
 		this.banishedMinion.add(minion);
 		while(minion.getMyMinion().size() > 0) {

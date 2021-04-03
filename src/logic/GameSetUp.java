@@ -31,7 +31,7 @@ public class GameSetUp {
 	public static LawSlot lawSlot = new LawSlot();
 	public static LawDeck lawDeck = new LawDeck();
 	public static ArrayList<SecretBase> allsecretBases = new ArrayList<SecretBase>();
-	private static final int DUPLICATE = 5 ;
+	private static final int DUPLICATE = 5 ; 
 	public static String turn;
 	public static int cycle = 0;
 	public static boolean isGameEnd = false;

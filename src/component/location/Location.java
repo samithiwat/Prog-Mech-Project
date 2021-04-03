@@ -10,7 +10,7 @@ public class Location {
 	private MainCharacter possessedBy;
 //	private ArrayList<E> *TODO:for group minion that is on the tile*
 	private int incomePerRound;
-	private int cost;
+	private int cost; 
 	private boolean isPossessable;
 	public Location(String name, String description, int income, int cost) {
 		this.name = name;

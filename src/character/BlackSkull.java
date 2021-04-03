@@ -6,7 +6,7 @@ public class BlackSkull extends MainCharacter{
 	public static boolean prisonOutBreakSkill = true;
 	public BlackSkull() {
 		super("Mr.BlackSkull","");
-	}
+	} 
 	public void checkIsWin() {
 		int count = 0;
 		for(int i = 0 ; i < GameSetUp.allsecretBases.size() ; i++) {

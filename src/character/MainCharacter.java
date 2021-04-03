@@ -33,7 +33,7 @@ public abstract class MainCharacter{
 		WeaponCard removedCard = this.weaponOnHand.get(index);
 		this.weaponOnHand.remove(index);
 		return removedCard;
-	}
+	} 
 	public void addToMyEntity(Minion minion) {
 		this.myEntity.add(minion);
 	}

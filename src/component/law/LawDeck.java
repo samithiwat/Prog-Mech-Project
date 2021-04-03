@@ -15,7 +15,7 @@ public class LawDeck {
 				, new PaSeeLaekKong(), new PaSeeMeung(), new PaSeeTeeDin(), new PaSeeTorSuu(), new RatTaBarnPatTinKrubBarn()
 				, new ReakKurnKongKumRang(), new SakSeeKonJon(), new SaMakeeProngDong(), new SaNabSaNoonKonDee(), new SaNabSaNoonKongTub()
 				, new TaoTeumTookKon());
-	}
+	} 
 	//-----------getter/setter--------------------------
 	public ArrayList<LawCard> getLawDeck() {
 		return lawDeck;
