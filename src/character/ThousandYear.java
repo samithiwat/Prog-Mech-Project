@@ -12,7 +12,7 @@ public class ThousandYear extends MainCharacter {
 			this.setWin(true);
 		}
 		else {
-			GameSetUp.theGovernment.checkIsWin();
+//			GameSetUp.theGovernment.checkIsWin();
 			this.setWin(false);
 		}
 	}

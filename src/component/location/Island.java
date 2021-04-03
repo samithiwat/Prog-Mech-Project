@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import component.entity.Minion;
 
 public class Island extends Location {
-	private ArrayList<Minion> banishedMinion;
+	public static ArrayList<Minion> banishedMinion;
 	public Island() {
 		super("Island","Get isolated",0,0);
 		banishedMinion = new ArrayList<Minion>();
@@ -23,11 +23,5 @@ public class Island extends Location {
 	}
 	
 	//----------------------getter/setter--------------------------
-	public ArrayList<Minion> getBanishedMinion() {
-		return banishedMinion;
-	}
-	public void setBanishedMinion(ArrayList<Minion> banishedMinion) {
-		this.banishedMinion = banishedMinion;
-	}
 	
 }

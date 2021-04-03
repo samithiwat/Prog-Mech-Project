@@ -3,7 +3,7 @@ package character;
 import logic.GameSetUp;
 
 public class BlackSkull extends MainCharacter{
-	private static boolean prisonOutBreakSkill = true;
+	public static boolean prisonOutBreakSkill = true;
 	public BlackSkull() {
 		super("Mr.BlackSkull","");
 	}
