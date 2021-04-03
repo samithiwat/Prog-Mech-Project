@@ -1,6 +1,6 @@
 package component.law;
 
-import logic.GameController;
+import logic.GameSetting;
 
 public class LongTodeKonShua extends LawCard {
 	public LongTodeKonShua() {
@@ -8,7 +8,7 @@ public class LongTodeKonShua extends LawCard {
 	}
 	
 	public void activateEffectCard() {
-		GameController.gameLaw.taxNoGoodPoint = true;
+		GameSetting.gameLaw.taxNoGoodPoint = true;
 	}
 
 }
