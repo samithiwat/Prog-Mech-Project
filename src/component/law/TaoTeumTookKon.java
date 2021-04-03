@@ -1,6 +1,6 @@
 package component.law;
 
-import logic.GameController;
+import logic.GameSetUp;
 
 public class TaoTeumTookKon extends LawCard {
 	public TaoTeumTookKon() {
@@ -8,6 +8,6 @@ public class TaoTeumTookKon extends LawCard {
 				+ "If the average money is below 1,000,000 coconuts, all players' money are set to 1,000,000 coconuts instead.");
 	}
 	public void activateEffectCard() {
-		GameController.gameLaw.setMoneyToAverage = true;
+		GameSetUp.gameLaw.setMoneyToAverage = true;
 	}
 }

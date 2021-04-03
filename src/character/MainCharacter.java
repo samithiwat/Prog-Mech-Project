@@ -6,20 +6,25 @@ import component.entity.Minion;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
 
-public abstract class MainCharacter extends Character{
+public abstract class MainCharacter{
 	public final static int M = 1000000;
 	private ArrayList<WeaponCard> weaponOnHand;
 	private ArrayList<Minion> myEntity;
 	private ArrayList<Location> possessedArea;
 	private int goodPoint;
 	private int money;
+	private String name;
+	private String desciption;
+	private boolean isWin;
 	public MainCharacter(String name, String description) {
-		super(name,description);
+		this.name = name;
+		this.desciption = description;
 		this.money = 7*M;
 		this.weaponOnHand = new ArrayList<WeaponCard>();
 		this.myEntity = new ArrayList<Minion>();
 		this.possessedArea = new ArrayList<Location>();
 		this.goodPoint = 0;
+		this.isWin = false;
 	}
 	public void addCardtoHand(WeaponCard card) {
 		this.weaponOnHand.add(card);
@@ -44,7 +49,7 @@ public abstract class MainCharacter extends Character{
 		this.possessedArea.add(location);
 	}
 	
-	public abstract boolean isWin();
+	public abstract void checkIsWin();
 	//----------------------getter/setter---------------------
 	
 	public ArrayList<WeaponCard> getWeaponHand() {
@@ -80,6 +85,25 @@ public abstract class MainCharacter extends Character{
 	public void setGoodPoint(int goodPoint) {
 		this.goodPoint = goodPoint;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDesciption() {
+		return desciption;
+	}
+	public void setDesciption(String desciption) {
+		this.desciption = desciption;
+	}
+	public void setMyEntity(ArrayList<Minion> myEntity) {
+		this.myEntity = myEntity;
+	}
+	public void setWin(boolean isWin) {
+		this.isWin = isWin;
+	}
+	
 	
 	
 	

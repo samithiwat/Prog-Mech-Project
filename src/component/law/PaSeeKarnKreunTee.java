@@ -1,12 +1,12 @@
 package component.law;
 
-import logic.GameController;
+import logic.GameSetUp;
 
 public class PaSeeKarnKreunTee extends LawCard {
 	public PaSeeKarnKreunTee() {
 		super("PaSeeKarnKreunTee","A player requires to pay 1,000,000 coconuts each tile player moves");
 	}
 	public void activateEffectCard() {
-		GameController.gameLaw.taxPerTile = true;
+		GameSetUp.gameLaw.taxPerTile = true;
 	}
 }
