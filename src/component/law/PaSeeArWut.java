@@ -1,6 +1,6 @@
 package component.law;
 
-import logic.GameSetting;
+import logic.GameSetUp;
 
 public class PaSeeArWut extends LawCard {
 	public PaSeeArWut() {
@@ -10,6 +10,6 @@ public class PaSeeArWut extends LawCard {
 	public void activateEffectCard() {
 //		don't forget to add weapon in banned weapon
 //		parameter name -> GameController.gameLaw.bannedWeapon = bannedWeapon
-		GameSetting.gameLaw.taxWeapon = true;
+		GameSetUp.gameLaw.taxWeapon = true;
 	}
 }

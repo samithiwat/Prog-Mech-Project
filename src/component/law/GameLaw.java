@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import character.MainCharacter;
 import component.location.Mine;
 import component.weaponCard.WeaponCard;
-import logic.GameSetting;
+import logic.GameSetUp;
 
 public class GameLaw {
 	public boolean taxPerTile;
@@ -73,23 +73,23 @@ public class GameLaw {
 		}
 		
 		character.setMoney(character.getMoney()-tax*MainCharacter.M);
-		GameSetting.theGovernment.setMoney(GameSetting.theGovernment.getMoney() + tax*MainCharacter.M);
+		GameSetUp.theGovernment.setMoney(GameSetUp.theGovernment.getMoney() + tax*MainCharacter.M);
 	}
 	
 	public void activateEachCycle() {
 		if(this.setMoneyToAverage) {
 			int sum = 0;
-			for(int i = 0 ; i < GameSetting.gameCharacter.size() ; i++) {
-				sum += GameSetting.gameCharacter.get(i).getMoney();
+			for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
+				sum += GameSetUp.gameCharacter.get(i).getMoney();
 			}
 			int averageSum = 1*MainCharacter.M;
-			while(averageSum*GameSetting.gameCharacter.size() < sum) {
+			while(averageSum*GameSetUp.gameCharacter.size() < sum) {
 				averageSum += 500000;
 			}
-			for(int i = 0 ; i < GameSetting.gameCharacter.size() ; i++) {
-				GameSetting.gameCharacter.get(i).setMoney(averageSum);
+			for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
+				GameSetUp.gameCharacter.get(i).setMoney(averageSum);
 			}
-			GameSetting.theGovernment.setMoney(averageSum+Math.max(0,sum-averageSum*GameSetting.gameCharacter.size()));
+			GameSetUp.theGovernment.setMoney(averageSum+Math.max(0,sum-averageSum*GameSetUp.gameCharacter.size()));
 		}
 	}
 	

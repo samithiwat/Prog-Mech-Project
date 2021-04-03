@@ -3,7 +3,7 @@ package component.law;
 import java.util.ArrayList;
 
 import character.MainCharacter;
-import logic.GameSetting;
+import logic.GameSetUp;
 
 public class ChuayLeauKonJon extends LawCard {
 	public ChuayLeauKonJon() {
@@ -14,18 +14,18 @@ public class ChuayLeauKonJon extends LawCard {
 	public void activateEffectCard() {
 		int max = Integer.MIN_VALUE;
 		int min = Integer.MAX_VALUE;
-		for (int i = 0; i < GameSetting.gameCharacter.size(); i++) {
-			max = Math.max(max, GameSetting.gameCharacter.get(i).getMoney());
-			min = Math.min(min, GameSetting.gameCharacter.get(i).getMoney());
+		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
+			max = Math.max(max, GameSetUp.gameCharacter.get(i).getMoney());
+			min = Math.min(min, GameSetUp.gameCharacter.get(i).getMoney());
 		}
 		ArrayList<MainCharacter> richestPlayers = new ArrayList<MainCharacter>();
 		ArrayList<MainCharacter> poorestPlayers = new ArrayList<MainCharacter>();
-		for (int i = 0; i < GameSetting.gameCharacter.size(); i++) {
-			if (GameSetting.gameCharacter.get(i).getMoney() == max) {
-				richestPlayers.add(GameSetting.gameCharacter.get(i));
+		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
+			if (GameSetUp.gameCharacter.get(i).getMoney() == max) {
+				richestPlayers.add(GameSetUp.gameCharacter.get(i));
 			}
-			if (GameSetting.gameCharacter.get(i).getMoney() == min) {
-				poorestPlayers.add(GameSetting.gameCharacter.get(i));
+			if (GameSetUp.gameCharacter.get(i).getMoney() == min) {
+				poorestPlayers.add(GameSetUp.gameCharacter.get(i));
 			}
 		}
 		for (int i = 0; i < poorestPlayers.size(); i++) {

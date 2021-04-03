@@ -23,13 +23,14 @@ import component.weaponCard.Shield;
 import component.weaponCard.Sword;
 import component.weaponCard.WeaponDeck;
 
-public class GameSetting {
+public class GameSetUp {
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
 	public static WeaponDeck weaponDeck = new WeaponDeck() ;
 	public static RemovedDeck removedDeck = new RemovedDeck();
 	public static LawSlot lawSlot = new LawSlot();
 	public static LawDeck lawDeck = new LawDeck();
+	public static ArrayList<SecretBase> allsecretBases = new ArrayList<SecretBase>();
 	private static final int DUPLICATE = 5 ;
 	public static String turn;
 	public static int cycle = 0;
@@ -37,7 +38,7 @@ public class GameSetting {
 	public static boolean isEndTurn;
 	public static MainCharacter theGovernment = null;
 	public static Location[][] map = new Location[10][11];
-	public GameSetting() {
+	public GameSetUp() {
 //----------------------------------Weapon Set Up---------------------------------------------------
 		for(int i = 0 ; i < DUPLICATE ; i++) {
 			weaponDeck.addCard(new Axe());
@@ -71,6 +72,7 @@ public class GameSetting {
 				}
 				else if(code == '5') {
 					map[i][j] = new SecretBase();
+					allsecretBases.add((SecretBase)map[i][j]);
 				}
 				else if(code == '6') {
 					map[i][j] = new Council();

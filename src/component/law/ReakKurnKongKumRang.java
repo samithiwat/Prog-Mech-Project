@@ -1,12 +1,12 @@
 package component.law;
 
-import logic.GameSetting;
+import logic.GameSetUp;
 
 public class ReakKurnKongKumRang extends LawCard {
 	public ReakKurnKongKumRang() {
 		super("ReakKurnKongKumRang","Return all weapon card that have been used in this game into the deck");
 	}
 	public void activateEffectCard() {
-		GameSetting.removedDeck.returnAllToDeck(GameSetting.weaponDeck);
+		GameSetUp.removedDeck.returnAllToDeck(GameSetUp.weaponDeck);
 	}
 }
