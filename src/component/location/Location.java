@@ -1,7 +1,5 @@
 package component.location;
 
-import java.util.ArrayList;
-
 import character.MainCharacter;
 
 public class Location {

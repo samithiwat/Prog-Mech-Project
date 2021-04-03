@@ -1,7 +1,6 @@
 package character;
 
 import component.location.Prison;
-import logic.GameSetUp;
 
 public class ThousandYear extends MainCharacter {
 	public ThousandYear() {

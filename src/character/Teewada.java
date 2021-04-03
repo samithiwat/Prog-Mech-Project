@@ -1,7 +1,6 @@
 package character;
 
 import component.location.Council;
-import logic.GameSetUp;
 
 public class Teewada extends MainCharacter {
 	public static boolean warCry = true;

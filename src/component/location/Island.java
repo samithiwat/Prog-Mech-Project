@@ -12,7 +12,7 @@ public class Island extends Location {
 	}
 	
 	public void addToIsland(Minion minion) {
-		this.banishedMinion.add(minion);
+		banishedMinion.add(minion);
 		while(minion.getMyMinion().size() > 0) {
 			minion.getMyMinion().get(0).getPossessedBy();
 		}

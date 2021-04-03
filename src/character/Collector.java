@@ -1,7 +1,5 @@
 package character;
 
-import java.util.ArrayList;
-
 import component.entity.Minion;
 
 public class Collector  extends MainCharacter {

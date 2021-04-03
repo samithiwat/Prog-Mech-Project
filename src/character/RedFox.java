@@ -1,8 +1,5 @@
 package character;
 
-import gui.entity.GameSetting;
-import logic.GameSetUp;
-
 public class RedFox extends MainCharacter {
 	public RedFox() {
 		super("Mr.RedFox","");
