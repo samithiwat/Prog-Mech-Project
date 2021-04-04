@@ -55,7 +55,7 @@ public class GameLobbyMenu implements Showable {
 		titleBox.setArcHeight(30);
 
 		MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1097, 758);
-		
+		back.setFontBold(20);
 		
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 

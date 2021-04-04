@@ -8,8 +8,8 @@ public interface Showable {
 	
 	String FONT_NAME = "Bai Jamjuree";
 	
-	ImageCursor CURSOR_NORMAL = new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString())));
-	ImageCursor CURSOR_SELECTED = new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursorSelected.png").toString())));
+	ImageCursor CURSOR_NORMAL = new ImageCursor((new Image(ClassLoader.getSystemResource("img/icon/mouseCursor.png").toString())));
+	ImageCursor CURSOR_SELECTED = new ImageCursor((new Image(ClassLoader.getSystemResource("img/icon/mouseCursorSelected.png").toString())));
 	
 	public Scene getScene();  
 }

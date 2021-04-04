@@ -24,7 +24,7 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class MainMenu implements Showable {
+public class MainMenu implements Showable, Sceneable {
 
 	private static Scene scene;
 	private static ArrayList<Clickable> components;
@@ -36,8 +36,8 @@ public class MainMenu implements Showable {
 		CreditOverlay creditOverlay = new CreditOverlay();
 		QuitOverlay quitOverlay = new QuitOverlay();
 
-		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/MainMenuBG.png").toString());
-		MenuIcon creditIcon = new MenuIcon("img/About.png",75,60);
+		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/MainMenuBG.png").toString());
+		MenuIcon creditIcon = new MenuIcon("img/icon/About.png",75,60);
 		creditIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -47,8 +47,8 @@ public class MainMenu implements Showable {
 				creditOverlay.triggerOverlay(0,825,1000);
 			}
 		});
-		MenuIcon helpIcon = new MenuIcon("img/Help.png",223,60);
-		MenuIcon settingIcon = new MenuIcon("img/Setting.png",1300,55);
+		MenuIcon helpIcon = new MenuIcon("img/icon/Help.png",223,60);
+		MenuIcon settingIcon = new MenuIcon("img/icon/Setting.png",1300,55);
 
 		TextTitle title = new TextTitle("Coconut Island",Color.WHITE,FontWeight.BOLD,120,371,130);
 
@@ -109,7 +109,7 @@ public class MainMenu implements Showable {
 		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay, quitOverlay);
 		
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
+		scene.setCursor(MOUSE_NORMAL);
 //		System.out.println(ClassLoader.getSystemResource("css/style.css"));
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/mainmenu-style.css").toExternalForm());
 

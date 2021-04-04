@@ -48,7 +48,7 @@ public class LoadingScreen2 implements Showable {
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();
 
-		ImageView treeFilling = new ImageView(ClassLoader.getSystemResource("img/TreeFilling.png").toString());
+		ImageView treeFilling = new ImageView(ClassLoader.getSystemResource("img/sprites/TreeFilling.png").toString());
 		treeFilling.setViewport(new Rectangle2D(0, 0, 140, 140));
 		treeFilling.setX(950);
 		treeFilling.setY(670);

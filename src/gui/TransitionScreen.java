@@ -26,7 +26,7 @@ public class TransitionScreen implements Showable {
 		bg.setFill(Color.web("0xF2A388"));
 		AudioClip effect = AudioLoader.popSound;
 		effect.play();
-		ImageView coconut = new ImageView(ClassLoader.getSystemResource("img/BiggerCoconut.png").toString());
+		ImageView coconut = new ImageView(ClassLoader.getSystemResource("img/sprites/BiggerCoconut.png").toString());
 		coconut.setViewport(new Rectangle2D(0, 0, 900, 900));
 		coconut.setX(330);
 		coconut.setY(0);
@@ -47,7 +47,7 @@ public class TransitionScreen implements Showable {
 				@Override
 				public void run() {
 					ImageView coconutRollingOut = new ImageView(
-							ClassLoader.getSystemResource("img/CoconutRollingOut.png").toString());
+							ClassLoader.getSystemResource("img/sprites/CoconutRollingOut.png").toString());
 					coconutRollingOut.setViewport(new Rectangle2D(0, 0, 1150, 900));
 					coconutRollingOut.setX(330);
 					coconutRollingOut.setY(0);

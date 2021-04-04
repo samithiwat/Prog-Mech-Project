@@ -16,7 +16,7 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 
 	public CharacterSelectOverlay2() {
 
-		MenuIcon changePageIcon = new MenuIcon("img/Arrow.png", 30, 700);
+		MenuIcon changePageIcon = new MenuIcon("img/icon/Arrow.png", 30, 700);
 		changePageIcon.setRotate(180);
 		changePageIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -32,11 +32,11 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 		TextTitle sirTewada = new TextTitle("Sir Tewada", Color.WHITE, FontWeight.BOLD, 40, 596, 660);
 		TextTitle sirTewadee = new TextTitle("Sir Tewadee", Color.WHITE, FontWeight.BOLD, 40, 1034, 660);
 
-		CharacterCard sirThousandCard = new CharacterCard(4, "img/SirThousandYearCard.png",
+		CharacterCard sirThousandCard = new CharacterCard(4, "img/character/SirThousandYearCard.png",
 				AudioLoader.sirThousandSelectBGM, 80, 150);
-		CharacterCard sirTewadaCard = new CharacterCard(5, "img/SirTewadaCard.png", AudioLoader.sirTewadaSelectBGM, 525,
+		CharacterCard sirTewadaCard = new CharacterCard(5, "img/character/SirTewadaCard.png", AudioLoader.sirTewadaSelectBGM, 525,
 				150);
-		CharacterCard sirTewadeeCard = new CharacterCard(6, "img/SirTewadeeCard.png", AudioLoader.sirTewadeeSelectBGM,
+		CharacterCard sirTewadeeCard = new CharacterCard(6, "img/character/SirTewadeeCard.png", AudioLoader.sirTewadeeSelectBGM,
 				970, 150);
 
 		root.getChildren().addAll(sirThousand, sirTewada, sirTewadee, sirThousandCard, sirTewadaCard, sirTewadeeCard,

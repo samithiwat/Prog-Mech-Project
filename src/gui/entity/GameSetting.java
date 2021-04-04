@@ -33,8 +33,8 @@ public class GameSetting extends AnchorPane {
 		mapBox2.setId("box");
 		mapBox2.setX(25);
 		mapBox2.setY(295);
-		MenuIcon mapButton1 = new MenuIcon("img/triangleButton.png", 28, 297);
-		MenuIcon mapButton2 = new MenuIcon("img/triangleButton.png", 202, 297);
+		MenuIcon mapButton1 = new MenuIcon("img/icon/triangleButton.png", 28, 297);
+		MenuIcon mapButton2 = new MenuIcon("img/icon/triangleButton.png", 202, 297);
 		mapButton2.setRotate(180);
 		TextTitle mapName = new TextTitle("Coconut Island", Color.WHITE, FontWeight.BOLD, 14, 74, 312);
 
@@ -45,7 +45,7 @@ public class GameSetting extends AnchorPane {
 		maxPlayerBox1.setY(340);
 		Rectangle maxPlayerBox2 = new Rectangle(BOX_WIDTH, BOX_HEIGHT);
 		maxPlayerBox2.setId("box");
-		MenuIcon maxPlayerButton1 = new MenuIcon("img/triangleButton.png", 28, 387);
+		MenuIcon maxPlayerButton1 = new MenuIcon("img/icon/triangleButton.png", 28, 387);
 		
 		maxPlayerButton1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -56,7 +56,7 @@ public class GameSetting extends AnchorPane {
 		
 		});
 		
-		MenuIcon maxPlayerButton2 = new MenuIcon("img/triangleButton.png", 202, 387);
+		MenuIcon maxPlayerButton2 = new MenuIcon("img/icon/triangleButton.png", 202, 387);
 		maxPlayerButton2.setRotate(180);
 		maxPlayerBox2.setX(25);
 		maxPlayerBox2.setY(385);

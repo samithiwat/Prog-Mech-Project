@@ -15,7 +15,9 @@ import logic.AudioLoader;
 public class CharacterSetting extends AnchorPane {
 
 	private static final int WIDTH = 220;
+	private static final int HEIGHT = 160;
 	private Rectangle bg;
+	private TextTitle empty;
 
 	public CharacterSetting(int x, int y) {
 
@@ -23,27 +25,31 @@ public class CharacterSetting extends AnchorPane {
 		setLayoutY(y);
 		setPrefWidth(WIDTH);
 		setPrefHeight(WIDTH);
-		bg = new Rectangle(WIDTH, WIDTH);
+		bg = new Rectangle(WIDTH, HEIGHT);
 		bg.setId("character-box");
 		bg.setArcWidth(30);
 		bg.setArcHeight(30);
 
-		TextTitle empty = new TextTitle("Empty", Color.rgb(57, 62, 70), FontWeight.BOLD, 24, 73, 35);
+		empty = new TextTitle("Empty", Color.rgb(57, 62, 70), FontWeight.BOLD, 24, 73, 90);
 
-		TextTitle content = new TextTitle("Click here to select character", Color.rgb(57, 62, 70), FontWeight.MEDIUM,
-				12, 29, 120);
+		MenuButton customize = new MenuButton("Customize", 16, 100, 14, Color.web("0x393E46"), 0, 180);
+		customize.setFontBold(16);
+		
+		MenuButton ready = new MenuButton("Ready", 16, 100, 14, Color.web("0x393E46"), 120, 180);
+		ready.setFontBold(16);
 
-		getChildren().addAll(bg, empty, content);
+		getChildren().addAll(bg, empty, customize, ready);
 
 		interact();
 	}
 
 	public void interact() {
 
-		setOnMouseEntered(new EventHandler<MouseEvent>() {
+		bg.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+				empty.setFill(Color.WHITE);
 				bg.setId("character-box-selected");
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
@@ -52,20 +58,23 @@ public class CharacterSetting extends AnchorPane {
 			}
 		});
 
-		setOnMouseExited(new EventHandler<MouseEvent>() {
+		bg.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+				empty.setFill(Color.rgb(57, 62, 70));
 				bg.setId("character-box");
 				setCursor(
 						new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 			}
 		});
 
-		setOnMouseClicked(new EventHandler<MouseEvent>() {
+		bg.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
 				GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
 			}
 		});

@@ -27,7 +27,7 @@ public class MenuIcon extends ImageView implements Clickable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursorSelected.png").toString()))));
+				setCursor(MOUSE_SELECT);
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
 				setEffect(new DropShadow());
@@ -39,7 +39,7 @@ public class MenuIcon extends ImageView implements Clickable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursor.png").toString()))));
+				setCursor(MOUSE_NORMAL);
 				setEffect(null);
 			}
 		});

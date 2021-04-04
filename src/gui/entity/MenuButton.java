@@ -2,6 +2,7 @@ package gui.entity;
 
 import java.util.ArrayList;
 
+import gui.Sceneable;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.event.EventHandler;
@@ -18,7 +19,7 @@ import logic.AudioLoader;
 import logic.FileController;
 import logic.SceneController;
 
-public class MenuButton extends Button implements Clickable {
+public class MenuButton extends Button implements Clickable{
 	
 
 	public MenuButton(String content,int contentSize,int width,int height,Color textColor,int x,int y) {
@@ -39,7 +40,7 @@ public class MenuButton extends Button implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursor.png").toString()))));
+				setCursor(MOUSE_NORMAL);
 				setId("button-release-style");
 				//System.out.println(getStyle());
 			}
@@ -67,7 +68,7 @@ public class MenuButton extends Button implements Clickable {
 //				}
 				
 				//END OF DEBUG
-				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursorSelected.png").toString()))));
+				setCursor(MOUSE_SELECT);
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
 				setId("button-hold-style");
@@ -83,8 +84,7 @@ public class MenuButton extends Button implements Clickable {
 	}
 	
 	public void setFontBold(int size) {
-		setFont(Font.loadFont(getClass().getClassLoader().getResource
-		        (FONT_PATH_BOLD).toExternalForm(), size));
+		setFont(Font.font("Bai Jamjuree",FontWeight.BOLD,size));
 	}
 
 	@Override

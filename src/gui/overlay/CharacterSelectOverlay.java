@@ -26,7 +26,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 		bg.setId("overlay-bg");
 		// bg.setStyle("-fx-fill: rgba(57,62,70,0.5)");
 
-		MenuIcon closeIcon = new MenuIcon("img/Cross.png", 1311, 45);
+		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
 
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 

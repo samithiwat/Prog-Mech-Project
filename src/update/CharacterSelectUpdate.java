@@ -7,12 +7,12 @@ import javafx.application.Platform;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 
-public class CharacterSelectUpdate {
+public class CharacterSelectUpdate implements Updateable{
 	
 	private static Thread t;
 	
 	public static void mouseEnteredUpdate(CharacterCard cc) {
-		cc.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursorSelected.png").toString()))));
+		cc.setCursor(MOUSE_SELECT);
 		cc.setId("character-card-selected");
 		GameLobbyMenu.getBGM().stop();
 		cc.getSoundEffect().play();
@@ -38,7 +38,7 @@ public class CharacterSelectUpdate {
 	
 	public static void mouseExitedUpdate(CharacterCard cc) {
 		cc.setId("character-card");
-		cc.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
+		cc.setCursor(MOUSE_NORMAL);
 		t.interrupt();
 	}
 	

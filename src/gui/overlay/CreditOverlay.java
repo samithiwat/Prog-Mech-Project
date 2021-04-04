@@ -34,7 +34,7 @@ public class CreditOverlay extends Overlay {
 		bg1.setX(100);
 		bg1.setY(100);
 
-		MenuIcon closeIcon = new MenuIcon("img/Cross.png",1300,50);
+		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png",1300,50);
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override

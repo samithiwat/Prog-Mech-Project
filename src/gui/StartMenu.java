@@ -21,7 +21,7 @@ import javafx.util.Duration;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class StartMenu{
+public class StartMenu implements Sceneable{
 
 	private static boolean isVisible = true;
 	private static int count;
@@ -32,7 +32,7 @@ public class StartMenu{
 
 	public StartMenu() throws Exception {
 		
-		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/ChulaIcon.png").toString());
+		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/ChulaIcon.png").toString());
 		logo.setFitWidth(600);
 		logo.setFitHeight(230);
 
@@ -78,7 +78,7 @@ public class StartMenu{
 
 
 	public static Scene CUEngineerIcon() {
-		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/ChulaEngineerLogo.png").toString());
+		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/ChulaEngineerLogo.png").toString());
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
@@ -86,7 +86,7 @@ public class StartMenu{
 	}
 	
 	public static Scene JavaIcon() {
-		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/javaIcon.png").toString());
+		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/javaIcon.png").toString());
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
@@ -127,7 +127,7 @@ public class StartMenu{
 		menuThemeSong = AudioLoader.menuThemeSong;
 		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
 		menuThemeSong.play();
-		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/StartBg.png").toString());
+		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/background/StartBg.png").toString());
 		
 		AnchorPane root = new AnchorPane();
 		
@@ -165,7 +165,7 @@ public class StartMenu{
 		
 		animationTimer.start();
 		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
-		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
+		scene.setCursor(MOUSE_NORMAL);
 		scene.setOnKeyPressed(key ->{
 			if(key.getCode() != KeyCode.ALT) {
 				AudioClip effect = AudioLoader.clickEffect;
