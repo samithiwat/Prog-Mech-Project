@@ -1,6 +1,6 @@
 package update;
 
-import gui.GameSettingMenu;
+import gui.GameLobbyMenu;
 import gui.StartMenu;
 import gui.entity.CharacterCard;
 import javafx.application.Platform;
@@ -14,7 +14,7 @@ public class CharacterSelectUpdate {
 	public static void mouseEnteredUpdate(CharacterCard cc) {
 		cc.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursorSelected.png").toString()))));
 		cc.setId("character-card-selected");
-		GameSettingMenu.getBGM().stop();
+		GameLobbyMenu.getBGM().stop();
 		cc.getSoundEffect().play();
 		t = new Thread(()->{
 			try {
@@ -22,14 +22,14 @@ public class CharacterSelectUpdate {
 			}
 			catch(InterruptedException e) {
 				cc.getSoundEffect().stop();
-				GameSettingMenu.getBGM().play();
+				GameLobbyMenu.getBGM().play();
 			}
 			Platform.runLater(new Runnable() {
 				
 				@Override
 				public void run() {
 					cc.getSoundEffect().stop();
-					GameSettingMenu.getBGM().play();
+					GameLobbyMenu.getBGM().play();
 				}
 			});
 		});

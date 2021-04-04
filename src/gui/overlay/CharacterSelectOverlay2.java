@@ -1,6 +1,6 @@
 package gui.overlay;
 
-import gui.GameSettingMenu;
+import gui.GameLobbyMenu;
 import gui.entity.CharacterCard;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
@@ -23,9 +23,9 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 			@Override
 			public void handle(MouseEvent event) {
 				triggerOverlay(0, 825, 1);
-				GameSettingMenu.getOverlay1().triggerOverlay(0, 825, 1);
+				GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1);
 			}
-		});
+		}); 
 
 		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
 		TextTitle sirThousand = new TextTitle("Sir Thousand Year", Color.WHITE, FontWeight.BOLD, 40, 80, 660);

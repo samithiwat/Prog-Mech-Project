@@ -1,6 +1,6 @@
 package gui.overlay;
 
-import gui.GameSettingMenu;
+import gui.GameLobbyMenu;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
@@ -34,7 +34,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 			public void handle(MouseEvent arg0) {
 				triggerOverlay(0, 825, 1000);
 			}
-		});
+		}); 
 
 		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
 		root.getChildren().addAll(bg, title, closeIcon);

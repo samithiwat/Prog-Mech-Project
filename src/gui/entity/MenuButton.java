@@ -20,15 +20,12 @@ import logic.SceneController;
 
 public class MenuButton extends Button implements Clickable {
 	
-	private final String FONT_PATH_REGULAR = "font/Bai_Jamjuree/BaiJamjuree-Regular.ttf";
-	private final String FONT_PATH_BOLD = "font/Bai_Jamjuree/BaiJamjuree-Bold.ttf";
-	private final String FONT_PATH = "font/Bai_Jamjuree/BaiJamjuree-Bold.ttf";
 
 	public MenuButton(String content,int contentSize,int width,int height,Color textColor,int x,int y) {
 		setLayoutX(x);
 		setLayoutY(y);
 		setTextFill(textColor);
-		setId("mainmenu-button-release-style");
+		setId("button-release-style");
 		setText(content);
 		setFontRegular(contentSize);
 		setPrefHeight(height);
@@ -43,7 +40,7 @@ public class MenuButton extends Button implements Clickable {
 			@Override
 			public void handle(MouseEvent event) {
 				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursor.png").toString()))));
-				setId("mainmenu-button-release-style");
+				setId("button-release-style");
 				//System.out.println(getStyle());
 			}
 			
@@ -73,7 +70,7 @@ public class MenuButton extends Button implements Clickable {
 				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursorSelected.png").toString()))));
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
-				setId("mainmenu-button-hold-style");
+				setId("button-hold-style");
 				//System.out.println(getStyle());
 			}
 			

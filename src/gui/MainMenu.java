@@ -67,7 +67,7 @@ public class MainMenu implements Showable {
 				effect.play();
 				SceneController.setScene(SceneController.getGameSettingMenu());
 				StartMenu.getMenuThemeSong().stop();
-				GameSettingMenu.getBGM().play();
+				GameLobbyMenu.getBGM().play();
 				System.out.println("Change to Start Menu...");
 			}
 		});
@@ -111,7 +111,7 @@ public class MainMenu implements Showable {
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 //		System.out.println(ClassLoader.getSystemResource("css/style.css"));
-		scene.getStylesheets().add(ClassLoader.getSystemResource("css/style.css").toExternalForm());
+		scene.getStylesheets().add(ClassLoader.getSystemResource("css/mainmenu-style.css").toExternalForm());
 
 	}
 

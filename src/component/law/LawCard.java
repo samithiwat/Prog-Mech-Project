@@ -7,5 +7,5 @@ public abstract class LawCard {
 	public LawCard(String name, String effectCard) {
 		this.cardName = name;
 		this.effectCard = effectCard;
-	}
+	} 
 }

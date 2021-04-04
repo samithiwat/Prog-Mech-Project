@@ -2,8 +2,8 @@ package update;
 
 import java.util.ArrayList;
 
-import gui.GameSettingMenu;
-import gui.entity.CharacterBox;
+import gui.GameLobbyMenu;
+import gui.entity.CharacterSetting;
 import gui.entity.GameSetting;
 import gui.entity.TextTitle;
 import logic.SceneController;
@@ -31,7 +31,7 @@ public class GameSettingUpdate {
 	}
 
 	public static void updatePlayerBox() {
-		ArrayList<CharacterBox> cBoxes = GameSettingMenu.getCBoxes();
+		ArrayList<CharacterSetting> cBoxes = GameLobbyMenu.getCBoxes();
 		switch(nPlayer) {
 		case 6 :
 			cBoxes.get(0).setVisible(true);

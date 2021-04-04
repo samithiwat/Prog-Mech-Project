@@ -1,6 +1,6 @@
 package gui.entity;
 
-import gui.GameSettingMenu;
+import gui.GameLobbyMenu;
 import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
@@ -12,13 +12,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 
-public class CharacterBox extends AnchorPane {
+public class CharacterSetting extends AnchorPane {
 
 	private static final int WIDTH = 220;
 	private Rectangle bg;
 
-	public CharacterBox(int x,int y) {
-		
+	public CharacterSetting(int x, int y) {
+
 		setLayoutX(x);
 		setLayoutY(y);
 		setPrefWidth(WIDTH);
@@ -29,16 +29,17 @@ public class CharacterBox extends AnchorPane {
 		bg.setArcHeight(30);
 
 		TextTitle empty = new TextTitle("Empty", Color.rgb(57, 62, 70), FontWeight.BOLD, 24, 73, 35);
-		
-		TextTitle content = new TextTitle("Click here to select character", Color.rgb(57, 62, 70), FontWeight.MEDIUM, 12, 29, 120);
 
-		getChildren().addAll(bg,empty,content);
-		
+		TextTitle content = new TextTitle("Click here to select character", Color.rgb(57, 62, 70), FontWeight.MEDIUM,
+				12, 29, 120);
+
+		getChildren().addAll(bg, empty, content);
+
 		interact();
 	}
-	
+
 	public void interact() {
-	
+
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -46,28 +47,28 @@ public class CharacterBox extends AnchorPane {
 				bg.setId("character-box-selected");
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
-				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursorSelected.png").toString()))));
+				setCursor(new ImageCursor(
+						(new Image(ClassLoader.getSystemResource("img/mouseCursorSelected.png").toString()))));
 			}
 		});
-		
+
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				bg.setId("character-box");
-				setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
+				setCursor(
+						new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
 			}
 		});
-		
+
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				GameSettingMenu.getOverlay1().triggerOverlay(0, 825, 1000);
+				GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
 			}
 		});
 	}
-	
-	
 
 }

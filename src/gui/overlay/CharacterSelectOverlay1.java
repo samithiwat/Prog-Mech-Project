@@ -1,6 +1,6 @@
 package gui.overlay;
 
-import gui.GameSettingMenu;
+import gui.GameLobbyMenu;
 import gui.entity.CharacterCard;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
@@ -20,7 +20,7 @@ public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 			@Override
 			public void handle(MouseEvent event) {
 				triggerOverlay(0, 825, 1);
-				GameSettingMenu.getOverlay2().triggerOverlay(0, 825, 1);
+				GameLobbyMenu.getOverlay2().triggerOverlay(0, 825, 1);
 			}
 		});
 

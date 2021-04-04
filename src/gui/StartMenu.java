@@ -171,7 +171,7 @@ public class StartMenu{
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
 				SceneController.setScene((new TransitionScreen().getScene()));
-				SceneController.setGameSettingMenu((new GameSettingMenu()).getScene());
+				SceneController.setGameSettingMenu((new GameLobbyMenu()).getScene());
 			}
 			
 		});

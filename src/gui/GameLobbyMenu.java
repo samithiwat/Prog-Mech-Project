@@ -2,8 +2,9 @@ package gui;
 
 import java.util.ArrayList;
 
-import gui.entity.CharacterBox;
+import gui.entity.CharacterSetting;
 import gui.entity.GameSetting;
+import gui.entity.MenuButton;
 import gui.entity.TextTitle;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
@@ -24,15 +25,15 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class GameSettingMenu implements Showable {
+public class GameLobbyMenu implements Showable {
 
 	private Scene scene;
 	private static CharacterSelectOverlay1 characterOverlay1;
 	private static CharacterSelectOverlay2 characterOverlay2;
 	private static AudioClip bgm;
-	private static ArrayList<CharacterBox> cBoxes;
+	private static ArrayList<CharacterSetting> cBoxes;
 
-	public GameSettingMenu() {
+	public GameLobbyMenu() {
 
 //		StartMenu.getMenuThemeSong().stop();
 		bgm = AudioLoader.lobbyThemeSong;
@@ -53,41 +54,8 @@ public class GameSettingMenu implements Showable {
 		titleBox.setArcWidth(30);
 		titleBox.setArcHeight(30);
 
-		//MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1097, 758);
+		MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1097, 758);
 		
-		Button back = new Button("Back to Main Menu");
-		back.setTextFill(Color.web("0x393E46"));
-		back.setLayoutX(1097);
-		back.setLayoutY(758);
-		back.setFont(Font.font("Bai Jamjuree",FontWeight.NORMAL,20));
-		back.setPrefHeight(40);
-		back.setPrefWidth(240);
-		
-		back.setId("lobby-button-release");
-
-//		TextTitle back = new TextTitle("Back to Main Menu", Color.web("0x393E46"), FontWeight.BOLD, 20, 1125, 786);
-//		
-		back.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				back.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursorSelected.png").toString()))));
-				AudioClip effect = AudioLoader.mouseEnterSound;
-				effect.play();
-				back.setId("lobby-button");
-			}
-			
-		});
-		
-		back.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				back.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/MouseCursor.png").toString()))));
-				back.setId("lobby-button-release");
-			}
-		
-		});
 		
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -100,30 +68,21 @@ public class GameSettingMenu implements Showable {
 				StartMenu.getMenuThemeSong().play();
 			}
 		});
-//
-//		Rectangle backBox = new Rectangle(240, 40);
-//		backBox.setFill(Color.web("0xFEFDE8"));
-//		backBox.setX(1097);
-//		backBox.setY(758);
-//		backBox.setArcWidth(30);
-//		backBox.setArcHeight(30);
-//		
-//		TextTitle start = new TextTitle("Start", Color.WHITE, FontWeight.BOLD, 48, 682, 203);
-//
+
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.rgb(3, 114, 140));
 
-		CharacterBox cBox1 = new CharacterBox(197, 273);
-		CharacterBox cBox2 = new CharacterBox(497, 273);
-		CharacterBox cBox3 = new CharacterBox(797, 273);
-		CharacterBox cBox4 = new CharacterBox(197, 573);
-		CharacterBox cBox5 = new CharacterBox(497, 573);
-		CharacterBox cBox6 = new CharacterBox(797, 573);
+		CharacterSetting cBox1 = new CharacterSetting(197, 273);
+		CharacterSetting cBox2 = new CharacterSetting(497, 273);
+		CharacterSetting cBox3 = new CharacterSetting(797, 273);
+		CharacterSetting cBox4 = new CharacterSetting(197, 573);
+		CharacterSetting cBox5 = new CharacterSetting(497, 573);
+		CharacterSetting cBox6 = new CharacterSetting(797, 573);
 
 		characterOverlay1 = new CharacterSelectOverlay1();
 		characterOverlay2 = new CharacterSelectOverlay2();
 
-		cBoxes = new ArrayList<CharacterBox>();
+		cBoxes = new ArrayList<CharacterSetting>();
 		cBoxes.add(cBox4);
 		cBoxes.add(cBox5);
 		cBoxes.add(cBox6);
@@ -133,7 +92,7 @@ public class GameSettingMenu implements Showable {
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
-		scene.getStylesheets().add(ClassLoader.getSystemResource("css/style.css").toExternalForm());
+		scene.getStylesheets().add(ClassLoader.getSystemResource("css/lobby-style.css").toExternalForm());
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -164,11 +123,11 @@ public class GameSettingMenu implements Showable {
 		return bgm;
 	}
 
-	public static void setCBoxes(ArrayList<CharacterBox> cBoxes) {
-		GameSettingMenu.cBoxes = cBoxes;
+	public static void setCBoxes(ArrayList<CharacterSetting> cBoxes) {
+		GameLobbyMenu.cBoxes = cBoxes;
 	}
 
-	public static ArrayList<CharacterBox> getCBoxes() {
+	public static ArrayList<CharacterSetting> getCBoxes() {
 		return cBoxes;
 	}
 

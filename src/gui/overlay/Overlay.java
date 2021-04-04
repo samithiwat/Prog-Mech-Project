@@ -21,7 +21,7 @@ public class Overlay extends SubScene implements Overlayable {
 		setLayoutY(initY);
 		setVisible(false);
 	}
-
+ 
 	public AnchorPane getOverlayRoot() {
 		return root;
 	}

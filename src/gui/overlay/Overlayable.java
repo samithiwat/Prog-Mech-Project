@@ -13,3 +13,4 @@ public interface Overlayable {
 	public void triggerOverlay(int dx,int dy,int delay);
 	
 }
+ 

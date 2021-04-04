@@ -23,12 +23,12 @@ public class CreditOverlay extends Overlay {
 	public CreditOverlay() {
 		super((new AnchorPane()),WIDTH,HEIGHT,75,-800);
 
-		setId("mainmenu-overlay");
+		setId("overlay");
 		prefHeight(HEIGHT);
 		prefWidth(WIDTH);
 		
 		Rectangle mainBG = new Rectangle(WIDTH, HEIGHT);
-		mainBG.setFill(Color.rgb(57, 62, 70));
+		mainBG.setId("overlay-bg");
 		Rectangle bg1 = new Rectangle(1200, 600);
 		bg1.setFill(Color.rgb(20, 20, 20));
 		bg1.setX(100);
@@ -62,4 +62,4 @@ public class CreditOverlay extends Overlay {
 
 		root.getChildren().addAll(mainBG, bg1, textBox, closeIcon);
 	}
-}
+} 

@@ -2,7 +2,7 @@ package gui.entity;
 
 import java.util.ArrayList;
 
-import gui.GameSettingMenu;
+import gui.GameLobbyMenu;
 import javafx.application.Platform;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;

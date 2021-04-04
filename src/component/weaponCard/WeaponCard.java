@@ -36,5 +36,4 @@ public class WeaponCard {
 		this.attack_max = attack_max;
 	}
 	
-	
 }

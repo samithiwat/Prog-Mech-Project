@@ -1,6 +1,6 @@
 package application;
 
-import gui.GameSettingMenu;
+import gui.GameLobbyMenu;
 import gui.MainMenu;
 import gui.StartMenu;
 
@@ -28,7 +28,6 @@ public class Main extends Application {
 		SceneController.getStage().setResizable(false);
 		//primaryStage.setMaximized(true);
 		SceneController.startCredit();
-		
 	}
 
 }

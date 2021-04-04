@@ -23,7 +23,7 @@ public class AudioLoader {
 		menuThemeSong.setVolume(volume);
 		lobbyThemeSong.setVolume(volume);
 	}
-	
+	 
 	public static void setEffectVolume(double volume) {
 		mouseEnterSound.setVolume(volume);
 		popSound.setVolume(volume);

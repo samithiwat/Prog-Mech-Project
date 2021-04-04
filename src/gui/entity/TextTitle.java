@@ -13,6 +13,6 @@ public class TextTitle extends Text{
 		setX(x);
 		setY(y);
 		setFont(Font.font("Bai Jamjuree",fontWeight,size));
-	}
+	} 
 	
 }
