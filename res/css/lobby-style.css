@@ -12,11 +12,27 @@
 }
 
 #character-box {
+  -fx-arc-height: 30;
+  -fx-arc-width: 30;
   -fx-fill: rgba(254, 253, 232);
 }
 
-#character-box-selected {
+#character-box-hold {
+  -fx-arc-height: 30;
+  -fx-arc-width: 30;
   -fx-fill: rgb(57, 62, 70);
+}
+
+#character-box-selected {
+  -fx-arc-height: 30;
+  -fx-arc-width: 30;
+  -fx-fill: rgb(165, 165, 165);
+}
+
+#character-box-portraits {
+  -fx-arc-height: 30;
+  -fx-arc-width: 30;
+  -fx-fill: rgb(249, 218, 158);
 }
 
 #character-card {
@@ -24,16 +40,33 @@
   -fx-background-color: rgb(165, 165, 165);
 }
 
-#character-card-selected {
+#character-card-hold {
   opacity: 1;
   -fx-background-color: rgb(0, 0, 0);
+}
+
+#character-card-selected {
+  opacity: 1;
+  -fx-background-color: rgb(165, 165, 165);
+}
+
+#character-card-bg {
+  -fx-arc-height: 30;
+  -fx-arc-width: 30;
+  -fx-fill: rgb(254, 253, 232);
+}
+
+#character-card-bg-selected {
+  -fx-arc-height: 30;
+  -fx-arc-width: 30;
+  -fx-fill: rgb(165, 165, 165);
 }
 
 #box {
   -fx-fill: rgb(97, 101, 107);
 }
 
-#character-select-overlay {
+#overlay {
   -fx-opacity: 0.9;
 }
 

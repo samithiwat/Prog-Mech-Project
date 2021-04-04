@@ -3,6 +3,7 @@ package gui.entity;
 import java.util.ArrayList;
 
 import gui.GameLobbyMenu;
+import gui.overlay.CharacterSelectOverlay;
 import javafx.application.Platform;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
@@ -12,20 +13,25 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.shape.Rectangle;
 import logic.AudioLoader;
 import logic.FileController;
+import logic.GameController;
 import update.CharacterSelectUpdate;
 import update.GameSettingUpdate;
 
-public class CharacterCard extends StackPane{
-	
+public class CharacterCard extends StackPane {
+
 	private AudioClip effect;
-	private final int WIDTH = 350;
-	private final int HEIGHT = 450;
+	private final int WIDTH_BG1 = 350;
+	private final int HEIGHT_BG1 = 450;
+	private final int WIDTH_BG2 = 320;
+	private final int HEIGHT_BG2 = 400;
 	private CharacterCard cc = this;
+	private Rectangle bg;
 	private int id;
 
-	public CharacterCard(int id,String img_path,AudioClip effect,int x,int y) {
+	public CharacterCard(int id, String img_path, AudioClip effect, int x, int y) {
 		super();
 //		//FOR DEBIG ONLY
 //		System.out.println(styleProperty());
@@ -50,23 +56,31 @@ public class CharacterCard extends StackPane{
 //			e.printStackTrace();
 //		}
 //		//END OF DEBUG
-		
+		setCardId(id);
 		setId("character-card");
 		setAlignment(Pos.CENTER);
-		setPrefWidth(WIDTH);
-		setPrefHeight(HEIGHT);
+		setPrefWidth(WIDTH_BG1);
+		setPrefHeight(HEIGHT_BG1);
 		setLayoutX(x);
 		setLayoutY(y);
+
+		bg = new Rectangle(WIDTH_BG2, HEIGHT_BG2);
+		bg.setId("character-card-bg");
+
 		ImageView portraits = new ImageView(ClassLoader.getSystemResource(img_path).toString());
 		this.effect = effect;
-		getChildren().add(portraits);
+		getChildren().addAll(bg, portraits);
 		interact();
 	}
-	
+
 	public AudioClip getSoundEffect() {
 		return this.effect;
 	}
-	
+
+	public Rectangle getBg() {
+		return bg;
+	}
+
 	public int getCardId() {
 		return id;
 	}
@@ -83,41 +97,25 @@ public class CharacterCard extends StackPane{
 				CharacterSelectUpdate.mouseEnteredUpdate(cc);
 			}
 		});
-		
+
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				CharacterSelectUpdate.mouseExitedUpdate(cc);
 			}
-		
+
 		});
-		
+
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				switch(id) {
-				case 1 :
-					GameSettingUpdate.selectCharacterUpdate(1);
-					break;
-				case 2 :
-					GameSettingUpdate.selectCharacterUpdate(2);
-					break;
-				case 3 :
-					GameSettingUpdate.selectCharacterUpdate(3);
-					break;
-				case 4 :
-					GameSettingUpdate.selectCharacterUpdate(4);
-					break;
-				case 5 :
-					GameSettingUpdate.selectCharacterUpdate(5);
-					break;
-				case 6 :
-					GameSettingUpdate.selectCharacterUpdate(6);
-					break;
-				}
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
+				CharacterSelectUpdate.selectCharacterUpdate(getCardId());
 			}
 		});
 	}
+
 }

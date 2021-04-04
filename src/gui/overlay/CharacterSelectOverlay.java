@@ -1,6 +1,9 @@
 package gui.overlay;
 
+import java.util.ArrayList;
+
 import gui.GameLobbyMenu;
+import gui.entity.CharacterCard;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
@@ -9,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
+import update.CharacterSelectUpdate;
 
 public abstract class CharacterSelectOverlay extends Overlay {
 
@@ -17,8 +21,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 
 	public CharacterSelectOverlay() {
 		super((new AnchorPane()), WIDTH, HEIGHT, 75, -800);
-
-		//setId("character-select-overlay");
+		//setId("overlay");
 		setCursor(CURSOR_NORMAL);
 
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
@@ -33,6 +36,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 			@Override
 			public void handle(MouseEvent arg0) {
 				triggerOverlay(0, 825, 1000);
+				CharacterSelectUpdate.closeUpdate();
 			}
 		}); 
 

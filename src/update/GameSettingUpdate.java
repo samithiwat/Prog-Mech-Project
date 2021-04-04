@@ -70,9 +70,6 @@ public class GameSettingUpdate {
 		
 	}
 	
-	public static void selectCharacterUpdate(int id) {
-		
-	}
 
 	public static void setNPlayer(int nPlayer) {
 		GameSettingUpdate.nPlayer = nPlayer;
