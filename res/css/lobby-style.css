@@ -23,12 +23,6 @@
   -fx-fill: rgb(57, 62, 70);
 }
 
-#character-box-selected {
-  -fx-arc-height: 30;
-  -fx-arc-width: 30;
-  -fx-fill: rgb(165, 165, 165);
-}
-
 #character-box-portraits {
   -fx-arc-height: 30;
   -fx-arc-width: 30;
@@ -54,12 +48,6 @@
   -fx-arc-height: 30;
   -fx-arc-width: 30;
   -fx-fill: rgb(254, 253, 232);
-}
-
-#character-card-bg-selected {
-  -fx-arc-height: 30;
-  -fx-arc-width: 30;
-  -fx-fill: rgb(165, 165, 165);
 }
 
 #box {

@@ -33,10 +33,17 @@ public class MainMenu implements Showable, Sceneable {
 
 		AnchorPane root = new AnchorPane();
 
+// -------------------------------------------- Init Overlay --------------------------------------------------------------------
+		
 		CreditOverlay creditOverlay = new CreditOverlay();
 		QuitOverlay quitOverlay = new QuitOverlay();
 
+// -------------------------------------------- Scene Background --------------------------------------------------------------	
+		
 		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/MainMenuBG.png").toString());
+		
+// -------------------------------------------- Scene Icon --------------------------------------------------------------------
+		
 		MenuIcon creditIcon = new MenuIcon("img/icon/About.png",75,60);
 		creditIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -49,8 +56,12 @@ public class MainMenu implements Showable, Sceneable {
 		});
 		MenuIcon helpIcon = new MenuIcon("img/icon/Help.png",223,60);
 		MenuIcon settingIcon = new MenuIcon("img/icon/Setting.png",1300,55);
+		
+// -------------------------------------------- Scene Text --------------------------------------------------------------------
 
 		TextTitle title = new TextTitle("Coconut Island",Color.WHITE,FontWeight.BOLD,120,371,130);
+
+// -------------------------------------------- Menu Button --------------------------------------------------------------------		
 
 		GridPane buttonBar = new GridPane();
 		buttonBar.setHgap(100);
@@ -96,7 +107,9 @@ public class MainMenu implements Showable, Sceneable {
 		buttonBar.add(start, 0, 0);
 		buttonBar.add(load, 1, 0);
 		buttonBar.add(quit, 2, 0);
-		
+
+// -------------------------------------------- Add Icon and Button for Close Game Update --------------------------------------------------------------------	
+	
 		components = new ArrayList<Clickable>();
 		components.add(creditIcon);
 		components.add(helpIcon);
@@ -105,15 +118,17 @@ public class MainMenu implements Showable, Sceneable {
 		components.add(load);
 		components.add(quit);
 		
+// --------------------------------------------- Set Scene --------------------------------------------------------------------
 		
 		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay, quitOverlay);
 		
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(MOUSE_NORMAL);
-//		System.out.println(ClassLoader.getSystemResource("css/style.css"));
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/mainmenu-style.css").toExternalForm());
 
 	}
+	
+// -------------------------------------------- Getter and Setter --------------------------------------------------------------------
 
 	static public ArrayList<Clickable> getComponent() {
 		//System.out.println(components);

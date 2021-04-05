@@ -39,6 +39,10 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 				150);
 		CharacterCard sirTewadeeCard = new CharacterCard(5, "img/character/SirTewadee.png", AudioLoader.sirTewadeeSelectBGM,
 				970, 150);
+		
+		CharacterSelectUpdate.getOverlayTexts().add(sirThousand);
+		CharacterSelectUpdate.getOverlayTexts().add(sirTewada);
+		CharacterSelectUpdate.getOverlayTexts().add(sirTewadee);
 
 		CharacterSelectUpdate.getCc().add(sirThousandCard);
 		CharacterSelectUpdate.getCc().add(sirTewadaCard);

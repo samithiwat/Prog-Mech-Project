@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import gui.GameLobbyMenu;
 import gui.Showable;
 import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,59 +22,90 @@ public class CharacterSetting extends AnchorPane implements Showable {
 	private static final int HEIGHT = 160;
 	private final int WIDTH_BG2 = 200;
 	private final int HEIGHT_BG2 = 140;
-	
+
 	private ArrayList<Rectangle> bg;
 	private ArrayList<TextTitle> texts;
+	private AnchorPane bgGroup;
 	private int id;
+	private ImageView portraits;
+	private CharacterSetting cBox;
 	private boolean isSelected = false;
 
 	public CharacterSetting(int id, int x, int y) {
 
 // --------------------------------------------------- Set Up Character Setting -------------------------------------------------------
-		
+
+		setcBox(this);
 		setCBoxId(id);
 		setLayoutX(x);
 		setLayoutY(y);
 		setPrefWidth(WIDTH);
 		setPrefHeight(WIDTH);
-		
+
 // --------------------------------------------------- Character Setting Background ----------------------------------------------------		
+		bgGroup = new AnchorPane();
+		bgGroup.setPrefWidth(220);
+		bgGroup.setPrefHeight(160);
+		bgGroup.setLayoutX(0);
+		bgGroup.setLayoutY(0);
+
 		Rectangle bg1 = new Rectangle(WIDTH, HEIGHT);
 		bg1.setId("character-box");
-		
+
 		Rectangle bg2 = new Rectangle(WIDTH_BG2, HEIGHT_BG2);
 		bg2.setId("character-box-portraits");
 		bg2.setX(10);
 		bg2.setY(10);
 		bg2.setVisible(false);
 
+// --------------------------------------------------- Character Setting Protraits -----------------------------------------------------------
+
+		portraits = new ImageView(ClassLoader.getSystemResource("img/character/MrRedFox.png").toString());
+		portraits.setX(65);
+		portraits.setY(45);
+		portraits.setFitWidth(90);
+		portraits.setFitHeight(105);	
+		portraits.setVisible(false);
+		
 // --------------------------------------------------- Character Setting Text -----------------------------------------------------------		
 
 		TextTitle empty = new TextTitle("Empty", Color.rgb(57, 62, 70), FontWeight.BOLD, 24, 73, 90);
 		TextTitle name = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 24, 0, 0);
 
 // --------------------------------------------------- Character Setting Button ---------------------------------------------------------
-		
+
 		MenuButton customize = new MenuButton("Customize", 14, 100, 40, Color.web("0x393E46"), 0, 180);
 		customize.setFontBold(14);
 
 		MenuButton ready = new MenuButton("Ready", 14, 100, 40, Color.web("0x393E46"), 120, 180);
 		ready.setFontBold(14);
+		
+		ready.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
+				CharacterSelectUpdate.setcBox(getcBox());
+				CharacterSelectUpdate.readyUpdate();
+			}
+		});
 
 // ---------------------------------------------------- Add Character Setting's Components for Update Class -----------------------------
-		
+
 		bg = new ArrayList<Rectangle>();
 		bg.add(bg1);
 		bg.add(bg2);
-		
+
 		texts = new ArrayList<TextTitle>();
 		texts.add(empty);
 		texts.add(name);
-		
-		getChildren().addAll(bg1,bg2, empty, name, customize, ready);
+
+		bgGroup.getChildren().addAll(bg1, bg2, name, empty, portraits);
+
+		getChildren().addAll(bgGroup, customize, ready);
 
 		AnchorPane.setTopAnchor(name, 10.0);
-		
+
 		interact();
 	}
 
@@ -80,7 +113,7 @@ public class CharacterSetting extends AnchorPane implements Showable {
 
 	public void interact() {
 
-		setOnMouseEntered(new EventHandler<MouseEvent>() {
+		bgGroup.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -92,32 +125,34 @@ public class CharacterSetting extends AnchorPane implements Showable {
 			}
 		});
 
-		setOnMouseExited(new EventHandler<MouseEvent>() {
+		bgGroup.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				setCursor(CURSOR_NORMAL);
-				if(!isSelected()) {
+				if (!isSelected()) {
 					texts.get(0).setFill(Color.rgb(57, 62, 70));
 					bg.get(0).setId("character-box");
-				}
-				else {
+				} else {
 					bg.get(0).setId("character-box-selected");
 				}
 			}
 		});
 
-		setOnMouseClicked(new EventHandler<MouseEvent>() {
+		bgGroup.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				AudioClip effect = AudioLoader.clickEffect;
-				effect.play();
-				CharacterSelectUpdate.setcBoxId(id);
+				CLICK_EFFECT.play();
+				CharacterSelectUpdate.setcBox(getcBox());
+				// CharacterSelectUpdate.setcBoxId(id);
+				CharacterSelectUpdate.overlayUpdate();
 				GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
 			}
 		});
 	}
+	
+// ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
 	public int getCBoxId() {
 		return this.id;
@@ -143,4 +178,31 @@ public class CharacterSetting extends AnchorPane implements Showable {
 		this.isSelected = isSelected;
 	}
 
+	public AnchorPane getBgGroup() {
+		return bgGroup;
+	}
+
+	public void setBgGroup(AnchorPane bgGroup) {
+		this.bgGroup = bgGroup;
+	}
+
+	public CharacterSetting getcBox() {
+		return cBox;
+	}
+
+	public void setcBox(CharacterSetting cBox) {
+		this.cBox = cBox;
+	}
+
+	public ImageView getPortraits() {
+		return portraits;
+	}
+
+	public void setPortraits(ImageView portraits) {
+		this.portraits = portraits;
+	}
+
+	public String toString() {
+		return "id : " + this.id;
+	}
 }

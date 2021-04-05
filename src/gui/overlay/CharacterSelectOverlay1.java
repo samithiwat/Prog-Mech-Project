@@ -20,12 +20,13 @@ public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 
 			@Override
 			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
 				triggerOverlay(0, 825, 1);
 				GameLobbyMenu.getOverlay2().triggerOverlay(0, 825, 1);
 			}
 		});
 
-		TextTitle mrFox = new TextTitle("Mr.Red Fox", Color.WHITE, FontWeight.BOLD, 40, 160, 660);
+		TextTitle mrFox = new TextTitle("Mr.Red Fox", Color.WHITE, FontWeight.BOLD, 40, 145, 660);
 		TextTitle ladyCollector = new TextTitle("Lady Collector", Color.WHITE, FontWeight.BOLD, 40, 565, 660);
 		TextTitle blackSkull = new TextTitle("Black Skull", Color.WHITE, FontWeight.BOLD, 40, 1048, 660);
 
@@ -35,6 +36,10 @@ public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 				525, 150);
 		CharacterCard BlackSkullCard = new CharacterCard(2, "img/character/BlackSkull.png", AudioLoader.blackSkullSelectBGM,
 				970, 150);
+		
+		CharacterSelectUpdate.getOverlayTexts().add(mrFox);
+		CharacterSelectUpdate.getOverlayTexts().add(ladyCollector);
+		CharacterSelectUpdate.getOverlayTexts().add(blackSkull);
 		
 		CharacterSelectUpdate.getCc().add(mrFoxCard);
 		CharacterSelectUpdate.getCc().add(ladyCollectorCard);

@@ -73,8 +73,7 @@ public class GameLobbyMenu implements Showable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				AudioClip effect = AudioLoader.clickEffect;
-				effect.play();
+				CLICK_EFFECT.play();
 				SceneController.setScene((new MainMenu()).getScene());
 				bgm.stop();
 				StartMenu.getMenuThemeSong().play();

@@ -6,6 +6,7 @@ public class AudioLoader {
 	public static AudioClip lobbyThemeSong = new AudioClip(ClassLoader.getSystemResource("audio/GameSettingMenuBGM.mp3").toString());
 	public static AudioClip menuThemeSong = new AudioClip(ClassLoader.getSystemResource("audio/MainMenuThemeSong1.wav").toString());
 	public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep1.mp3").toString());
+	public static AudioClip errorSound = new AudioClip(ClassLoader.getSystemResource("audio/Error.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep2.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep3.mp3").toString());
 	public static AudioClip quitSound = new AudioClip(ClassLoader.getSystemResource("audio/QuitEffect.mp3").toString());

@@ -24,23 +24,29 @@ public abstract class CharacterSelectOverlay extends Overlay {
 		//setId("overlay");
 		setCursor(CURSOR_NORMAL);
 
+// -------------------------------------------- Scene Background --------------------------------------------------------------	
+		
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
 		bg.setFill(Color.web("0x393E46"));
 		bg.setId("overlay-bg");
-		// bg.setStyle("-fx-fill: rgba(57,62,70,0.5)");
+		
 
+// -------------------------------------------- Close Icon ---------------------------------------------------------------------
+		
 		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
 
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
 				triggerOverlay(0, 825, 1000);
 				CharacterSelectUpdate.closeUpdate();
 			}
 		}); 
 
 		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
+		
 		root.getChildren().addAll(bg, title, closeIcon);
 	}
 
