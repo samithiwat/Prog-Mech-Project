@@ -40,7 +40,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 			@Override
 			public void handle(MouseEvent event) {
 				CLICK_EFFECT.play();
-				triggerOverlay(0, 825, 1000);
+				triggerOverlay(0, 825, 1500);
 				CharacterSelectUpdate.closeUpdate();
 			}
 		}); 

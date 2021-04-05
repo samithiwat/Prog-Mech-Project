@@ -9,6 +9,7 @@ public class AudioLoader {
 	public static AudioClip errorSound = new AudioClip(ClassLoader.getSystemResource("audio/Error.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep2.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep3.mp3").toString());
+	public static AudioClip transitionEffect = new AudioClip(ClassLoader.getSystemResource("audio/TransitionEffect.mp3").toString());
 	public static AudioClip quitSound = new AudioClip(ClassLoader.getSystemResource("audio/QuitEffect.mp3").toString());
 	public static AudioClip popSound = new AudioClip(ClassLoader.getSystemResource("audio/Pop.mp3").toString());
 	public static AudioClip keyBoardTypingEffect = new AudioClip(ClassLoader.getSystemResource("audio/KeyboardTypingEffect.mp3").toString());
@@ -19,16 +20,24 @@ public class AudioLoader {
 	public static AudioClip sirThousandSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/MrFoxCharacterSelectBG.mp3").toString());
 	public static AudioClip sirTewadaSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/MrFoxCharacterSelectBG.mp3").toString());
 	public static AudioClip sirTewadeeSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/MrFoxCharacterSelectBG.mp3").toString());
-	
+	 
 	public static void setBGMVolume(double volume) {
 		menuThemeSong.setVolume(volume);
 		lobbyThemeSong.setVolume(volume);
+		mrFoxSelectBGM.setVolume(volume);
+		ladySelectBGM.setVolume(volume);
+		blackSkullSelectBGM.setVolume(volume);
+		sirThousandSelectBGM.setVolume(volume);
+		sirTewadaSelectBGM.setVolume(volume);
+		sirTewadeeSelectBGM.setVolume(volume);
 	}
-	 
+
 	public static void setEffectVolume(double volume) {
 		mouseEnterSound.setVolume(volume);
 		popSound.setVolume(volume);
 		quitSound.setVolume(volume);
 		clickEffect.setVolume(volume);
+		errorSound.setVolume(volume);
+		transitionEffect.setVolume(volume);
 	}
 }

@@ -18,10 +18,10 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-//		//System.out.println(ClassLoader.getSystemResource("audio/MainMenuThemeSong1.wav").toString());
+//		System.out.println(ClassLoader.getSystemResource("audio/MainMenuThemeSong1.wav").toString());
 //		AudioClip effect = AudioLoader.menuThemeSong;
 //		effect.play();
-//		primaryStage.setScene((new GameSettingMenu()).getScene());
+//		primaryStage.setScene((new GameLobbyMenu()).getScene());
 //		primaryStage.show();
 		SceneController.setScene((new StartMenu()).getScene());
 		SceneController.getStage().show();

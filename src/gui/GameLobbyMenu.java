@@ -6,6 +6,7 @@ import gui.entity.CharacterSetting;
 import gui.entity.GameSetting;
 import gui.entity.MenuButton;
 import gui.entity.TextTitle;
+import gui.overlay.CharacterInfo;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
 import javafx.event.EventHandler;
@@ -31,6 +32,7 @@ public class GameLobbyMenu implements Showable {
 	private Scene scene;
 	private static CharacterSelectOverlay1 characterOverlay1;
 	private static CharacterSelectOverlay2 characterOverlay2;
+	private static CharacterInfo characterInfo;
 	private static AudioClip bgm;
 	private static ArrayList<CharacterSetting> cBoxes;
 
@@ -44,10 +46,10 @@ public class GameLobbyMenu implements Showable {
 
 // ----------------------------------------------- Select Character Array Set Up ---------------------------------------------		
 
-		for(int i=0;i<6;i++) {
+		for (int i = 0; i < 6; i++) {
 			GameController.gameCharacter.add(null);
 		}
-		
+
 // ----------------------------------------------- Create Game Setting Tab ---------------------------------------------------
 		GameSetting gameSetting = new GameSetting();
 		gameSetting.setLayoutX(1097);
@@ -66,9 +68,8 @@ public class GameLobbyMenu implements Showable {
 
 // ---------------------------------------------- Create Back to Main Menu Button --------------------------------------------	
 
-		MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1097, 758);
+		MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1102, 758);
 		back.setFontBold(20);
-		
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -86,16 +87,21 @@ public class GameLobbyMenu implements Showable {
 		bg.setFill(Color.rgb(3, 114, 140));
 
 // -------------------------------------------- Character Select Box ----------------------------------------------------------
-		
-		CharacterSetting cBox1 = new CharacterSetting(0,197, 273);
-		CharacterSetting cBox2 = new CharacterSetting(1,497, 273);
-		CharacterSetting cBox3 = new CharacterSetting(2,797, 273);
-		CharacterSetting cBox4 = new CharacterSetting(3,197, 573);
-		CharacterSetting cBox5 = new CharacterSetting(4,497, 573);
-		CharacterSetting cBox6 = new CharacterSetting(5,797, 573);
+
+		CharacterSetting cBox1 = new CharacterSetting(0, 197, 273);
+		CharacterSetting cBox2 = new CharacterSetting(1, 497, 273);
+		CharacterSetting cBox3 = new CharacterSetting(2, 797, 273);
+		CharacterSetting cBox4 = new CharacterSetting(3, 197, 573);
+		CharacterSetting cBox5 = new CharacterSetting(4, 497, 573);
+		CharacterSetting cBox6 = new CharacterSetting(5, 797, 573);
+
+// -------------------------------------------- Character Overlay ----------------------------------------------------------
 
 		characterOverlay1 = new CharacterSelectOverlay1();
 		characterOverlay2 = new CharacterSelectOverlay2();
+		characterInfo = new CharacterInfo();
+
+// -------------------------------------------- Add cBox to Array for Character Update ----------------------------------------------------------
 
 		cBoxes = new ArrayList<CharacterSetting>();
 		cBoxes.add(cBox1);
@@ -104,11 +110,12 @@ public class GameLobbyMenu implements Showable {
 		cBoxes.add(cBox4);
 		cBoxes.add(cBox5);
 		cBoxes.add(cBox6);
-		
+
 // -------------------------------------------- Set Scene -----------------------------------------------------------------------
 
 		root.getChildren().addAll(bg, cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
-		root.getChildren().addAll(back, title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2);
+		root.getChildren().addAll(back, title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2,
+				characterInfo);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
@@ -116,7 +123,7 @@ public class GameLobbyMenu implements Showable {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 // -------------------------------------------- ESC Key Setting ------------------------------------------------------------------	
-		
+
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode() == KeyCode.ESCAPE) {
@@ -153,4 +160,12 @@ public class GameLobbyMenu implements Showable {
 		return cBoxes;
 	}
 
+	public static CharacterInfo getCharacterInfo() {
+		return characterInfo;
+	}
+
+	public static void setCharacterInfo(CharacterInfo characterInfo) {
+		GameLobbyMenu.characterInfo = characterInfo;
+	}	
+	
 }

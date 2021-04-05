@@ -30,6 +30,7 @@ public class CharacterSetting extends AnchorPane implements Showable {
 	private ImageView portraits;
 	private CharacterSetting cBox;
 	private boolean isSelected = false;
+	private boolean isReady = false;
 
 	public CharacterSetting(int id, int x, int y) {
 
@@ -58,7 +59,7 @@ public class CharacterSetting extends AnchorPane implements Showable {
 		bg2.setY(10);
 		bg2.setVisible(false);
 
-// --------------------------------------------------- Character Setting Protraits -----------------------------------------------------------
+// --------------------------------------------------- Character Setting Portraits -----------------------------------------------------------
 
 		portraits = new ImageView(ClassLoader.getSystemResource("img/character/MrRedFox.png").toString());
 		portraits.setX(65);
@@ -205,4 +206,13 @@ public class CharacterSetting extends AnchorPane implements Showable {
 	public String toString() {
 		return "id : " + this.id;
 	}
+
+	public boolean isReady() {
+		return isReady;
+	}
+
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
+	}
+
 }

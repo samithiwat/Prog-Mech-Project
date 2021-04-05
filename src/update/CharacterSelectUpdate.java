@@ -12,7 +12,7 @@ import gui.GameLobbyMenu;
 import gui.entity.CharacterCard;
 import gui.entity.CharacterSetting;
 import gui.entity.TextTitle;
-
+import gui.overlay.CharacterInfo;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +37,14 @@ public class CharacterSelectUpdate implements Updateable {
 
 	public static CharacterSetting getcBox() {
 		return cBox;
+	}
+
+	public static ArrayList<TextTitle> getOverlayInfoTexts() {
+		return overlayInfoTexts;
+	}
+
+	public static void setOverlayInfoTexts(ArrayList<TextTitle> overlayInfoTexts) {
+		CharacterSelectUpdate.overlayInfoTexts = overlayInfoTexts;
 	}
 
 	public static void setcBox(CharacterSetting cBox) {
@@ -83,15 +91,16 @@ public class CharacterSelectUpdate implements Updateable {
 		t.interrupt();
 	}
 
-// ------------------------------------------ Set Disable Duration When Click Close Icon For Prevent Sound Bug ----------------------------------------------
+// ------------------------------------------ Set Disable Duration When Click Close Icon For Prevent Sound Bug and Selection Bug ----------------------------------------------
 
 	public static void closeUpdate() {
 		for (int i = 0; i < 6; i++) {
 			cc.get(i).setDisable(true);
+			GameLobbyMenu.getCBoxes().get(i).setDisable(true);
 		}
 		Thread t = new Thread(() -> {
 			try {
-				Thread.sleep(900);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 
 			}
@@ -101,6 +110,9 @@ public class CharacterSelectUpdate implements Updateable {
 				public void run() {
 					for (int i = 0; i < 6; i++) {
 						cc.get(i).setDisable(false);
+						if(!GameLobbyMenu.getCBoxes().get(i).isReady()) {
+							GameLobbyMenu.getCBoxes().get(i).setDisable(false);
+						}
 					}
 				}
 			});
@@ -187,6 +199,7 @@ public class CharacterSelectUpdate implements Updateable {
 	public static void readyUpdate() {
 		if (cBox.isSelected()) {
 			cBox.setDisable(true);
+			cBox.setReady(true);
 		} else {
 			AudioClip effect = AudioLoader.errorSound;
 			effect.play();
@@ -210,7 +223,63 @@ public class CharacterSelectUpdate implements Updateable {
 			}
 		}
 	}
-
+// --------------------------------------------------------------- Trigger Character Information Overlay ---------------------------------------------
+	
+	public static void rightClickUpdate(int id) {
+		AudioClip effect = AudioLoader.transitionEffect;
+		effect.play();
+		for(int i = 0;i < 6; i++) {
+			cc.get(i).setDisable(true);
+		}
+		
+		switch(id) {
+		case 0 :
+			overlayInfoTexts.get(0).setText("Capture 3 Mine");
+			overlayInfoTexts.get(0).setX(431);
+			overlayInfoTexts.get(1).setText("Get extra money when start game");
+			overlayInfoTexts.get(1).setX(221);
+			CharacterInfo.getBg2().setFill(Color.web("0xF58C4A"));
+			break;
+		case 1 :
+			overlayInfoTexts.get(0).setText("Capture 3 Minion");
+			overlayInfoTexts.get(0).setX(410);
+			overlayInfoTexts.get(1).setText("Get extra attact while defencing");
+			overlayInfoTexts.get(1).setX(256);
+			CharacterInfo.getBg2().setFill(Color.web("0x0296AF"));
+			break;
+		case 2 :
+			overlayInfoTexts.get(0).setText("Has anyone stand on 4 secret base");
+			overlayInfoTexts.get(0).setX(216);
+			overlayInfoTexts.get(1).setText("Prison break (can use only one time)");
+			overlayInfoTexts.get(1).setX(193);
+			CharacterInfo.getBg2().setFill(Color.web("0x04AD8F"));
+			break;
+		case 3 :
+			overlayInfoTexts.get(0).setText("Government arrest 3 prisoner");
+			overlayInfoTexts.get(0).setX(269);
+			overlayInfoTexts.get(1).setText("Get extra attact while attacking");
+			overlayInfoTexts.get(1).setX(256);
+			CharacterInfo.getBg2().setFill(Color.web("0xB76389"));
+			break;
+		case 4 :
+			overlayInfoTexts.get(0).setText("Has government 7 times in a row");
+			overlayInfoTexts.get(0).setX(235);
+			overlayInfoTexts.get(1).setText("Power of goodness (can use only one time)");
+			overlayInfoTexts.get(1).setX(121);
+			CharacterInfo.getBg2().setFill(Color.web("0xFAB24E"));
+			break;
+		case 5 :
+			overlayInfoTexts.get(0).setText("Has total 7 exiled government in the ocean");
+			overlayInfoTexts.get(0).setX(125);
+			overlayInfoTexts.get(1).setText("Power of goodness (can use only one time)");
+			overlayInfoTexts.get(1).setX(121);
+			CharacterInfo.getBg2().setFill(Color.web("0xE04B4B"));
+			break;
+		}
+		
+		GameLobbyMenu.getCharacterInfo().triggerOverlay(0, 825, 1000);
+	}
+	
 // --------------------------------------------------------------- Set Portraits For selected Character ---------------------------------------------
 
 	private static void setPortraits(int id) {

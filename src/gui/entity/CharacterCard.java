@@ -10,6 +10,7 @@ import javafx.css.Styleable;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
@@ -149,12 +150,19 @@ public class CharacterCard extends StackPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(event.isSecondaryButtonDown()) {
-					
+				System.out.println(event);
+				if(event.getButton().equals(MouseButton.SECONDARY)) {
+//					AudioClip effect = AudioLoader.transitionEffect;
+//					effect.play();
+//					GameLobbyMenu.getCharacterInfo().triggerOverlay(0, 825, 1000);
+					CharacterSelectUpdate.rightClickUpdate(getCardId());
 				}
-				AudioClip effect = AudioLoader.clickEffect;
-				effect.play();
-				CharacterSelectUpdate.selectCharacterUpdate(getCardId());
+				else {
+					AudioClip effect = AudioLoader.clickEffect;
+					effect.play();
+					CharacterSelectUpdate.selectCharacterUpdate(getCardId());
+				}
+				
 			}
 		});
 	}
