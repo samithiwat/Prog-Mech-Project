@@ -1,12 +1,5 @@
 package gui.entity;
 
-import java.util.ArrayList;
-
-import gui.GameLobbyMenu;
-import gui.overlay.CharacterSelectOverlay;
-import javafx.application.Platform;
-import javafx.css.CssMetaData;
-import javafx.css.Styleable;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -18,10 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
-import logic.FileController;
-import logic.GameController;
 import update.CharacterSelectUpdate;
-import update.GameSettingUpdate;
 
 public class CharacterCard extends StackPane {
 

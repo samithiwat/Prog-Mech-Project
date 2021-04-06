@@ -1,9 +1,5 @@
 package gui.overlay;
 
-import java.util.ArrayList;
-
-import gui.GameLobbyMenu;
-import gui.entity.CharacterCard;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
@@ -21,18 +17,17 @@ public abstract class CharacterSelectOverlay extends Overlay {
 
 	public CharacterSelectOverlay() {
 		super((new AnchorPane()), WIDTH, HEIGHT, 75, -800);
-		//setId("overlay");
+		// setId("overlay");
 		setCursor(CURSOR_NORMAL);
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------	
-		
+
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
 		bg.setFill(Color.web("0x393E46"));
 		bg.setId("overlay-bg");
-		
 
 // -------------------------------------------- Close Icon ---------------------------------------------------------------------
-		
+
 		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
 
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -43,11 +38,14 @@ public abstract class CharacterSelectOverlay extends Overlay {
 				triggerOverlay(0, 825, 1500);
 				CharacterSelectUpdate.closeUpdate();
 			}
-		}); 
+		});
+
+// -------------------------------------------- Overlay Text ---------------------------------------------------------------------
 
 		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
-		
-		root.getChildren().addAll(bg, title, closeIcon);
+		TextTitle info = new TextTitle("Right Click for more information", Color.WHITE, FontWeight.MEDIUM, 48, 356, 750);
+
+		root.getChildren().addAll(bg, info, title, closeIcon);
 	}
 
 }

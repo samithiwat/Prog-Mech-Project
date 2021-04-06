@@ -8,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -25,6 +24,7 @@ public class CharacterSetting extends AnchorPane implements Showable {
 
 	private ArrayList<Rectangle> bg;
 	private ArrayList<TextTitle> texts;
+	private ArrayList<MenuButton> buttons;
 	private AnchorPane bgGroup;
 	private int id;
 	private ImageView portraits;
@@ -90,9 +90,28 @@ public class CharacterSetting extends AnchorPane implements Showable {
 				CharacterSelectUpdate.readyUpdate();
 			}
 		});
+		
+		MenuButton unready = new MenuButton("Unready", 14, 100, 40, Color.web("0x393E46"), 120, 180);
+		unready.setFontBold(14);
+		unready.setVisible(false);
+		
+		unready.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
+				CharacterSelectUpdate.setcBox(getcBox());
+				CharacterSelectUpdate.unreadyUpdate();
+			}
+		});
 
 // ---------------------------------------------------- Add Character Setting's Components for Update Class -----------------------------
 
+		buttons = new ArrayList<MenuButton>();
+		buttons.add(ready);
+		buttons.add(unready);
+		buttons.add(customize);
+		
 		bg = new ArrayList<Rectangle>();
 		bg.add(bg1);
 		bg.add(bg2);
@@ -103,7 +122,7 @@ public class CharacterSetting extends AnchorPane implements Showable {
 
 		bgGroup.getChildren().addAll(bg1, bg2, name, empty, portraits);
 
-		getChildren().addAll(bgGroup, customize, ready);
+		getChildren().addAll(bgGroup, customize, ready, unready);
 
 		AnchorPane.setTopAnchor(name, 10.0);
 
@@ -213,6 +232,14 @@ public class CharacterSetting extends AnchorPane implements Showable {
 
 	public void setReady(boolean isReady) {
 		this.isReady = isReady;
+	}
+
+	public ArrayList<MenuButton> getButtons() {
+		return buttons;
+	}
+
+	public void setButtons(ArrayList<MenuButton> buttons) {
+		this.buttons = buttons;
 	}
 
 }

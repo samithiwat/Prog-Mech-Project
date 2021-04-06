@@ -18,9 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.GameController;
 
@@ -96,7 +93,10 @@ public class CharacterSelectUpdate implements Updateable {
 	public static void closeUpdate() {
 		for (int i = 0; i < 6; i++) {
 			cc.get(i).setDisable(true);
-			GameLobbyMenu.getCBoxes().get(i).setDisable(true);
+			GameLobbyMenu.getCBoxes().get(i).getButtons().get(1).setDisable(true);
+			if(!GameLobbyMenu.getCBoxes().get(i).isReady()) {
+				GameLobbyMenu.getCBoxes().get(i).setDisable(true);
+			}
 		}
 		Thread t = new Thread(() -> {
 			try {
@@ -110,6 +110,7 @@ public class CharacterSelectUpdate implements Updateable {
 				public void run() {
 					for (int i = 0; i < 6; i++) {
 						cc.get(i).setDisable(false);
+						GameLobbyMenu.getCBoxes().get(i).getButtons().get(1).setDisable(false);
 						if(!GameLobbyMenu.getCBoxes().get(i).isReady()) {
 							GameLobbyMenu.getCBoxes().get(i).setDisable(false);
 						}
@@ -194,16 +195,31 @@ public class CharacterSelectUpdate implements Updateable {
 		//System.out.println("gameCharacter : " + GameController.gameCharacter);
 	}
 
-// --------------------------------------------------------------- Update When Click Ready Button ---------------------------------------------
+// --------------------------------------------------------------- Update When Click Ready Button ---------------------------------------------------
 
 	public static void readyUpdate() {
 		if (cBox.isSelected()) {
-			cBox.setDisable(true);
+			cBox.getButtons().get(0).setVisible(false);
+			cBox.getButtons().get(1).setVisible(true);
+			cBox.getButtons().get(2).setDisable(true);
+			cBox.getBgGroup().setDisable(true);
+			//cBox.setDisable(true);
 			cBox.setReady(true);
 		} else {
 			AudioClip effect = AudioLoader.errorSound;
 			effect.play();
 		}
+	}
+	
+// --------------------------------------------------------------- Update When Click Unready Button ------------------------------------------------
+	
+	public static void unreadyUpdate() {
+		cBox.getButtons().get(0).setVisible(true);
+		cBox.getButtons().get(1).setVisible(false);
+		cBox.getButtons().get(2).setDisable(false);
+		cBox.getBgGroup().setDisable(false);
+		cBox.setDisable(false);
+		cBox.setReady(false);
 	}
 
 // --------------------------------------------------------------- Update When Trigger Overlay ------------------------------------------------------
