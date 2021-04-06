@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
+import update.CharacterSelectUpdate;
 
 public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 
@@ -19,29 +20,30 @@ public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 
 			@Override
 			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
 				triggerOverlay(0, 825, 1);
 				GameLobbyMenu.getOverlay2().triggerOverlay(0, 825, 1);
 			}
 		});
 
-		TextTitle mrFox = new TextTitle("Mr.Red Fox", Color.WHITE, FontWeight.BOLD, 40, 160, 660);
+		TextTitle mrFox = new TextTitle("Mr.Red Fox", Color.WHITE, FontWeight.BOLD, 40, 145, 660);
 		TextTitle ladyCollector = new TextTitle("Lady Collector", Color.WHITE, FontWeight.BOLD, 40, 565, 660);
 		TextTitle blackSkull = new TextTitle("Black Skull", Color.WHITE, FontWeight.BOLD, 40, 1048, 660);
 
-		CharacterCard mrFoxCard = new CharacterCard(1, "img/character/MrRedFoxCard.png", AudioLoader.mrFoxSelectBGM, 80, 150);
+		CharacterCard mrFoxCard = new CharacterCard(0, "img/character/MrRedFox.png", AudioLoader.mrFoxSelectBGM, 80, 150);
 
-		mrFoxCard.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-
-			}
-		});
-
-		CharacterCard ladyCollectorCard = new CharacterCard(2, "img/character/LadyCollectorCard.png", AudioLoader.ladySelectBGM,
+		CharacterCard ladyCollectorCard = new CharacterCard(1, "img/character/LadyCollector.png", AudioLoader.ladySelectBGM,
 				525, 150);
-		CharacterCard BlackSkullCard = new CharacterCard(3, "img/character/BlackSkullCard.png", AudioLoader.blackSkullSelectBGM,
+		CharacterCard BlackSkullCard = new CharacterCard(2, "img/character/BlackSkull.png", AudioLoader.blackSkullSelectBGM,
 				970, 150);
+		
+		CharacterSelectUpdate.getOverlayTexts().add(mrFox);
+		CharacterSelectUpdate.getOverlayTexts().add(ladyCollector);
+		CharacterSelectUpdate.getOverlayTexts().add(blackSkull);
+		
+		CharacterSelectUpdate.getCc().add(mrFoxCard);
+		CharacterSelectUpdate.getCc().add(ladyCollectorCard);
+		CharacterSelectUpdate.getCc().add(BlackSkullCard);
 
 		root.getChildren().addAll(mrFox, ladyCollector, blackSkull, mrFoxCard, ladyCollectorCard, BlackSkullCard,
 				changePageIcon);

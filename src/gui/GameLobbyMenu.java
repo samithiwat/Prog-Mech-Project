@@ -6,13 +6,11 @@ import gui.entity.CharacterSetting;
 import gui.entity.GameSetting;
 import gui.entity.MenuButton;
 import gui.entity.TextTitle;
+import gui.overlay.CharacterInfo;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
 import javafx.event.EventHandler;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -20,9 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
+import logic.GameController;
 import logic.SceneController;
 
 public class GameLobbyMenu implements Showable {
@@ -30,6 +28,7 @@ public class GameLobbyMenu implements Showable {
 	private Scene scene;
 	private static CharacterSelectOverlay1 characterOverlay1;
 	private static CharacterSelectOverlay2 characterOverlay2;
+	private static CharacterInfo characterInfo;
 	private static AudioClip bgm;
 	private static ArrayList<CharacterSetting> cBoxes;
 
@@ -41,9 +40,18 @@ public class GameLobbyMenu implements Showable {
 
 		AnchorPane root = new AnchorPane();
 
+// ----------------------------------------------- Select Character Array Set Up ---------------------------------------------		
+
+		for (int i = 0; i < 6; i++) {
+			GameController.gameCharacter.add(null);
+		}
+
+// ----------------------------------------------- Create Game Setting Tab ---------------------------------------------------
 		GameSetting gameSetting = new GameSetting();
 		gameSetting.setLayoutX(1097);
 		gameSetting.setLayoutY(253);
+
+// ----------------------------------------------- Create Misc Box -----------------------------------------------------------		
 
 		TextTitle title = new TextTitle("Game Lobby", Color.WHITE, FontWeight.BOLD, 72, 554, 113);
 		TextTitle label = new TextTitle("Players", Color.WHITE, FontWeight.BOLD, 48, 682, 203);
@@ -54,46 +62,63 @@ public class GameLobbyMenu implements Showable {
 		titleBox.setArcWidth(30);
 		titleBox.setArcHeight(30);
 
-		MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1097, 758);
+// ---------------------------------------------- Create Back to Main Menu Button --------------------------------------------	
+
+		MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1102, 758);
 		back.setFontBold(20);
-		
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				AudioClip effect = AudioLoader.clickEffect;
-				effect.play();
+				CLICK_EFFECT.play();
 				SceneController.setScene((new MainMenu()).getScene());
 				bgm.stop();
 				StartMenu.getMenuThemeSong().play();
 			}
 		});
 
+// -------------------------------------------- Scene Background --------------------------------------------------------------		
+
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.rgb(3, 114, 140));
 
-		CharacterSetting cBox1 = new CharacterSetting(197, 273);
-		CharacterSetting cBox2 = new CharacterSetting(497, 273);
-		CharacterSetting cBox3 = new CharacterSetting(797, 273);
-		CharacterSetting cBox4 = new CharacterSetting(197, 573);
-		CharacterSetting cBox5 = new CharacterSetting(497, 573);
-		CharacterSetting cBox6 = new CharacterSetting(797, 573);
+// -------------------------------------------- Character Select Box ----------------------------------------------------------
+
+		CharacterSetting cBox1 = new CharacterSetting(0, 197, 273);
+		CharacterSetting cBox2 = new CharacterSetting(1, 497, 273);
+		CharacterSetting cBox3 = new CharacterSetting(2, 797, 273);
+		CharacterSetting cBox4 = new CharacterSetting(3, 197, 573);
+		CharacterSetting cBox5 = new CharacterSetting(4, 497, 573);
+		CharacterSetting cBox6 = new CharacterSetting(5, 797, 573);
+
+// -------------------------------------------- Character Overlay ----------------------------------------------------------
 
 		characterOverlay1 = new CharacterSelectOverlay1();
 		characterOverlay2 = new CharacterSelectOverlay2();
+		characterInfo = new CharacterInfo();
+
+// -------------------------------------------- Add cBox to Array for Character Update ----------------------------------------------------------
 
 		cBoxes = new ArrayList<CharacterSetting>();
+		cBoxes.add(cBox1);
+		cBoxes.add(cBox2);
+		cBoxes.add(cBox3);
 		cBoxes.add(cBox4);
 		cBoxes.add(cBox5);
 		cBoxes.add(cBox6);
 
+// -------------------------------------------- Set Scene -----------------------------------------------------------------------
+
 		root.getChildren().addAll(bg, cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
-		root.getChildren().addAll(back, title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2);
+		root.getChildren().addAll(back, title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2,
+				characterInfo);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/lobby-style.css").toExternalForm());
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+// -------------------------------------------- ESC Key Setting ------------------------------------------------------------------	
 
 			@Override
 			public void handle(KeyEvent event) {
@@ -131,4 +156,12 @@ public class GameLobbyMenu implements Showable {
 		return cBoxes;
 	}
 
+	public static CharacterInfo getCharacterInfo() {
+		return characterInfo;
+	}
+
+	public static void setCharacterInfo(CharacterInfo characterInfo) {
+		GameLobbyMenu.characterInfo = characterInfo;
+	}	
+	
 }

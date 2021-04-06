@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
+import update.CharacterSelectUpdate;
 
 public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 
@@ -32,13 +33,21 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 		TextTitle sirTewada = new TextTitle("Sir Tewada", Color.WHITE, FontWeight.BOLD, 40, 596, 660);
 		TextTitle sirTewadee = new TextTitle("Sir Tewadee", Color.WHITE, FontWeight.BOLD, 40, 1034, 660);
 
-		CharacterCard sirThousandCard = new CharacterCard(4, "img/character/SirThousandYearCard.png",
+		CharacterCard sirThousandCard = new CharacterCard(3, "img/character/SirThousandYear.png",
 				AudioLoader.sirThousandSelectBGM, 80, 150);
-		CharacterCard sirTewadaCard = new CharacterCard(5, "img/character/SirTewadaCard.png", AudioLoader.sirTewadaSelectBGM, 525,
+		CharacterCard sirTewadaCard = new CharacterCard(4, "img/character/SirTewada.png", AudioLoader.sirTewadaSelectBGM, 525,
 				150);
-		CharacterCard sirTewadeeCard = new CharacterCard(6, "img/character/SirTewadeeCard.png", AudioLoader.sirTewadeeSelectBGM,
+		CharacterCard sirTewadeeCard = new CharacterCard(5, "img/character/SirTewadee.png", AudioLoader.sirTewadeeSelectBGM,
 				970, 150);
+		
+		CharacterSelectUpdate.getOverlayTexts().add(sirThousand);
+		CharacterSelectUpdate.getOverlayTexts().add(sirTewada);
+		CharacterSelectUpdate.getOverlayTexts().add(sirTewadee);
 
+		CharacterSelectUpdate.getCc().add(sirThousandCard);
+		CharacterSelectUpdate.getCc().add(sirTewadaCard);
+		CharacterSelectUpdate.getCc().add(sirTewadeeCard);
+		
 		root.getChildren().addAll(sirThousand, sirTewada, sirTewadee, sirThousandCard, sirTewadaCard, sirTewadeeCard,
 				changePageIcon);
 	}

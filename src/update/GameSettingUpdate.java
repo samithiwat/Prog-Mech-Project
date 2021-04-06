@@ -34,27 +34,27 @@ public class GameSettingUpdate {
 		ArrayList<CharacterSetting> cBoxes = GameLobbyMenu.getCBoxes();
 		switch(nPlayer) {
 		case 6 :
-			cBoxes.get(0).setVisible(true);
-			cBoxes.get(1).setVisible(true);
-			cBoxes.get(2).setVisible(true);
+			cBoxes.get(3).setVisible(true);
+			cBoxes.get(4).setVisible(true);
+			cBoxes.get(5).setVisible(true);
 			break;
 		
 		case 5 :
-			cBoxes.get(0).setVisible(true);
-			cBoxes.get(1).setVisible(true);
-			cBoxes.get(2).setVisible(false);
+			cBoxes.get(3).setVisible(true);
+			cBoxes.get(4).setVisible(true);
+			cBoxes.get(5).setVisible(false);
 			break;
 		
 		case 4 :
-			cBoxes.get(0).setVisible(true);
-			cBoxes.get(1).setVisible(false);
-			cBoxes.get(2).setVisible(false);
+			cBoxes.get(3).setVisible(true);
+			cBoxes.get(4).setVisible(false);
+			cBoxes.get(5).setVisible(false);
 			break;
 		
 		case 3 :
-			cBoxes.get(0).setVisible(false);
-			cBoxes.get(1).setVisible(false);
-			cBoxes.get(2).setVisible(false);
+			cBoxes.get(3).setVisible(false);
+			cBoxes.get(4).setVisible(false);
+			cBoxes.get(5).setVisible(false);
 			break;
 		}
 		
@@ -70,9 +70,6 @@ public class GameSettingUpdate {
 		
 	}
 	
-	public static void selectCharacterUpdate(int id) {
-		
-	}
 
 	public static void setNPlayer(int nPlayer) {
 		GameSettingUpdate.nPlayer = nPlayer;

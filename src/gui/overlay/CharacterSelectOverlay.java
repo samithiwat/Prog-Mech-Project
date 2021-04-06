@@ -1,6 +1,5 @@
 package gui.overlay;
 
-import gui.GameLobbyMenu;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
@@ -9,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
+import update.CharacterSelectUpdate;
 
 public abstract class CharacterSelectOverlay extends Overlay {
 
@@ -17,27 +17,35 @@ public abstract class CharacterSelectOverlay extends Overlay {
 
 	public CharacterSelectOverlay() {
 		super((new AnchorPane()), WIDTH, HEIGHT, 75, -800);
-
-		//setId("character-select-overlay");
+		// setId("overlay");
 		setCursor(CURSOR_NORMAL);
+
+// -------------------------------------------- Scene Background --------------------------------------------------------------	
 
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
 		bg.setFill(Color.web("0x393E46"));
 		bg.setId("overlay-bg");
-		// bg.setStyle("-fx-fill: rgba(57,62,70,0.5)");
+
+// -------------------------------------------- Close Icon ---------------------------------------------------------------------
 
 		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
 
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(MouseEvent arg0) {
-				triggerOverlay(0, 825, 1000);
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
+				triggerOverlay(0, 825, 1500);
+				CharacterSelectUpdate.closeUpdate();
 			}
-		}); 
+		});
+
+// -------------------------------------------- Overlay Text ---------------------------------------------------------------------
 
 		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
-		root.getChildren().addAll(bg, title, closeIcon);
+		TextTitle info = new TextTitle("Right Click for more information", Color.WHITE, FontWeight.MEDIUM, 48, 356, 750);
+
+		root.getChildren().addAll(bg, info, title, closeIcon);
 	}
 
 }
