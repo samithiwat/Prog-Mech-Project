@@ -6,29 +6,9 @@ import character.MainCharacter;
 import component.entity.Minion;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
-
-public class GameController {
-	public GameController() {
-		for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
-			//choose start location
-		}
-		while(GameSetUp.isGameEnd) {
-			for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
-				MainCharacter character = GameSetUp.gameCharacter.get(i);
-				character.gainIncome();
-				if(GameSetUp.theGovernment == character ) {
-					// remove/add lawcard
-				}
-				//what you do in a turn
-				while(GameSetUp.isEndTurn) {
-					
-				}
-				GameSetUp.gameLaw.setDefault();
-				GameSetUp.lawSlot.activateAllSlot();
-			}
-		}
-	}
-	public void Fight(Minion challenger , Minion defender) {
+// this class can be deleted
+public class FightController {
+	public FightController(Minion challenger , Minion defender) {
 		ArrayList<WeaponCard> challenger_slot = new ArrayList<WeaponCard>();
 		ArrayList<WeaponCard> defender_slot = new ArrayList<WeaponCard>();
 		//Each player choose their weapon card to add in these slots.
@@ -53,7 +33,7 @@ public class GameController {
 			defender.addMinion(challenger);
 		}
 	}
-	public void Fight(Minion challenger, Location defender) {
+	public FightController(Minion challenger, Location defender) {
 		ArrayList<WeaponCard> challenger_slot = new ArrayList<WeaponCard>();
 		ArrayList<WeaponCard> defender_slot = new ArrayList<WeaponCard>();
 		//Each player choose their weapon card to add in these slots.
@@ -80,18 +60,8 @@ public class GameController {
 //			defender.addMinion(challenger);
 		}
 	}
-	
-	public void Trade(MainCharacter trader, MainCharacter traded) {
-		ArrayList<WeaponCard> trader_WeaponSlot = new ArrayList<WeaponCard>();
-		ArrayList<WeaponCard> traded_WeaponSlot = new ArrayList<WeaponCard>();
-		int trader_money = 0;
-		int traded_money = 0;
-//		update trading screen to logic
-//		while(!accepted) {
-//		}
-		trader.getWeaponHand().addAll(traded_WeaponSlot);
-		traded.getWeaponHand().addAll(trader_WeaponSlot);
-		trader.setMoney(trader.getMoney() + traded_money - trader_money);
-		traded.setMoney(traded.getMoney() - traded_money + trader_money);
-	}
+	//-------------------------getter/setter-------------------------
+//	public MainCharacter getWinner() {
+//		return this.winner;
+//	}
 }

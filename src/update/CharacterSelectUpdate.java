@@ -20,6 +20,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 import logic.GameController;
+import logic.GameSetUp;
 
 public class CharacterSelectUpdate implements Updateable {
 
@@ -132,8 +133,8 @@ public class CharacterSelectUpdate implements Updateable {
 // ------------------------------------------ Update Change Character ----------------------------------------------------------------		
 
 		if (cBox.isSelected()) {
-			System.out.println("Enable : " + GameController.gameCharacter.get(cBox.getCBoxId()).getName());
-			switch (GameController.gameCharacter.get(cBox.getCBoxId()).getName()) {
+			System.out.println("Enable : " + GameSetUp.gameCharacter.get(cBox.getCBoxId()).getName());
+			switch (GameSetUp.gameCharacter.get(cBox.getCBoxId()).getName()) {
 			case "Mr.RedFox":
 				cc.get(0).setSelected(false);
 				break;
@@ -166,27 +167,27 @@ public class CharacterSelectUpdate implements Updateable {
 		
 		switch (id) {
 		case 0:
-			GameController.gameCharacter.set(cBox.getCBoxId(), new RedFox());
+			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new RedFox());
 			GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
 			break;
 		case 1:
-			GameController.gameCharacter.set(cBox.getCBoxId(), new Collector());
+			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new Collector());
 			GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
 			break;
 		case 2:
-			GameController.gameCharacter.set(cBox.getCBoxId(), new BlackSkull());
+			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new BlackSkull());
 			GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
 			break;
 		case 3:
-			GameController.gameCharacter.set(cBox.getCBoxId(), new ThousandYear());
+			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new ThousandYear());
 			GameLobbyMenu.getOverlay2().triggerOverlay(0, 825, 1000);
 			break;
 		case 4:
-			GameController.gameCharacter.set(cBox.getCBoxId(), new Teewada());
+			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new Teewada());
 			GameLobbyMenu.getOverlay2().triggerOverlay(0, 825, 1000);
 			break;
 		case 5:
-			GameController.gameCharacter.set(cBox.getCBoxId(), new Teewadee());
+			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new Teewadee());
 			GameLobbyMenu.getOverlay2().triggerOverlay(0, 825, 1000);
 			break;
 		}

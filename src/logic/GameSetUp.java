@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.law.LawDeck;
-import component.law.GameLaw;
 import component.law.LawSlot;
 import component.location.Council;
 import component.location.Field;

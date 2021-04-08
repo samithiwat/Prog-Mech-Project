@@ -21,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.GameController;
+import logic.GameSetUp;
 import logic.SceneController;
 
 public class GameLobbyMenu implements Showable {
@@ -43,7 +44,7 @@ public class GameLobbyMenu implements Showable {
 // ----------------------------------------------- Select Character Array Set Up ---------------------------------------------		
 
 		for (int i = 0; i < 6; i++) {
-			GameController.gameCharacter.add(null);
+			GameSetUp.gameCharacter.add(null);
 		}
 
 // ----------------------------------------------- Create Game Setting Tab ---------------------------------------------------
