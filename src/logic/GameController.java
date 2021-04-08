@@ -15,6 +15,7 @@ public class GameController {
 		while(GameSetUp.isGameEnd) {
 			for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
 				MainCharacter character = GameSetUp.gameCharacter.get(i);
+				GameSetUp.thisTurn = character;
 				character.gainIncome();
 				if(GameSetUp.theGovernment == character ) {
 					// remove/add lawcard

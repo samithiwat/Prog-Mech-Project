@@ -79,7 +79,7 @@ public class MainMenu implements Showable, Sceneable {
 				SceneController.setScene(SceneController.getGameSettingMenu());
 				StartMenu.getMenuThemeSong().stop();
 				GameLobbyMenu.getBGM().play();
-				System.out.println("Change to Start Menu...");
+//				System.out.println("Change to Start Menu...");
 			}
 		});
 
