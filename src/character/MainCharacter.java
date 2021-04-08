@@ -49,6 +49,12 @@ public abstract class MainCharacter{
 		this.possessedArea.add(location);
 	}
 	
+	public void gainIncome() {
+		for(int i = 0 ; i < this.possessedArea.size() ; i++) {
+			this.possessedArea.get(i).payIncome();
+		}
+	}
+	
 	public abstract void checkIsWin();
 	//----------------------getter/setter---------------------
 	

@@ -1,11 +1,10 @@
-package component.law;
+package logic;
 
 import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.location.Mine;
 import component.weaponCard.WeaponCard;
-import logic.GameSetUp;
 
 public class GameLaw {
 	public boolean taxPerTile;

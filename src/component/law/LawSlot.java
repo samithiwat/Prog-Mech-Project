@@ -14,7 +14,9 @@ public class LawSlot {
 		this.slotCard.add(lawCard);
 		return true;
 	}
-	
+	public void remove(LawCard lawCard) {
+		this.remove(lawCard);
+	}
 	public void activateAllSlot() {
 		for(int i = 0 ; i < this.slotCard.size() ; i++) {
 			this.slotCard.get(i).activateEffectCard();

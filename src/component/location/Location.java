@@ -41,8 +41,10 @@ public class Location {
 			}
 		}
 		if(minion == this.possessedBy) {
+			minion.getPossessedBy().getPossessedArea().remove(this);//im not sure that this remove will work.
 			if(this.minionOnLocation.size() > 0) {
-				this.setPossesedBy(this.minionOnLocation.get(0));				
+				this.setPossesedBy(this.minionOnLocation.get(0));
+				this.minionOnLocation.get(0).getPossessedBy().addPossessedLocation(this);
 			}
 			else {
 				this.setPossesedBy(null);
