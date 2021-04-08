@@ -3,12 +3,14 @@ package component.location;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import component.entity.Minion;
 
 public class Location {
 	private String name;
 	private String description;
-	private MainCharacter possessedBy;
+	private Minion possessedBy;
 //	private ArrayList<E> *TODO:for group minion that is on the tile*
+	private ArrayList<Minion> minionOnLocation;
 	private int incomePerRound;
 	private int cost; 
 	private boolean isPossessable;
@@ -18,6 +20,7 @@ public class Location {
 		this.incomePerRound = income*MainCharacter.M;
 		this.possessedBy = null;
 		this.cost = cost*MainCharacter.M;
+		this.minionOnLocation = new ArrayList<Minion>();
 		if(cost == 0) {
 			this.isPossessable = true;
 		}
@@ -26,11 +29,33 @@ public class Location {
 		}
 	}
 	public void payIncome() {
-		if(this.possessedBy != null) {
-			this.possessedBy.setMoney(this.possessedBy.getMoney()+this.incomePerRound);
+		if(this.possessedBy != null && this.isPossessable) {
+			this.possessedBy.getPossessedBy().setMoney(this.possessedBy.getPossessedBy().getMoney()+this.incomePerRound);
 		}
 	}
 	
+	public void removeFromLocation(Minion minion) {
+		for(int i = 0 ; i < this.minionOnLocation.size() ; i++) {
+			if(this.minionOnLocation.get(i) == minion) {
+				this.minionOnLocation.remove(i);
+			}
+		}
+		if(minion == this.possessedBy) {
+			if(this.minionOnLocation.size() > 0) {
+				this.setPossesedBy(this.minionOnLocation.get(0));				
+			}
+			else {
+				this.setPossesedBy(null);
+			}
+		}
+	}
+	
+	public void addMinonToLocation(Minion minion) {
+		if(this.getPossessedBy() == null) {
+			this.setPossesedBy(minion);
+		}
+		this.minionOnLocation.add(minion);
+	}
 	
 	// ------------------------------getter/setter--------------------------
 	public String getName() {
@@ -45,12 +70,12 @@ public class Location {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public MainCharacter getPossessedBy() {
+	public Minion getPossessedBy() {
 		return possessedBy;
 	}
-	public boolean setPossesedBy(MainCharacter possessedBy) {
+	public boolean setPossesedBy(Minion minion) {
 		if(this.isPossessable) {
-			this.possessedBy = possessedBy;		
+			this.possessedBy = minion;		
 			return true;
 		}
 		return false;
