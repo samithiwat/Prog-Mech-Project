@@ -37,6 +37,7 @@ public class GameSetUp {
 	public static boolean isEndTurn;
 	public static MainCharacter theGovernment = null;
 	public static Location[][] map = new Location[10][11];
+	public static MainCharacter thisTurn;
 	public GameSetUp() {
 //----------------------------------Weapon Set Up---------------------------------------------------
 		for(int i = 0 ; i < DUPLICATE ; i++) {
