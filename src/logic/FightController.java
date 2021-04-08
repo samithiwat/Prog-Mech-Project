@@ -6,7 +6,7 @@ import character.MainCharacter;
 import component.entity.Minion;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
-
+// this class can be deleted
 public class FightController {
 	public FightController(Minion challenger , Minion defender) {
 		ArrayList<WeaponCard> challenger_slot = new ArrayList<WeaponCard>();
