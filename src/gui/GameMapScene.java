@@ -1,6 +1,6 @@
 package gui;
 
-import gui.entity.HexagonalButton;
+//import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -31,20 +31,20 @@ public class GameMapScene {
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));
-		for(int i = 0 ; i < 10 ; i++) {
-			for(int j = 0 ; j < 11 ; j++) {
-				if(j%2 == 0 && i != 9)
-				{
-//					System.out.println(j/2);
-//					root.getChildren().add(createHexAt(532+(j/2)*(38.44+68.98),87+i*70));
-					root.getChildren().add(new HexagonalButton(532+(j/2)*(38.44+68.98),87+i*70,i,j));
-				}
-				else if(j%2 == 1) {
-//					root.getChildren().add(createHexAt(586+((j-1)/2)*(38.44+68.98),52.2+i*70));
-					root.getChildren().add(new HexagonalButton(585.8+((j-1)/2)*(38.44+68.98),51.9+i*70,i,j));
-				}
-			}
-		}
+//		for(int i = 0 ; i < 10 ; i++) {
+//			for(int j = 0 ; j < 11 ; j++) {
+//				if(j%2 == 0 && i != 9)
+//				{
+////					System.out.println(j/2);
+////					root.getChildren().add(createHexAt(532+(j/2)*(38.44+68.98),87+i*70));
+//					root.getChildren().add(new HexagonalButton(532+(j/2)*(38.44+68.98),87+i*70,i,j));
+//				}
+//				else if(j%2 == 1) {
+////					root.getChildren().add(createHexAt(586+((j-1)/2)*(38.44+68.98),52.2+i*70));
+//					root.getChildren().add(new HexagonalButton(585.8+((j-1)/2)*(38.44+68.98),51.9+i*70,i,j));
+//				}
+//			}
+//		}
 		Scene scene = new Scene(root);
 		this.scene = scene;
 		this.scene.setOnKeyPressed(key -> {

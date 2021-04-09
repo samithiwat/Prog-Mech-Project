@@ -1,0 +1,13 @@
+#circle-button-release-style {
+  -fx-background-color: #ffd3c0;
+}
+
+#circle-button-hold-style {
+  -fx-background-color: #393e46;
+}
+
+#status-bar {
+  -fx-background-color: #393e46;
+  -fx-border-color: #222222;
+  -fx-border-width: 3;
+}

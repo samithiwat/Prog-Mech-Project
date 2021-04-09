@@ -50,29 +50,9 @@ public class MenuButton extends Button implements Clickable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-				//FOR DEBIG ONLY
-//				ArrayList<String> log = new ArrayList<String>();
-//				for(CssMetaData<? extends Styleable, ?> data : getCssMetaData()) {
-//					for(String splitedData : data.toString().split("CSSProperty"))
-//					{
-//						log.add(splitedData);
-//						log.add("\n");
-//					}
-//				}
-//				//log.add("Hello World");
-//				try {
-//					FileController.write("C:\\Computer Programing\\Java\\ProjectRes\\ProjectLog\\log3.txt", log);
-//				}catch(Exception e) {
-//					e.printStackTrace();
-//				}
-				
-				//END OF DEBUG
 				setCursor(MOUSE_SELECT);
-				AudioClip effect = AudioLoader.mouseEnterSound;
-				effect.play();
+				EFFECT_MOUSE_ENTER.play();
 				setId("button-hold-style");
-				//System.out.println(getStyle());
 			}
 			
 		});
