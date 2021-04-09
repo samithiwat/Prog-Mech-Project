@@ -11,3 +11,13 @@
   -fx-border-color: #222222;
   -fx-border-width: 3;
 }
+
+#turn-character-icon {
+  -fx-background-color: #f9da9e;
+}
+
+#turnbar {
+  -fx-background-color: #b26e59;
+  -fx-stroke-color: #fae5cb;
+  -fx-stroke-width: 5;
+}

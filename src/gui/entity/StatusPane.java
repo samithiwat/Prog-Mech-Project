@@ -15,8 +15,7 @@ public class StatusPane extends GridPane {
 		HBox ButtonPane = new HBox();
 		ButtonPane.setSpacing(70);
 
-		CircleButton finance = new CircleButton("", 0, 50, 50, 25, Color.web("0xFECEB8"), 86,
-				65);
+		CircleButton finance = new CircleButton("", 0, 50, 50, 25, Color.web("0xFECEB8"), 86, 65);
 		finance.setButtonImage(new Image(ClassLoader.getSystemResource("img/icon/GoldIngot.png").toString()));
 
 		finance.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -37,15 +36,19 @@ public class StatusPane extends GridPane {
 
 		ButtonPane.getChildren().addAll(finance, currentLaw, landInfo, characterInfo, toggleGrid);
 
-		StatusBar money = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/Coin.png").toString()),"$1 M",36,Color.web("FEFDE8"));
-		
-		StatusBar minion = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/FoxMinion.png").toString()),"2",36,Color.web("FEFDE8"));
-		
-		StatusBar land = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/House1.png").toString()),"3",36,Color.web("FEFDE8"));
-		
-		add(money,0,0);
-		add(minion,1,0);
-		add(land,2,0);
+		StatusBar money = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/Coin.png").toString()),
+				"$1 M", 36, Color.web("FEFDE8"));
+
+		StatusBar minion = new StatusBar(
+				new ImageView(ClassLoader.getSystemResource("img/icon/FoxMinion.png").toString()), "2", 36,
+				Color.web("FEFDE8"));
+
+		StatusBar land = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/House1.png").toString()),
+				"3", 36, Color.web("FEFDE8"));
+
+		add(money, 0, 0);
+		add(minion, 1, 0);
+		add(land, 2, 0);
 		add(ButtonPane, 1, 0, 3, 1);
 	}
 

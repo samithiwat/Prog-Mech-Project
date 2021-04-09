@@ -15,9 +15,8 @@ public class CircleButton extends MenuButton {
 
 	public CircleButton(String content, int contentSize, int width, int height, double radius, Color textColor,int x, int y) {
 		super(content, contentSize, width, height, textColor, x, y);
-		Circle shape = new Circle(radius);
 		setId("circle-button-release-style");
-		setShape(shape);
+		setShape(new Circle(radius));
 		interact();
 	}
 
