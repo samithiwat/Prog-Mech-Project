@@ -55,7 +55,7 @@ public abstract class MainCharacter{
 		}
 	}
 	
-	public abstract void checkIsWin();
+	public abstract int checkIsWin();
 	//----------------------getter/setter---------------------
 	
 	public ArrayList<WeaponCard> getWeaponHand() {

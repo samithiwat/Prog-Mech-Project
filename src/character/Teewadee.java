@@ -7,12 +7,13 @@ public class Teewadee extends MainCharacter {
 	public Teewadee() {
 		super("Teewadee","");
 	}
-	public void checkIsWin() {
+	public int checkIsWin() {
 		if(Island.banishedMinion.size() >= 6) {
 			this.setWin(true);
 		}
 		else {
 			this.setWin(false);
 		}
+		return Island.banishedMinion.size();
 	}
 }

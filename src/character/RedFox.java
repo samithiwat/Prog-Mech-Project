@@ -9,7 +9,7 @@ public class RedFox extends MainCharacter {
 		this.setMoney(11*M);
 		
 	}
-	public void checkIsWin() {
+	public int checkIsWin() {
 		int count = 0;
 		for(int i = 0 ; i < this.getPossessedArea().size() ; i++) {
 			if(this.getPossessedArea().get(i).getName() == "Mine") {
@@ -22,5 +22,6 @@ public class RedFox extends MainCharacter {
 		else {
 			this.setWin(false);
 		}
+		return count;
 	}
 }

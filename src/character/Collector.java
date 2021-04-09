@@ -9,7 +9,7 @@ public class Collector  extends MainCharacter {
 		super("Ms.Collector","");
 	}
 	 
-	public void checkIsWin() {
+	public int checkIsWin() {
 		boolean[] key = {true,true,true,true,true};
 		int count = 0;
 		for(int i = 0 ; i < this.getMyEntity().size() ; i++) {
@@ -43,5 +43,6 @@ public class Collector  extends MainCharacter {
 		else {
 			this.setWin(false);
 		}
+		return count;
 	}
 }

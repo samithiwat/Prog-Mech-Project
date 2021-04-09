@@ -3,6 +3,7 @@ package component.law;
 import logic.GameSetUp;
 
 public class BanArWut extends LawCard {
+	public static LawCard instance;
 	public BanArWut() {
 		super("BanArWut","Players can't use the weapon that is in the ban list");
 	}

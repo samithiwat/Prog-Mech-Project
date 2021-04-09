@@ -7,7 +7,7 @@ public class ThousandYear extends MainCharacter {
 	public ThousandYear() {
 		super("Ms.ThousandYear","");
 	}
-	public void checkIsWin() {
+	public int checkIsWin() {
 		if(Prison.minionInPrison.size() >= 3) {
 			this.setWin(true);
 		}
@@ -15,5 +15,6 @@ public class ThousandYear extends MainCharacter {
 //			GameSetUp.theGovernment.checkIsWin();
 			this.setWin(false);
 		}
+		return Prison.minionInPrison.size();
 	}
 }

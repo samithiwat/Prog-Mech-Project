@@ -7,7 +7,7 @@ public class BlackSkull extends MainCharacter{
 	public BlackSkull() {
 		super("Mr.BlackSkull","");
 	} 
-	public void checkIsWin() {
+	public int checkIsWin() {
 		int count = 0;
 		for(int i = 0 ; i < GameSetUp.allsecretBases.size() ; i++) {
 			if(GameSetUp.allsecretBases.get(i).getPossessedBy() != null) {
@@ -20,5 +20,6 @@ public class BlackSkull extends MainCharacter{
 		else {
 			this.setWin(false);
 		}
+		return count;
 	}
 }

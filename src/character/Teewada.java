@@ -8,7 +8,7 @@ public class Teewada extends MainCharacter {
 	public Teewada() {
 		super("Teewada","");
 	}
-	public void checkIsWin() {
+	public int checkIsWin() {
 		int howLong = Council.howLong();
 		if(howLong >= 7) {
 			this.setWin(true);
@@ -18,5 +18,6 @@ public class Teewada extends MainCharacter {
 			this.setWin(false);
 //			GameSetUp.theGovernment.checkIsWin();
 		}
+		return howLong;
 	}
 }

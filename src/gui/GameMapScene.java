@@ -1,5 +1,6 @@
 package gui;
 
+import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,15 +19,32 @@ import logic.AudioLoader;
 public class GameMapScene {
 	private Scene scene;
 	public GameMapScene() {
-//		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/GameBackGround.png").toString());
-		ImageView bgMap = new ImageView(ClassLoader.getSystemResource("img/background/Map.png").toString());
+		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/GameBackGroundWithNoBorder.png").toString());
+//		ImageView bgMap = new ImageView(ClassLoader.getSystemResource("img/background/Map.png").toString());
 //		bg.setFitHeight(800);
 //		bg.setFitWidth(1200);
-		bgMap.setFitHeight(880);
-		bgMap.setPreserveRatio(true);
+//		bgMap.setFitHeight(880);
+//		bgMap.setPreserveRatio(true);
 		
 		Pane root = new Pane();
-		root.getChildren().addAll(bgMap, createHexAt(179,166));
+		root.getChildren().add(bg);
+//		root.getChildren().addAll(bg,createHexAt(529,91.69));
+//		root.getChildren().add(createHexAt(529, 91.69+68.98));
+//		root.getChildren().add(createHexAt(583.25,57.2));
+		for(int i = 0 ; i < 10 ; i++) {
+			for(int j = 0 ; j < 11 ; j++) {
+				if(j%2 == 0 && i != 9)
+				{
+//					System.out.println(j/2);
+//					root.getChildren().add(createHexAt(532+(j/2)*(38.44+68.98),87+i*70));
+					root.getChildren().add(new HexagonalButton(532+(j/2)*(38.44+68.98),87+i*70,i,j));
+				}
+				else if(j%2 == 1) {
+//					root.getChildren().add(createHexAt(586+((j-1)/2)*(38.44+68.98),52.2+i*70));
+					root.getChildren().add(new HexagonalButton(585.8+((j-1)/2)*(38.44+68.98),51.9+i*70,i,j));
+				}
+			}
+		}
 		Scene scene = new Scene(root);
 		this.scene = scene;
 		this.scene.setOnKeyPressed(key -> {
@@ -39,26 +57,4 @@ public class GameMapScene {
 		return this.scene;
 	}
 
-public Button createHexAt(double xPos, double yPos) {
-    Button aButton = new Button();
-    aButton.setLayoutX(xPos);
-    aButton.setLayoutY(yPos);
-    aButton.setPrefWidth(76);
-    aButton.setPrefHeight(76.3);
-//    double[] path = new double[12];
-    double[] path = {79,0,0,175,70,350,271,350,350,175,271,0};
-//    for (int q = 0; q < 6; q++) {
-//        double x = Math.cos(Math.PI / 3.0 * q + Math.PI / 2.0);
-//        double y = Math.sin(Math.PI / 3.0 * q + Math.PI / 2.0);
-//        path[q * 2] = x;
-//        path[q * 2 + 1] = y;
-//}
-    Polygon aPoly = new Polygon(path);
-    aButton.setShape(aPoly);
-    aButton.setStyle("-fx-background-color: transparent;-fx-border-color: #000000;\r\n"
-    		+ "    -fx-border-width: 2;");
-    
-    aButton.setPickOnBounds(false);
-    return aButton;
-}
 }
