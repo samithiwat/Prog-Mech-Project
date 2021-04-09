@@ -10,9 +10,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MapScene {
+public class SelectMapScenes {
 	private Scene scene;
-	public MapScene() {
+	public SelectMapScenes() {
 // -------------------------------------------- Entity--------------------------------------------------------------	
 //		ImageView prisonIslandEmpty = new ImageView(ClassLoader.getSystemResource("img/entity/PrisonIslandEmpty.png").toString());
 //		ImageView bigIslandEmpty = new ImageView(ClassLoader.getSystemResource("img/entity/BigIslandEmpty.png").toString());	
