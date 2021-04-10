@@ -11,7 +11,11 @@ public class TurnBar extends StackPane implements Clickable{
 
 	public TurnBar() {
 
+// ------------------------------------------ Set Up Bar -----------------------------------------		
+
 		setId("turnbar");
+		
+// ------------------------------------------ Set Up Player's Icon Pane -----------------------------------------	
 		
 		iconPane = new HBox();
 		iconPane.setSpacing(40);
@@ -19,6 +23,8 @@ public class TurnBar extends StackPane implements Clickable{
 		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
 			createCharacterIcon(GameSetUp.gameCharacter.get(i));
 		}
+		
+// ----------------------------------------- Add Icon Pane to Bar ---------------------------------------------------
 		
 		getChildren().add(iconPane);
 		

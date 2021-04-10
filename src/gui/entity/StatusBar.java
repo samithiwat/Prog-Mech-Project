@@ -12,8 +12,14 @@ public class StatusBar extends GridPane {
 
 	public StatusBar(ImageView img, String content, int contentSize, Color contentColor) {
 		super();
+		
+// -------------------------------------------- Set up Bar's Components ------------------------------------------------
+		
 		status = new TextTitle(content, contentColor, FontWeight.BOLD, contentSize, 0, 0);
 		this.img = img;
+		
+// -------------------------------------------- Add Components to Bar ---------------------------------------------------
+		
 		add(img, 0, 0);
 		add(status, 1, 0);
 		setId("status-bar");

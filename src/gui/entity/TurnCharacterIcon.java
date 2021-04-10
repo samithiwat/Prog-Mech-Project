@@ -15,10 +15,15 @@ public class TurnCharacterIcon extends AnchorPane {
 
 	public TurnCharacterIcon(ImageView img, double imgInitX, double imgInitY) {
 		super();
+		
+// ----------------------------------------- Set Up Portraits Image ------------------------------------------------
+		
 		this.img = img;
 		img.setViewport(new Rectangle2D(imgInitX, imgInitY, 200, 200));
 		img.setFitHeight(60);
 		img.setFitHeight(60);
+		
+// ----------------------------------------- Set Up Portraits ------------------------------------------------
 		
 		StackPane portraits = new StackPane();
 		portraits.setAlignment(Pos.BOTTOM_CENTER);
@@ -26,10 +31,13 @@ public class TurnCharacterIcon extends AnchorPane {
 		portraits.getChildren().add(img);
 		portraits.setId("turn-character-icon");
 		
+// ----------------------------------------- Set Up Crown  ------------------------------------------------
 		crown = new ImageView(ClassLoader.getSystemResource("img/icon/Crown.png").toString());
 		crown.setX(19);
 		crown.setY(0);
 		crown.setVisible(false);
+
+// ----------------------------------------- Add Components to Pane ------------------------------------------------
 		
 		getChildren().addAll(portraits,crown);
 	}

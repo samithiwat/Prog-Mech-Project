@@ -1,6 +1,7 @@
 package gui.entity;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +13,13 @@ public class StatusPane extends GridPane {
 
 	public StatusPane() {
 		super();
+		
+// ------------------------------------------------------ Set Up Pane --------------------------------------------------------------
+		
+		setAlignment(Pos.CENTER);
+		
+// ------------------------------------------------------ Set Up Button Pane -------------------------------------------------------
+		
 		HBox ButtonPane = new HBox();
 		ButtonPane.setSpacing(70);
 
@@ -36,6 +44,8 @@ public class StatusPane extends GridPane {
 
 		ButtonPane.getChildren().addAll(finance, currentLaw, landInfo, characterInfo, toggleGrid);
 
+// --------------------------------------------------- Set Up Status Bar --------------------------------------------------------------
+		
 		StatusBar money = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/Coin.png").toString()),
 				"$1 M", 36, Color.web("FEFDE8"));
 
@@ -46,6 +56,8 @@ public class StatusPane extends GridPane {
 		StatusBar land = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/House1.png").toString()),
 				"3", 36, Color.web("FEFDE8"));
 
+// --------------------------------------------------- Add Components to Pane ----------------------------------------------------------
+		
 		add(money, 0, 0);
 		add(minion, 1, 0);
 		add(land, 2, 0);
