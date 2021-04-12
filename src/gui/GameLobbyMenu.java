@@ -78,6 +78,18 @@ public class GameLobbyMenu implements Sceneable {
 			}
 		});
 
+		MenuButton start = new MenuButton("Start", 20, 240, 40, Color.web("0x393E46"), 1102, 703);
+		start.setFontBold(20);
+		start.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
+				// SceneController.setScene();
+				bgm.stop();
+			}
+		});
+
 // -------------------------------------------- Scene Background --------------------------------------------------------------		
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
@@ -111,8 +123,8 @@ public class GameLobbyMenu implements Sceneable {
 // -------------------------------------------- Set Scene -----------------------------------------------------------------------
 
 		root.getChildren().addAll(bg, cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
-		root.getChildren().addAll(back, title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2,
-				characterInfo);
+		root.getChildren().addAll(start, back, title, titleBox, label, gameSetting, characterOverlay1,
+				characterOverlay2, characterInfo);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
@@ -163,6 +175,6 @@ public class GameLobbyMenu implements Sceneable {
 
 	public static void setCharacterInfo(CharacterInfo characterInfo) {
 		GameLobbyMenu.characterInfo = characterInfo;
-	}	
-	
+	}
+
 }

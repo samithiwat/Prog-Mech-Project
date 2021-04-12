@@ -101,6 +101,8 @@ public class MainIsland implements Sceneable {
 		});
 
 		//////////////// FOR DEBUG ONLY //////////////////////
+		
+		System.out.println(MapGrid.getGrids());
 
 //		HexagonPane test1 = new HexagonPane(350,350,0,0);
 //		HexagonPane test2 = new HexagonPane(350,350,190+350,0);

@@ -10,6 +10,12 @@ import logic.SceneController;
 public class MainIslandUpdate {
 
 	private final static int SPEED = 20;
+	
+// ---------------------------------------------------------- Interact Grid With Database ----------------------------------------------
+	
+	
+	
+// ---------------------------------------------------------- Move Grid With Background ------------------------------------------------
 
 	public static void moveLeft() {
 		if (MainIsland.getBgX() - SPEED > 0) {

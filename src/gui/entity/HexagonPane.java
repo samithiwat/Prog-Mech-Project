@@ -1,5 +1,6 @@
 package gui.entity;
 
+import component.location.Location;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -9,11 +10,18 @@ public class HexagonPane extends Pane implements Clickable {
 
 	private int x;
 	private int y;
+	private int row;
+	private int column;
+	
+	private Location locationType;
 
-	public HexagonPane(int width, int height, int x, int y) {
+	public HexagonPane(int width, int height, int x, int y,int row,int column) {
 
 		//////////////// FOR DEBUG ONLY //////////////////////
 
+		setRow(row);
+		setColumn(column);
+		
 		// System.out.println("x: "+x+", "+"y: "+y);
 
 		//////////////// END OF DEBUG /////////////////////////
@@ -107,4 +115,35 @@ public class HexagonPane extends Pane implements Clickable {
 		this.y = y;
 	}
 
+	public Location getLocationType() {
+		return locationType;
+	}
+
+	public void setLocationType(Location locationType) {
+		this.locationType = locationType;
+	}
+
+///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	public String toString() {
+		return "<row :" + this.row + ", column : "+ this.column+">";
+	}
+	
+////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////
 }
