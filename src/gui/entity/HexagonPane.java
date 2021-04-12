@@ -1,33 +1,36 @@
 package gui.entity;
 
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 
-public class HexagonPane extends Pane implements Clickable{
+public class HexagonPane extends Pane implements Clickable {
 
-	
-	public HexagonPane(int width,int height,int x,int y) {
-		
-		//////////////// FOR DEBUG ONLY //////////////////////		
-		
-		//System.out.println("x: "+x+", "+"y: "+y);
-		
+	private int x;
+	private int y;
+
+	public HexagonPane(int width, int height, int x, int y) {
+
+		//////////////// FOR DEBUG ONLY //////////////////////
+
+		// System.out.println("x: "+x+", "+"y: "+y);
+
 		//////////////// END OF DEBUG /////////////////////////
-		
-		double[] points = {
-				81, 0.5,
-				272, 0.5,
-				350.75, 175.5,
-				272, 350.5,
-				81, 350.5,
-				0.75, 175.5
-		};
-		
+
+		setX(x);
+		setY(y);
+
+		double[] points = { 
+				53, 0.5, 
+				197, 0.5,
+				250, 125.5,
+				197, 250.5,
+				53, 250.5,
+				0, 125.5 };
+
 		Polygon poly = new Polygon(points);
-		
+
 		Polygon shape = new Polygon(points);
 
 		setShape(shape);
@@ -39,7 +42,7 @@ public class HexagonPane extends Pane implements Clickable{
 		setId("grid-release-style");
 		interact();
 	}
-	
+
 	public void interact() {
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
@@ -50,7 +53,7 @@ public class HexagonPane extends Pane implements Clickable{
 				setId("grid-hold-style");
 			}
 		});
-		
+
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -64,6 +67,44 @@ public class HexagonPane extends Pane implements Clickable{
 	@Override
 	public void triggerDisable() {
 		setDisable(!isDisable());
+	}
+
+	public void moveLeft(int speed) {
+		setX(getX() - speed);
+		setLayoutX(getX());
+	}
+
+	public void moveRight(int speed) {
+		setX(getX() + speed);
+		setLayoutX(getX());
+	}
+
+	public void moveDown(int speed) {
+		setY(getY() - speed);
+		setLayoutY(getY());
+	}
+
+	public void moveUp(int speed) {
+		setY(getY() + speed);
+		setLayoutY(getY());
+	}
+
+// ------------------------------------------------ Getter and Setter ------------------------------------------------------------
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 }
