@@ -3,7 +3,7 @@ package gui.entity;
 import java.util.ArrayList;
 
 import gui.GameLobbyMenu;
-import gui.Showable;
+import gui.Sceneable;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,7 +15,7 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import update.CharacterSelectUpdate;
 
-public class CharacterSetting extends AnchorPane implements Showable {
+public class CharacterSetting extends AnchorPane implements Sceneable {
 
 	private static final int WIDTH = 220;
 	private static final int HEIGHT = 160;

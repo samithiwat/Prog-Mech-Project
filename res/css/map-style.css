@@ -2,6 +2,10 @@
   -fx-background-color: #ffd3c0;
 }
 
+#circle-button-text-style {
+  -fx-text-fill: #ef7b41;
+}
+
 #circle-button-hold-style {
   -fx-background-color: #393e46;
 }
@@ -12,12 +16,46 @@
   -fx-border-width: 3;
 }
 
+#button-pane {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 5;
+}
+
 #turn-character-icon {
   -fx-background-color: #f9da9e;
 }
 
 #turnbar {
   -fx-background-color: #b26e59;
-  -fx-stroke-color: #fae5cb;
-  -fx-stroke-width: 5;
+  -fx-border-color: #fae5cb;
+  -fx-border-width: 5;
+}
+
+#end-turn-button-release-style {
+  -fx-background-color: #b26e59;
+  -fx-text-fill: #fefde8;
+}
+
+#end-turn-button-hold-style {
+  -fx-background-color: #393e46;
+  -fx-text-fill: #fefde8;
+}
+
+#grid-release-style {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #000000;
+  -fx-border-width: 1;
+}
+
+#grid-hold-style {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #000000;
+  -fx-border-width: 5;
+}
+
+#grid-center {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #000000;
+  -fx-border-width: 20;
 }

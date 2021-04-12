@@ -1,5 +1,7 @@
 package application;
 
+import gui.MainIsland;
+import gui.MapOverview;
 import gui.StartMenu;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -16,13 +18,13 @@ public class Main extends Application {
 //		System.out.println(ClassLoader.getSystemResource("audio/MainMenuThemeSong1.wav").toString());
 //		AudioClip effect = AudioLoader.menuThemeSong;
 //		effect.play();
-//		primaryStage.setScene((new GameLobbyMenu()).getScene());
-//		primaryStage.show();
-		SceneController.setScene((new StartMenu()).getScene());
-		SceneController.getStage().show();
-		SceneController.getStage().setResizable(false);
-		//primaryStage.setMaximized(true);
-		SceneController.startCredit();
+		primaryStage.setScene((new MainIsland()).getScene());
+		primaryStage.show();
+//		SceneController.setScene((new StartMenu()).getScene());
+//		SceneController.getStage().show();
+//		SceneController.getStage().setResizable(false);
+//		//primaryStage.setMaximized(true);
+//		SceneController.startCredit();
 	}
 
 }

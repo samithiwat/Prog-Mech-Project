@@ -14,7 +14,7 @@ import logic.AudioLoader;
 import logic.SceneController;
 import sprites.AnimationSprites;
 
-public class TransitionScreen implements Showable {
+public class TransitionScreen implements Sceneable {
 
 	Scene scene;
 

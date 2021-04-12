@@ -16,7 +16,7 @@ import logic.SceneController;
 import sprites.AnimationSprites;
 
 
-public class LoadingScreen2 implements Showable {
+public class LoadingScreen2 implements Sceneable {
 
 	private Scene scene;
 

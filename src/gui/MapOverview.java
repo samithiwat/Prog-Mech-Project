@@ -1,5 +1,6 @@
 package gui;
 
+import gui.entity.PlayerPanel;
 //import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -15,11 +16,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Polygon;
 import logic.AudioLoader;
+import logic.SceneController;
 
-public class GameMapScene {
+public class MapOverview implements Sceneable{
 	private Scene scene;
-	public GameMapScene() {
-		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/GameBackGroundWithNoBorder.png").toString());
+	public MapOverview() {
+		
+		PlayerPanel playerPanel = new PlayerPanel();
+		
+		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/MapOverview.png").toString());
 //		ImageView bgMap = new ImageView(ClassLoader.getSystemResource("img/background/Map.png").toString());
 //		bg.setFitHeight(800);
 //		bg.setFitWidth(1200);
@@ -27,7 +32,7 @@ public class GameMapScene {
 //		bgMap.setPreserveRatio(true);
 		
 		Pane root = new Pane();
-		root.getChildren().add(bg);
+		root.getChildren().addAll(bg,playerPanel);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));
@@ -45,8 +50,12 @@ public class GameMapScene {
 //				}
 //			}
 //		}
-		Scene scene = new Scene(root);
-		this.scene = scene;
+		
+		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene.setCursor(CURSOR_NORMAL);
+		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
+		//Scene scene = new Scene(root);
+		//this.scene = scene;
 		this.scene.setOnKeyPressed(key -> {
 			System.exit(0);
 		});

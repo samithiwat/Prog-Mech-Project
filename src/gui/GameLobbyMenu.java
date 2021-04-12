@@ -24,7 +24,7 @@ import logic.GameController;
 import logic.GameSetUp;
 import logic.SceneController;
 
-public class GameLobbyMenu implements Showable {
+public class GameLobbyMenu implements Sceneable {
 
 	private Scene scene;
 	private static CharacterSelectOverlay1 characterOverlay1;

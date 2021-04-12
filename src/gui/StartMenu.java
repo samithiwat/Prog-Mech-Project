@@ -21,7 +21,7 @@ import javafx.util.Duration;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class StartMenu implements Sceneable{
+public class StartMenu{
 
 	private static boolean isVisible = true;
 	private static int count;
@@ -165,7 +165,7 @@ public class StartMenu implements Sceneable{
 		
 		animationTimer.start();
 		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
-		scene.setCursor(MOUSE_NORMAL);
+		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/icon/mouseCursor.png").toString()))));
 		scene.setOnKeyPressed(key ->{
 			if(key.getCode() != KeyCode.ALT) {
 				AudioClip effect = AudioLoader.clickEffect;
