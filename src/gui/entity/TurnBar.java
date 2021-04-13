@@ -10,19 +10,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import logic.GameSetUp;
+import update.GameSettingUpdate;
 
 public class TurnBar extends StackPane implements Clickable {
 
-	HBox iconPane;
+	private static HBox iconPane;
 
 	public TurnBar() {
 
 		///////////////// FOR DEBUG ONLY /////////////////////
 
-		GameSetUp.gameCharacter = new ArrayList<MainCharacter>();
-		GameSetUp.gameCharacter.add(new RedFox());
-		GameSetUp.gameCharacter.add(new BlackSkull());
-		GameSetUp.gameCharacter.add(new Teewada());
+//		GameSetUp.gameCharacter = new ArrayList<MainCharacter>();
+//		GameSetUp.gameCharacter.add(new RedFox());
+//		GameSetUp.gameCharacter.add(new BlackSkull());
+//		GameSetUp.gameCharacter.add(new Teewada());
 
 		////////////////// END OF DEBUG ///////////////////////
 
@@ -40,13 +41,13 @@ public class TurnBar extends StackPane implements Clickable {
 		iconPane.setPadding(new Insets(20, 50, 0, 50));
 		iconPane.setId("turnbar");
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
 			TurnCharacterIcon characterIcon = new TurnCharacterIcon(RED_FOX_IMG, 44, 31);
 			characterIcon.setVisible(false);
 			iconPane.getChildren().add(characterIcon);
 		}
 
-		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
+		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 			createCharacterIcon(GameSetUp.gameCharacter.get(i), i);
 		}
 
@@ -58,6 +59,11 @@ public class TurnBar extends StackPane implements Clickable {
 	}
 
 	private void createCharacterIcon(MainCharacter character, int index) {
+////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+		
+		System.out.println(character);
+		
+////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////
 		TurnCharacterIcon characterIcon = null;
 
 		if (character instanceof RedFox) {
@@ -94,7 +100,7 @@ public class TurnBar extends StackPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				((TurnCharacterIcon) iconPane.getChildren().get(0)).setPlayerTurn(true);
+				//((TurnCharacterIcon) iconPane.getChildren().get(0)).setPlayerTurn(true);
 			}
 		});
 	}
@@ -103,4 +109,9 @@ public class TurnBar extends StackPane implements Clickable {
 	public void triggerDisable() {
 		setDisable(!isDisabled());
 	}
+
+	public static HBox getIconPane() {
+		return iconPane;
+	}
+	
 }

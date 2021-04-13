@@ -38,8 +38,9 @@ public class GameSetUp {
 	public static boolean isGameEnd = false;
 	public static boolean isEndTurn;
 	public static MainCharacter theGovernment = null;
-	public static Location[][] map = new Location[10][11];
+	public static Location[][] map = new Location[9][11];
 	public static MainCharacter thisTurn;
+	public static int governmentPoint = 0;
 
 	public GameSetUp() {
 //----------------------------------Weapon Set Up---------------------------------------------------
@@ -53,9 +54,9 @@ public class GameSetUp {
 //----------------------------------Add Law Card----------------------------------------------------
 		lawDeck.setUpLawDeck();
 //----------------------------------Choose Start Location-------------------------------------------
-		String[] mapCode = { "50400000105", "11100203201", "02000001300", "0402XXX0020", "0031X6X1003", "30001X03000",
-				"00401100410", "10203020021", "50004000205", "00000000000" };
-		for (int i = 0; i < 10; i++) {
+		String[] mapCode = { "51400302105", "1310X001301", "04030X00230", "0001X6X1000", "0010XXX2X01", "200011000X0",
+				"00401000430", "10302X3000X", "50004000305"};
+		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 11; j++) {
 				char code = mapCode[i].charAt(j);
 				if (code == '0') {
@@ -79,7 +80,15 @@ public class GameSetUp {
 			}
 		}
 
+//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+		
+//printMap();
+
+//////////////////////////////////////////////////////////////END OF DEBUG ////////////////////////	`/////////////////////////////////////////////	
+		
 		setUpMapWithHexPane();
+		
+		SceneController.createGameScene();
 	}
 
 	private void setUpMapWithHexPane() {
@@ -90,4 +99,18 @@ public class GameSetUp {
 			}
 		}
 	}
+	
+////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
+	private void printMap() {
+		for(int i=0;i<map.length;i++) {
+			Location[] column = map[i];
+			for(Location location : column) {
+				System.out.println(location);
+			}
+		}
+	}
+	
+////////////////////////////////////////////////////////////// END OF DEBUG  ////////////////////////////////////////////////////////////////////
+	
 }

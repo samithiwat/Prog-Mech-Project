@@ -14,25 +14,29 @@ import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 
 public class PlayerPanel extends Pane implements Sceneable {
-
-	private Button endTurn;
+	
+	private static Button endTurn;
 	private static PointPane governmentPoint;
 	private static PointPane goodnessPoint;
-
+	private static TurnBar turnBar;
+	private static StatusPane statusPane;
+	private static MenuIcon handsIcon;
+	
+	
 	public PlayerPanel() {
 
 // -------------------------------------- Add Components Pane ----------------------------------------------------------		
 
-		StatusPane statusPane = new StatusPane();
+		statusPane = new StatusPane();
 
-		TurnBar turnBar = new TurnBar();
+		turnBar = new TurnBar();
 		turnBar.setLayoutX(820);
 
 		endTurn = new Button("End Turn");
 		endTurn.setId("end-turn-button-release-style");
 		endTurnInteract();
 
-		MenuIcon handsIcon = new MenuIcon("img/icon/HandsIcon.png", 42, 632);
+		handsIcon = new MenuIcon("img/icon/HandsIcon.png", 42, 632);
 
 		governmentPoint = new PointPane(7, 10, Color.web("0xFFFFFF"));
 		governmentPoint.setLayoutX(1287);
@@ -85,6 +89,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 			public void handle(MouseEvent event) {
 				CLICK_EFFECT.play();
 				GameSetUp.isEndTurn = true;
+				System.out.println("End turn of " + GameSetUp.thisTurn);
 			}
 		});
 	}
@@ -121,7 +126,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 //		return shape;
 //	}
 
-	public Button getEndTurn() {
+	public static Button getEndTurn() {
 		return endTurn;
 	}
 
@@ -133,4 +138,20 @@ public class PlayerPanel extends Pane implements Sceneable {
 		return goodnessPoint;
 	}
 
+	public static TurnBar getTurnBar() {
+		return turnBar;
+	}
+
+	public static StatusPane getStatusPane() {
+		return statusPane;
+	}
+
+	public static MenuIcon getHandsIcon() {
+		return handsIcon;
+	}
+
+	public static void setHandsIcon(MenuIcon handsIcon) {
+		PlayerPanel.handsIcon = handsIcon;
+	}
+	
 }

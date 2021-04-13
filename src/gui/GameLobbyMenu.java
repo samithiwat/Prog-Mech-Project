@@ -9,6 +9,7 @@ import gui.entity.TextTitle;
 import gui.overlay.CharacterInfo;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -23,6 +24,7 @@ import logic.AudioLoader;
 import logic.GameController;
 import logic.GameSetUp;
 import logic.SceneController;
+import update.AudioUpdate;
 
 public class GameLobbyMenu implements Sceneable {
 
@@ -31,6 +33,7 @@ public class GameLobbyMenu implements Sceneable {
 	private static CharacterSelectOverlay2 characterOverlay2;
 	private static CharacterInfo characterInfo;
 	private static AudioClip bgm;
+	private static MenuButton start;
 	private static ArrayList<CharacterSetting> cBoxes;
 
 	public GameLobbyMenu() {
@@ -78,15 +81,31 @@ public class GameLobbyMenu implements Sceneable {
 			}
 		});
 
-		MenuButton start = new MenuButton("Start", 20, 240, 40, Color.web("0x393E46"), 1102, 703);
+		start = new MenuButton("Start", 20, 240, 40, Color.web("0x393E46"), 1102, 703);
 		start.setFontBold(20);
+		start.setId("button-disable-style");
+		start.setDisable(true);
 		start.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				CLICK_EFFECT.play();
-				// SceneController.setScene();
-				bgm.stop();
+//				SceneController.loadingScreen();
+				GameSetUp gameSetUp = new GameSetUp();
+				SceneController.setScene(SceneController.getMapOverView());
+				AudioUpdate.toMapOverview(bgm);
+				
+				// ----------------------- Create GameController's Thread Run Parallel -------------------------
+				
+				Thread t = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						GameController gameController = new GameController();
+					}
+				});
+				
+				t.start();
 			}
 		});
 
@@ -177,4 +196,8 @@ public class GameLobbyMenu implements Sceneable {
 		GameLobbyMenu.characterInfo = characterInfo;
 	}
 
+	public static MenuButton getStart() {
+		return start;
+	}
+	
 }

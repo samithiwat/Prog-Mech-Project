@@ -1,5 +1,7 @@
 package gui.entity;
 
+import java.util.ArrayList;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +14,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class StatusPane extends GridPane {
+
+	private static StatusBar money;
+	private static StatusBar minion;
+	private static StatusBar land;
 
 	public StatusPane() {
 		super();
@@ -60,15 +66,11 @@ public class StatusPane extends GridPane {
 
 // --------------------------------------------------- Set Up Status Bar --------------------------------------------------------------
 
-		StatusBar money = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/Coin.png").toString()),
-				"$1 M", 36, 32, Color.web("FEFDE8"), new Insets(5, 20, 5, 20));
+		money = new StatusBar("img/icon/Coin.png", 36, 10, Color.web("FEFDE8"), new Insets(5, 10, 5, 10));
 
-		StatusBar minion = new StatusBar(
-				new ImageView(ClassLoader.getSystemResource("img/icon/FoxMinion.png").toString()), "2", 36, 60,
-				Color.web("FEFDE8"), new Insets(5, 60, 5, 60));
+		minion = new StatusBar("img/icon/FoxMinion.png", 36, 60, Color.web("FEFDE8"), new Insets(5, 60, 5, 60));
 
-		StatusBar land = new StatusBar(new ImageView(ClassLoader.getSystemResource("img/icon/House1.png").toString()),
-				"3", 36, 50, Color.web("FEFDE8"), new Insets(5, 60, 5, 40));
+		land = new StatusBar("img/icon/House1.png", 36, 50, Color.web("FEFDE8"), new Insets(5, 60, 5, 40));
 
 // --------------------------------------------------- Add Components to Pane ----------------------------------------------------------
 
@@ -77,6 +79,18 @@ public class StatusPane extends GridPane {
 		add(land, 2, 0);
 		add(buttonPane, 0, 1, 3, 1);
 
+	}
+
+	public static StatusBar getMoney() {
+		return money;
+	}
+
+	public static StatusBar getMinion() {
+		return minion;
+	}
+
+	public static StatusBar getLand() {
+		return land;
 	}
 
 }

@@ -140,11 +140,7 @@ public class CharacterCard extends StackPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println(event);
 				if(event.getButton().equals(MouseButton.SECONDARY)) {
-//					AudioClip effect = AudioLoader.transitionEffect;
-//					effect.play();
-//					GameLobbyMenu.getCharacterInfo().triggerOverlay(0, 825, 1000);
 					CharacterSelectUpdate.rightClickUpdate(getCardId());
 				}
 				else {

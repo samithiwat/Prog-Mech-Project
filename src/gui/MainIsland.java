@@ -21,46 +21,33 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 import logic.SceneController;
+import update.AudioUpdate;
 import update.MainIslandUpdate;
 
 public class MainIsland implements Sceneable {
 	
 	private final static int BG_CENTER_X = 720;
 	private final static int BG_CENTER_Y = 670;
-	
-	private Scene scene;
-
-	private static ImageView bg;
 	private static int bgX = BG_CENTER_X;
 	private static int bgY = BG_CENTER_Y;
 	
-	private static Button endTurn;
-	private static PointPane governmentPoint;
-	private static PointPane goodnessPoint;
+	private Scene scene;
+	
+	private static Pane root;
+	
+	private static ImageView bg;
+	
+	private static Button endTurn = PlayerPanel.getEndTurn();
+	private static PointPane governmentPoint = PlayerPanel.getGovernmentPoint();
+	private static PointPane goodnessPoint = PlayerPanel.getGoodnessPoint();
+	private static MenuIcon handsIcon = PlayerPanel.getHandsIcon();
+	
+	private StatusPane statusPane = PlayerPanel.getStatusPane();
+	private TurnBar turnBar = PlayerPanel.getTurnBar();
 
 	public MainIsland() {
 		
-		StatusPane statusPane = new StatusPane();
-
-		TurnBar turnBar = new TurnBar();
-		turnBar.setLayoutX(820);
-
-		endTurn = new Button("End Turn");
-		endTurn.setId("end-turn-button-release-style");
-		endTurnInteract();
-
-		MenuIcon handsIcon = new MenuIcon("img/icon/HandsIcon.png", 42, 632);
-
-		governmentPoint = new PointPane(7, 10, Color.web("0xFFFFFF"));
-		governmentPoint.setLayoutX(1287);
-		governmentPoint.setLayoutY(706);
-
-		goodnessPoint = new PointPane(5, 10, Color.web("0x3D3D3D"));
-		goodnessPoint.setLayoutX(65);
-		goodnessPoint.setLayoutY(592);
-		
-		
-		Pane root = new Pane();
+		root = new Pane();
 
 		bg = new ImageView(ClassLoader.getSystemResource("img/background/MainIsland.png").toString());
 		bg.setViewport(new Rectangle2D(BG_CENTER_X, BG_CENTER_Y, SceneController.getFullscreenWidth(),
@@ -78,7 +65,6 @@ public class MainIsland implements Sceneable {
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
 		scene.setOnKeyPressed(key -> {
-			//System.out.println(key.getCode());
 			if (key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) {
 				MainIslandUpdate.moveLeft();
 			}
@@ -92,17 +78,23 @@ public class MainIsland implements Sceneable {
 				MainIslandUpdate.moveDown();
 			}
 
-			//////////////// FOR DEBUG ONLY //////////////////////
 			if (key.getCode() == KeyCode.ESCAPE) {
-				System.exit(0);
+				AudioUpdate.toMapOverview(null);
+				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
+				SceneController.setScene(SceneController.getMapOverView());
 			}
+			
+			//////////////// FOR DEBUG ONLY //////////////////////
+//			if (key.getCode() == KeyCode.ESCAPE) {
+//				System.exit(0);
+//			}
 			//////////////// END OF DEBUG /////////////////////////
 
 		});
 
 		//////////////// FOR DEBUG ONLY //////////////////////
 		
-		System.out.println(MapGrid.getGrids());
+//		System.out.println(MapGrid.getGrids());
 
 //		HexagonPane test1 = new HexagonPane(350,350,0,0);
 //		HexagonPane test2 = new HexagonPane(350,350,190+350,0);
@@ -114,68 +106,64 @@ public class MainIsland implements Sceneable {
 	public static void moveBgLeft(int speed) {
 		setBgX(getBgX() - speed);
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
-		System.out.println("x: "+getBgX()+", "+"y: "+getBgY());
 	}
 	
 	public static void moveBgRight(int speed) {
 		setBgX(getBgX() + speed);
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
-		System.out.println("x: "+getBgX()+", "+"y: "+getBgY());
 	}
 	
 	public static void moveBgDown(int speed) {
 		setBgY(getBgY() - speed);
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
-		System.out.println("x: "+getBgX()+", "+"y: "+getBgY());
 	}
 	
 	public static void moveBgUp(int speed) {
 		setBgY(getBgY() + speed);
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
-		System.out.println("x: "+getBgX()+", "+"y: "+getBgY());
 	}
 	
-	private void endTurnInteract() {
-
-		Rectangle shape = new Rectangle(200, 100);
-		shape.setArcHeight(25);
-		shape.setArcWidth(25);
-
-		endTurn.setShape(shape);
-		endTurn.setLayoutX(1287);
-		endTurn.setLayoutY(742);
-		endTurn.setPrefHeight(100);
-		endTurn.setPrefWidth(200);
-		endTurn.setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, 34));
-
-		endTurn.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				EFFECT_MOUSE_ENTER.play();
-				scene.setCursor(CURSOR_SELECTED);
-				endTurn.setId("end-turn-button-hold-style");
-			}
-		});
-
-		endTurn.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				scene.setCursor(CURSOR_NORMAL);
-				endTurn.setId("end-turn-button-release-style");
-			}
-		});
-
-		endTurn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
-				GameSetUp.isEndTurn = true;
-			}
-		});
-	}
+//	private void endTurnInteract() {
+//
+//		Rectangle shape = new Rectangle(200, 100);
+//		shape.setArcHeight(25);
+//		shape.setArcWidth(25);
+//
+//		endTurn.setShape(shape);
+//		endTurn.setLayoutX(1287);
+//		endTurn.setLayoutY(742);
+//		endTurn.setPrefHeight(100);
+//		endTurn.setPrefWidth(200);
+//		endTurn.setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, 34));
+//
+//		endTurn.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				EFFECT_MOUSE_ENTER.play();
+//				scene.setCursor(CURSOR_SELECTED);
+//				endTurn.setId("end-turn-button-hold-style");
+//			}
+//		});
+//
+//		endTurn.setOnMouseExited(new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				scene.setCursor(CURSOR_NORMAL);
+//				endTurn.setId("end-turn-button-release-style");
+//			}
+//		});
+//
+//		endTurn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				CLICK_EFFECT.play();
+//				GameSetUp.isEndTurn = true;
+//			}
+//		});
+//	}
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 	
@@ -210,6 +198,14 @@ public class MainIsland implements Sceneable {
 
 	public static void setBgY(int bgY) {
 		MainIsland.bgY = bgY;
+	}
+
+	public static Pane getSceneRoot() {
+		return root;
+	}
+
+	public static void setSceneRoot(Pane root) {
+		MainIsland.root = root;
 	}
 	
 }

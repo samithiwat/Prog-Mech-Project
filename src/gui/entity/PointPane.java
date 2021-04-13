@@ -24,13 +24,14 @@ public class PointPane extends HBox {
 		setSpacing(space);
 
 // ------------------------------------- Create Point Bar ----------------------------------------------------
-
+		points = new ArrayList<Circle>();
+		
 		for (int i = 0; i < nPoints; i++) {
 
 			Circle point = new Circle(10);
 			point.setFill(normalColor);
 
-			points = new ArrayList<Circle>();
+			
 			points.add(point);
 
 			getChildren().add(point);
