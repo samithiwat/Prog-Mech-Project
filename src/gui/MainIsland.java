@@ -122,48 +122,6 @@ public class MainIsland implements Sceneable {
 		setBgY(getBgY() + speed);
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
 	}
-	
-//	private void endTurnInteract() {
-//
-//		Rectangle shape = new Rectangle(200, 100);
-//		shape.setArcHeight(25);
-//		shape.setArcWidth(25);
-//
-//		endTurn.setShape(shape);
-//		endTurn.setLayoutX(1287);
-//		endTurn.setLayoutY(742);
-//		endTurn.setPrefHeight(100);
-//		endTurn.setPrefWidth(200);
-//		endTurn.setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, 34));
-//
-//		endTurn.setOnMouseEntered(new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent event) {
-//				EFFECT_MOUSE_ENTER.play();
-//				scene.setCursor(CURSOR_SELECTED);
-//				endTurn.setId("end-turn-button-hold-style");
-//			}
-//		});
-//
-//		endTurn.setOnMouseExited(new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent event) {
-//				scene.setCursor(CURSOR_NORMAL);
-//				endTurn.setId("end-turn-button-release-style");
-//			}
-//		});
-//
-//		endTurn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent event) {
-//				CLICK_EFFECT.play();
-//				GameSetUp.isEndTurn = true;
-//			}
-//		});
-//	}
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 	
