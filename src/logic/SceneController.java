@@ -1,7 +1,14 @@
 package logic;
 
+import java.util.Random;
+
+import gui.LoadingScreen1;
+import gui.LoadingScreen2;
+import gui.MainIsland;
 import gui.MainMenu;
+import gui.MapOverview;
 import gui.StartMenu;
+import gui.entity.PlayerPanel;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,7 +26,11 @@ public class SceneController {
 	private static int count;
 	private static AnimationTimer animationTimer;
 	
-	private static Scene GameSettingMenu;
+	private static Scene gameSettingMenu;
+	private static Scene mapOverView;
+	private static Scene mainIsland;
+	private static Scene prisonIsland;
+	private static Scene Ocean;
 	
 	public SceneController() throws Exception {
 		mainStage.setScene((new StartMenu()).getScene());
@@ -74,13 +85,54 @@ public class SceneController {
 		};
 		animationTimer.start();
 	}
+	
+	public static void createGameScene() {
 
+		PlayerPanel playerPanel = new PlayerPanel();
+		
+		SceneController.mainIsland= (new MainIsland()).getScene();
+//		SceneController.prisonIsland = (new PrisonIsland()).getScene();
+//		SceneController.Ocean = (new Ocean()).getScene();
+		SceneController.mapOverView= (new MapOverview()).getScene();
+	}
+	
+	public static void loadingScreen() {
+		Random rand = new Random();
+		int sceneNum = rand.nextInt(2);
+		
+		switch(sceneNum) {
+		case 0 :
+			setScene((new LoadingScreen1()).getScene());
+			break;
+		case 1 :
+			setScene((new LoadingScreen2()).getScene());
+		}
+	}
+	
+// -------------------------------------------- Getter and Setter --------------------------------------------------------------------
+	
 	public static Scene getGameSettingMenu() {
-		return GameSettingMenu;
+		return gameSettingMenu;
 	}
 
 	public static void setGameSettingMenu(Scene gameSettingMenu) {
-		GameSettingMenu = gameSettingMenu;
+		SceneController.gameSettingMenu = gameSettingMenu;
+	}
+
+	public static Scene getMapOverView() {
+		return mapOverView;
+	}
+
+	public static Scene getMainIsland() {
+		return mainIsland;
+	}
+
+	public static Scene getPrisonIsland() {
+		return prisonIsland;
+	}
+
+	public static Scene getOcean() {
+		return Ocean;
 	}
 	
 }

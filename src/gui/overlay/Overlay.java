@@ -68,7 +68,7 @@ public class Overlay extends SubScene implements Overlayable {
 			
 			Thread t = new Thread(()->{
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(delay);
 				}catch(InterruptedException e) {
 					
 				}

@@ -14,13 +14,14 @@ import logic.AudioLoader;
 import logic.SceneController;
 import sprites.AnimationSprites;
 
-public class TransitionScreen implements Showable {
+public class TransitionScreen implements Sceneable {
 
 	Scene scene;
 
 	public TransitionScreen() {
 
 		AnchorPane root = new AnchorPane();
+		root.setMouseTransparent(true);
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.web("0xF2A388"));
@@ -81,7 +82,7 @@ public class TransitionScreen implements Showable {
 		t.start();
 		root.getChildren().addAll(bg, coconut);
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
-		scene.setCursor(Cursor.DISAPPEAR);
+		//scene.setCursor(Cursor.DISAPPEAR);
 	}
 
 	@Override

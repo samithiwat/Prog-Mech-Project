@@ -3,7 +3,7 @@ package gui.entity;
 import java.util.ArrayList;
 
 import gui.GameLobbyMenu;
-import gui.Showable;
+import gui.Sceneable;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,7 +15,7 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import update.CharacterSelectUpdate;
 
-public class CharacterSetting extends AnchorPane implements Showable {
+public class CharacterSetting extends AnchorPane implements Sceneable {
 
 	private static final int WIDTH = 220;
 	private static final int HEIGHT = 160;
@@ -74,9 +74,21 @@ public class CharacterSetting extends AnchorPane implements Showable {
 		TextTitle name = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 24, 0, 0);
 
 // --------------------------------------------------- Character Setting Button ---------------------------------------------------------
+		
+		MenuButton remove = new MenuButton("Remove", 14, 100, 40, Color.web("0x393E46"), 0, 180);
+		remove.setFontBold(14);
+		remove.setId("button-disable-style");
+		remove.setDisable(true);
+		
+		remove.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-		MenuButton customize = new MenuButton("Customize", 14, 100, 40, Color.web("0x393E46"), 0, 180);
-		customize.setFontBold(14);
+			@Override
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
+				CharacterSelectUpdate.setcBox(getcBox());
+				CharacterSelectUpdate.removeUpdate();
+			}
+		});
 
 		MenuButton ready = new MenuButton("Ready", 14, 100, 40, Color.web("0x393E46"), 120, 180);
 		ready.setFontBold(14);
@@ -110,7 +122,7 @@ public class CharacterSetting extends AnchorPane implements Showable {
 		buttons = new ArrayList<MenuButton>();
 		buttons.add(ready);
 		buttons.add(unready);
-		buttons.add(customize);
+		buttons.add(remove);
 		
 		bg = new ArrayList<Rectangle>();
 		bg.add(bg1);
@@ -122,7 +134,7 @@ public class CharacterSetting extends AnchorPane implements Showable {
 
 		bgGroup.getChildren().addAll(bg1, bg2, name, empty, portraits);
 
-		getChildren().addAll(bgGroup, customize, ready, unready);
+		getChildren().addAll(bgGroup, remove, ready, unready);
 
 		AnchorPane.setTopAnchor(name, 10.0);
 

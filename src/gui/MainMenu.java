@@ -24,7 +24,7 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class MainMenu implements Showable, Sceneable {
+public class MainMenu implements Sceneable{
 
 	private static Scene scene;
 	private static ArrayList<Clickable> components;
@@ -123,7 +123,7 @@ public class MainMenu implements Showable, Sceneable {
 		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay, quitOverlay);
 		
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		scene.setCursor(MOUSE_NORMAL);
+		scene.setCursor(CURSOR_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/mainmenu-style.css").toExternalForm());
 
 	}

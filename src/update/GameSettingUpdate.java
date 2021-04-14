@@ -32,6 +32,7 @@ public class GameSettingUpdate {
 
 	public static void updatePlayerBox() {
 		ArrayList<CharacterSetting> cBoxes = GameLobbyMenu.getCBoxes();
+		CharacterSelectUpdate.startUpdate();
 		switch(nPlayer) {
 		case 6 :
 			cBoxes.get(3).setVisible(true);

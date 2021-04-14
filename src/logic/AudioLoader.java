@@ -17,9 +17,12 @@ public class AudioLoader {
 	public static AudioClip mrFoxSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/MrFoxCharacterSelectBG.mp3").toString());
 	public static AudioClip ladySelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/LadyCharacterSelectBG.mp3").toString());
 	public static AudioClip blackSkullSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/BlackSkullCharacterSelectBG.mp3").toString());
-	public static AudioClip sirThousandSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/MrFoxCharacterSelectBG.mp3").toString());
-	public static AudioClip sirTewadaSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/MrFoxCharacterSelectBG.mp3").toString());
-	public static AudioClip sirTewadeeSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/MrFoxCharacterSelectBG.mp3").toString());
+	public static AudioClip blackSkullBGM = new AudioClip(ClassLoader.getSystemResource("audio/BlackSkullBGM.mp3").toString());
+	public static AudioClip sirThousandSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/SirThousandSelectSound.mp3").toString());
+	public static AudioClip sirThousandBGM = new AudioClip(ClassLoader.getSystemResource("audio/SirThousandBGM.mp3").toString());
+	public static AudioClip sirTewadaSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/SirTewaSelectSound.mp3").toString());
+	public static AudioClip sirTewadeeSelectBGM = new AudioClip(ClassLoader.getSystemResource("audio/SirTewaSelectSound.mp3").toString());
+	public static AudioClip beachBGM = new AudioClip(ClassLoader.getSystemResource("audio/BeachSoundEffect.mp3").toString());
 	 
 	public static void setBGMVolume(double volume) {
 		menuThemeSong.setVolume(volume);

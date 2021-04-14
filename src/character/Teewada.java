@@ -1,20 +1,23 @@
 package character;
 
 import component.location.Council;
+import javafx.scene.paint.Color;
 import logic.GameSetUp;
 
 public class Teewada extends MainCharacter {
 	public static boolean warCry = true;
+
 	public Teewada() {
-		super("Teewada","");
+		super("Teewada", ""); 
+		this.color = Color.web("0xFEF67A");
 	}
+
 	public int checkIsWin() {
 		int howLong = Council.howLong();
-		if(howLong >= 7) {
+		if (howLong >= 7) {
 			this.setWin(true);
 //			GameSetUp.theGovernment.setWin(true);
-		}
-		else {
+		} else {
 			this.setWin(false);
 //			GameSetUp.theGovernment.checkIsWin();
 		}

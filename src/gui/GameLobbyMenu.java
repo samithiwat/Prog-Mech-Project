@@ -9,6 +9,7 @@ import gui.entity.TextTitle;
 import gui.overlay.CharacterInfo;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -23,14 +24,16 @@ import logic.AudioLoader;
 import logic.GameController;
 import logic.GameSetUp;
 import logic.SceneController;
+import update.AudioUpdate;
 
-public class GameLobbyMenu implements Showable {
+public class GameLobbyMenu implements Sceneable {
 
 	private Scene scene;
 	private static CharacterSelectOverlay1 characterOverlay1;
 	private static CharacterSelectOverlay2 characterOverlay2;
 	private static CharacterInfo characterInfo;
 	private static AudioClip bgm;
+	private static MenuButton start;
 	private static ArrayList<CharacterSetting> cBoxes;
 
 	public GameLobbyMenu() {
@@ -78,6 +81,34 @@ public class GameLobbyMenu implements Showable {
 			}
 		});
 
+		start = new MenuButton("Start", 20, 240, 40, Color.web("0x393E46"), 1102, 703);
+		start.setFontBold(20);
+		start.setId("button-disable-style");
+		start.setDisable(true);
+		start.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
+//				SceneController.loadingScreen();
+				GameSetUp gameSetUp = new GameSetUp();
+				SceneController.setScene(SceneController.getMapOverView());
+				AudioUpdate.toMapOverview(bgm);
+				
+				// ----------------------- Create GameController's Thread Run Parallel -------------------------
+				
+				Thread t = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						GameController gameController = new GameController();
+					}
+				});
+				
+				t.start();
+			}
+		});
+
 // -------------------------------------------- Scene Background --------------------------------------------------------------		
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
@@ -111,8 +142,8 @@ public class GameLobbyMenu implements Showable {
 // -------------------------------------------- Set Scene -----------------------------------------------------------------------
 
 		root.getChildren().addAll(bg, cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
-		root.getChildren().addAll(back, title, titleBox, label, gameSetting, characterOverlay1, characterOverlay2,
-				characterInfo);
+		root.getChildren().addAll(start, back, title, titleBox, label, gameSetting, characterOverlay1,
+				characterOverlay2, characterInfo);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
 		scene.setCursor(CURSOR_NORMAL);
@@ -163,6 +194,10 @@ public class GameLobbyMenu implements Showable {
 
 	public static void setCharacterInfo(CharacterInfo characterInfo) {
 		GameLobbyMenu.characterInfo = characterInfo;
-	}	
+	}
+
+	public static MenuButton getStart() {
+		return start;
+	}
 	
 }
