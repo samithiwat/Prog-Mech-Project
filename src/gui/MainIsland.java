@@ -83,13 +83,10 @@ public class MainIsland implements Sceneable {
 				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 				SceneController.setScene(SceneController.getMapOverView());
 			}
-			
-			//////////////// FOR DEBUG ONLY //////////////////////
-//			if (key.getCode() == KeyCode.ESCAPE) {
-//				System.exit(0);
-//			}
-			//////////////// END OF DEBUG /////////////////////////
-
+		});
+		
+		scene.setOnKeyReleased(key->{
+			MainIslandUpdate.setCurrent_speed(0); 
 		});
 
 		//////////////// FOR DEBUG ONLY //////////////////////

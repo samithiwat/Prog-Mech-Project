@@ -1,6 +1,10 @@
 package update;
 
+import java.util.ArrayList;
+
 import character.MainCharacter;
+import gui.entity.HexagonPane;
+import gui.entity.MapGrid;
 import gui.entity.PlayerPanel;
 import gui.entity.StatusBar;
 import gui.entity.StatusPane;
@@ -18,11 +22,10 @@ public class PlayerPanelUpdate {
 	public static void updateTurnBar() {
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 
-			// -------------------------------- Find Current Turn Player
-			// ------------------------------------------
+			// -------------------------------- Find Current Turn Player --------------------------------
 
 			if (GameSetUp.thisTurn == GameSetUp.gameCharacter.get(i)) {
-
+				
 				TurnCharacterIcon currentPlayerIcon = (TurnCharacterIcon) TurnBar.getIconPane().getChildren().get(i);
 				TurnCharacterIcon peviousPlayerIcon = null;
 				if (i > 0) {
@@ -32,8 +35,7 @@ public class PlayerPanelUpdate {
 							.get(GameSettingUpdate.getNPlayer() - 1);
 				}
 
-				// ------------------------------------- Update Crown
-				// ---------------------------------------------
+				// ------------------------------------- Update Crown --------------------------------------
 
 				peviousPlayerIcon.setPlayerTurn(false);
 				currentPlayerIcon.setPlayerTurn(true);
@@ -64,12 +66,37 @@ public class PlayerPanelUpdate {
 	}
 
 	public static void updateGovernmentPoint() {
-		if(GameSetUp.theGovernment != null) {
+		if (GameSetUp.theGovernment != null) {
 			PlayerPanel.getGovernmentPoint().updatePoint(GameSetUp.governmentPoint, GameSetUp.theGovernment.getColor());
-		}
-		else {
+		} else {
 			PlayerPanel.getGovernmentPoint().updatePoint(7, Color.WHITE);
 		}
 	}
 
+// ---------------------------------------------------------- Toggle Grid -------------------------------------------------------------
+
+	public static void toggleGridUpdate() {
+		
+		MapGrid.setEnable(!MapGrid.isEnable());
+		
+		System.out.println(MapGrid.getGrids());
+		
+		String id;
+		
+		if(MapGrid.isEnable()) {
+			id = "grid-release-style";
+		}
+		else {
+			id = "grid-disable";
+		}
+		
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			System.out.println(column);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).setId(id);
+			}
+		}
+
+	}
 }

@@ -11,7 +11,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
+import update.PlayerPanelUpdate;
 
 public class StatusPane extends GridPane {
 
@@ -49,20 +52,28 @@ public class StatusPane extends GridPane {
 			}
 		});
 
-		// CircleButton currentLaw = new CircleButton("", 0, 50, 50, 25,
-		// Color.web("0xFECEB8"), 206, 65);
+		CircleButton currentLaw = new CircleButton("img/icon/LawIcon.png", 50, 50, 25, 0 ,0);
 
-		// CircleButton landInfo = new CircleButton("", 0, 50, 50, 25,
-		// Color.web("0xFECEB8"), 326, 65);
+		CircleButton landInfo = new CircleButton("img/icon/LandIcon.png", 50, 50, 25, 0, 0);
 
 		CircleButton characterInfo = new CircleButton("!", 36, Color.web("0xFECEB8"), 50, 50, 25, 0, 0);
 
 		CircleButton toggleGrid = new CircleButton("img/icon/GridIcon.png", 50, 50, 25, 0, 0);
+		
+		toggleGrid.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-		buttonPane.getChildren().addAll(finance, characterInfo, toggleGrid);
+			@Override
+			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
+				PlayerPanelUpdate.toggleGridUpdate();
+			}
+		
+		});
 
-		// buttonPane.getChildren().addAll(finance, currentLaw, landInfo, characterInfo,
-		// toggleGrid);
+		//buttonPane.getChildren().addAll(finance, characterInfo, toggleGrid);
+
+		buttonPane.getChildren().addAll(finance, currentLaw, landInfo, characterInfo, toggleGrid);
 
 // --------------------------------------------------- Set Up Status Bar --------------------------------------------------------------
 

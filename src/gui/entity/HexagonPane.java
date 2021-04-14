@@ -1,6 +1,7 @@
 package gui.entity;
 
 import component.location.Location;
+import gui.overlay.Overlay;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -10,12 +11,25 @@ public class HexagonPane extends Pane implements Clickable {
 
 	private int x;
 	private int y;
+	
+	private Overlay overlay;
+	private Location locationType;
+	
+	////////////////FOR DEBUG ONLY //////////////////////
 	private int row;
 	private int column;
+	////////////////END OF DEBUG /////////////////////////
 	
-	private Location locationType;
+	
 
-	public HexagonPane(int width, int height, int x, int y,int row,int column) {
+	public HexagonPane(int width, int height, int x, int y,
+			
+	////////////////FOR DEBUG ONLY //////////////////////
+	
+	int row,int column) {
+
+	////////////////END OF DEBUG /////////////////////////
+		
 
 		//////////////// FOR DEBUG ONLY //////////////////////
 
@@ -67,9 +81,18 @@ public class HexagonPane extends Pane implements Clickable {
 			@Override
 			public void handle(MouseEvent event) {
 				setCursor(MOUSE_NORMAL);
-				setId("grid-release-style");
+				if(MapGrid.isEnable()) {
+					setId("grid-release-style");
+				}
+				else {
+					setId("grid-disable");
+				}
 			}
 		});
+	}
+	
+	public void triggerOverlay() {
+		overlay.triggerOverlay(0, 825, 1000);
 	}
 
 	@Override
@@ -121,6 +144,14 @@ public class HexagonPane extends Pane implements Clickable {
 
 	public void setLocationType(Location locationType) {
 		this.locationType = locationType;
+	}
+	
+		public Overlay getOverlay() {
+		return overlay;
+	}
+
+	public void setOverlay(Overlay overlay) {
+		this.overlay = overlay;
 	}
 
 ///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////

@@ -50,7 +50,7 @@
 
 #grid-hold-style {
   -fx-background-color: rgba(0, 0, 0, 0);
-  -fx-border-color: #000000;
+  -fx-border-color: #472209;
   -fx-border-width: 5;
 }
 
@@ -58,4 +58,10 @@
   -fx-background-color: rgba(0, 0, 0, 0);
   -fx-border-color: #000000;
   -fx-border-width: 20;
+}
+
+#grid-disable {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: rgba(0, 0, 0, 0);
+  -fx-border-width: 0;
 }

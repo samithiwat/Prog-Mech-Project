@@ -16,6 +16,7 @@ public class MapGrid extends Pane {
 	private static final int N_ROW = 10;
 	private static final int N_COLUMN = 6;
 
+	private static boolean isEnable = true;
 	private static ArrayList<ArrayList<HexagonPane>> grids = new ArrayList<ArrayList<HexagonPane>>();
 
 	public MapGrid() {
@@ -55,6 +56,14 @@ public class MapGrid extends Pane {
 
 	public static int getN_COLUMN() {
 		return N_COLUMN;
+	}
+
+	public static boolean isEnable() {
+		return isEnable;
+	}
+
+	public static void setEnable(boolean isEnable) {
+		MapGrid.isEnable = isEnable;
 	}
 
 }

@@ -60,9 +60,9 @@ public class TurnBar extends StackPane implements Clickable {
 
 	private void createCharacterIcon(MainCharacter character, int index) {
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-		
-		System.out.println(character);
-		
+
+		//System.out.println(character);
+
 ////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////
 		TurnCharacterIcon characterIcon = null;
 
@@ -100,7 +100,7 @@ public class TurnBar extends StackPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				//((TurnCharacterIcon) iconPane.getChildren().get(0)).setPlayerTurn(true);
+
 			}
 		});
 	}
@@ -113,5 +113,5 @@ public class TurnBar extends StackPane implements Clickable {
 	public static HBox getIconPane() {
 		return iconPane;
 	}
-	
+
 }

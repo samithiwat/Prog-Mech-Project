@@ -51,6 +51,9 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
+				
+				bgm.stop();
+				
 				Scene mainIsland = SceneController.getMainIsland();
 				
 				MainIsland.getSceneRoot().getChildren().set(2, PlayerPanel.getStatusPane());
