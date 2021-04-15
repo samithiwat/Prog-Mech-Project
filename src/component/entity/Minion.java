@@ -16,6 +16,7 @@ public class Minion implements moveable {
 
 	public Minion(MainCharacter possessedBy) {
 		this.possessedBy = possessedBy;
+		possessedBy.addToMyEntity(this);
 		myMinion = new ArrayList<Minion>();
 		this.moveLeft = 2;
 	}

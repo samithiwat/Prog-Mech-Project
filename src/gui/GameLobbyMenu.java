@@ -92,48 +92,48 @@ public class GameLobbyMenu implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 				
-				SceneController.loadingScreen();
-				
-				
-//				CLICK_EFFECT.play();
 //				SceneController.loadingScreen();
-//				Thread setUp = new Thread(new Runnable() {
-//					
-//					@Override
-//					public void run() {
-//						GameSetUp gameSetUp = new GameSetUp();
-//					}
-//				});
+				
+				
+				CLICK_EFFECT.play();
+				SceneController.loadingScreen();
+				Thread setUp = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						GameSetUp gameSetUp = new GameSetUp();
+					}
+				});
+				
+				setUp.start();
+
+//				try {
+//					setUp.join();
 //				
-//				setUp.start();
-//
-////				try {
-////					setUp.join();
-////				
-////				} catch (InterruptedException e) {
-////					
-////				}
-//				while(!GameSetUp.isFinished()) {
+//				} catch (InterruptedException e) {
 //					
-//					if(GameSetUp.isFinished()) {
-//						
-//						SceneController.setScene(SceneController.getMapOverView());
-//						AudioUpdate.toMapOverview(bgm);
-//						
-//						// ----------------------- Create GameController's Thread Run Parallel -------------------------
-//						
-//						Thread controller = new Thread(new Runnable() {
-//							
-//							@Override
-//							public void run() {
-//								GameController gameController = new GameController();
-//							}
-//						});
-//						
-//						controller.start();
-//						break;
-//						}
-//					}
+//				}
+				while(!GameSetUp.isFinished()) {
+					
+					if(GameSetUp.isFinished()) {
+						
+						SceneController.setScene(SceneController.getMapOverView());
+						AudioUpdate.toMapOverview(bgm);
+						
+						// ----------------------- Create GameController's Thread Run Parallel -------------------------
+						
+						Thread controller = new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								GameController gameController = new GameController();
+							}
+						});
+						
+						controller.start();
+						break;
+						}
+					}
 				}
 		});
 		
