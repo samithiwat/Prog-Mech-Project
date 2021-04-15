@@ -15,6 +15,7 @@ public abstract class MainCharacter {
 	private ArrayList<Location> possessedArea;
 	private int goodPoint;
 	private int money;
+	private int income;
 	private String name;
 	private String desciption;
 	protected Color color;
@@ -30,6 +31,7 @@ public abstract class MainCharacter {
 		this.possessedArea = new ArrayList<Location>();
 		this.goodPoint = 0;
 		this.isWin = false;
+		this.income = 0;
 	}
 
 	public void addCardtoHand(WeaponCard card) {
@@ -59,9 +61,16 @@ public abstract class MainCharacter {
 	}
 
 	public void gainIncome() {
-		for (int i = 0; i < this.possessedArea.size(); i++) {
-			this.possessedArea.get(i).payIncome();
+		this.setMoney(this.getMoney()+this.income);
+	}
+	
+	public int totalIncome() {
+		int sum = 0;
+		for(int i = 0 ; i< this.possessedArea.size() ; i++) {
+			sum += this.possessedArea.get(i).getIncomePerRound();
 		}
+		this.income = sum;
+		return sum;
 	}
 
 	public abstract int checkIsWin();
@@ -138,8 +147,22 @@ public abstract class MainCharacter {
 	public Color getColor() {
 		return color;
 	}
+	
+	public int getIncome() {
+		return income;
+	}
+	
+	public void setIncome(int income) {
+		this.income = income;
+	}
+	
+	public boolean isWin() {
+		return isWin;
+	}
+	
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
 
 	public String toString() {
 		return "-------------------------------------\n" + "Name: " + getName() + "\n" + "Description: "

@@ -12,16 +12,14 @@ import update.PlayerPanelUpdate;
 
 public class GameController {
 	public GameController() {
-		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
-			// choose start location
-
-		}
 		while (!GameSetUp.isGameEnd) {
 
 			for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
-				MainCharacter character = GameSetUp.gameCharacter.get(i);
-				GameSetUp.thisTurn = character;
+				GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
+				MainCharacter character = GameSetUp.thisTurn;
+				character.totalIncome();
 				character.gainIncome();
+			
 				if (GameSetUp.theGovernment == character) {
 					// remove/add lawcard
 					GameSetUp.governmentPoint++;

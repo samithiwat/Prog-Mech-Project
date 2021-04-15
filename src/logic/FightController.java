@@ -8,6 +8,7 @@ import component.location.Location;
 import component.weaponCard.WeaponCard;
 // this class can be deleted
 public class FightController {
+	public Minion winner;
 	public FightController(Minion challenger , Minion defender) {
 		ArrayList<WeaponCard> challenger_slot = new ArrayList<WeaponCard>();
 		ArrayList<WeaponCard> defender_slot = new ArrayList<WeaponCard>();
@@ -23,13 +24,18 @@ public class FightController {
 			//update the randomized atk to the screen
 			defender_atkPoint += randomized_atkPoint;
 		}
-		
+		if(challenger.getPossessedBy().getName().equals("Ms.ThousandYear")) {
+			challenger_atkPoint += 1;
+		}
+		if(defender.getPossessedBy().getName().equals("Ms.Collector")) {
+			challenger_atkPoint -= 1;
+		}
 		if(challenger_atkPoint > defender_atkPoint) {
-//			this.winner = challenger.getPossessedBy();
+			this.winner = challenger;
 			challenger.addMinion(defender);
 		}
 		else if(challenger_atkPoint < defender_atkPoint) {
-//			this.winner = defender.getPossessedBy();
+			this.winner = defender;
 			defender.addMinion(challenger);
 		}
 	}
@@ -50,18 +56,20 @@ public class FightController {
 			//update the randomized atk to the screen
 			defender_atkPoint += randomized_atkPoint;
 		}
-		
 		if(challenger_atkPoint > defender_atkPoint) {
-//			this.winner = challenger.getPossessedBy();
+			this.winner = challenger;
 //			challenger.addMinion(defender);
 		}
 		else if(challenger_atkPoint < defender_atkPoint) {
-//			this.winner = defender.getPossessedBy();
+			this.winner = null;
 //			defender.addMinion(challenger);
 		}
 	}
 	//-------------------------getter/setter-------------------------
-//	public MainCharacter getWinner() {
-//		return this.winner;
-//	}
+	public String getWinner() {
+		if(winner == null) {
+			return "You Lose";
+		}
+		return winner.getPossessedBy().getName();
+	}
 }

@@ -28,11 +28,6 @@ public class Location {
 			this.isPossessable = false;
 		}
 	}
-	public void payIncome() {
-		if(this.possessedBy != null && this.isPossessable) {
-			this.possessedBy.getPossessedBy().setMoney(this.possessedBy.getPossessedBy().getMoney()+this.incomePerRound);
-		}
-	}
 	
 	public void removeFromLocation(Minion minion) {
 		for(int i = 0 ; i < this.minionOnLocation.size() ; i++) {

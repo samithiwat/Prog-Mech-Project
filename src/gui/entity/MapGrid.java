@@ -27,14 +27,14 @@ public class MapGrid extends Pane {
 				int dy = i * HEXAGON_HEIGHT;
 				if (j == 5) {
 					HexagonPane hexagonPaneOdd = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT, HEXAGON_INIT_X_ODD + dx,
-							HEXAGON_INIT_Y_ODD + dy, i, j);
+							HEXAGON_INIT_Y_ODD + dy, i, j*2);
 					column.add(hexagonPaneOdd);
 					getChildren().add(hexagonPaneOdd);
 				} else {
 					HexagonPane hexagonPaneOdd = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT, HEXAGON_INIT_X_ODD + dx,
-							HEXAGON_INIT_Y_ODD + dy, i, j);
+							HEXAGON_INIT_Y_ODD + dy, i, j*2);
 					HexagonPane hexagonPaneEven = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT,
-							HEXAGON_INIT_X_EVEN + dx, HEXAGON_INIT_Y_EVEN + dy, i, j);
+							HEXAGON_INIT_X_EVEN + dx, HEXAGON_INIT_Y_EVEN + dy, i, j*2+1);
 					column.add(hexagonPaneOdd);
 					column.add(hexagonPaneEven);
 					getChildren().addAll(hexagonPaneOdd, hexagonPaneEven);

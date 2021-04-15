@@ -41,31 +41,10 @@ public class Minion implements moveable {
 		this.possessedBy.addToMyEntity(this);
 	}
 // overwrite
-	public void move(String cmd) {
-		int[] move = {0,0};
-		if(cmd.toUpperCase().equals("UP")) {
-			move = moveable.UP;
-		}
-		else if(cmd.toUpperCase().equals("DOWN")) {
-			move = moveable.DOWN;
-		}
-		else if(cmd.toUpperCase().equals("LEFTUP")) {
-			move = moveable.LEFTUP;
-		}
-		else if(cmd.toUpperCase().equals("RIGHTUP")) {
-			move = moveable.RIGHTUP;
-		}
-		else if(cmd.toUpperCase().equals("LEFTDOWN")) {
-			move = moveable.LEFTDOWN;
-		}
-		else if(cmd.toUpperCase().equals("RIGHTDOWN")) {
-			move = moveable.RIGHTDOWN;
-		}
-		else {
-			System.out.println("Fail");
-		}
-		this.setPosX(this.getPosX()+move[0]);
-		this.setPosY(this.getPosY()+move[1]);
+	public void move(int x ,int y) {
+
+		this.setPosX(this.getPosX()+x);
+		this.setPosY(this.getPosY()+y);
 		this.onLocation.removeFromLocation(this);
 		GameSetUp.map[this.getPosX()][this.getPosY()].addMinonToLocation(this);
 		
