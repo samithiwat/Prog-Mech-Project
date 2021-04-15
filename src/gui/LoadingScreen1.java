@@ -50,6 +50,7 @@ public class LoadingScreen1 implements Sceneable {
 			}
 
 		};
+		
 		animation.setAutoReverse(true);
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();

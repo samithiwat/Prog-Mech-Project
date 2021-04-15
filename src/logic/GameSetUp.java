@@ -29,6 +29,7 @@ import gui.overlay.TileOverlay;
 public class GameSetUp {
 	private static int MAP_N_ROW = 9;
 	private static int MAP_N_COLUMN = 11;
+	private static boolean isFinished = false;
 
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
@@ -96,6 +97,8 @@ public class GameSetUp {
 		SceneController.createGameScene();
 		
 		setUpMapWithHexPane();
+		
+		isFinished = true;
 
 	}
 
@@ -397,6 +400,11 @@ public class GameSetUp {
 		return overlay;
 
 	}
+	
+	public static boolean isFinished() {
+		return isFinished;
+	}
+
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 

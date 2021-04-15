@@ -26,6 +26,8 @@ public class SceneController {
 	private static int count;
 	private static AnimationTimer animationTimer;
 	
+	private static Stage loadingStage;
+	
 	private static Scene gameSettingMenu;
 	private static Scene mapOverView;
 	private static Scene mainIsland;
@@ -97,8 +99,10 @@ public class SceneController {
 	}
 	
 	public static void loadingScreen() {
-		Random rand = new Random();
-		int sceneNum = rand.nextInt(2);
+//		Random rand = new Random();
+//		int sceneNum = rand.nextInt(2);
+
+		int sceneNum = 1;
 		
 		switch(sceneNum) {
 		case 0 :
@@ -133,6 +137,14 @@ public class SceneController {
 
 	public static Scene getOcean() {
 		return Ocean;
+	}
+
+	public static Stage getLoadingStage() {
+		return loadingStage;
+	}
+
+	public static void setLoadingStage(Stage loadingStage) {
+		SceneController.loadingStage = loadingStage;
 	}
 	
 }
