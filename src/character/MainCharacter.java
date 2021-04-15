@@ -167,7 +167,8 @@ public abstract class MainCharacter {
 	public String toString() {
 		return "-------------------------------------\n" + "Name: " + getName() + "\n" + "Description: "
 				+ getDesciption() + "\n" + "GoodPoint: " + getGoodPoint() + "\n" + "Weapond on hand: " + getWeaponHand()
-				+ "\n" + "Money: " + getMoney() + "\n" + "Minion" + getMyEntity();
+				+ "\n" + "Money: " + getMoney() + "\n" + "Minion" + getMyEntity()+"\n"
+				+"-------------------------------------";
 	}
 
 ////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////

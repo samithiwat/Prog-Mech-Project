@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -21,7 +21,7 @@ public class QuitOverlay extends Overlay {
 	private final static int HEIGHT = 500;
 
 	public QuitOverlay() {
-		super((new AnchorPane()), WIDTH, HEIGHT, 250, -800);
+		super((new Pane()), WIDTH, HEIGHT, 250, -800);
 		prefHeight(HEIGHT);
 		prefWidth(WIDTH);
 		setId("mainmenu-overlay");

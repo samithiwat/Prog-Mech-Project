@@ -89,42 +89,17 @@ public class PlayerPanel extends Pane implements Sceneable {
 			public void handle(MouseEvent event) {
 				CLICK_EFFECT.play();
 				GameSetUp.isEndTurn = true;
-				System.out.println("End turn of " + GameSetUp.thisTurn);
+				
+///////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////////////////////				
+				
+				
+				System.out.println("---------------------------------------- End turn ---------------------------------------------\n" + GameSetUp.thisTurn);
+			
+			
+///////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////////////////
 			}
 		});
 	}
-
-//	private Pane ClipShape() {
-//
-//		Pane shape = new Pane();
-//
-//		Rectangle statusPaneShape = new Rectangle(730, 150);
-//
-//		Rectangle turnBarShape = new Rectangle(730, 150);
-//		turnBarShape.setX(820);
-//
-//		Rectangle endTurnShape = new Rectangle(200, 100);
-//		endTurnShape.setId("end-turn-button-release-style");
-//		endTurnShape.setX(1287);
-//		endTurnShape.setY(742);
-//
-//		Rectangle governmentPointShape = new Rectangle(210, 20);
-//		governmentPointShape.setX(1287);
-//		governmentPointShape.setY(706);
-//
-//		Rectangle goodnessPointShape = new Rectangle(150, 20);
-//		governmentPointShape.setX(65);
-//		governmentPointShape.setY(592);
-//		
-//		ImageView handsShape = new ImageView(ClassLoader.getSystemResource("img/icon/HandsIcon.png").toString());
-//		handsShape.setX(42);
-//		handsShape.setY(632);
-//
-//		shape.getChildren().addAll(statusPaneShape, turnBarShape, endTurnShape, governmentPointShape,
-//				goodnessPointShape,handsShape);
-//
-//		return shape;
-//	}
 
 	public static Button getEndTurn() {
 		return endTurn;

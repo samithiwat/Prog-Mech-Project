@@ -2,6 +2,7 @@ package update;
 
 import gui.MapOverview;
 import javafx.scene.media.AudioClip;
+import javafx.util.Duration;
 
 public class AudioUpdate implements Updateable{
 	
@@ -9,7 +10,8 @@ public class AudioUpdate implements Updateable{
 		if(currentBGM != null) {
 			currentBGM.stop();
 		}
-		MapOverview.getBgm().play();
+		MapOverview.getBgm().setCycleCount(AudioClip.INDEFINITE);
+		MapOverview.getBgm().play();		
 	}
 	
 }

@@ -13,7 +13,7 @@ public class MainIslandUpdate {
 	private final static int INIT_SPEED = 20;
 	private final static int MAX_SPEED = 50;
 	private final static int ACCELERATE = 8;
-	private final static int ACCELERATE_TIME = 500; // milisec
+	private final static int ACCELERATE_TIME = 200; // milli sec
 	private static int current_speed = INIT_SPEED;
 	private static long now = System.currentTimeMillis();
 	

@@ -79,8 +79,6 @@ public class PlayerPanelUpdate {
 		
 		MapGrid.setEnable(!MapGrid.isEnable());
 		
-		System.out.println(MapGrid.getGrids());
-		
 		String id;
 		
 		if(MapGrid.isEnable()) {
@@ -92,7 +90,6 @@ public class PlayerPanelUpdate {
 		
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
-			System.out.println(column);
 			for (int j = 0; j < column.size(); j++) {
 				column.get(j).setId(id);
 			}

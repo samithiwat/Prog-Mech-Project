@@ -2,57 +2,56 @@ package gui.entity;
 
 import component.location.Location;
 import gui.overlay.Overlay;
+import gui.overlay.TileOverlay;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import logic.GameSetUp;
 
 public class HexagonPane extends Pane implements Clickable {
 
+	private final int MAX_MINION = 6;
+
 	private int x;
 	private int y;
-	private boolean moveable;
-	
-	private Overlay overlay;
+
+
+	private TileOverlay overlay;
+	private GridPane minionIconPane;	
+  private boolean moveable;
 	private Location locationType;
-	
-	////////////////FOR DEBUG ONLY //////////////////////
+
+	//////////////// FOR DEBUG ONLY //////////////////////
 	private int row;
 	private int column;
-	////////////////END OF DEBUG /////////////////////////
-	
-	
+	//////////////// END OF DEBUG /////////////////////////
 
 	public HexagonPane(int width, int height, int x, int y,
-			
-	////////////////FOR DEBUG ONLY //////////////////////
-	
-	int row,int column) {
 
-	////////////////END OF DEBUG /////////////////////////
-		
+			//////////////// FOR DEBUG ONLY //////////////////////
+
+			int row, int column) {
+
+		//////////////// END OF DEBUG /////////////////////////
 
 		//////////////// FOR DEBUG ONLY //////////////////////
 
 		setRow(row);
 		setColumn(column);
-		
+
 		// System.out.println("x: "+x+", "+"y: "+y);
 
 		//////////////// END OF DEBUG /////////////////////////
+
+// --------------------------------------------------- Set Up HexagonPane -----------------------------------------------
 
 		setX(x);
 		setY(y);
 		moveable = false;
 
-		double[] points = { 
-				53, 0.5, 
-				197, 0.5,
-				250, 125.5,
-				197, 250.5,
-				53, 250.5,
-				0, 125.5 };
+		double[] points = { 53, 0.5, 197, 0.5, 250, 125.5, 197, 250.5, 53, 250.5, 0, 125.5 };
 
 		Polygon poly = new Polygon(points);
 
@@ -66,6 +65,22 @@ public class HexagonPane extends Pane implements Clickable {
 		setPrefHeight(height);
 		setId("grid-release-style");
 		interact();
+
+		minionIconPane = new GridPane();
+		minionIconPane.setHgap(10);
+		minionIconPane.setVgap(10);
+		minionIconPane.setLayoutX(40);
+		minionIconPane.setLayoutY(25);
+		
+//		for (int i = 0; i < MAX_MINION / 3; i++) {
+//			for (int j = 0; j < MAX_MINION / 2; j++) {
+//				MinionIcon minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 50, 1, 0);
+//				minionIcon.setVisible(false);
+//				minionIconPane.add(minionIcon, j, i);
+//			}
+//		}
+		
+		getChildren().addAll(minionIconPane);
 	}
 
 	public void interact() {
@@ -105,19 +120,30 @@ public class HexagonPane extends Pane implements Clickable {
 			@Override
 			public void handle(MouseEvent event) {
 				setCursor(MOUSE_NORMAL);
-				if(moveable) {
+			if(moveable) {
 					
 				}
 				else if(MapGrid.isEnable()) {
 					setId("grid-release-style");
-				}
-				else {
+				} else {
 					setId("grid-disable");
 				}
 			}
 		});
+		
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println(overlay);
+				if(overlay!=null) {
+					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(), TileOverlay.getOverlayDelay());
+				}
+			}
+			
+		});
 	}
-	
+
 	public void triggerOverlay() {
 		overlay.triggerOverlay(0, 825, 1000);
 	}
@@ -213,13 +239,17 @@ public class HexagonPane extends Pane implements Clickable {
 	public void setLocationType(Location locationType) {
 		this.locationType = locationType;
 	}
-	
-		public Overlay getOverlay() {
+
+	public TileOverlay getOverlay() {
 		return overlay;
 	}
 
-	public void setOverlay(Overlay overlay) {
+	public void setOverlay(TileOverlay overlay) {
 		this.overlay = overlay;
+	}
+	
+		public GridPane getMinionIconPane() {
+		return minionIconPane;
 	}
 
 ///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
@@ -241,8 +271,8 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public String toString() {
-		return "<row :" + this.row + ", column : "+ this.column+">";
+		return "<row :" + this.row + ", column : " + this.column + ">";
 	}
-	
+
 ////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////
 }

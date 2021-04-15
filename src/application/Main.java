@@ -1,6 +1,7 @@
 package application;
 
 import gui.LoadingScreen1;
+import gui.LoadingScreen2;
 import gui.MainIsland;
 import gui.MapOverview;
 import gui.StartMenu;
@@ -19,7 +20,7 @@ public class Main extends Application {
 //		System.out.println(ClassLoader.getSystemResource("audio/MainMenuThemeSong1.wav").toString());
 //		AudioClip effect = AudioLoader.menuThemeSong;
 //		effect.play();
-//		primaryStage.setScene((new LoadingScreen1()).getScene());
+//		primaryStage.setScene((new LoadingScreen2()).getScene());
 //		primaryStage.show();
 		SceneController.setScene((new StartMenu()).getScene());
 		SceneController.getStage().show();

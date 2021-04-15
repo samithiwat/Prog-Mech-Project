@@ -14,12 +14,14 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import logic.AudioLoader;
 import logic.GameController;
 import logic.GameSetUp;
@@ -89,25 +91,53 @@ public class GameLobbyMenu implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				
+				SceneController.loadingScreen();
+				
+				
+//				CLICK_EFFECT.play();
 //				SceneController.loadingScreen();
-				GameSetUp gameSetUp = new GameSetUp();
-				SceneController.setScene(SceneController.getMapOverView());
-				AudioUpdate.toMapOverview(bgm);
-				
-				// ----------------------- Create GameController's Thread Run Parallel -------------------------
-				
-				Thread t = new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						GameController gameController = new GameController();
-					}
-				});
-				
-				t.start();
-			}
+//				Thread setUp = new Thread(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						GameSetUp gameSetUp = new GameSetUp();
+//					}
+//				});
+//				
+//				setUp.start();
+//
+////				try {
+////					setUp.join();
+////				
+////				} catch (InterruptedException e) {
+////					
+////				}
+//				while(!GameSetUp.isFinished()) {
+//					
+//					if(GameSetUp.isFinished()) {
+//						
+//						SceneController.setScene(SceneController.getMapOverView());
+//						AudioUpdate.toMapOverview(bgm);
+//						
+//						// ----------------------- Create GameController's Thread Run Parallel -------------------------
+//						
+//						Thread controller = new Thread(new Runnable() {
+//							
+//							@Override
+//							public void run() {
+//								GameController gameController = new GameController();
+//							}
+//						});
+//						
+//						controller.start();
+//						break;
+//						}
+//					}
+				}
 		});
+		
+			
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------		
 

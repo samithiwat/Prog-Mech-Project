@@ -91,6 +91,8 @@ public class MainIsland implements Sceneable {
 
 		//////////////// FOR DEBUG ONLY //////////////////////
 		
+//		System.out.println("Width : "+bg.getFitWidth()+", Height : "+bg.getFitHeight());
+		
 //		System.out.println(MapGrid.getGrids());
 
 //		HexagonPane test1 = new HexagonPane(350,350,0,0);
