@@ -6,21 +6,39 @@ import character.MainCharacter;
 import component.entity.Minion;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
+import gui.MainIsland;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import javafx.application.Platform;
 import update.GameSettingUpdate;
+import update.HexTileUpdate;
 import update.PlayerPanelUpdate;
 
 public class GameController {
 	public GameController() {
 //--------------------------Choose start minion location-----------------------------------
+		PlayerPanelUpdate.closePanel();
+		HexTileUpdate.setDataInteract();
 		for(int i = 0 ; i < GameSettingUpdate.getNPlayer(); i++) {
-			while(GameSetUp.selectedTile != null) {
+				
+			while(true) {
 				//empty
+				System.out.println(GameSetUp.selectedTile);
+				if(GameSetUp.selectedTile != null) {
+					System.out.println(GameSetUp.selectedTile);
+					break;
+				}
+				
 			}
+//			System.out.println(GameSetUp.selectedTile);
+			System.out.println("Spawn Minion");
 			spawnMinion(new Minion(GameSetUp.gameCharacter.get(i)), GameSetUp.selectedTile);
+			GameSetUp.selectedTile.updateMinionIcon();
+			GameSetUp.selectedTile.updateMinionPane();
 		}
+		
+		PlayerPanelUpdate.openPanel();
+		HexTileUpdate.setOverlayInteract();
 //------------------------------------------------------------------------------------------
 		while (!GameSetUp.isGameEnd) {
 			for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {

@@ -6,11 +6,13 @@ import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
 import gui.entity.PointPane;
 import gui.entity.StatusPane;
+import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +24,9 @@ import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 import logic.SceneController;
 import update.AudioUpdate;
+import update.HexTileUpdate;
 import update.MainIslandUpdate;
+import update.PlayerPanelUpdate;
 
 public class MainIsland implements Sceneable {
 	
@@ -45,6 +49,8 @@ public class MainIsland implements Sceneable {
 	private StatusPane statusPane = PlayerPanel.getStatusPane();
 	private TurnBar turnBar = PlayerPanel.getTurnBar();
 
+	private static TextTitle info;
+	
 	public MainIsland() {
 		
 		root = new Pane();
@@ -55,10 +61,11 @@ public class MainIsland implements Sceneable {
 
 		MapGrid grid = new MapGrid();
 		
+		info = new TextTitle("Select spawn point of your minion",Color.web("0x393E46"),FontWeight.BOLD,48,376,779);
 		
 		root.getChildren().addAll(bg, grid);
 		
-		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint);
+		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, info);
 		
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);
@@ -121,6 +128,13 @@ public class MainIsland implements Sceneable {
 		setBgY(getBgY() + speed);
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
 	}
+	
+//	public static void selectSpawnPoint() {
+//
+//		PlayerPanelUpdate.closePanel();
+//		HexTileUpdate.setDataInteract();
+//	}
+//	
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 	

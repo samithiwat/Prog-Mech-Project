@@ -1,3 +1,29 @@
+.menu-item {
+  -fx-background-color: #b26e59;
+  -fx-padding: 1em 1em 1em 1em;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
+.menu-item:hover {
+  -fx-background-color: #393e46;
+  -fx-padding: 1em 1em 1em 1em;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
+.menu-item .label {
+  -fx-font-size: 30 pt;
+  -fx-font-family: tahoma;
+  -fx-text-fill: #fefde8;
+}
+
+#player-action-menu-style {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
 #circle-button-release-style {
   -fx-background-color: #ffd3c0;
 }

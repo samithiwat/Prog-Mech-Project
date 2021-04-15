@@ -101,8 +101,6 @@ public class GameSetUp {
 		SceneController.createGameScene();
 		
 		setUpMapWithHexPane();
-		
-		isFinished = true;
 
 	}
 
@@ -112,15 +110,12 @@ public class GameSetUp {
 			for (int j = 0; j < column.size(); j++) {
 				column.get(j).setLocationType(map[i][j]);
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
-				//System.out.println(column);
-				System.out.println(createTileOverlay(i, j));
+				TileOverlay overlay = createTileOverlay(i, j);
+				System.out.println(overlay);
 				
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 
-				if (createTileOverlay(i, j) != null) {
-					column.get(j).setOverlay(createTileOverlay(i, j));
-				}
+				column.get(j).setOverlay(overlay);
 
 			}
 		}

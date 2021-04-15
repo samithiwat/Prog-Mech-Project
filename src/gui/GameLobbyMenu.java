@@ -107,33 +107,27 @@ public class GameLobbyMenu implements Sceneable {
 				
 				setUp.start();
 
-//				try {
-//					setUp.join();
-//				
-//				} catch (InterruptedException e) {
-//					
-//				}
-				while(!GameSetUp.isFinished()) {
+				try {
+					setUp.join();
+				
+				} catch (InterruptedException e) {
 					
-					if(GameSetUp.isFinished()) {
+				}	
+				
+				SceneController.setScene(SceneController.getMainIsland());
+				AudioUpdate.toMapOverview(bgm);
 						
-						SceneController.setScene(SceneController.getMapOverView());
-						AudioUpdate.toMapOverview(bgm);
+				// ----------------------- Create GameController's Thread Run Parallel -------------------------
 						
-						// ----------------------- Create GameController's Thread Run Parallel -------------------------
-						
-						Thread controller = new Thread(new Runnable() {
+				Thread controller = new Thread(new Runnable() {
 							
-							@Override
-							public void run() {
-								GameController gameController = new GameController();
-							}
-						});
-						
-						controller.start();
-						break;
+					@Override
+					public void run() {
+						GameController gameController = new GameController();
 						}
-					}
+					});
+						
+				controller.start();
 				}
 		});
 		

@@ -5,25 +5,48 @@ import java.util.ArrayList;
 import character.*;
 import component.entity.Minion;
 import gui.entity.HexagonPane;
+import gui.entity.MapGrid;
 import gui.entity.MenuIcon;
 import gui.entity.MinionIcon;
 import gui.entity.MinionPane;
 import javafx.scene.layout.GridPane;
+import logic.GameSetUp;
 
 public class HexTileUpdate {
 
-	private static int N_COLUMN = 3;
+	private static final int N_COLUMN = 3;
 
-	private HexagonPane hexTile;
+	private static HexagonPane hexTile;
 
+// ---------------------------------------------------- Update Tile's Interact Type ----------------------------------------------------------
+	
+	public static void setDataInteract() {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).dataInteract();
+			}
+		}
+	}
+	
+	public static void setOverlayInteract() {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).overlayInteract();
+			}
+		}
+	}
+	
+	
 // ---------------------------------------------------- Update Minion Icon in Hex Tile -----------------------------------------------------------
 // ---------------------------------------------------- eg. moved, spawn, buy minion etc -----------------------------------------------------
 
-	public void updateMinionIcon() {
-		GridPane minionIconPane = (GridPane) hexTile.getChildren().get(0);
+	public static void updateMinionIcon() {
+		GridPane minionIconPane = (GridPane) GameSetUp.selectedTile.getChildren().get(0);
 		minionIconPane.getChildren().clear();
 
-		ArrayList<Minion> minions = hexTile.getLocationType().getMinionOnLocation();
+		ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
 
 		for (int i = 0; i < minions.size(); i++) {
 
@@ -34,19 +57,19 @@ public class HexTileUpdate {
 
 // ---------------------------------------------------- Update Minion Pane in Hex Tile -----------------------------------------------------------
 
-	public void updateMinionPane() {
+	public static void updateMinionPane() {
 
-		MinionPane minionPane = hexTile.getOverlay().getMinionPane();
+		MinionPane minionPane = GameSetUp.selectedTile.getOverlay().getMinionPane();
 		minionPane.getChildren().clear();
 
-		ArrayList<Minion> minions = hexTile.getLocationType().getMinionOnLocation();
+		ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
 
 		for (int i = 0; i < minions.size(); i++) {
 			addMinionToPane(minions.get(i), minionPane, i);
 		}
 	}
 
-	private MinionIcon createMinionIcon(Minion minion) {
+	private static MinionIcon createMinionIcon(Minion minion) {
 
 		MinionIcon minionIcon = null;
 
@@ -72,7 +95,7 @@ public class HexTileUpdate {
 		return minionIcon;
 	}
 
-	private void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
+	private static void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
 
 		MenuIcon minionIcon = null;
 
@@ -101,12 +124,12 @@ public class HexTileUpdate {
 
 // ---------------------------------------------------- Getter and Setter ------------------------------------------------------------
 
-	public HexagonPane getHexTile() {
+	public static HexagonPane getHexTile() {
 		return hexTile;
 	}
 
-	public void setHexTile(HexagonPane hexTile) {
-		this.hexTile = hexTile;
+	public static void setHexTile(HexagonPane hexTile) {
+		HexTileUpdate.hexTile = hexTile;
 	}
 
 }
