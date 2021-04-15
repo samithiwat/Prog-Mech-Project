@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import component.entity.Minion;
 import component.law.LawDeck;
 import component.law.LawSlot;
 import component.location.Council;
@@ -40,9 +41,12 @@ public class GameSetUp {
 	public static MainCharacter theGovernment = null;
 	public static Location[][] map = new Location[9][11];
 	public static MainCharacter thisTurn;
+//	public static Minion selectedMinion = null;
 	public static int governmentPoint = 0;
+	public static HexagonPane selectedTile = null;
 
 	public GameSetUp() {
+		thisTurn = gameCharacter.get(0);
 //----------------------------------Weapon Set Up---------------------------------------------------
 		for (int i = 0; i < DUPLICATE; i++) {
 			weaponDeck.addCard(new Axe());
