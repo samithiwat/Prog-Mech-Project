@@ -5,6 +5,7 @@ import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
@@ -16,7 +17,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 	private static final int HEIGHT = 800;
 
 	public CharacterSelectOverlay() {
-		super((new AnchorPane()), WIDTH, HEIGHT, 75, -800);
+		super((new Pane()), WIDTH, HEIGHT, 75, -800);
 		// setId("overlay");
 		setCursor(CURSOR_NORMAL);
 

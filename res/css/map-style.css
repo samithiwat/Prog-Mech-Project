@@ -65,3 +65,7 @@
   -fx-border-color: rgba(0, 0, 0, 0);
   -fx-border-width: 0;
 }
+
+#character-icon {
+  -fx-background-color: #fefde8;
+}

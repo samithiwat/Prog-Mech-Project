@@ -5,28 +5,29 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Overlay extends SubScene implements Overlayable {
 
-	protected AnchorPane root;
+	protected Pane root;
 
 //	protected boolean isVisible = false;
 
-	public Overlay(AnchorPane root,int width,int height,int initX,int initY) {
+	public Overlay(Pane root,int width,int height,int initX,int initY) {
 		super(root, width, height);
 		//setFill(Color.TRANSPARENT);
-		setRoot((AnchorPane) this.getRoot());
+		setRoot((Pane) this.getRoot());
 		setLayoutX(initX);
 		setLayoutY(initY);
 		setVisible(false);
 	}
  
-	public AnchorPane getOverlayRoot() {
+	public Pane getOverlayRoot() {
 		return root;
 	}
 
-	public void setRoot(AnchorPane root) {
+	public void setRoot(Pane root) {
 		this.root = root;
 	}
 

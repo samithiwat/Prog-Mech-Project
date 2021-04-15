@@ -13,7 +13,7 @@ public class MapGrid extends Pane {
 	private final int HEXAGON_INIT_Y_ODD = -483;
 	private final int HEXAGON_INIT_X_EVEN = -121;
 	private final int HEXAGON_INIT_Y_EVEN = -357;
-	private static final int N_ROW = 10;
+	private static final int N_ROW = 9;
 	private static final int N_COLUMN = 6;
 
 	private static boolean isEnable = true;

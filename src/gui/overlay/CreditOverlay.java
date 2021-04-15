@@ -5,6 +5,7 @@ import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -21,7 +22,7 @@ public class CreditOverlay extends Overlay {
 	protected static final int WIDTH = 1400;
 
 	public CreditOverlay() {
-		super((new AnchorPane()),WIDTH,HEIGHT,75,-800);
+		super((new Pane()),WIDTH,HEIGHT,75,-800);
 
 		setId("overlay");
 		prefHeight(HEIGHT);

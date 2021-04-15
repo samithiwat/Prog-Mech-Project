@@ -78,6 +78,7 @@ public class MainMenu implements Sceneable{
 				effect.play();
 				SceneController.setScene(SceneController.getGameSettingMenu());
 				StartMenu.getMenuThemeSong().stop();
+				GameLobbyMenu.getBGM().setCycleCount(AudioClip.INDEFINITE);
 				GameLobbyMenu.getBGM().play();
 //				System.out.println("Change to Start Menu...");
 			}
