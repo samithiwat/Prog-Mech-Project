@@ -49,7 +49,7 @@ public class PlayerPanelUpdate {
 	public static void updateStatusPane() {
 		MainCharacter character = GameSetUp.thisTurn;
 
-		double money = character.getMoney() / 10e6;
+		double money = character.getMoney() / MainCharacter.M;
 
 		TextTitle moneyStatus = StatusPane.getMoney().getStatus();
 		TextTitle minionStatus = StatusPane.getMinion().getStatus();

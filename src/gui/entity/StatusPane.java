@@ -2,9 +2,11 @@ package gui.entity;
 
 import java.util.ArrayList;
 
+import character.MainCharacter;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -13,7 +15,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import logic.AudioLoader;
+import logic.GameController;
+import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
 public class StatusPane extends GridPane {
@@ -41,15 +46,15 @@ public class StatusPane extends GridPane {
 		buttonPane.setPadding(new Insets(10, 80, 5, 80));
 		buttonPane.setAlignment(Pos.CENTER);
 		buttonPane.setId("button-pane");
-
 		CircleButton finance = new CircleButton("img/icon/GoldIngot.png", 50, 50, 25, 0, 0);
-
-		finance.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-
-			}
+		Tooltip totalIncometooltip = new Tooltip();
+		totalIncometooltip.setFont(Font.font("Bai Jamjuree",20)); //set font here
+		totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.getIncome() / MainCharacter.M + "M");
+		finance.setOnMouseMoved((MouseEvent event) -> {
+			totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY()+10);
+		});
+		finance.setOnMouseExited((MouseEvent event) -> {
+			totalIncometooltip.hide();
 		});
 
 		CircleButton currentLaw = new CircleButton("img/icon/LawIcon.png", 50, 50, 25, 0 ,0);
