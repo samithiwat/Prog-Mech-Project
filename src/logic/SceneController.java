@@ -89,8 +89,8 @@ public class SceneController {
 	}
 	
 	public static void createGameScene() {
-
-		PlayerPanel playerPanel = new PlayerPanel();
+		
+		PlayerPanel dummy = new PlayerPanel();
 		
 		SceneController.mainIsland= (new MainIsland()).getScene();
 //		SceneController.prisonIsland = (new PrisonIsland()).getScene();

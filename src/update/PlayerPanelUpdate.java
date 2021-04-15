@@ -95,5 +95,72 @@ public class PlayerPanelUpdate {
 			}
 		}
 
+	}	
+	
+// ------------------------------------------- Toggle Player Panel Mode ---------------------------------------------	
+	
+	public static void closePanel() {
+		PlayerPanel.getEndTurn().setVisible(false);
+		PlayerPanel.getGoodnessPoint().setVisible(false);
+		PlayerPanel.getGovernmentPoint().setVisible(false);
+		PlayerPanel.getHandsIcon().setVisible(false);
+		PlayerPanel.getStatusPane().setVisible(false);
+		PlayerPanel.getTurnBar().setVisible(false);
+	}
+	
+	public static void openPanel() {
+		PlayerPanel.getEndTurn().setVisible(true);
+		PlayerPanel.getGoodnessPoint().setVisible(true);
+		PlayerPanel.getGovernmentPoint().setVisible(true);
+		PlayerPanel.getHandsIcon().setVisible(true);
+		PlayerPanel.getStatusPane().setVisible(true);
+		PlayerPanel.getTurnBar().setVisible(true);
+	}
+	
+//---------------------------------------- Toggle Player Action Menu Mode -----------------------------------------
+	
+	public static void setConfirmButton(boolean isVisible) {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).getPlayerActionMenu().getConfirm().setVisible(isVisible);
+			}
+		}
+	}
+	
+	public static void setCombineButton(boolean isVisible) {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).getPlayerActionMenu().getCombine().setVisible(isVisible);
+			}
+		}
+	}
+	
+	public static void setSplitButton(boolean isVisible) {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).getPlayerActionMenu().getSplit().setVisible(isVisible);
+			}
+		}
+	}
+	
+	public static void setBuyMinionButton(boolean isDisable) {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).getPlayerActionMenu().getBuyMinion().setDisable(isDisable);
+			}
+		}
+	}
+	
+	public static void setBuyLandButton(boolean isDisable) {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).getPlayerActionMenu().getBuyLand().setDisable(isDisable);
+			}
+		}
 	}
 }
