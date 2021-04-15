@@ -1,6 +1,7 @@
 package gui.entity;
 
 import component.location.Location;
+import component.location.Water;
 import gui.overlay.Overlay;
 import gui.overlay.TileOverlay;
 import javafx.event.EventHandler;
@@ -184,6 +185,9 @@ public class HexagonPane extends Pane implements Clickable {
 			if(this.row + x < 0 || this.row + x >= 9 || this.column + y < 0 || this.column + y >= 11) {
 				continue;
 			}
+			if(GameSetUp.map[this.row+x][this.column+y] instanceof Water) {
+				continue;
+			}
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setId("grid-hold-style");
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setMoveable(true);
 		}
@@ -198,6 +202,9 @@ public class HexagonPane extends Pane implements Clickable {
 			int x = component.entity.moveable.DIRECTION[key][2*i];
 			int y = component.entity.moveable.DIRECTION[key][2*i+1];
 			if(this.row + x < 0 || this.row + x >= 9 || this.column + y < 0 || this.column + y >= 11) {
+				continue;
+			}
+			if(GameSetUp.map[this.row+x][this.column+y] instanceof Water) {
 				continue;
 			}
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setId("grid-release-style");
