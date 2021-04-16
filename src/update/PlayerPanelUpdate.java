@@ -125,6 +125,15 @@ public class PlayerPanelUpdate {
 		}
 	}
 	
+	public static void resetTile() {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+					column.get(j).setId("grid-release-style");
+			}
+		}
+	}
+	
 // ------------------------------------------- Toggle Player Panel Mode ---------------------------------------------	
 	
 	public static void closePanel() {

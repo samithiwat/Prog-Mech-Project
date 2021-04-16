@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import gui.entity.CharacterSetting;
 import gui.entity.GameSetting;
 import gui.entity.MenuButton;
+import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import gui.overlay.CharacterInfo;
 import gui.overlay.CharacterSelectOverlay1;
@@ -218,7 +219,14 @@ public class GameLobbyMenu implements Sceneable {
 						PlayerPanelUpdate.highlightSpawnableTile();
 					}
 					
+					if(GameSetUp.isReset) {
+						PlayerPanelUpdate.resetTile();
+						GameSetUp.isReset = false;
+					}
+					
 					if(GameSetUp.isEndTurn) {
+						AudioUpdate.toMapOverview(null);
+						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 						SceneController.setScene(SceneController.getMapOverView());
 						GameSetUp.isEndTurn = false;
 					}

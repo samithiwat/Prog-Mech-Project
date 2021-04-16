@@ -29,44 +29,57 @@ public class GameController {
 		GameSetUp.isHighlightSpawnable = true;
 
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
-			
+
 			GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
-			
+
 			while (true) {
 				// empty
 				System.out.println(GameSetUp.selectedTile);
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.gameCharacter.get(i) instanceof ThousandYear) {
+
+						System.out.println("Thousand Year");
+						
 						GameSetUp.isHighlightSpawnable = false;
 						GameSetUp.isHighlightPlain = true;
+
 						if (GameSetUp.selectedTile.getLocationType() instanceof Plain) {
+							
 							GameSetUp.isHighlightSpawnable = true;
 							GameSetUp.isHighlightPlain = false;
 							break;
+							
 						} else {
+							
 							AudioClip effect = AudioLoader.errorSound;
 							effect.play();
 							GameSetUp.selectedTile = null;
+							
 						}
 					} else if (GameSetUp.selectedTile.isSpawnable()) {
+						
 						break;
+						
 					} else {
+						
 						AudioClip effect = AudioLoader.errorSound;
 						effect.play();
 						GameSetUp.selectedTile = null;
+						
 					}
 				}
 			}
 //			System.out.println(GameSetUp.selectedTile);
 			System.out.println("Spawn Minion");
 			spawnMinion(new Minion(GameSetUp.gameCharacter.get(i)), GameSetUp.selectedTile);
-			// HexTileUpdate.updateMinionIcon();
+			GameSetUp.isReset = true;
 			GameSetUp.selectedTile = null;
 		}
 		GameSetUp.isEndTurn = true;
 		GameSetUp.isHighlightSpawnable = false;
 		MainIsland.overlayInteractMode();
 		MainIslandUpdate.setCenter();
+		GameSetUp.isEndTurn = false;
 //------------------------------------------------------------------------------------------
 		while (!GameSetUp.isGameEnd) {
 			for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
@@ -109,7 +122,7 @@ public class GameController {
 				}
 				GameSetUp.gameLaw.setDefault();
 				GameSetUp.lawSlot.activateAllSlot();
-				// GameSetUp.isEndTurn = false;
+				GameSetUp.isEndTurn = false;
 			}
 		}
 	}
