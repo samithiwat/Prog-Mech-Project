@@ -20,6 +20,7 @@ public abstract class MainCharacter {
 	private String desciption;
 	protected Color color;
 	protected AudioClip bgm;
+	private int lossPerTurn;
 	private boolean isWin;
 
 	public MainCharacter(String name, String description) {
@@ -32,6 +33,7 @@ public abstract class MainCharacter {
 		this.goodPoint = 0;
 		this.isWin = false;
 		this.income = 0;
+		this.lossPerTurn = 0;
 	}
 
 	public void addCardtoHand(WeaponCard card) {
@@ -160,8 +162,17 @@ public abstract class MainCharacter {
 		return isWin;
 	}
 	
+	public int getLossPerTurn() {
+		return lossPerTurn;
+	}
+	
+	public void setLossPerTurn(int lossPerTurn) {
+		this.lossPerTurn = lossPerTurn;
+	}
+	
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
 
 
 	public String toString() {

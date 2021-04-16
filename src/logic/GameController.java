@@ -24,7 +24,7 @@ public class GameController {
 			
 			while(true) {
 				//empty
-				System.out.println(GameSetUp.selectedTile);
+				System.out.print("");
 				if(GameSetUp.selectedTile != null) {
 					//System.out.println(GameSetUp.selectedTile);
 					break;
