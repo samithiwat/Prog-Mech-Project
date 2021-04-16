@@ -2,6 +2,7 @@ package gui.entity;
 
 import java.util.ArrayList;
 
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 public class MapGrid extends Pane {
@@ -18,10 +19,14 @@ public class MapGrid extends Pane {
 
 	private static boolean isEnable = true;
 	private static ArrayList<ArrayList<HexagonPane>> grids = new ArrayList<ArrayList<HexagonPane>>();
+	private static ArrayList<ArrayList<GridPane>> minionIconPanes = new ArrayList<ArrayList<GridPane>>();
 
 	public MapGrid() {
 		for (int i = 0; i < N_ROW; i++) {
+			
 			ArrayList<HexagonPane> column = new ArrayList<HexagonPane>();
+			ArrayList<GridPane> iconColumn = new ArrayList<GridPane>();
+			
 			for (int j = 0; j < N_COLUMN; j++) {
 				int dx = j * (HEXAGON_DISSTANCE_X + HEXAGON_WIDTH);
 				int dy = i * HEXAGON_HEIGHT;
@@ -29,6 +34,7 @@ public class MapGrid extends Pane {
 					HexagonPane hexagonPaneOdd = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT, HEXAGON_INIT_X_ODD + dx,
 							HEXAGON_INIT_Y_ODD + dy, i, j*2);
 					column.add(hexagonPaneOdd);
+					iconColumn.add(hexagonPaneOdd.getMinionIconPane());
 					getChildren().add(hexagonPaneOdd);
 				} else {
 					HexagonPane hexagonPaneOdd = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT, HEXAGON_INIT_X_ODD + dx,
@@ -36,11 +42,14 @@ public class MapGrid extends Pane {
 					HexagonPane hexagonPaneEven = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT,
 							HEXAGON_INIT_X_EVEN + dx, HEXAGON_INIT_Y_EVEN + dy, i, j*2+1);
 					column.add(hexagonPaneOdd);
+					iconColumn.add(hexagonPaneOdd.getMinionIconPane());
 					column.add(hexagonPaneEven);
+					iconColumn.add(hexagonPaneEven.getMinionIconPane());
 					getChildren().addAll(hexagonPaneOdd, hexagonPaneEven);
 				}
 			}
 			grids.add(column);
+			minionIconPanes.add(iconColumn);
 		}
 	}
 
@@ -48,6 +57,10 @@ public class MapGrid extends Pane {
 
 	public static ArrayList<ArrayList<HexagonPane>> getGrids() {
 		return grids;
+	}
+
+	public static ArrayList<ArrayList<GridPane>> getMinionIconPanes() {
+		return minionIconPanes;
 	}
 
 	public static int getN_ROW() {

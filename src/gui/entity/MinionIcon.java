@@ -14,23 +14,22 @@ public class MinionIcon extends Pane {
 	private ImageView img;
 
 	public MinionIcon(String img_path, double frame_size, int img_x, int img_y) {
-		
+
 		img = new ImageView(ClassLoader.getSystemResource(img_path).toString());
-		if(frame_size>0) {
+		if (frame_size > 0) {
 			img.setViewport(new Rectangle2D(img_x, img_y, frame_size, frame_size));
 		}
 		img.setFitWidth(WIDTH);
 		img.setFitHeight(HEIGHT);
-		
-		
-		Circle shape = new Circle(RADIUS);
-		
+
+		Circle shape = new Circle(RADIUS, RADIUS, RADIUS);
+
 		setClip(shape);
 		setId("character-icon");
-		
+
 		getChildren().add(img);
 	}
-	
+
 	public void setImg(String img_path) {
 		img.setImage(new Image(ClassLoader.getSystemResource(img_path).toString()));
 	}

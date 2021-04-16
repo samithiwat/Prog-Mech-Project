@@ -17,15 +17,16 @@ import update.PlayerPanelUpdate;
 public class GameController {
 	public GameController() {
 //--------------------------Choose start minion location-----------------------------------
-		PlayerPanelUpdate.closePanel();
-		HexTileUpdate.setDataInteract();
+		
+		MainIsland.selectSpawnPoint();
+		
 		for(int i = 0 ; i < GameSettingUpdate.getNPlayer(); i++) {
-				
+			
 			while(true) {
 				//empty
 				System.out.println(GameSetUp.selectedTile);
 				if(GameSetUp.selectedTile != null) {
-					System.out.println(GameSetUp.selectedTile);
+					//System.out.println(GameSetUp.selectedTile);
 					break;
 				}
 				
@@ -33,8 +34,8 @@ public class GameController {
 //			System.out.println(GameSetUp.selectedTile);
 			System.out.println("Spawn Minion");
 			spawnMinion(new Minion(GameSetUp.gameCharacter.get(i)), GameSetUp.selectedTile);
-			GameSetUp.selectedTile.updateMinionIcon();
-			GameSetUp.selectedTile.updateMinionPane();
+			//HexTileUpdate.updateMinionIcon();
+			GameSetUp.selectedTile = null;
 		}
 		
 		PlayerPanelUpdate.openPanel();
@@ -90,6 +91,7 @@ public void spawnMinion(Minion minion, HexagonPane tile) {
 		minion.setOnLocation(tile.getLocationType());
 		minion.setPosX(tile.getRow());
 		minion.setPosY(tile.getColumn());
+		tile.getLocationType().addMinonToLocation(minion);
 }
 	
 //----------------------Fight/Trade--------------------------	

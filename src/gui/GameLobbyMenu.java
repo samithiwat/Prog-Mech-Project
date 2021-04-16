@@ -9,6 +9,7 @@ import gui.entity.TextTitle;
 import gui.overlay.CharacterInfo;
 import gui.overlay.CharacterSelectOverlay1;
 import gui.overlay.CharacterSelectOverlay2;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -27,6 +28,7 @@ import logic.GameController;
 import logic.GameSetUp;
 import logic.SceneController;
 import update.AudioUpdate;
+import update.HexTileUpdate;
 
 public class GameLobbyMenu implements Sceneable {
 
@@ -38,6 +40,10 @@ public class GameLobbyMenu implements Sceneable {
 	private static MenuButton start;
 	private static ArrayList<CharacterSetting> cBoxes;
 
+	private static long lastTimeTrigger = -1;
+	private static final long DURATION = 100000000;
+	private static AnimationTimer animationTimer;
+	
 	public GameLobbyMenu() {
 
 //		StartMenu.getMenuThemeSong().stop();
@@ -108,6 +114,7 @@ public class GameLobbyMenu implements Sceneable {
 				setUp.start();
 
 				try {
+					
 					setUp.join();
 				
 				} catch (InterruptedException e) {
@@ -128,7 +135,9 @@ public class GameLobbyMenu implements Sceneable {
 					});
 						
 				controller.start();
-				}
+				updateAnimation();
+			}
+			
 		});
 		
 			
@@ -186,6 +195,27 @@ public class GameLobbyMenu implements Sceneable {
 			}
 		});
 	}
+	
+// -------------------------------------------- Update Animation --------------------------------------------------------------------
+	
+	private void updateAnimation() {
+		animationTimer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
+				if(now - lastTimeTrigger > DURATION) {
+					HexTileUpdate.updateMinionIcon();
+					lastTimeTrigger = now;
+				}
+			}
+			
+		};
+		
+		animationTimer.start();
+	}
+	
+// -------------------------------------------- Getter and Setter -------------------------------------------------------------------
 
 	@Override
 	public Scene getScene() {
