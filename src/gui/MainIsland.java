@@ -46,8 +46,8 @@ public class MainIsland implements Sceneable {
 	private static PointPane goodnessPoint = PlayerPanel.getGoodnessPoint();
 	private static MenuIcon handsIcon = PlayerPanel.getHandsIcon();
 	
-	private StatusPane statusPane = PlayerPanel.getStatusPane();
-	private TurnBar turnBar = PlayerPanel.getTurnBar();
+	private static StatusPane statusPane = PlayerPanel.getStatusPane();
+	private static TurnBar turnBar = PlayerPanel.getTurnBar();
 
 	private static TextTitle info;
 	
@@ -129,12 +129,17 @@ public class MainIsland implements Sceneable {
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
 	}
 	
-//	public static void selectSpawnPoint() {
-//
-//		PlayerPanelUpdate.closePanel();
-//		HexTileUpdate.setDataInteract();
-//	}
-//	
+	public static void selectSpawnPoint() {
+
+		turnBar.setVisible(false);
+		statusPane.setVisible(false);
+		endTurn.setVisible(false);
+		governmentPoint.setVisible(false);
+		goodnessPoint.setVisible(false);
+		handsIcon.setVisible(false);
+		HexTileUpdate.setDataInteract();
+	}
+	
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 	
