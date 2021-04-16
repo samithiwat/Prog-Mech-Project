@@ -116,6 +116,10 @@ public class HexagonPane extends Pane implements Clickable {
 ////				minion.move(this.x-GameSetUp.selectedTile.getX(), this.y-GameSetUp.selectedTile.getY());
 //				GameSetUp.selectedTile = this;
 //				GameSetUp.selectedTile.highlight();
+//				if(minion.moveleft() == 0) {
+//		            GameSetUp.selectedTile.unhighlight();
+//		            GameSetUp.selectedTile = null;
+//		        }
 //			}
 //		});
 		setOnMouseEntered(new EventHandler<MouseEvent>() {

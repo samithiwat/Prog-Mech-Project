@@ -20,7 +20,13 @@ public abstract class MainCharacter {
 	private String desciption;
 	protected Color color;
 	protected AudioClip bgm;
+	private int lossPerTurn;
 	private boolean isWin;
+	private int num_Axe;
+	private int num_Sword;
+	private int num_Bow;
+	private int num_Shield;
+	private int num_Gun;
 
 	public MainCharacter(String name, String description) {
 		this.name = name;
@@ -32,6 +38,38 @@ public abstract class MainCharacter {
 		this.goodPoint = 0;
 		this.isWin = false;
 		this.income = 0;
+		this.lossPerTurn = 0;
+		this.num_Axe = 0;
+		this.num_Bow = 0;
+		this.num_Gun = 0;
+		this.num_Shield = 0;
+		this.num_Sword = 0;
+	}
+	
+	public void countWeaponCard() {
+		this.num_Axe = 0;
+		this.num_Bow = 0;
+		this.num_Gun = 0;
+		this.num_Shield = 0;
+		this.num_Sword = 0;
+		for(int i = 0 ; i < weaponOnHand.size() ; i++) {
+			WeaponCard card = weaponOnHand.get(i);
+			if(card.getName().equals("Axe")) {
+				this.num_Axe++;
+			}
+			else if(card.getName().equals("Bow")) {
+				this.num_Bow++;
+			}
+			else if(card.getName().equals("Gun")) {
+				this.num_Gun++;
+			}
+			else if(card.getName().equals("Shield")) {
+				this.num_Shield++;
+			}
+			else if(card.getName().equals("Sword")) {
+				this.num_Sword++;
+			}
+		}
 	}
 
 	public void addCardtoHand(WeaponCard card) {
@@ -76,8 +114,29 @@ public abstract class MainCharacter {
 	public abstract int checkIsWin();
 	// ----------------------getter/setter---------------------
 
+
 	public ArrayList<WeaponCard> getWeaponHand() {
 		return weaponOnHand;
+	}
+
+	public int getNum_Axe() {
+		return num_Axe;
+	}
+
+	public int getNum_Sword() {
+		return num_Sword;
+	}
+
+	public int getNum_Bow() {
+		return num_Bow;
+	}
+
+	public int getNum_Shield() {
+		return num_Shield;
+	}
+
+	public int getNum_Gun() {
+		return num_Gun;
 	}
 
 	public ArrayList<Location> getPossessedArea() {
@@ -160,8 +219,17 @@ public abstract class MainCharacter {
 		return isWin;
 	}
 	
+	public int getLossPerTurn() {
+		return lossPerTurn;
+	}
+	
+	public void setLossPerTurn(int lossPerTurn) {
+		this.lossPerTurn = lossPerTurn;
+	}
+	
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
 
 
 	public String toString() {

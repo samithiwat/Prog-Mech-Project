@@ -49,15 +49,20 @@ public class StatusPane extends GridPane {
 		CircleButton finance = new CircleButton("img/icon/GoldIngot.png", 50, 50, 25, 0, 0);
 		Tooltip totalIncometooltip = new Tooltip();
 		totalIncometooltip.setFont(Font.font("Bai Jamjuree",20)); //set font here
-		totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.getIncome() / MainCharacter.M + "M");
+		totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.getIncome() / MainCharacter.M + "M\nLoss : " + GameSetUp.thisTurn.getLossPerTurn() );
 		finance.setOnMouseClicked((MouseEvent event) -> {
-			totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY()+10);
+			if(finance.isClicked() == false) {
+				totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY()+10);
+				setId("circle-button-hold-style");
+				finance.setClicked(true);
+			}
+			else {
+				setId("circle-button-release-style");
+				totalIncometooltip.hide();
+				finance.setClicked(false);
+			}
 		});
-		finance.setOnMouseExited((MouseEvent event) -> {
-			totalIncometooltip.hide();
-			setId("circle-button-release-style");
-			setCursor(Clickable.MOUSE_NORMAL);
-		});
+	
 
 		CircleButton currentLaw = new CircleButton("img/icon/LawIcon.png", 50, 50, 25, 0 ,0);
 

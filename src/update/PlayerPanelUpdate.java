@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.location.Plain;
+import gui.MapOverview;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.PlayerPanel;
@@ -12,6 +13,7 @@ import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import gui.entity.TurnCharacterIcon;
+import gui.overlay.HandOverlay;
 import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.GameSetUp;
@@ -143,6 +145,20 @@ public class PlayerPanelUpdate {
 		PlayerPanel.getTurnBar().setVisible(true);
 	}
 	
+	
+//---------------------------------------- Update HandOverlay -----------------------------------------
+	
+	public static void updateHandOverlay() {
+		for(int i = 0 ; i < MapOverview.allHandOverlay.size() ; i++) {
+			HandOverlay handOverlay = MapOverview.allHandOverlay.get(i);
+			handOverlay.getNum_slot1().setText("x"+GameSetUp.thisTurn.getNum_Sword());
+			handOverlay.getNum_slot2().setText("x"+GameSetUp.thisTurn.getNum_Axe());
+			handOverlay.getNum_slot3().setText("x"+GameSetUp.thisTurn.getNum_Shield());
+			handOverlay.getNum_slot4().setText("x"+GameSetUp.thisTurn.getNum_Bow());
+			handOverlay.getNum_slot5().setText("x"+GameSetUp.thisTurn.getNum_Gun());
+		}
+	}
+	
 //---------------------------------------- Toggle Player Action Menu Mode -----------------------------------------
 	
 	public static void setConfirmButton(boolean isVisible) {
@@ -189,4 +205,5 @@ public class PlayerPanelUpdate {
 			}
 		}
 	}
+	
 }

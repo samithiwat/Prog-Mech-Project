@@ -1,16 +1,20 @@
 package gui.entity;
 
+import gui.MapOverview;
 import gui.Sceneable;
+import gui.overlay.HandOverlay;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class PlayerPanel extends Pane implements Sceneable {
@@ -21,7 +25,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 	private static TurnBar turnBar;
 	private static StatusPane statusPane;
 	private static MenuIcon handsIcon;
-	
+	private HandOverlay handOverlay;
 	
 	public PlayerPanel() {
 
@@ -35,9 +39,13 @@ public class PlayerPanel extends Pane implements Sceneable {
 		endTurn = new Button("End Turn");
 		endTurn.setId("end-turn-button-release-style");
 		endTurnInteract();
-
+		
+		handOverlay = new HandOverlay();
+		MapOverview.allHandOverlay.add(handOverlay);
 		handsIcon = new MenuIcon("img/icon/HandsIcon.png", 42, 632);
-
+		handInteract();
+		
+		
 		governmentPoint = new PointPane(7, 10, Color.web("0xFFFFFF"));
 		governmentPoint.setLayoutX(1287);
 		governmentPoint.setLayoutY(706);
@@ -46,10 +54,10 @@ public class PlayerPanel extends Pane implements Sceneable {
 		goodnessPoint.setLayoutX(65);
 		goodnessPoint.setLayoutY(592);
 
-		getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint);
+		getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint,handOverlay);
 	}
 
-// ------------------------------------------------ Set Up End Turn Button ---------------------------------------------------------
+// ------------------------------------------------ Set Up Button ---------------------------------------------------------
 
 	private void endTurnInteract() {
 
@@ -98,6 +106,18 @@ public class PlayerPanel extends Pane implements Sceneable {
 			
 ///////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////////////////
 			}
+		});
+	}
+	
+	private void handInteract() {
+		handsIcon.setOnMouseClicked((MouseEvent event) -> {
+			System.out.println("start");
+			AudioClip effect = AudioLoader.clickEffect;
+			effect.play();
+			for(int i = 0 ; i < MapOverview.allHandOverlay.size() ; i++) {
+				MapOverview.allHandOverlay.get(i).triggerOverlay(0,825,1000);
+			}
+			System.out.println("end");
 		});
 	}
 

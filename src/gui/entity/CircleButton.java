@@ -14,6 +14,7 @@ import javafx.scene.text.FontWeight;
 public class CircleButton extends StackPane implements Clickable {
 
 	private Label label;
+	private boolean isClicked;
 
 	public CircleButton(String content, int contentSize, Color textColor, int width, int height, double radius, int x,
 			int y) {
@@ -24,6 +25,8 @@ public class CircleButton extends StackPane implements Clickable {
 		label = new Label(content);
 		label.setId("circle-button-text-style");
 		label.setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, 36));
+		
+		isClicked = false;
 
 		setLayoutX(x);
 		setLayoutY(y);
@@ -72,9 +75,11 @@ public class CircleButton extends StackPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				setId("circle-button-hold-style");
-				setCursor(MOUSE_SELECT);
+				if(isClicked == false) {
+					setId("circle-button-hold-style");					
+				}
 				EFFECT_MOUSE_ENTER.play();
+				setCursor(MOUSE_SELECT);
 			}
 		});
 
@@ -82,8 +87,10 @@ public class CircleButton extends StackPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				setId("circle-button-release-style");
-				setCursor(MOUSE_NORMAL);
+				if(isClicked == false) {
+					setId("circle-button-release-style");
+				}
+				setCursor(MOUSE_NORMAL);					
 			}
 		});
 
@@ -94,4 +101,14 @@ public class CircleButton extends StackPane implements Clickable {
 		setDisable(!isDisable());
 	}
 
+	//-------setter/getter---------
+
+	public boolean isClicked() {
+		return isClicked;
+	}
+
+	public void setClicked(boolean isClicked) {
+		this.isClicked = isClicked;
+	}
+	
 }

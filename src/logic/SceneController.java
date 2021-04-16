@@ -90,12 +90,12 @@ public class SceneController {
 	
 	public static void createGameScene() {
 		
+		SceneController.mapOverView= (new MapOverview()).getScene();
 		PlayerPanel dummy = new PlayerPanel();
 		
 		SceneController.mainIsland= (new MainIsland()).getScene();
 //		SceneController.prisonIsland = (new PrisonIsland()).getScene();
 //		SceneController.Ocean = (new Ocean()).getScene();
-		SceneController.mapOverView= (new MapOverview()).getScene();
 	}
 	
 	public static void loadingScreen() {

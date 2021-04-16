@@ -8,6 +8,7 @@ import gui.entity.PointPane;
 import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import gui.entity.TurnBar;
+import gui.overlay.HandOverlay;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -29,7 +30,7 @@ import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
 
 public class MainIsland implements Sceneable {
-	
+
 	private final static int BG_CENTER_X = 720;
 	private final static int BG_CENTER_Y = 670;
 	private static int bgX = BG_CENTER_X;
@@ -37,22 +38,23 @@ public class MainIsland implements Sceneable {
 	
 	private static Scene scene;
 	
+
 	private static Pane root;
-	
+
 	private static ImageView bg;
-	
+
 	private static Button endTurn = PlayerPanel.getEndTurn();
 	private static PointPane governmentPoint = PlayerPanel.getGovernmentPoint();
 	private static PointPane goodnessPoint = PlayerPanel.getGoodnessPoint();
 	private static MenuIcon handsIcon = PlayerPanel.getHandsIcon();
-	
+
 	private static StatusPane statusPane = PlayerPanel.getStatusPane();
 	private static TurnBar turnBar = PlayerPanel.getTurnBar();
 
 	private static TextTitle info;
-	
+
 	public MainIsland() {
-		
+
 		root = new Pane();
 
 		bg = new ImageView(ClassLoader.getSystemResource("img/background/MainIsland.png").toString());
@@ -60,27 +62,30 @@ public class MainIsland implements Sceneable {
 				SceneController.getFullscreenHeight()));
 
 		MapGrid grid = new MapGrid();
-		
-		info = new TextTitle("Select spawn point of your minion",Color.web("0x393E46"),FontWeight.BOLD,48,376,779);
-		
+
+		info = new TextTitle("Select spawn point of your minion", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
+
 		root.getChildren().addAll(bg, grid);
-		
-		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, info);
-		
+
+		HandOverlay handOverlay = new HandOverlay();
+		MapOverview.allHandOverlay.add(handOverlay);
+
+		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, info,
+				handOverlay);
+
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
-
-		//disableESC();
 		
 		scene.setOnKeyReleased(key->{
 			MainIslandUpdate.setCurrent_speed(0); 
+
 		});
 
 		//////////////// FOR DEBUG ONLY //////////////////////
-		
+
 //		System.out.println("Width : "+bg.getFitWidth()+", Height : "+bg.getFitHeight());
-		
+
 //		System.out.println(MapGrid.getGrids());
 
 //		HexagonPane test1 = new HexagonPane(350,350,0,0);
@@ -89,26 +94,31 @@ public class MainIsland implements Sceneable {
 
 		//////////////// END OF DEBUG /////////////////////////
 	}
-	
+
 	public static void moveBgLeft(int speed) {
 		setBgX(getBgX() - speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
+				SceneController.getFullscreenHeight()));
 	}
-	
+
 	public static void moveBgRight(int speed) {
 		setBgX(getBgX() + speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
+				SceneController.getFullscreenHeight()));
 	}
-	
+
 	public static void moveBgDown(int speed) {
 		setBgY(getBgY() - speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
+				SceneController.getFullscreenHeight()));
 	}
-	
+
 	public static void moveBgUp(int speed) {
 		setBgY(getBgY() + speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
+				SceneController.getFullscreenHeight()));
 	}
+
 	
 	public static void setBgCenter() {
 		setBgX(BG_CENTER_X);
@@ -185,8 +195,9 @@ public class MainIsland implements Sceneable {
 		});
 	}
 
+
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
-	
+
 	@Override
 	public Scene getScene() {
 		return this.scene;
@@ -227,5 +238,5 @@ public class MainIsland implements Sceneable {
 	public static void setSceneRoot(Pane root) {
 		MainIsland.root = root;
 	}
-	
+
 }

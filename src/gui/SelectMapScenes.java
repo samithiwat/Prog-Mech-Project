@@ -1,6 +1,7 @@
 package gui;
 
 import gui.entity.MenuIcon;
+import gui.overlay.HandOverlay;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -29,7 +30,7 @@ public class SelectMapScenes {
 		gridPane.add(bigIsland, 0, 0);
 		hbox.getChildren().add(gridPane);
 		
-		
+
 		mapPane.getChildren().addAll(bg,hbox);
 		this.scene = new Scene(mapPane);
 		this.scene.setOnKeyPressed(key -> {

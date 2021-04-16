@@ -1,7 +1,10 @@
 package gui;
 
+import java.util.ArrayList;
+
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
+import gui.overlay.HandOverlay;
 //import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -25,13 +28,19 @@ import logic.SceneController;
 public class MapOverview implements Sceneable {
 
 	private Scene scene;
-
+	
+	private HandOverlay handOverlay;
 	private static Pane root;
+	public static ArrayList<HandOverlay>  allHandOverlay;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
 	public MapOverview() {
-
+		handOverlay = new HandOverlay();
+		allHandOverlay = new ArrayList<HandOverlay>();
+		allHandOverlay.add(handOverlay);
+		
+		
 		PlayerPanel playerPanel = new PlayerPanel();
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
@@ -76,7 +85,7 @@ public class MapOverview implements Sceneable {
 //		bgMap.setPreserveRatio(true);
 
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland);
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));
