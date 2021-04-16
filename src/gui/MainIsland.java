@@ -35,7 +35,7 @@ public class MainIsland implements Sceneable {
 	private static int bgX = BG_CENTER_X;
 	private static int bgY = BG_CENTER_Y;
 	
-	private Scene scene;
+	private static Scene scene;
 	
 	private static Pane root;
 	
@@ -71,26 +71,7 @@ public class MainIsland implements Sceneable {
 		scene.setCursor(CURSOR_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
-		scene.setOnKeyPressed(key -> {
-			if (key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) {
-				MainIslandUpdate.moveLeft();
-			}
-			if (key.getCode() == KeyCode.D || key.getCode() == KeyCode.RIGHT) {
-				MainIslandUpdate.moveRight();
-			}
-			if (key.getCode() == KeyCode.W || key.getCode() == KeyCode.UP) {
-				MainIslandUpdate.moveUp();
-			}
-			if (key.getCode() == KeyCode.S || key.getCode() == KeyCode.DOWN) {
-				MainIslandUpdate.moveDown();
-			}
-
-			if (key.getCode() == KeyCode.ESCAPE) {
-				AudioUpdate.toMapOverview(null);
-				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-				SceneController.setScene(SceneController.getMapOverView());
-			}
-		});
+		//disableESC();
 		
 		scene.setOnKeyReleased(key->{
 			MainIslandUpdate.setCurrent_speed(0); 
@@ -129,17 +110,80 @@ public class MainIsland implements Sceneable {
 		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
 	}
 	
-	public static void selectSpawnPoint() {
-
+	public static void setBgCenter() {
+		setBgX(BG_CENTER_X);
+		setBgY(BG_CENTER_Y);
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
+	}
+	
+	public static void dataInteractMode() {
 		turnBar.setVisible(false);
 		statusPane.setVisible(false);
 		endTurn.setVisible(false);
 		governmentPoint.setVisible(false);
 		goodnessPoint.setVisible(false);
 		handsIcon.setVisible(false);
+		info.setVisible(true);
 		HexTileUpdate.setDataInteract();
+		disableESC();
 	}
 	
+	public static void overlayInteractMode() {
+		turnBar.setVisible(true);
+		statusPane.setVisible(true);
+		endTurn.setVisible(true);
+		governmentPoint.setVisible(true);
+		goodnessPoint.setVisible(true);
+		handsIcon.setVisible(true);
+		info.setVisible(false);
+		HexTileUpdate.setOverlayInteract();
+		enableESC();
+	}
+	
+	private static void disableESC() {
+	
+		scene.setOnKeyPressed(key -> {
+			
+			if (key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) {
+				MainIslandUpdate.moveLeft();
+			}
+			if (key.getCode() == KeyCode.D || key.getCode() == KeyCode.RIGHT) {
+				MainIslandUpdate.moveRight();
+			}
+			if (key.getCode() == KeyCode.W || key.getCode() == KeyCode.UP) {
+				MainIslandUpdate.moveUp();
+			}
+			if (key.getCode() == KeyCode.S || key.getCode() == KeyCode.DOWN) {
+				MainIslandUpdate.moveDown();
+			}
+
+		});
+		
+	}
+	
+	private static void enableESC() {
+		
+		scene.setOnKeyPressed(key -> {
+			if (key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) {
+				MainIslandUpdate.moveLeft();
+			}
+			if (key.getCode() == KeyCode.D || key.getCode() == KeyCode.RIGHT) {
+				MainIslandUpdate.moveRight();
+			}
+			if (key.getCode() == KeyCode.W || key.getCode() == KeyCode.UP) {
+				MainIslandUpdate.moveUp();
+			}
+			if (key.getCode() == KeyCode.S || key.getCode() == KeyCode.DOWN) {
+				MainIslandUpdate.moveDown();
+			}
+
+			if (key.getCode() == KeyCode.ESCAPE) {
+				AudioUpdate.toMapOverview(null);
+				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
+				SceneController.setScene(SceneController.getMapOverView());
+			}
+		});
+	}
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 	

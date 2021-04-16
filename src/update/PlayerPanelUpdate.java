@@ -3,6 +3,7 @@ package update;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import component.location.Plain;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.PlayerPanel;
@@ -95,7 +96,32 @@ public class PlayerPanelUpdate {
 			}
 		}
 
-	}	
+	}
+	
+// ------------------------------------------- Highlight Tile --------------------------------------------
+	
+	public static void highlightSpawnableTile() {
+		
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				if(column.get(j).isSpawnable()) {
+					column.get(j).setId("grid-hold-style");
+				}
+			}
+		}
+	}
+	
+	public static void highlightPlainTile() {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				if(column.get(j).getLocationType() instanceof Plain) {
+					column.get(j).setId("grid-hold-style");
+				}
+			}
+		}
+	}
 	
 // ------------------------------------------- Toggle Player Panel Mode ---------------------------------------------	
 	

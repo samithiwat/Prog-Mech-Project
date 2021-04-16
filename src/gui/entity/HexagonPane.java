@@ -28,19 +28,24 @@ public class HexagonPane extends Pane implements Clickable {
 
 	private final int MAX_MINION = 6;
 	private static final int N_COLUMN = 3;
-
+	private final int INIT_X;
+	private final int INIT_Y;
+	
 	private int x;
 	private int y;
+	private int row;
+	private int column;
+	
+	private boolean moveable;
+	private boolean isSpawnable = false;
 
 	private HexagonPane hexPane = this;
 	private TileOverlay overlay;
 	private GridPane minionIconPane;
-	private boolean moveable;
 	private Location locationType;
 	private PlayerActionMenu playerActionMenu;
 
-	private int row;
-	private int column;
+
 
 	public HexagonPane(int width, int height, int x, int y,
 
@@ -51,11 +56,12 @@ public class HexagonPane extends Pane implements Clickable {
 		//////////////// END OF DEBUG /////////////////////////
 
 // --------------------------------------------------- Set Up HexagonPane -----------------------------------------------
-		
 		setRow(row);
 		setColumn(column);
 		setX(x);
 		setY(y);
+		this.INIT_X = x;
+		this.INIT_Y = y;
 		moveable = false;
 
 		double[] points = { 53, 0.5, 197, 0.5, 250, 125.5, 197, 250.5, 53, 250.5, 0, 125.5 };
@@ -227,6 +233,13 @@ public class HexagonPane extends Pane implements Clickable {
 
 	public void moveUp(int speed) {
 		setY(getY() + speed);
+		setLayoutY(getY());
+	}
+	
+	public void setCenter() {
+		setX(INIT_X);
+		setY(INIT_Y);
+		setLayoutX(getX());
 		setLayoutY(getY());
 	}
 
@@ -414,10 +427,16 @@ public class HexagonPane extends Pane implements Clickable {
 	public PlayerActionMenu getPlayerActionMenu() {
 		return playerActionMenu;
 	}
+	
+		public boolean isSpawnable() {
+		return isSpawnable;
+	}
+
+	public void setSpawnable(boolean isSpawnable) {
+		this.isSpawnable = isSpawnable;
+	}
 
 ///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
-
-
 
 	public int getRow() {
 		return row;

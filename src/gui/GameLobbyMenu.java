@@ -29,6 +29,8 @@ import logic.GameSetUp;
 import logic.SceneController;
 import update.AudioUpdate;
 import update.HexTileUpdate;
+import update.MainIslandUpdate;
+import update.PlayerPanelUpdate;
 
 public class GameLobbyMenu implements Sceneable {
 
@@ -205,7 +207,27 @@ public class GameLobbyMenu implements Sceneable {
 			public void handle(long now) {
 				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
 				if(now - lastTimeTrigger > DURATION) {
+					
 					HexTileUpdate.updateMinionIcon();
+					
+					if(GameSetUp.isHighlightPlain) {
+						PlayerPanelUpdate.highlightPlainTile();
+					}
+					
+					if(GameSetUp.isHighlightSpawnable) {
+						PlayerPanelUpdate.highlightSpawnableTile();
+					}
+					
+					if(GameSetUp.isEndTurn) {
+						SceneController.setScene(SceneController.getMapOverView());
+						GameSetUp.isEndTurn = false;
+					}
+					
+					if(GameSetUp.isGameEnd) {
+						animationTimer.stop();
+						lastTimeTrigger = -1;
+					}
+					
 					lastTimeTrigger = now;
 				}
 			}
@@ -214,6 +236,7 @@ public class GameLobbyMenu implements Sceneable {
 		
 		animationTimer.start();
 	}
+	
 	
 // -------------------------------------------- Getter and Setter -------------------------------------------------------------------
 

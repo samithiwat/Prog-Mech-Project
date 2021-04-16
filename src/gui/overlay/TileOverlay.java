@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import update.TileOverlayUpdate;
 
 public class TileOverlay extends Overlay {
@@ -25,12 +26,14 @@ public class TileOverlay extends Overlay {
 
 	public TileOverlay(String img_path, int[] posXList, int[] posYList) {
 		super(new Pane(), WIDTH, HEIGHT, INIT_X, INIT_Y);
-
+		
+		setId("tile-overlay");
+		
 		ImageView bg = new ImageView(ClassLoader.getSystemResource(img_path).toString());
 
 		minionPane = new MinionPane(posXList, posYList);
 
-		MenuIcon exitIcon = new MenuIcon("img/icon/ExitIcon.png", 654, -30);
+		MenuIcon exitIcon = new MenuIcon("img/icon/ExitIcon.png", 654, 0);
 		exitIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
