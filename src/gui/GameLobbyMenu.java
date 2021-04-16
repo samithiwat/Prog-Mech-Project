@@ -44,7 +44,7 @@ public class GameLobbyMenu implements Sceneable {
 	private static ArrayList<CharacterSetting> cBoxes;
 
 	private static long lastTimeTrigger = -1;
-	private static final long DURATION = 100000000;
+	private static final long DURATION = 50000000;
 	private static AnimationTimer animationTimer;
 	
 	public GameLobbyMenu() {
@@ -224,11 +224,11 @@ public class GameLobbyMenu implements Sceneable {
 						GameSetUp.isReset = false;
 					}
 					
-					if(GameSetUp.isEndTurn) {
+					if(GameSetUp.isResetScene) {
 						AudioUpdate.toMapOverview(null);
 						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 						SceneController.setScene(SceneController.getMapOverView());
-						GameSetUp.isEndTurn = false;
+						GameSetUp.isResetScene = false;
 					}
 					
 					if(GameSetUp.isGameEnd) {

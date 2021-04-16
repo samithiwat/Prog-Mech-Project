@@ -108,7 +108,7 @@ public class PlayerPanelUpdate {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 				if(column.get(j).isSpawnable()) {
-					column.get(j).setId("grid-hold-style");
+					column.get(j).setId("grid-highlight-style");
 				}
 			}
 		}
@@ -119,7 +119,7 @@ public class PlayerPanelUpdate {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 				if(column.get(j).getLocationType() instanceof Plain) {
-					column.get(j).setId("grid-hold-style");
+					column.get(j).setId("grid-highlight-style");
 				}
 			}
 		}

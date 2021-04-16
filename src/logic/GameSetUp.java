@@ -51,6 +51,7 @@ public class GameSetUp {
 	public static boolean isHighlightSpawnable = false;
 	public static boolean isHighlightPlain = false;
 	public static boolean isReset = false;
+	public static boolean isResetScene = false;
 //	public static Minion selectedMinion = null;
 	public static int governmentPoint = 0;
 	public static HexagonPane selectedTile = null;
