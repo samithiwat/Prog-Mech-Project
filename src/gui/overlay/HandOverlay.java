@@ -17,10 +17,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
+import logic.GameSetUp;
 
 public class HandOverlay extends Overlay {
 	protected static final int HEIGHT = 800;
 	protected static final int WIDTH = 1400;
+	private TextTitle num_slot1;
+	private TextTitle num_slot2;
+	private TextTitle num_slot3;
+	private TextTitle num_slot4;
+	private TextTitle num_slot5;
+
+	
 
 	public HandOverlay() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -800);
@@ -51,11 +59,11 @@ public class HandOverlay extends Overlay {
 		ImageView slot4 = new ImageView(ClassLoader.getSystemResource("img/icon/Cardback.png").toString());
 		ImageView slot5 = new ImageView(ClassLoader.getSystemResource("img/icon/Cardback.png").toString());
 
-		TextTitle num_slot1 = new TextTitle("x5", Color.WHITE, FontWeight.BOLD, 50, 0, 208);
-		TextTitle num_slot2 = new TextTitle("x5", Color.WHITE, FontWeight.BOLD, 50, 0, 0);
-		TextTitle num_slot3 = new TextTitle("x5", Color.WHITE, FontWeight.BOLD, 50, 0, 0);
-		TextTitle num_slot4 = new TextTitle("x5", Color.WHITE, FontWeight.BOLD, 50, 0, 0);
-		TextTitle num_slot5 = new TextTitle("x5", Color.WHITE, FontWeight.BOLD, 50, 0, 0);
+		num_slot1 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Sword(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
+		num_slot2 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Axe(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
+		num_slot3 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Shield(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
+		num_slot4 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Bow(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
+		num_slot5 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Gun(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
 
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
@@ -74,4 +82,36 @@ public class HandOverlay extends Overlay {
 		gridPane.setPadding(new Insets(87, 100, 87, 100));
 		root.getChildren().addAll(bg, gridPane, closeIcon);
 	}
+
+
+	//------------------getter/setter--------------------------
+	
+	public TextTitle getNum_slot1() {
+		return num_slot1;
+	}
+	
+	
+	
+	public TextTitle getNum_slot2() {
+		return num_slot2;
+	}
+	
+	
+	
+	public TextTitle getNum_slot3() {
+		return num_slot3;
+	}
+	
+	
+	
+	public TextTitle getNum_slot4() {
+		return num_slot4;
+	}
+	
+	
+	
+	public TextTitle getNum_slot5() {
+		return num_slot5;
+	}
+	
 }
