@@ -80,6 +80,12 @@
   -fx-border-width: 5;
 }
 
+#grid-highlight-style {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #472209;
+  -fx-border-width: 10;
+}
+
 #grid-center {
   -fx-background-color: rgba(0, 0, 0, 0);
   -fx-border-color: #000000;
@@ -94,4 +100,8 @@
 
 #character-icon {
   -fx-background-color: #fefde8;
+}
+
+#tile-overlay {
+  -fx-fill: rgba(0, 0, 0, 0);
 }

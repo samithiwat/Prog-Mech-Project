@@ -3,9 +3,12 @@ package update;
 import java.util.ArrayList;
 
 import gui.MainIsland;
+import gui.MapOverview;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
+import gui.entity.PlayerPanel;
 import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
 import logic.SceneController;
 
 public class MainIslandUpdate {
@@ -79,6 +82,18 @@ public class MainIslandUpdate {
 			MainIsland.moveBgUp(current_speed);
 		}
 	}
+	
+	public static void setCenter() {
+			for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+				ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+				for (int j = 0; j < column.size(); j++) {
+					column.get(j).setCenter();;
+
+				}
+			MainIsland.setBgCenter();
+		}
+	}
+	
 
 // ---------------------------------------------------------- Calculate Current Speed ------------------------------------------------
 	

@@ -7,6 +7,7 @@ import gui.MapOverview;
 import gui.StartMenu;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import logic.GameSetUp;
 import logic.SceneController;
 
 public class Main extends Application {

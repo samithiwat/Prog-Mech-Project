@@ -30,7 +30,8 @@ import gui.overlay.TileOverlay;
 public class GameSetUp {
 	private static int MAP_N_ROW = 9;
 	private static int MAP_N_COLUMN = 11;
-	private static boolean isFinished = false;
+	
+	
 
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
@@ -47,6 +48,8 @@ public class GameSetUp {
 	public static MainCharacter theGovernment = null;
 	public static Location[][] map = new Location[9][11];
 	public static MainCharacter thisTurn;
+	public static boolean isHighlightSpawnable = false;
+	public static boolean isHighlightPlain = false;
 //	public static Minion selectedMinion = null;
 	public static int governmentPoint = 0;
 	public static HexagonPane selectedTile = null;
@@ -96,7 +99,7 @@ public class GameSetUp {
 //printMap();
 		
 
-//////////////////////////////////////////////////////////////END OF DEBUG ////////////////////////	`/////////////////////////////////////////////	
+////////////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////////////////	
 				
 		SceneController.createGameScene();
 		
@@ -109,16 +112,24 @@ public class GameSetUp {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 				column.get(j).setLocationType(map[i][j]);
-//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+				
 				TileOverlay overlay = createTileOverlay(i, j);
+				column.get(j).setOverlay(overlay);
+//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+				
 				System.out.println(overlay);
 				
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
-				column.get(j).setOverlay(overlay);
-
 			}
 		}
+		
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				setTileSpawnable(column.get(j),i,j);
+			}
+		}
+		
 	}
 
 	private TileOverlay createTileOverlay(int row, int column) {
@@ -400,9 +411,194 @@ public class GameSetUp {
 
 	}
 	
-	public static boolean isFinished() {
-		return isFinished;
+	private void setTileSpawnable(HexagonPane tile,int row,int column) {
+		
+//		tile.setLocationType(map[row][column]);
+		
+		if(tile.getLocationType() instanceof Village) {
+			
+			System.out.println(row+", "+column);
+			
+			if(column%2!=0) {
+				///////////////////////////////// DEBUG //////////////////////////////////
+				
+				try {
+					System.out.println(MapGrid.getGrids().get(row-1).get(column).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				try {
+					System.out.println(MapGrid.getGrids().get(row).get(column-1).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				try {
+					System.out.println(MapGrid.getGrids().get(row).get(column+1).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				try {
+					System.out.println(MapGrid.getGrids().get(row+1).get(column-1).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				try {
+					System.out.println(MapGrid.getGrids().get(row+1).get(column).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				try {
+					System.out.println(MapGrid.getGrids().get(row+1).get(column+1).getLocationType());
+				}catch(Exception e) {
+					
+				}		
+							
+				///////////////////////////// END OF DEBUG ///////////////////////////////
+				
+				
+				
+				try {
+					if(MapGrid.getGrids().get(row-1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row-1).get(column).setSpawnable(true);
+					}
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row).get(column-1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column-1).setSpawnable(true);
+					}
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row).get(column+1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column+1).setSpawnable(true);
+					}
+					
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row+1).get(column-1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row+1).get(column-1).setSpawnable(true);
+					}
+					
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row+1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row+1).get(column).setSpawnable(true);
+					}
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row+1).get(column+1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row+1).get(column+1).setSpawnable(true);
+					}
+				}catch(Exception e) {
+					
+				}
+				
+			}
+			else if(column%2==0) {
+				
+				try {
+					System.out.println(MapGrid.getGrids().get(row-1).get(column-1).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				
+				try {
+					System.out.println(MapGrid.getGrids().get(row-1).get(column).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				
+				try {
+					System.out.println(MapGrid.getGrids().get(row-1).get(column+1).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				
+				try {
+					System.out.println(MapGrid.getGrids().get(row).get(column-1).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				
+				try {
+					System.out.println(MapGrid.getGrids().get(row).get(column+1).getLocationType());
+				}catch(Exception e) {
+					
+				}
+				
+				try {
+					System.out.println(MapGrid.getGrids().get(row+1).get(column).getLocationType());
+				}catch(Exception e) {
+					
+				}			
+				
+				try {
+					if(MapGrid.getGrids().get(row-1).get(column-1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row-1).get(column-1).setSpawnable(true);
+					}
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row-1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row-1).get(column).setSpawnable(true);
+					}
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row-1).get(column+1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row-1).get(column+1).setSpawnable(true);
+					}
+					
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row).get(column-1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column-1).setSpawnable(true);
+					}
+					
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row).get(column+1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column+1).setSpawnable(true);
+					}
+					
+				}catch(Exception e) {
+					
+				}
+				try {
+					if(MapGrid.getGrids().get(row+1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row+1).get(column).setSpawnable(true);
+					}
+				}catch(Exception e) {
+					
+				}
+				
+			}
+		}
+		
+		if(tile.getLocationType() instanceof Field) {
+			MapGrid.getGrids().get(row).get(column).setSpawnable(true);
+		}
+		
 	}
+	
+//	public static boolean isFinished() {
+//		return isFinished;
+//	}
 
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
