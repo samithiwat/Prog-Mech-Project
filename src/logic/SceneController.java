@@ -99,10 +99,10 @@ public class SceneController {
 	}
 	
 	public static void loadingScreen() {
-//		Random rand = new Random();
-//		int sceneNum = rand.nextInt(2);
+		Random rand = new Random();
+		int sceneNum = rand.nextInt(2);
 
-		int sceneNum = 1;
+//		int sceneNum = 1;
 		
 		switch(sceneNum) {
 		case 0 :

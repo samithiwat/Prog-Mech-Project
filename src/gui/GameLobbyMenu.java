@@ -46,7 +46,9 @@ public class GameLobbyMenu implements Sceneable {
 	private static long lastTimeTrigger = -1;
 	private static final long DURATION = 50000000;
 	private static AnimationTimer animationTimer;
-	
+
+	private static Thread setUp;
+
 	public GameLobbyMenu() {
 
 //		StartMenu.getMenuThemeSong().stop();
@@ -100,50 +102,49 @@ public class GameLobbyMenu implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-//				SceneController.loadingScreen();
-				
-				
-				CLICK_EFFECT.play();
-				SceneController.loadingScreen();
-				Thread setUp = new Thread(new Runnable() {
-					
+
+				CLICK_EFFECT.play();				
+				setUp = new Thread(new Runnable() {
+
 					@Override
 					public void run() {
 						GameSetUp gameSetUp = new GameSetUp();
 					}
 				});
-				
-				setUp.start();
 
-				try {
-					
-					setUp.join();
+				setUp.start();
+				SceneController.loadingScreen();
+
 				
-				} catch (InterruptedException e) {
-					
-				}	
+//				try {
+//
+//					setUp.join();
+//
+//				} catch (InterruptedException e) {
+//
+//				}
 				
-				SceneController.setScene(SceneController.getMainIsland());
-				AudioUpdate.toMapOverview(bgm);
-						
-				// ----------------------- Create GameController's Thread Run Parallel -------------------------
-						
-				Thread controller = new Thread(new Runnable() {
-							
-					@Override
-					public void run() {
-						GameController gameController = new GameController();
-						}
-					});
-						
-				controller.start();
+//				SceneController.setScene(SceneController.getMainIsland());
+
+
+				// ----------------------- Create GameController's Thread Run Parallel
+				// -------------------------
+
+//				Thread controller = new Thread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//						
+//						
+//						GameController gameController = new GameController();
+//					}
+//				});
+//
+//				controller.start();
 				updateAnimation();
 			}
-			
+
 		});
-		
-			
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------		
 
@@ -198,54 +199,66 @@ public class GameLobbyMenu implements Sceneable {
 			}
 		});
 	}
-	
+
 // -------------------------------------------- Update Animation --------------------------------------------------------------------
-	
+
 	private void updateAnimation() {
 		animationTimer = new AnimationTimer() {
 
 			@Override
 			public void handle(long now) {
 				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
-				if(now - lastTimeTrigger > DURATION) {
-					
+				if (now - lastTimeTrigger > DURATION) {
+
 					HexTileUpdate.updateMinionIcon();
-					
-					if(GameSetUp.isHighlightPlain) {
+
+					if (GameSetUp.isHighlightPlain) {
 						PlayerPanelUpdate.highlightPlainTile();
 					}
-					
-					if(GameSetUp.isHighlightSpawnable) {
+
+					if (GameSetUp.isHighlightSpawnable) {
 						PlayerPanelUpdate.highlightSpawnableTile();
 					}
-					
-					if(GameSetUp.isReset) {
+
+					if (GameSetUp.isReset) {
 						PlayerPanelUpdate.resetTile();
 						GameSetUp.isReset = false;
 					}
 					
-					if(GameSetUp.isResetScene) {
+					if (GameSetUp.isSelectMinionSpawn) {
+						MainIsland.getSceneRoot().getChildren().set(2, PlayerPanel.getStatusPane());
+						MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getTurnBar());
+						MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getHandsIcon());
+						MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getEndTurn());
+						MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getGovernmentPoint());
+						MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGoodnessPoint());	
+						
+						SceneController.setScene(SceneController.getMainIsland());
+						bgm.stop();
+						GameSetUp.isSelectMinionSpawn = false;
+					}
+
+					if (GameSetUp.isResetScene) {
 						AudioUpdate.toMapOverview(null);
 						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 						SceneController.setScene(SceneController.getMapOverView());
 						GameSetUp.isResetScene = false;
 					}
-					
-					if(GameSetUp.isGameEnd) {
+
+					if (GameSetUp.isGameEnd) {
 						animationTimer.stop();
 						lastTimeTrigger = -1;
 					}
-					
+
 					lastTimeTrigger = now;
 				}
 			}
-			
+
 		};
-		
+
 		animationTimer.start();
 	}
-	
-	
+
 // -------------------------------------------- Getter and Setter -------------------------------------------------------------------
 
 	@Override
@@ -284,5 +297,5 @@ public class GameLobbyMenu implements Sceneable {
 	public static MenuButton getStart() {
 		return start;
 	}
-	
+
 }

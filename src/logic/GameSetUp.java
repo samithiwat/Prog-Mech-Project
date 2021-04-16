@@ -52,6 +52,7 @@ public class GameSetUp {
 	public static boolean isHighlightPlain = false;
 	public static boolean isReset = false;
 	public static boolean isResetScene = false;
+	public static boolean isSelectMinionSpawn = false;
 //	public static Minion selectedMinion = null;
 	public static int governmentPoint = 0;
 	public static HexagonPane selectedTile = null;
@@ -106,6 +107,20 @@ public class GameSetUp {
 		SceneController.createGameScene();
 		
 		setUpMapWithHexPane();
+		
+		GameSetUp.isSelectMinionSpawn = true;
+				
+		Thread controller = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				
+				GameController gameController = new GameController();
+			}
+		});
+
+		controller.start();
+
 
 	}
 
