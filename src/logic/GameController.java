@@ -23,27 +23,22 @@ public class GameController {
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 			
 			GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
+			GameSetUp.isSelectMinionSpawn = true;
+			
+			if (GameSetUp.thisTurn instanceof ThousandYear) {
+				
+				GameSetUp.isHighlightSpawnable = false;
+				GameSetUp.isHighlightPlain = true;
+			}
 			
 // ------------------------	Wait Player Choose Spawn Location ---------------------------------
 		
 			while (true) {
 				// empty
 				System.out.print("");
-				//System.out.println(GameSetUp.selectedTile);
-				
-				if (GameSetUp.thisTurn instanceof ThousandYear) {
-					
-					GameSetUp.isHighlightSpawnable = false;
-					GameSetUp.isHighlightPlain = true;
-				}
 				
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.thisTurn instanceof ThousandYear) {
-
-						System.out.println("Thousand Year");
-						
-						GameSetUp.isHighlightSpawnable = false;
-						GameSetUp.isHighlightPlain = true;
 
 						if (GameSetUp.selectedTile.getLocationType() instanceof Plain) {
 							
@@ -77,14 +72,24 @@ public class GameController {
 			System.out.println("Spawn Minion");
 			spawnMinion(new Minion(GameSetUp.gameCharacter.get(i)), GameSetUp.selectedTile);
 			GameSetUp.isReset = true;
-			GameSetUp.isSelectMinionSpawn = true;
 			GameSetUp.selectedTile = null;
 		}
 		
+		GameSetUp.isCountDown = true;
+		GameSetUp.countDownDuration = 3;
+		
+		while(true) {
+			System.out.print("");
+			if(!GameSetUp.isCountDown) {
+				break;
+			}
+		}
 		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
+		GameSetUp.isReset = true;
 		MainIsland.overlayInteractMode();
 		MainIslandUpdate.setCenter();
+
 		
 //------------------------------------------------------------------------------------------
 		while (!GameSetUp.isGameEnd) {

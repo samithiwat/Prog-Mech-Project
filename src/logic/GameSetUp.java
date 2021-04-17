@@ -27,6 +27,7 @@ import gui.MainIsland;
 import gui.MapOverview;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
+import gui.entity.MinionIcon;
 import gui.entity.PlayerPanel;
 import gui.overlay.TileOverlay;
 import javafx.animation.AnimationTimer;
@@ -44,6 +45,7 @@ public class GameSetUp {
 	private static long lastTimeTrigger = -1;
 	private static final long DURATION = 100000000;
 	private static AnimationTimer animationTimer;
+	private static int animationCount = 0;
 
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
@@ -55,6 +57,8 @@ public class GameSetUp {
 	private static final int DUPLICATE = 5;
 	public static int turn = 1;
 	public static int cycle = 0;
+	public static int governmentPoint = 0;
+	public static int countDownDuration = 0;
 	public static boolean canBuyMinion = true;
 	public static boolean isGameEnd = false;
 	public static boolean isEndTurn;
@@ -66,9 +70,10 @@ public class GameSetUp {
 	public static boolean isReset = false;
 	public static boolean isTurnChange = false;
 	public static boolean isSelectMinionSpawn = false;
+	public static boolean isCountDown = false;
 //	public static Minion selectedMinion = null;
-	public static int governmentPoint = 0;
 	public static HexagonPane selectedTile = null;
+	public static ArrayList<MinionIcon> selectedIcon = new ArrayList<MinionIcon>();
 
 	public GameSetUp() {
 		thisTurn = gameCharacter.get(0);
@@ -648,6 +653,30 @@ public class GameSetUp {
 
 					HexTileUpdate.updateMinionIcon();
 
+					if (GameSetUp.isCountDown) {
+
+						BoxBlur blur = new BoxBlur();
+						blur.setIterations(20);
+
+						MainIsland.getBg().setEffect(blur);
+						MainIsland.getInfoRoot().setVisible(false);
+
+						if (animationCount % 10 == 0) {
+							MainIsland.setShowMessage("Game Start in " + (countDownDuration - animationCount / 10),
+									Color.web("0xFEFDE8"), Color.web("0x89949B"), 140, 1, 1000);
+							AudioLoader.countDownEffect1.play();
+						}
+
+						if (animationCount + 1 == countDownDuration * 10) {
+							MainIsland.getBg().setEffect(null);
+							AudioLoader.countDownEffect2.play();
+							animationCount = 0;
+							GameSetUp.isCountDown = false;
+						}
+
+						animationCount++;
+					}
+
 					if (GameSetUp.isHighlightPlain) {
 						PlayerPanelUpdate.highlightPlainTile();
 					}
@@ -657,6 +686,7 @@ public class GameSetUp {
 					}
 
 					if (GameSetUp.isReset) {
+						MainIsland.getBg().setEffect(null);
 						PlayerPanelUpdate.resetTile();
 						GameSetUp.isReset = false;
 					}
@@ -669,8 +699,8 @@ public class GameSetUp {
 						MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
 						MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
 
-						MainIsland.setShowMessage(GameSetUp.thisTurn.getName() + "'s Turn",
-								Color.web("0xFEFDE8"), Color.web("0x89949B"), 140, 1, 2000);
+						MainIsland.setShowMessage(GameSetUp.thisTurn.getName() + "'s Turn", Color.web("0xFEFDE8"),
+								Color.web("0x89949B"), 140, 1, 2000);
 
 						SceneController.setScene(SceneController.getMainIsland());
 						GameLobbyMenu.getBGM().stop();

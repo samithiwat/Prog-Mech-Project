@@ -9,6 +9,7 @@ public class Location {
 	private String name;
 	private String description;
 	private Minion possessedBy;
+	private MainCharacter owner;
 //	private ArrayList<E> *TODO:for group minion that is on the tile*
 	private ArrayList<Minion> minionOnLocation;
 	private int incomePerRound;
@@ -21,6 +22,7 @@ public class Location {
 		this.possessedBy = null;
 		this.cost = cost*MainCharacter.M;
 		this.minionOnLocation = new ArrayList<Minion>();
+		this.owner = null;
 		if(cost == 0) {
 			this.isPossessable = true;
 		}
@@ -94,6 +96,14 @@ public class Location {
 		return minionOnLocation;
 	}
 	
+	public MainCharacter getOwner() {
+		return owner;
+	}
+
+	public void setOwner(MainCharacter owner) {
+		this.owner = owner;
+	}
+
 	////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 	public String toString() {
 		return "-----------------------------------------------------\n"
