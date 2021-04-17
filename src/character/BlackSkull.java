@@ -10,6 +10,7 @@ public class BlackSkull extends MainCharacter {
 	public BlackSkull() {
 		super("Black Skull", "");
 		this.bgm = AudioLoader.blackSkullBGM;
+		this.selectBGM = AudioLoader.blackSkullSelectBGM;
 		this.color = Color.web("0x183F21");
 	}
 

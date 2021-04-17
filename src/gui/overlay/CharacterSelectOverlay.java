@@ -15,9 +15,9 @@ public abstract class CharacterSelectOverlay extends Overlay {
 
 	private static final int WIDTH = 1400;
 	private static final int HEIGHT = 800;
-
+	
 	public CharacterSelectOverlay() {
-		super((new Pane()), WIDTH, HEIGHT, 75, -800);
+		super((new Pane()), WIDTH, HEIGHT, 75 , -850);
 		// setId("overlay");
 		setCursor(CURSOR_NORMAL);
 
@@ -36,7 +36,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 			@Override
 			public void handle(MouseEvent event) {
 				CLICK_EFFECT.play();
-				triggerOverlay(0, 825, 1500);
+				triggerOverlay(0, 875, 1500);
 				CharacterSelectUpdate.closeUpdate();
 			}
 		});

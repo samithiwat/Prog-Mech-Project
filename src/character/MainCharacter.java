@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import component.entity.Minion;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
+import exception.ExceedToBuyMinionException;
+import exception.FailToBuyMinionException;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import logic.GameController;
+import logic.GameSetUp;
+import update.AudioUpdate;
 
 public abstract class MainCharacter {
 	public final static int M = 1000000;
@@ -20,6 +25,7 @@ public abstract class MainCharacter {
 	private String desciption;
 	protected Color color;
 	protected AudioClip bgm;
+	protected AudioClip selectBGM;
 	private int lossPerTurn;
 	private boolean isWin;
 	private int num_Axe;
@@ -111,6 +117,23 @@ public abstract class MainCharacter {
 		return sum;
 	}
 
+	public void buyMinion() throws FailToBuyMinionException,ExceedToBuyMinionException{
+		if(GameSetUp.canBuyMinion) {
+			if(GameSetUp.selectedTile.isSpawnable()) {
+				money-=Minion.getCost();
+				GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
+				AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
+				GameSetUp.canBuyMinion = false;				
+			}
+			else {
+				throw new FailToBuyMinionException();
+			}
+		}
+		else {
+			throw new ExceedToBuyMinionException();
+		}
+	}
+	
 	public abstract int checkIsWin();
 	// ----------------------getter/setter---------------------
 

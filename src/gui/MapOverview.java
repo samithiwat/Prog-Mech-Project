@@ -70,14 +70,14 @@ public class MapOverview implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 
-				AudioUpdate.changeScene(bgm, null);
+				AudioUpdate.change(bgm, null);
 				
-				MainIsland.getSceneRoot().getChildren().set(2, PlayerPanel.getStatusPane());
-				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getTurnBar());
-				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getHandsIcon());
-				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getEndTurn());
-				MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getGovernmentPoint());
-				MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGoodnessPoint());
+				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
+				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
+				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
+				MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
+				MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
+				MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
 
 				SceneController.setScene(SceneController.getMainIsland());
 

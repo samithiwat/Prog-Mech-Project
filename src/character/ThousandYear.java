@@ -8,6 +8,7 @@ import logic.GameSetUp;
 public class ThousandYear extends MainCharacter {
 	public ThousandYear() {
 		super("Sir Thousand Year", "");
+		this.selectBGM = AudioLoader.sirThousandSelectBGM;
 		this.bgm = AudioLoader.sirThousandBGM;
 		this.color = Color.web("0xCC698D");
 	}

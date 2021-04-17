@@ -23,8 +23,8 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 
 			@Override
 			public void handle(MouseEvent event) {
-				triggerOverlay(0, 825, 1);
-				GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1);
+				triggerOverlay(0, 875, 500);
+				GameLobbyMenu.getOverlay1().triggerOverlay(0, 875, 500);
 			}
 		}); 
 

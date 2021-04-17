@@ -2,12 +2,14 @@ package character;
 
 import gui.entity.GameSetting;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class RedFox extends MainCharacter {
 	public RedFox() {
 		super("Mr.Red Fox","");
 		this.color = Color.web("0xF58C4A");
+		this.selectBGM = AudioLoader.mrFoxSelectBGM;
 		//this.bgm = AudioLoader.
 		this.setMoney(11*M);
 	}

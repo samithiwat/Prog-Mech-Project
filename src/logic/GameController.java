@@ -7,6 +7,7 @@ import component.location.Plain;
 import gui.MainIsland;
 import gui.entity.HexagonPane;
 import javafx.scene.media.AudioClip;
+import update.AudioUpdate;
 import update.GameSettingUpdate;
 import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
@@ -14,7 +15,7 @@ import update.PlayerPanelUpdate;
 
 public class GameController {
 	public GameController() {
-//--------------------------Choose start minion location-----------------------------------
+//-------------------------- Choose start minion location-----------------------------------
 
 		MainIsland.dataInteractMode();
 		GameSetUp.isHighlightSpawnable = true;
@@ -22,11 +23,20 @@ public class GameController {
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 			
 			GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
-
+			
+// ------------------------	Wait Player Choose Spawn Location ---------------------------------
+		
 			while (true) {
 				// empty
-				System.out.println("");
+				System.out.print("");
 				//System.out.println(GameSetUp.selectedTile);
+				
+				if (GameSetUp.thisTurn instanceof ThousandYear) {
+					
+					GameSetUp.isHighlightSpawnable = false;
+					GameSetUp.isHighlightPlain = true;
+				}
+				
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.thisTurn instanceof ThousandYear) {
 
@@ -61,9 +71,13 @@ public class GameController {
 					}
 				}
 			}
+	
+// --------------------------------------- After Player Choose Spawn Location -----------------------------------
+			
 			System.out.println("Spawn Minion");
 			spawnMinion(new Minion(GameSetUp.gameCharacter.get(i)), GameSetUp.selectedTile);
 			GameSetUp.isReset = true;
+			GameSetUp.isSelectMinionSpawn = true;
 			GameSetUp.selectedTile = null;
 		}
 		
@@ -119,13 +133,14 @@ public class GameController {
 				GameSetUp.canBuyMinion = true;
 				GameSetUp.isTurnChange = true;
 				MainIslandUpdate.setCenter();
+				//AudioUpdate.changeTurn(GameSetUp.thisTurn,);
 			}
 			GameSetUp.turn++;
 		}
 	}
 
 //----------------------spawn minion-----------------	
-	public void spawnMinion(Minion minion, HexagonPane tile) {
+	public static void spawnMinion(Minion minion, HexagonPane tile) {
 		minion.setOnLocation(tile.getLocationType());
 		minion.setPosX(tile.getRow());
 		minion.setPosY(tile.getColumn());

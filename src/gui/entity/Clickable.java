@@ -17,6 +17,7 @@ public interface Clickable {
 
 	AudioClip EFFECT_MOUSE_ENTER = AudioLoader.mouseEnterSound;
 	AudioClip EFFECT_MOUSE_CLICK = AudioLoader.clickEffect;
+	AudioClip EFFECT_ERROR = AudioLoader.errorSound;
 	
 	ImageView RED_FOX_IMG = new ImageView(ClassLoader.getSystemResource("img/character/MrRedFox.png").toString());
 	ImageView LADY_COLLECTOR_IMG = new ImageView(ClassLoader.getSystemResource("img/character/LadyCollector.png").toString());

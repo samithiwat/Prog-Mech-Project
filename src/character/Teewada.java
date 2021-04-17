@@ -2,6 +2,7 @@ package character;
 
 import component.location.Council;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class Teewada extends MainCharacter {
@@ -9,6 +10,7 @@ public class Teewada extends MainCharacter {
 
 	public Teewada() {
 		super("Sir Tewada", ""); 
+		this.selectBGM = AudioLoader.sirTewadaSelectBGM;
 		this.color = Color.web("0xFEF67A");
 	}
 

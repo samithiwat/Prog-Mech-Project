@@ -177,9 +177,8 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 			public void handle(MouseEvent event) {
 				CLICK_EFFECT.play();
 				CharacterSelectUpdate.setcBox(getcBox());
-				// CharacterSelectUpdate.setcBoxId(id);
 				CharacterSelectUpdate.overlayUpdate();
-				GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
+				GameLobbyMenu.getOverlay1().triggerOverlay(0, 875, 1000);
 			}
 		});
 	}

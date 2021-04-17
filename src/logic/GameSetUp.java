@@ -32,6 +32,7 @@ import gui.overlay.TileOverlay;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.paint.Color;
 import update.AudioUpdate;
 import update.HexTileUpdate;
 import update.PlayerPanelUpdate;
@@ -633,9 +634,6 @@ public class GameSetUp {
 		if (tile.getLocationType().getCost() > 0) {
 			tile.getPlayerActionMenu().getBuyLand().setVisible(true);
 		}
-		if (tile.isSpawnable()) {
-			tile.getPlayerActionMenu().getBuyMinion().setVisible(true);
-		}
 	}
 
 // -------------------------------------------- Update Animation --------------------------------------------------------------------
@@ -664,12 +662,15 @@ public class GameSetUp {
 					}
 
 					if (GameSetUp.isSelectMinionSpawn) {
-						MainIsland.getSceneRoot().getChildren().set(2, PlayerPanel.getStatusPane());
-						MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getTurnBar());
-						MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getHandsIcon());
-						MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getEndTurn());
-						MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getGovernmentPoint());
-						MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGoodnessPoint());
+						MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
+						MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
+						MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
+						MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
+						MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
+						MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
+
+						MainIsland.setShowMessage(GameSetUp.thisTurn.getName() + "'s Turn",
+								Color.web("0xFEFDE8"), Color.web("0x89949B"), 140, 1, 2000);
 
 						SceneController.setScene(SceneController.getMainIsland());
 						GameLobbyMenu.getBGM().stop();
@@ -681,12 +682,12 @@ public class GameSetUp {
 						BoxBlur blur = new BoxBlur();
 						blur.setIterations(20);
 
+						MapOverview.getTurnChangeScreen().update();
+						MapOverview.getTurnChangeScreenRoot().setVisible(true);
 						AudioUpdate.toMapOverview(null);
 						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 						SceneController.setScene(SceneController.getMapOverView());
 
-						MapOverview.getTurnChangeScreen().update();
-						MapOverview.getTurnChangeScreenRoot().setVisible(true);
 						MapOverview.getMainIsland().setEffect(blur);
 						MapOverview.getPrisonIsland().setEffect(blur);
 						SceneController.getMapOverView().getRoot().setDisable(true);

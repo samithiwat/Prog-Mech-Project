@@ -9,7 +9,10 @@ import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import gui.overlay.HandOverlay;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -35,9 +39,8 @@ public class MainIsland implements Sceneable {
 	private final static int BG_CENTER_Y = 670;
 	private static int bgX = BG_CENTER_X;
 	private static int bgY = BG_CENTER_Y;
-	
+
 	private static Scene scene;
-	
 
 	private static Pane root;
 
@@ -51,10 +54,13 @@ public class MainIsland implements Sceneable {
 	private static StatusPane statusPane = PlayerPanel.getStatusPane();
 	private static TurnBar turnBar = PlayerPanel.getTurnBar();
 
+	private static StackPane infoRoot;
 	private static TextTitle info;
 
-	public MainIsland() {
+	private static StackPane messageRoot;
+	private static TextTitle message;
 
+	public MainIsland() {
 		root = new Pane();
 
 		bg = new ImageView(ClassLoader.getSystemResource("img/background/MainIsland.png").toString());
@@ -63,22 +69,37 @@ public class MainIsland implements Sceneable {
 
 		MapGrid grid = new MapGrid();
 
-		info = new TextTitle("Select spawn point of your minion", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
+		info = new TextTitle("Select spawn location of your minion", Color.web("0x393E46"), FontWeight.BOLD, 48, 376,
+				779);
 
-		root.getChildren().addAll(bg, grid);
+		infoRoot = new StackPane(info);
+		infoRoot.setPrefWidth(SceneController.getFullscreenWidth());
+		infoRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		infoRoot.setPadding(new Insets(50));
+		infoRoot.setAlignment(Pos.BOTTOM_CENTER);
+
+		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
+
+		messageRoot = new StackPane(message);
+		messageRoot.setPrefWidth(SceneController.getFullscreenWidth());
+		messageRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		messageRoot.setAlignment(Pos.CENTER);
+		messageRoot.setVisible(false);
+
+		root.getChildren().addAll(bg, infoRoot, grid);
 
 		HandOverlay handOverlay = new HandOverlay();
 		MapOverview.allHandOverlay.add(handOverlay);
 
-		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, info,
+		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, messageRoot,
 				handOverlay);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
-		
-		scene.setOnKeyReleased(key->{
-			MainIslandUpdate.setCurrent_speed(0); 
+
+		scene.setOnKeyReleased(key -> {
+			MainIslandUpdate.setCurrent_speed(0);
 
 		});
 
@@ -119,13 +140,13 @@ public class MainIsland implements Sceneable {
 				SceneController.getFullscreenHeight()));
 	}
 
-	
 	public static void setBgCenter() {
 		setBgX(BG_CENTER_X);
 		setBgY(BG_CENTER_Y);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
+				SceneController.getFullscreenHeight()));
 	}
-	
+
 	public static void dataInteractMode() {
 		turnBar.setVisible(false);
 		statusPane.setVisible(false);
@@ -133,11 +154,11 @@ public class MainIsland implements Sceneable {
 		governmentPoint.setVisible(false);
 		goodnessPoint.setVisible(false);
 		handsIcon.setVisible(false);
-		info.setVisible(true);
+		infoRoot.setVisible(true);
 		HexTileUpdate.setDataInteract();
 		disableESC();
 	}
-	
+
 	public static void overlayInteractMode() {
 		turnBar.setVisible(true);
 		statusPane.setVisible(true);
@@ -145,15 +166,66 @@ public class MainIsland implements Sceneable {
 		governmentPoint.setVisible(true);
 		goodnessPoint.setVisible(true);
 		handsIcon.setVisible(true);
-		info.setVisible(false);
+		infoRoot.setVisible(false);
 		HexTileUpdate.setOverlayInteract();
 		enableESC();
 	}
 	
-	private static void disableESC() {
-	
-		scene.setOnKeyPressed(key -> {
+	public static void setShowMessage(String message,Color color,Color strokeColor,int size,int strokeWidth,int duration) {
+		messageRoot.setVisible(true);
+		getMessage().setFontBold(size);
+		getMessage().setFill(color);
+		getMessage().setStroke(strokeColor);
+		getMessage().setStrokeWidth(strokeWidth);
+		getMessage().setText(message);
+
+		Thread t = new Thread(()->{
+			try {
+				Thread.sleep(duration);
+			} catch (InterruptedException e) {
+
+			}
 			
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					messageRoot.setVisible(false);
+				}
+			});
+		});
+		t.start();
+	}
+	
+	public static void setShowMessage(String message,Color color,int size,int duration) {
+		messageRoot.setVisible(true);
+		getMessage().setFontBold(size);
+		getMessage().setFill(color);
+		getMessage().setStroke(Color.TRANSPARENT);
+		getMessage().setText(message);
+
+		Thread t = new Thread(()->{
+			try {
+				Thread.sleep(duration);
+			} catch (InterruptedException e) {
+
+			}
+			
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					messageRoot.setVisible(false);
+				}
+			});
+		});
+		t.start();
+	}
+
+	private static void disableESC() {
+
+		scene.setOnKeyPressed(key -> {
+
 			if (key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) {
 				MainIslandUpdate.moveLeft();
 			}
@@ -168,11 +240,11 @@ public class MainIsland implements Sceneable {
 			}
 
 		});
-		
+
 	}
-	
+
 	private static void enableESC() {
-		
+
 		scene.setOnKeyPressed(key -> {
 			if (key.getCode() == KeyCode.A || key.getCode() == KeyCode.LEFT) {
 				MainIslandUpdate.moveLeft();
@@ -194,7 +266,6 @@ public class MainIsland implements Sceneable {
 			}
 		});
 	}
-
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
@@ -239,4 +310,28 @@ public class MainIsland implements Sceneable {
 		MainIsland.root = root;
 	}
 
+	public static StackPane getInfoRoot() {
+		return infoRoot;
+	}
+
+	public static TextTitle getInfo() {
+		return info;
+	}
+
+	public static StackPane getMessageRoot() {
+		return messageRoot;
+	}
+
+	public static void setMessageRoot(StackPane messageRoot) {
+		MainIsland.messageRoot = messageRoot;
+	}
+
+	public static TextTitle getMessage() {
+		return message;
+	}
+
+	public static void setMessage(TextTitle message) {
+		MainIsland.message = message;
+	}
+	
 }
