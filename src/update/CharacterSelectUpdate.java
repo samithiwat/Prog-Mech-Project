@@ -177,22 +177,22 @@ public class CharacterSelectUpdate implements Updateable {
 
 	private static void enableCard(String cardName) {
 		switch (cardName) {
-		case "Mr.RedFox":
+		case "Mr.Red Fox":
 			cc.get(0).setSelected(false);
 			break;
-		case "Ms.Collector":
+		case "Lady Collector":
 			cc.get(1).setSelected(false);
 			break;
-		case "Mr.BlackSkull":
+		case "Black Skull":
 			cc.get(2).setSelected(false);
 			break;
-		case "Ms.ThousandYear":
+		case "Sir Thousand Year":
 			cc.get(3).setSelected(false);
 			break;
-		case "Teewada":
+		case "Sir Tewada":
 			cc.get(4).setSelected(false);
 			break;
-		case "Teewadee":
+		case "Sir Tewadee":
 			cc.get(5).setSelected(false);
 			break;
 		}

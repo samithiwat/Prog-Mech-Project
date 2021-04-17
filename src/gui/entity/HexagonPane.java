@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import logic.GameSetUp;
 import update.HexTileUpdate;
+import update.PlayerPanelUpdate;
 
 public class HexagonPane extends Pane implements Clickable {
 
@@ -30,12 +31,12 @@ public class HexagonPane extends Pane implements Clickable {
 	private static final int N_COLUMN = 3;
 	private final int INIT_X;
 	private final int INIT_Y;
-	
+
 	private int x;
 	private int y;
 	private int row;
 	private int column;
-	
+
 	private boolean moveable;
 	private boolean isSpawnable = false;
 
@@ -44,8 +45,6 @@ public class HexagonPane extends Pane implements Clickable {
 	private GridPane minionIconPane;
 	private Location locationType;
 	private PlayerActionMenu playerActionMenu;
-
-
 
 	public HexagonPane(int width, int height, int x, int y,
 
@@ -147,66 +146,98 @@ public class HexagonPane extends Pane implements Clickable {
 			}
 		});
 
-//		setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent event) {
-//				if (event.getButton().equals(MouseButton.PRIMARY)) {
-//					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
-//							TileOverlay.getOverlayDelay());
-//				} else {
-//					//playerActionMenu.show(this, Side.BOTTOM, 0, 0);
-//				}
-//			}
-//
-//		});
-		
 		setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
 			@Override
 			public void handle(ContextMenuEvent event) {
+
+				if (GameSetUp.thisTurn.getMoney() > GameSetUp.selectedTile.getLocationType().getCost()) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(false);
+				} else {
+					GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(true);
+				}
+
+				if (GameSetUp.thisTurn.getMoney() > Minion.getCost()) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(false);
+				} else {
+					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(true);
+				}
+
+				int count = 0;
+				boolean canSplit = false;
+				
+				for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
+					Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
+					if(	minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
+						if(minion.getMyMinion().size()>=2) {
+							GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
+							canSplit = true;
+						}
+						count++;
+					}
+					
+					if(count >=2 ) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
+						break;
+					}
+				}
+				if(count <2) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(false);
+				}
+				if(!canSplit) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(false);
+				}
+				
 				EFFECT_MOUSE_CLICK.play();
-				playerActionMenu.show(hexPane,event.getSceneX(),event.getSceneY());
+				playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
 			}
-		
+
 		});
-		
+
 	}
-	
+
 	public void dataInteract() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-				if(event.getButton()==MouseButton.PRIMARY) {
+
+				if (event.getButton() == MouseButton.PRIMARY) {
 					GameSetUp.selectedTile = hexPane;
-					
+
 //////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
-				
+
 					System.out.println(GameSetUp.selectedTile);
 
 ///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
-					
+
 				}
 			}
 		});
 	}
-	
+
 	public void overlayInteract() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-					if(event.getButton().equals(MouseButton.PRIMARY)) {
-						updateMinionPane();
-						updateMinionIcon(minionIconPane);
-						overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
+
+				if (event.getButton().equals(MouseButton.PRIMARY)) {
+					updateMinionPane();
+					updateMinionIcon(minionIconPane);
+					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
 							TileOverlay.getOverlayDelay());
-					}
-					
-			
+				} else if (event.getButton().equals(MouseButton.SECONDARY)) {
+					GameSetUp.selectedTile = hexPane;
+
+//////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
+
+					System.out.println(GameSetUp.selectedTile);
+
+///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
+
+				}
+
 			}
 		});
 	}
@@ -239,7 +270,7 @@ public class HexagonPane extends Pane implements Clickable {
 		setY(getY() + speed);
 		setLayoutY(getY());
 	}
-	
+
 	public void setCenter() {
 		setX(INIT_X);
 		setY(INIT_Y);
@@ -284,46 +315,35 @@ public class HexagonPane extends Pane implements Clickable {
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setMoveable(false);
 		}
 	}
-	
+
 	public void updateMinionIcon(GridPane minionIconPane) {
-		
-//////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
-		
-		//minionIconPane.getChildren().clear();
-		
-		//System.out.println("Update Icon Pane");
-		
-///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
-		
+
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
 
 		for (int i = 0; i < minions.size(); i++) {
 
 			minionIconPane.add(createMinionIcon(minions.get(i)), i % N_COLUMN, (int) i / N_COLUMN);
-			
+
 ////////////////////////////////////////////////////////// DEBUG //////////////////////////////////////////////////////////////
-			
+
 			System.out.println("Update Icon Pane");
-			
+
 ///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
 		}
 	}
-	
+
 	public void updateMinionPane() {
-		
+
 		overlay.getMinionPane().getChildren().clear();
-		
-		System.out.println("Update Minion Pane");
 
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
 		System.out.println(locationType);
 		for (int i = 0; i < minions.size(); i++) {
-			addMinionToPane(minions.get(i), overlay.getMinionPane() , i);
-			
-			
+			addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
+
 		}
 	}
-	
+
 	private MinionIcon createMinionIcon(Minion minion) {
 
 		MinionIcon minionIcon = null;
@@ -377,7 +397,6 @@ public class HexagonPane extends Pane implements Clickable {
 
 	}
 
-
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
 	public int getX() {
@@ -423,16 +442,16 @@ public class HexagonPane extends Pane implements Clickable {
 	public GridPane getMinionIconPane() {
 		return minionIconPane;
 	}
-	
-		public HexagonPane getHexPane() {
+
+	public HexagonPane getHexPane() {
 		return hexPane;
 	}
 
 	public PlayerActionMenu getPlayerActionMenu() {
 		return playerActionMenu;
 	}
-	
-		public boolean isSpawnable() {
+
+	public boolean isSpawnable() {
 		return isSpawnable;
 	}
 
@@ -459,9 +478,8 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public String toString() {
-		return "Location : "+locationType.getName()+"\n"
-				+"Cost : "+locationType.getCost()+"\n"
-				+"Row : "+row+", Column : "+column;
+		return "Location : " + locationType.getName() + "\n" + "Cost : " + locationType.getCost() + "\n" + "Row : "
+				+ row + ", Column : " + column;
 	}
 
 ////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////

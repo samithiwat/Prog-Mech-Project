@@ -15,4 +15,9 @@ public class TextTitle extends Text{
 		setFont(Font.font("Bai Jamjuree",fontWeight,size));
 	} 
 	
+	public TextTitle(String content,Color color,FontWeight fontWeight,int size) {
+		super(content);
+		setFill(color);
+		setFont(Font.font("Bai Jamjuree",fontWeight,size));
+	} 
 }

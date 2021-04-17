@@ -14,4 +14,14 @@ public class AudioUpdate implements Updateable{
 		MapOverview.getBgm().play();		
 	}
 	
+	public static void changeScene(AudioClip currentBGM, AudioClip nextSceneBGM) {
+		if(currentBGM!=null) {
+			currentBGM.stop();
+		}
+		if(nextSceneBGM!=null) {
+			nextSceneBGM.setCycleCount(AudioClip.INDEFINITE);
+		nextSceneBGM.play();
+		}
+	}
+	
 }

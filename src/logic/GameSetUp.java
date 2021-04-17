@@ -22,16 +22,27 @@ import component.weaponCard.RemovedDeck;
 import component.weaponCard.Shield;
 import component.weaponCard.Sword;
 import component.weaponCard.WeaponDeck;
+import gui.GameLobbyMenu;
 import gui.MainIsland;
+import gui.MapOverview;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
+import gui.entity.PlayerPanel;
 import gui.overlay.TileOverlay;
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
+import javafx.scene.effect.BoxBlur;
+import update.AudioUpdate;
+import update.HexTileUpdate;
+import update.PlayerPanelUpdate;
 
 public class GameSetUp {
 	private static int MAP_N_ROW = 9;
 	private static int MAP_N_COLUMN = 11;
-	
-	
+
+	private static long lastTimeTrigger = -1;
+	private static final long DURATION = 100000000;
+	private static AnimationTimer animationTimer;
 
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
@@ -41,8 +52,9 @@ public class GameSetUp {
 	public static LawDeck lawDeck = new LawDeck();
 	public static ArrayList<SecretBase> allsecretBases = new ArrayList<SecretBase>();
 	private static final int DUPLICATE = 5;
-	public static String turn;
+	public static int turn = 1;
 	public static int cycle = 0;
+	public static boolean canBuyMinion = true;
 	public static boolean isGameEnd = false;
 	public static boolean isEndTurn;
 	public static MainCharacter theGovernment = null;
@@ -51,7 +63,7 @@ public class GameSetUp {
 	public static boolean isHighlightSpawnable = false;
 	public static boolean isHighlightPlain = false;
 	public static boolean isReset = false;
-	public static boolean isResetScene = false;
+	public static boolean isTurnChange = false;
 	public static boolean isSelectMinionSpawn = false;
 //	public static Minion selectedMinion = null;
 	public static int governmentPoint = 0;
@@ -70,6 +82,37 @@ public class GameSetUp {
 //----------------------------------Add Law Card----------------------------------------------------
 		lawDeck.setUpLawDeck();
 //----------------------------------Map Initialize------------------------------------------------------
+		setUpMap();
+		SceneController.createGameScene();
+		setUpMapWithHexPane();
+
+//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
+//printMap();
+
+////////////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////////////////	
+
+// -------------------------------------------------- Set Up Select Minion Spawn Mode -------------------------------------------------
+
+		GameSetUp.isSelectMinionSpawn = true;
+
+		Thread controller = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				GameController gameController = new GameController();
+			}
+		});
+
+		controller.start();
+		updateAnimation();
+
+	}
+
+// --------------------------------------------------------- Map Set Up Method ------------------------------------------------------------------
+
+	private void setUpMap() {
 		String[] mapCode = { "51400302105", "1310X001301", "04030X00230", "0001X6X1000", "0020XXX2X02", "200011000X0",
 				"00401000430", "10302X3000X", "50004000305" };
 
@@ -96,32 +139,6 @@ public class GameSetUp {
 				}
 			}
 		}
-
-//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
-//printMap();
-		
-
-////////////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////////////////	
-				
-		SceneController.createGameScene();
-		
-		setUpMapWithHexPane();
-		
-		GameSetUp.isSelectMinionSpawn = true;
-				
-		Thread controller = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				
-				GameController gameController = new GameController();
-			}
-		});
-
-		controller.start();
-
-
 	}
 
 	private void setUpMapWithHexPane() {
@@ -129,24 +146,26 @@ public class GameSetUp {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 				column.get(j).setLocationType(map[i][j]);
-				
+
 				TileOverlay overlay = createTileOverlay(i, j);
 				column.get(j).setOverlay(overlay);
+
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-				
+
 				System.out.println(overlay);
-				
+
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 			}
 		}
-		
+
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
-				setTileSpawnable(column.get(j),i,j);
+				setTileSpawnable(column.get(j), i, j);
+				setUpPlayerActionMenu(column.get(j), i, j);
 			}
 		}
-		
+
 	}
 
 	private TileOverlay createTileOverlay(int row, int column) {
@@ -162,461 +181,554 @@ public class GameSetUp {
 
 		TileOverlay overlay = null;
 
-		//System.out.println(mapHexCode[row][column]);
-		
+		// System.out.println(mapHexCode[row][column]);
+
 		if (mapHexCode[row][column].equals("01")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 45, 215, 439, 945, 1170, 1284 };
 			int[] posYList = { 582, 349, 582, 586, 344, 568 };
 			overlay = new TileOverlay("img/background/PlainBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("02")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 45, 215, 439, 945, 1170, 1284 };
 			int[] posYList = { 582, 349, 582, 586, 344, 568 };
 			overlay = new TileOverlay("img/background/PlainBackground2.png", posXList, posYList);
 		}
 
 		if (mapHexCode[row][column].equals("03")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 45, 215, 439, 945, 1170, 1284 };
 			int[] posYList = { 582, 349, 582, 586, 344, 568 };
 			overlay = new TileOverlay("img/background/PlainBackground3.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("04")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 45, 215, 439, 945, 1170, 1284 };
 			int[] posYList = { 582, 349, 582, 586, 344, 568 };
 			overlay = new TileOverlay("img/background/PlainBackground4.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("05")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 45, 215, 439, 945, 1170, 1284 };
 			int[] posYList = { 582, 349, 582, 586, 344, 568 };
 			overlay = new TileOverlay("img/background/PlainBackground5.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("06")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 276, 460, 749, 1042, 521, 697 };
 			int[] posYList = { 604, 630, 605, 615, 404, 387 };
 			overlay = new TileOverlay("img/background/PlainBackground6.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("07")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 88, 378, 643, 896, 1178, 1211 };
 			int[] posYList = { 619, 308, 467, 579, 590, 325 };
 			overlay = new TileOverlay("img/background/PlainBackground7.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("08")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 180, 194, 656, 835, 1125, 1170 };
 			int[] posYList = { 334, 563, 443, 593, 604, 344 };
 			overlay = new TileOverlay("img/background/PlainBackground8.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("09")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 113, 462, 534, 756, 1141, 1196 };
 			int[] posYList = { 234, 336, 562, 392, 227, 423 };
 			overlay = new TileOverlay("img/background/PlainBackground9.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("0A")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 77, 415, 701, 879, 887, 1201 };
 			int[] posYList = { 401, 593, 605, 396, 615, 482 };
 			overlay = new TileOverlay("img/background/PlainBackground10.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("0B")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 127, 442, 697, 898, 1170, 1178 };
 			int[] posYList = { 461, 579, 583, 485, 344, 593 };
 			overlay = new TileOverlay("img/background/PlainBackground11.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("11")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 38, 317, 505, 734, 886, 1242 };
 			int[] posYList = { 321, 258, 368, 273, 359, 446 };
 			overlay = new TileOverlay("img/background/ForestBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("12")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 91, 381, 559, 789, 932, 1253 };
 			int[] posYList = { 372, 472, 565, 493, 562, 416 };
 			overlay = new TileOverlay("img/background/ForestBackground2.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("13")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 64, 359, 485, 759, 1021, 1212 };
 			int[] posYList = { 576, 445, 416, 269, 430, 414 };
 			overlay = new TileOverlay("img/background/ForestBackground3.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("21")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 135, 247, 530, 742, 991, 1179 };
 			int[] posYList = { 438, 605, 428, 611, 510, 608 };
 			overlay = new TileOverlay("img/background/FarmBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("22")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 124, 470, 728, 950, 1077, 1263 };
 			int[] posYList = { 568, 543, 632, 478, 625, 466 };
 			overlay = new TileOverlay("img/background/FarmBackground2.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("31")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 153, 300, 586, 758, 1098, 1155 };
 			int[] posYList = { 635, 362, 517, 537, 335, 639 };
 			overlay = new TileOverlay("img/background/VillageBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("32")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 153, 300, 586, 758, 1098, 1155 };
 			int[] posYList = { 635, 362, 517, 537, 335, 639 };
 			overlay = new TileOverlay("img/background/VillageBackground2.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("33")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 153, 300, 586, 758, 1098, 1155 };
 			int[] posYList = { 635, 362, 517, 537, 335, 639 };
 			overlay = new TileOverlay("img/background/VillageBackground3.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("34")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 153, 300, 586, 758, 1098, 1155 };
 			int[] posYList = { 635, 362, 517, 537, 335, 639 };
 			overlay = new TileOverlay("img/background/VillageBackground4.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("36")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 45, 372, 603, 822, 992, 1219 };
 			int[] posYList = { 593, 563, 593, 619, 581, 462 };
 			overlay = new TileOverlay("img/background/VillageBackground6.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("37")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 541, 681, 730, 906, 965, 1199 };
-			int[] posYList = { 663, 487, 629, 502, 645,	536 };
+			int[] posYList = { 663, 487, 629, 502, 645, 536 };
 			overlay = new TileOverlay("img/background/VillageBackground7.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("41")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 39, 295, 443, 836, 975, 1217 };
 			int[] posYList = { 607, 519, 476, 511, 602, 596 };
 			overlay = new TileOverlay("img/background/MineBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("42")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 41, 295, 530, 798, 982, 1265 };
 			int[] posYList = { 595, 483, 507, 520, 604, 419 };
 			overlay = new TileOverlay("img/background/MineBackground2.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("43")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 92, 329, 561, 850, 1012, 1266 };
 			int[] posYList = { 595, 583, 473, 465, 597, 351 };
 			overlay = new TileOverlay("img/background/MineBackground3.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("44")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 61, 329, 535, 883, 1055, 1285 };
 			int[] posYList = { 562, 458, 471, 486, 595, 407 };
 			overlay = new TileOverlay("img/background/MineBackground4.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("45")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 101, 419, 696, 786, 1080, 1303 };
 			int[] posYList = { 556, 454, 451, 643, 557, 552 };
 			overlay = new TileOverlay("img/background/MineBackground5.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("51")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 62, 284, 436, 900, 1003, 1246 };
 			int[] posYList = { 632, 382, 547, 555, 628, 611 };
 			overlay = new TileOverlay("img/background/MilitaryBaseBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("52")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 62, 267, 634, 831, 963, 1251 };
 			int[] posYList = { 632, 400, 650, 483, 600, 598 };
 			overlay = new TileOverlay("img/background/MilitaryBaseBackground2.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("53")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 313, 293, 664, 812, 953, 957 };
 			int[] posYList = { 369, 634, 656, 481, 575, 342 };
 			overlay = new TileOverlay("img/background/MilitaryBaseBackground3.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("54")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 0, 218, 322, 531, 999, 1246 };
-			int[] posYList = { 630, 403,599, 543, 518, 611 };
+			int[] posYList = { 630, 403, 599, 543, 518, 611 };
 			overlay = new TileOverlay("img/background/MilitaryBaseBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("61")) {
-			//System.out.println(row + ", " + column);
+			// System.out.println(row + ", " + column);
 			int[] posXList = { 1043 };
 			int[] posYList = { 380 };
 			overlay = new TileOverlay("img/background/CouncilBackground.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("X1")) {
-			//System.out.println(row + ", " + column);
-			int[] posXList = {  };
-			int[] posYList = {  };
+			// System.out.println(row + ", " + column);
+			int[] posXList = {};
+			int[] posYList = {};
 			overlay = new TileOverlay("img/background/LakeBackground1.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("X2")) {
-			//System.out.println(row + ", " + column);
-			int[] posXList = {  };
-			int[] posYList = {  };
+			// System.out.println(row + ", " + column);
+			int[] posXList = {};
+			int[] posYList = {};
 			overlay = new TileOverlay("img/background/LakeBackground2.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("X3")) {
-			//System.out.println(row + ", " + column);
-			int[] posXList = {  };
-			int[] posYList = {  };
+			// System.out.println(row + ", " + column);
+			int[] posXList = {};
+			int[] posYList = {};
 			overlay = new TileOverlay("img/background/LakeBackground3.png", posXList, posYList);
 		}
-		
+
 		if (mapHexCode[row][column].equals("X4")) {
-			//System.out.println(row + ", " + column);
-			int[] posXList = {  };
-			int[] posYList = {  };
+			// System.out.println(row + ", " + column);
+			int[] posXList = {};
+			int[] posYList = {};
 			overlay = new TileOverlay("img/background/LakeBackground4.png", posXList, posYList);
 		}
-		
+
 		///////////////////////// DEBUG ///////////////////////////////
 //		if(overlay!=null) {
 //			MainIsland.getSceneRoot().getChildren().add(overlay);
 //		}
-		//////////////////////// END OF DEBUG ////////////////////////// 
-		
+		//////////////////////// END OF DEBUG //////////////////////////
+
 		MainIsland.getSceneRoot().getChildren().add(overlay);
-		
+
 		return overlay;
 
 	}
-	
-	private void setTileSpawnable(HexagonPane tile,int row,int column) {
-		
+
+	private void setTileSpawnable(HexagonPane tile, int row, int column) {
+
 //		tile.setLocationType(map[row][column]);
-		
-		if(tile.getLocationType() instanceof Village) {
-			
-			System.out.println(row+", "+column);
-			
-			if(column%2!=0) {
+
+		if (tile.getLocationType() instanceof Village) {
+
+			System.out.println(row + ", " + column);
+
+			if (column % 2 != 0) {
 				///////////////////////////////// DEBUG //////////////////////////////////
-				
+
 				try {
-					System.out.println(MapGrid.getGrids().get(row-1).get(column).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row - 1).get(column).getLocationType());
+				} catch (Exception e) {
+
 				}
 				try {
-					System.out.println(MapGrid.getGrids().get(row).get(column-1).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row).get(column - 1).getLocationType());
+				} catch (Exception e) {
+
 				}
 				try {
-					System.out.println(MapGrid.getGrids().get(row).get(column+1).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row).get(column + 1).getLocationType());
+				} catch (Exception e) {
+
 				}
 				try {
-					System.out.println(MapGrid.getGrids().get(row+1).get(column-1).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row + 1).get(column - 1).getLocationType());
+				} catch (Exception e) {
+
 				}
 				try {
-					System.out.println(MapGrid.getGrids().get(row+1).get(column).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row + 1).get(column).getLocationType());
+				} catch (Exception e) {
+
 				}
 				try {
-					System.out.println(MapGrid.getGrids().get(row+1).get(column+1).getLocationType());
-				}catch(Exception e) {
-					
-				}		
-							
+					System.out.println(MapGrid.getGrids().get(row + 1).get(column + 1).getLocationType());
+				} catch (Exception e) {
+
+				}
+
 				///////////////////////////// END OF DEBUG ///////////////////////////////
-				
-				
-				
+
 				try {
-					if(MapGrid.getGrids().get(row-1).get(column).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row-1).get(column).setSpawnable(true);
+					if (MapGrid.getGrids().get(row - 1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row - 1).get(column).setSpawnable(true);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row).get(column-1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row).get(column-1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row).get(column - 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column - 1).setSpawnable(true);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row).get(column+1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row).get(column+1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row).get(column + 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column + 1).setSpawnable(true);
 					}
-					
-				}catch(Exception e) {
-					
+
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row+1).get(column-1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row+1).get(column-1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row + 1).get(column - 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row + 1).get(column - 1).setSpawnable(true);
 					}
-					
-				}catch(Exception e) {
-					
+
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row+1).get(column).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row+1).get(column).setSpawnable(true);
+					if (MapGrid.getGrids().get(row + 1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row + 1).get(column).setSpawnable(true);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row+1).get(column+1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row+1).get(column+1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row + 1).get(column + 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row + 1).get(column + 1).setSpawnable(true);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
-				
-			}
-			else if(column%2==0) {
-				
+
+			} else if (column % 2 == 0) {
+
 				try {
-					System.out.println(MapGrid.getGrids().get(row-1).get(column-1).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row - 1).get(column - 1).getLocationType());
+				} catch (Exception e) {
+
 				}
-				
+
 				try {
-					System.out.println(MapGrid.getGrids().get(row-1).get(column).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row - 1).get(column).getLocationType());
+				} catch (Exception e) {
+
 				}
-				
+
 				try {
-					System.out.println(MapGrid.getGrids().get(row-1).get(column+1).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row - 1).get(column + 1).getLocationType());
+				} catch (Exception e) {
+
 				}
-				
+
 				try {
-					System.out.println(MapGrid.getGrids().get(row).get(column-1).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row).get(column - 1).getLocationType());
+				} catch (Exception e) {
+
 				}
-				
+
 				try {
-					System.out.println(MapGrid.getGrids().get(row).get(column+1).getLocationType());
-				}catch(Exception e) {
-					
+					System.out.println(MapGrid.getGrids().get(row).get(column + 1).getLocationType());
+				} catch (Exception e) {
+
 				}
-				
+
 				try {
-					System.out.println(MapGrid.getGrids().get(row+1).get(column).getLocationType());
-				}catch(Exception e) {
-					
-				}			
-				
+					System.out.println(MapGrid.getGrids().get(row + 1).get(column).getLocationType());
+				} catch (Exception e) {
+
+				}
+
 				try {
-					if(MapGrid.getGrids().get(row-1).get(column-1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row-1).get(column-1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row - 1).get(column - 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row - 1).get(column - 1).setSpawnable(true);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row-1).get(column).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row-1).get(column).setSpawnable(true);
+					if (MapGrid.getGrids().get(row - 1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row - 1).get(column).setSpawnable(true);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row-1).get(column+1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row-1).get(column+1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row - 1).get(column + 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row - 1).get(column + 1).setSpawnable(true);
 					}
-					
-				}catch(Exception e) {
-					
+
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row).get(column-1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row).get(column-1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row).get(column - 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column - 1).setSpawnable(true);
 					}
-					
-				}catch(Exception e) {
-					
+
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row).get(column+1).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row).get(column+1).setSpawnable(true);
+					if (MapGrid.getGrids().get(row).get(column + 1).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row).get(column + 1).setSpawnable(true);
 					}
-					
-				}catch(Exception e) {
-					
+
+				} catch (Exception e) {
+
 				}
 				try {
-					if(MapGrid.getGrids().get(row+1).get(column).getLocationType() instanceof Plain) {
-						MapGrid.getGrids().get(row+1).get(column).setSpawnable(true);
+					if (MapGrid.getGrids().get(row + 1).get(column).getLocationType() instanceof Plain) {
+						MapGrid.getGrids().get(row + 1).get(column).setSpawnable(true);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
-				
+
 			}
 		}
-		
-		if(tile.getLocationType() instanceof Field) {
+
+		if (tile.getLocationType() instanceof Field) {
 			MapGrid.getGrids().get(row).get(column).setSpawnable(true);
 		}
-		
-	}
-	
-//	public static boolean isFinished() {
-//		return isFinished;
-//	}
 
+	}
+
+	private void setUpPlayerActionMenu(HexagonPane tile, int row, int column) {
+		if (tile.getLocationType().getCost() > 0) {
+			tile.getPlayerActionMenu().getBuyLand().setVisible(true);
+		}
+		if (tile.isSpawnable()) {
+			tile.getPlayerActionMenu().getBuyMinion().setVisible(true);
+		}
+	}
+
+// -------------------------------------------- Update Animation --------------------------------------------------------------------
+
+	private void updateAnimation() {
+		animationTimer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
+				if (now - lastTimeTrigger > DURATION) {
+
+					HexTileUpdate.updateMinionIcon();
+
+					if (GameSetUp.isHighlightPlain) {
+						PlayerPanelUpdate.highlightPlainTile();
+					}
+
+					if (GameSetUp.isHighlightSpawnable) {
+						PlayerPanelUpdate.highlightSpawnableTile();
+					}
+
+					if (GameSetUp.isReset) {
+						PlayerPanelUpdate.resetTile();
+						GameSetUp.isReset = false;
+					}
+
+					if (GameSetUp.isSelectMinionSpawn) {
+						MainIsland.getSceneRoot().getChildren().set(2, PlayerPanel.getStatusPane());
+						MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getTurnBar());
+						MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getHandsIcon());
+						MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getEndTurn());
+						MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getGovernmentPoint());
+						MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGoodnessPoint());
+
+						SceneController.setScene(SceneController.getMainIsland());
+						GameLobbyMenu.getBGM().stop();
+						GameSetUp.isSelectMinionSpawn = false;
+					}
+
+					if (GameSetUp.isTurnChange) {
+
+						BoxBlur blur = new BoxBlur();
+						blur.setIterations(20);
+
+						AudioUpdate.toMapOverview(null);
+						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
+						SceneController.setScene(SceneController.getMapOverView());
+
+						MapOverview.getTurnChangeScreen().update();
+						MapOverview.getTurnChangeScreenRoot().setVisible(true);
+						MapOverview.getMainIsland().setEffect(blur);
+						MapOverview.getPrisonIsland().setEffect(blur);
+						SceneController.getMapOverView().getRoot().setDisable(true);
+
+						PlayerPanelUpdate.closePanel();
+						Thread t = new Thread(() -> {
+							try {
+								Thread.sleep(3000);
+							} catch (InterruptedException e) {
+
+							}
+
+							Platform.runLater(new Runnable() {
+
+								@Override
+								public void run() {
+									MapOverview.getMainIsland().setEffect(null);
+									MapOverview.getPrisonIsland().setEffect(null);
+									MapOverview.getTurnChangeScreenRoot().setVisible(false);
+									PlayerPanelUpdate.openPanel();
+									SceneController.getMapOverView().getRoot().setDisable(false);
+								}
+
+							});
+						});
+						t.start();
+						GameSetUp.isTurnChange = false;
+					}
+
+					if (GameSetUp.isGameEnd) {
+						animationTimer.stop();
+						lastTimeTrigger = -1;
+					}
+
+					lastTimeTrigger = now;
+				}
+			}
+
+		};
+
+		animationTimer.start();
+	}
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 

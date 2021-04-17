@@ -7,7 +7,7 @@ public class Teewadee extends MainCharacter {
 	public static boolean warCry = true;
 
 	public Teewadee() {
-		super("Teewadee", "");
+		super("Sir Tewadee", "");
 		this.color = Color.web("0xF75959");
 	}
 

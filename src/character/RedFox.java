@@ -6,7 +6,7 @@ import logic.GameSetUp;
 
 public class RedFox extends MainCharacter {
 	public RedFox() {
-		super("Mr.RedFox","");
+		super("Mr.Red Fox","");
 		this.color = Color.web("0xF58C4A");
 		//this.bgm = AudioLoader.
 		this.setMoney(11*M);

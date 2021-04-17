@@ -1,25 +1,16 @@
 package logic;
 
-import java.util.ArrayList;
-
 import character.MainCharacter;
 import character.ThousandYear;
 import component.entity.Minion;
-import component.location.Council;
-import component.location.Location;
 import component.location.Plain;
-import component.location.Water;
-import component.weaponCard.WeaponCard;
-import components.character.GameCharacter;
 import gui.MainIsland;
 import gui.entity.HexagonPane;
-import gui.entity.MapGrid;
-import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
 import update.GameSettingUpdate;
-import update.HexTileUpdate;
 import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
+
 
 public class GameController {
 	public GameController() {
@@ -76,7 +67,7 @@ public class GameController {
 			GameSetUp.selectedTile = null;
 		}
 		
-		GameSetUp.isResetScene = true;
+		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
 		MainIsland.overlayInteractMode();
 		MainIslandUpdate.setCenter();
@@ -121,12 +112,15 @@ public class GameController {
 //////////////////////////////////////////////////////////////// END OF DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				}
+				
 				GameSetUp.gameLaw.setDefault();
 				GameSetUp.lawSlot.activateAllSlot();
 				GameSetUp.isEndTurn = false;
-				GameSetUp.isResetScene = true;
+				GameSetUp.canBuyMinion = true;
+				GameSetUp.isTurnChange = true;
 				MainIslandUpdate.setCenter();
 			}
+			GameSetUp.turn++;
 		}
 	}
 
@@ -137,6 +131,7 @@ public class GameController {
 		minion.setPosY(tile.getColumn());
 		tile.getLocationType().addMinonToLocation(minion);
 	}
+	
 
 //----------------------Fight/Trade--------------------------	
 

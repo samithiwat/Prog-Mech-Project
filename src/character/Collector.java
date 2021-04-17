@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class Collector extends MainCharacter {
 	public Collector() {
-		super("Ms.Collector", "");
+		super("Lady Collector", "");
 		this.color = Color.web("0x03728C");
 	}
 
