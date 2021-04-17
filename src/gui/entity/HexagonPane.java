@@ -324,6 +324,8 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public void updateMinionIcon(GridPane minionIconPane) {
+		
+		minionIconPane.getChildren().clear();
 
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
 
