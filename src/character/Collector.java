@@ -11,6 +11,7 @@ public class Collector extends MainCharacter {
 		super("Lady Collector", "");
 		this.color = Color.web("0x03728C");
 		this.selectBGM = AudioLoader.ladySelectBGM;
+		this.setImg_path("img/character/LadyCollector.png");
 	}
 
 	public int checkIsWin() {

@@ -9,6 +9,8 @@ import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import gui.overlay.HandOverlay;
+import gui.overlay.PlayerList1;
+import gui.overlay.PlayerList2;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -91,8 +93,14 @@ public class MainIsland implements Sceneable {
 		HandOverlay handOverlay = new HandOverlay();
 		MapOverview.allHandOverlay.add(handOverlay);
 
+		PlayerList1 playerList1 = new PlayerList1();
+		MapOverview.allPlayerList1.add(playerList1);
+		
+		PlayerList2 playerList2 = new PlayerList2();
+		MapOverview.allPlayerList2.add(playerList2);
+
 		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, messageRoot,
-				handOverlay);
+				handOverlay, playerList1, playerList2);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);
@@ -170,8 +178,9 @@ public class MainIsland implements Sceneable {
 		HexTileUpdate.setOverlayInteract();
 		enableESC();
 	}
-	
-	public static void setShowMessage(String message,Color color,Color strokeColor,int size,int strokeWidth,int duration) {
+
+	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
+			int duration) {
 		messageRoot.setVisible(true);
 		getMessage().setFontBold(size);
 		getMessage().setFill(color);
@@ -179,13 +188,13 @@ public class MainIsland implements Sceneable {
 		getMessage().setStrokeWidth(strokeWidth);
 		getMessage().setText(message);
 
-		Thread t = new Thread(()->{
+		Thread t = new Thread(() -> {
 			try {
 				Thread.sleep(duration);
 			} catch (InterruptedException e) {
 
 			}
-			
+
 			Platform.runLater(new Runnable() {
 
 				@Override
@@ -196,21 +205,21 @@ public class MainIsland implements Sceneable {
 		});
 		t.start();
 	}
-	
-	public static void setShowMessage(String message,Color color,int size,int duration) {
+
+	public static void setShowMessage(String message, Color color, int size, int duration) {
 		messageRoot.setVisible(true);
 		getMessage().setFontBold(size);
 		getMessage().setFill(color);
 		getMessage().setStroke(Color.TRANSPARENT);
 		getMessage().setText(message);
 
-		Thread t = new Thread(()->{
+		Thread t = new Thread(() -> {
 			try {
 				Thread.sleep(duration);
 			} catch (InterruptedException e) {
 
 			}
-			
+
 			Platform.runLater(new Runnable() {
 
 				@Override
@@ -333,5 +342,5 @@ public class MainIsland implements Sceneable {
 	public static void setMessage(TextTitle message) {
 		MainIsland.message = message;
 	}
-	
+
 }

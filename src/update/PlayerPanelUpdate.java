@@ -14,6 +14,8 @@ import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import gui.entity.TurnCharacterIcon;
 import gui.overlay.HandOverlay;
+import gui.overlay.PlayerList1;
+import gui.overlay.PlayerList2;
 import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.GameSetUp;
@@ -45,6 +47,7 @@ public class PlayerPanelUpdate {
 				break;
 			}
 		}
+		
 	}
 
 // ---------------------------------------------------------- Update Player Status -------------------------------------------------------------
@@ -165,6 +168,29 @@ public class PlayerPanelUpdate {
 			handOverlay.getNum_slot3().setText("x"+GameSetUp.thisTurn.getNum_Shield());
 			handOverlay.getNum_slot4().setText("x"+GameSetUp.thisTurn.getNum_Bow());
 			handOverlay.getNum_slot5().setText("x"+GameSetUp.thisTurn.getNum_Gun());
+		}
+	}
+	
+	public static void updatePlayerList() {
+		for(int i = 0 ; i < MapOverview.allPlayerList1.size() ; i++) {
+			PlayerList1 playerList1 = MapOverview.allPlayerList1.get(i);
+			for(int j = 0 ; j < (int)(playerList1.getAllText().size()/3) ; j++) {
+				MainCharacter character = GameSetUp.gameCharacter.get(j);
+				int k = j*3;
+				playerList1.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
+				playerList1.getAllText().get(k+1).setText(character.getMyEntity().size() + "");
+				playerList1.getAllText().get(k+2).setText(character.getArea() + "");
+			}
+		}
+		for(int i = 0 ; i < MapOverview.allPlayerList2.size() ; i++) {
+			PlayerList2 playerList2 = MapOverview.allPlayerList2.get(i);
+			for(int j = 0 ; j < (int)(playerList2.getAllText().size()/3) ; j++) {
+				MainCharacter character = GameSetUp.gameCharacter.get(j+3);
+				int k = j*3;
+				playerList2.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
+				playerList2.getAllText().get(k+1).setText(character.getMyEntity().size() + "");
+				playerList2.getAllText().get(k+2).setText(character.getArea() + "");
+			}
 		}
 	}
 	

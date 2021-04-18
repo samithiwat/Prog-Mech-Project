@@ -3,12 +3,15 @@ package gui.entity;
 import java.util.ArrayList;
 
 import character.*;
+import gui.overlay.PlayerList1;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
+import logic.AudioLoader;
 import logic.GameSetUp;
 import update.GameSettingUpdate;
 
@@ -52,9 +55,8 @@ public class TurnBar extends StackPane implements Clickable {
 		}
 
 // ----------------------------------------- Add Icon Pane to Bar ---------------------------------------------------
-
-		getChildren().add(iconPane);
-
+		
+		getChildren().addAll(iconPane);
 		interact();
 	}
 
@@ -89,8 +91,10 @@ public class TurnBar extends StackPane implements Clickable {
 		if (character instanceof Teewadee) {
 			characterIcon = new TurnCharacterIcon(SIR_TEWADEE, 57, 19);
 		}
-
+		
+		
 		iconPane.getChildren().set(index, characterIcon);
+
 
 	}
 
@@ -100,7 +104,9 @@ public class TurnBar extends StackPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
+//				playerList1.triggerOverlay(0,825,1000);
 			}
 		});
 	}

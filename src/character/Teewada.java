@@ -12,6 +12,7 @@ public class Teewada extends MainCharacter {
 		super("Sir Tewada", ""); 
 		this.selectBGM = AudioLoader.sirTewadaSelectBGM;
 		this.color = Color.web("0xFEF67A");
+		this.setImg_path("img/character/SirTewada.png");
 	}
 
 	public int checkIsWin() {

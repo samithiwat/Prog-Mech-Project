@@ -6,6 +6,8 @@ import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
 import gui.entity.TurnChangeScreen;
 import gui.overlay.HandOverlay;
+import gui.overlay.PlayerList1;
+import gui.overlay.PlayerList2;
 //import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -33,12 +35,16 @@ public class MapOverview implements Sceneable {
 	private Scene scene;
 
 	private HandOverlay handOverlay;
+	private PlayerList1 playerList1;
+	private PlayerList2 playerList2;
 	private static MenuIcon mainIsland;
 	private static MenuIcon prisonIsland;
 	private static Pane root;
 	private static TurnChangeScreen turnChangeScreen;
 	private static StackPane turnChangeScreenRoot;
 	public static ArrayList<HandOverlay> allHandOverlay;
+	public static ArrayList<PlayerList1> allPlayerList1;
+	public static ArrayList<PlayerList2> allPlayerList2;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
@@ -49,6 +55,14 @@ public class MapOverview implements Sceneable {
 		handOverlay = new HandOverlay();
 		allHandOverlay = new ArrayList<HandOverlay>();
 		allHandOverlay.add(handOverlay);
+		
+		playerList1 = new PlayerList1();
+		allPlayerList1 = new ArrayList<PlayerList1>();
+		allPlayerList1.add(playerList1);
+		
+		playerList2 = new PlayerList2();
+		allPlayerList2 = new ArrayList<PlayerList2>();
+		allPlayerList2.add(playerList2);
 
 		PlayerPanel playerPanel = new PlayerPanel();
 
@@ -98,7 +112,7 @@ public class MapOverview implements Sceneable {
 		turnChangeScreenRoot.setVisible(false);
 		
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay,turnChangeScreenRoot);
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay,playerList1,playerList2,turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));

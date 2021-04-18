@@ -11,6 +11,7 @@ public class ThousandYear extends MainCharacter {
 		this.selectBGM = AudioLoader.sirThousandSelectBGM;
 		this.bgm = AudioLoader.sirThousandBGM;
 		this.color = Color.web("0xCC698D");
+		this.setImg_path("img/character/SirThousandYear.png");
 	}
 
 	public int checkIsWin() {

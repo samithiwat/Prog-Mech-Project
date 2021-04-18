@@ -38,6 +38,7 @@ public abstract class MainCharacter {
 	private int num_Bow;
 	private int num_Shield;
 	private int num_Gun;
+	private String img_path;
 
 	public MainCharacter(String name, String description) {
 		this.name = name;
@@ -77,6 +78,17 @@ public abstract class MainCharacter {
 				this.num_Sword++;
 			}
 		}
+	}
+	
+	public int getArea() {
+		int cnt = 0;
+		for(int i = 0 ; i < this.possessedArea.size() ; i++) {
+			Location area = this.possessedArea.get(i);
+			if(area.getName().equals("Mine") || area.getName().equals("SecretBase")|| area.getName().equals("Village")|| area.getName().equals("Field")) {
+				cnt++;
+			}
+		}
+		return cnt;
 	}
 
 	public void addCardtoHand(WeaponCard card) {
@@ -162,9 +174,19 @@ public abstract class MainCharacter {
 
 	public abstract int checkIsWin();
 	// ----------------------getter/setter---------------------
+	
+	
 
 	public ArrayList<WeaponCard> getWeaponHand() {
 		return weaponOnHand;
+	}
+
+	public String getImg_path() {
+		return img_path;
+	}
+
+	public void setImg_path(String img_path) {
+		this.img_path = img_path;
 	}
 
 	public int getNum_Axe() {

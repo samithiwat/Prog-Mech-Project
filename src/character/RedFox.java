@@ -10,6 +10,7 @@ public class RedFox extends MainCharacter {
 		super("Mr.Red Fox","");
 		this.color = Color.web("0xF58C4A");
 		this.selectBGM = AudioLoader.mrFoxSelectBGM;
+		this.setImg_path("img/character/MrRedFox.png");
 		//this.bgm = AudioLoader.
 		this.setMoney(11*M);
 	}
