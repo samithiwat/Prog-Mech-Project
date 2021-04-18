@@ -7,7 +7,7 @@ import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
 import exception.FailToBuyMinionException;
-import exception.FailToCombineException;
+import exception.InvalidOwnershipException;
 import gui.MainIsland;
 import gui.overlay.TileOverlay;
 import javafx.application.Platform;
@@ -113,12 +113,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			public void handle(ActionEvent event) {
 				GameSetUp.selectedTile.updateMinionPane();
 				GameSetUp.selectedTile.triggerOverlay();
-				MinionPane minionPane = GameSetUp.selectedTile.getOverlay().getMinionPane();
-				for (int i = 0; i < minionPane.getChildren().size(); i++) {
-					MinionIcon icon = (MinionIcon) minionPane.getChildren().get(i);
-					icon.selectMode();
-				}
-
+				GameSetUp.selectedTile.getOverlay().getMinionPane().setMinionSelectMode();
 				Thread selectMinion = new Thread(() -> {
 
 					while (true) {
@@ -128,9 +123,9 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								GameSetUp.thisTurn.combineMinion();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.selectedIcon.clear();
-								MainIsland.setShowMessage("Successfully combine minion!", Color.web("0xFEFDE8"),
+								MainIsland.setShowMessage("Successfully combined a minion!", Color.web("0xFEFDE8"),
 										Color.web("0x89949B"), 90, 1, 3000);
-							} catch (FailToCombineException e) {
+							} catch (InvalidOwnershipException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
 								GameSetUp.selectedTile.triggerOverlay();
@@ -148,6 +143,45 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 		split = new MenuItem("Split");
 		split.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/ScissorIcon.png").toString()));
 		split.setVisible(false);
+		
+		split.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				
+				GameSetUp.selectedTile.updateMinionPane();
+				GameSetUp.selectedTile.triggerOverlay();
+				GameSetUp.selectedTile.getOverlay().getMinionPane().setMinionSelectMode();
+				
+				Thread selectMinion = new Thread(()->{
+					while(true) {
+						System.out.print("");
+						if(GameSetUp.selectedIcon.size() > 0) {
+							try {
+								GameSetUp.thisTurn.splitMinion();
+								GameSetUp.selectedTile.triggerOverlay();
+								GameSetUp.selectedIcon.clear();
+								MainIsland.setShowMessage("Successfully splited a minion!", Color.web("0xFEFDE8"),
+										Color.web("0x89949B"), 90, 1, 3000);
+							} catch (ExceedMinionInTileException e) {
+								EFFECT_ERROR.play();
+								GameSetUp.selectedIcon.clear();
+								GameSetUp.selectedTile.triggerOverlay();
+								MainIsland.setShowMessage("Too much minion in this tile", Color.web("E04B4B"), 90, 3000);
+							} catch (InvalidOwnershipException e) {
+								EFFECT_ERROR.play();
+								GameSetUp.selectedIcon.clear();
+								GameSetUp.selectedTile.triggerOverlay();
+								MainIsland.setShowMessage("Invalid minion's owner", Color.web("E04B4B"), 90, 3000);
+							}
+							break;
+						}
+						
+					}
+				});
+				selectMinion.start();
+			}
+		});
 
 		MenuItem cancle = new MenuItem("Cancle");
 //		cancle.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/CancleIcon.png").toString()));

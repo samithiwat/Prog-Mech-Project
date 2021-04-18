@@ -6,6 +6,10 @@ import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class ThousandYear extends MainCharacter {
+	
+	public static final String IMG_PATH = "img/character/SirThousandYear.png";
+	public static final String IMG_PATH_MINION_IDLE = "img/character/SirThousandMinionIdle.png";
+	
 	public ThousandYear() {
 		super("Sir Thousand Year", "");
 		this.selectBGM = AudioLoader.sirThousandSelectBGM;

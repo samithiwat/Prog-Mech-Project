@@ -9,7 +9,7 @@ import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
 import exception.FailToBuyMinionException;
-import exception.FailToCombineException;
+import exception.InvalidOwnershipException;
 import gui.entity.HexagonPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -20,6 +20,7 @@ import update.AudioUpdate;
 
 public abstract class MainCharacter {
 	public final static int M = 1000000;
+	
 	private ArrayList<WeaponCard> weaponOnHand;
 	private ArrayList<Minion> myEntity;
 	private ArrayList<Location> possessedArea;
@@ -149,15 +150,45 @@ public abstract class MainCharacter {
 		}
 	}
 
-	public void combineMinion() throws FailToCombineException {
+	public void combineMinion() throws InvalidOwnershipException {
 		if (GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy() == GameSetUp.selectedIcon.get(1).getMinion()
 				.getPossessedBy()) {
 			GameSetUp.selectedIcon.get(0).getMinion().addMinion(GameSetUp.selectedIcon.get(1).getMinion());
 			GameSetUp.selectedTile.getLocationType().removeFromLocation(GameSetUp.selectedIcon.get(1).getMinion());
 			AudioLoader.combineEffect.play();
 		} else {
-			throw new FailToCombineException();
+			throw new InvalidOwnershipException();
 		}
+	}
+
+	public void splitMinion() throws ExceedMinionInTileException, InvalidOwnershipException {
+
+		if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= 6) {
+			throw new ExceedMinionInTileException();
+		} else {
+			Minion minion = GameSetUp.selectedIcon.get(0).getMinion();
+			
+			int index = findMyMinionIndex(minion);
+			
+			if (index < 0) {
+				throw new InvalidOwnershipException();
+			}
+			else {
+				Minion splitedMinion = minion.getMyMinion().get(index);
+				minion.removeMinion(index);
+				GameSetUp.selectedTile.getLocationType().addMinonToLocation(splitedMinion);
+				AudioLoader.combineEffect.play();
+			}
+		}
+	}
+
+	private int findMyMinionIndex(Minion minion) {
+		for (int i = 0; i < minion.getMyMinion().size(); i++) {
+			if (minion.getMyMinion().get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	public abstract int checkIsWin();
@@ -274,8 +305,8 @@ public abstract class MainCharacter {
 	public void setLossPerTurn(int lossPerTurn) {
 		this.lossPerTurn = lossPerTurn;
 	}
-	
-		public AudioClip getBgm() {
+
+	public AudioClip getBgm() {
 		return bgm;
 	}
 

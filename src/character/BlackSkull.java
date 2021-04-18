@@ -5,6 +5,10 @@ import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class BlackSkull extends MainCharacter {
+	
+	public static final String IMG_PATH = "img/character/BlackSkull.png";
+	public static final String IMG_PATH_MINION_IDLE = "img/character/BlackSkullMinionWalking.png";
+	
 	public static boolean prisonOutBreakSkill = true;
 
 	public BlackSkull() {
