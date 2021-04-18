@@ -27,6 +27,7 @@ public class AudioUpdate implements Updateable {
 	}
 
 	public static void playCharacterSelectBGM(AudioClip bgm, AudioClip characterBGM, AudioClip selectBGM) {
+		
 
 		if (bgm != null) {
 			bgm.stop();

@@ -82,7 +82,7 @@ public class CharacterSelectUpdate implements Updateable {
 				GameLobbyMenu.getCBoxes().get(i).setDisable(true);
 			}
 		}
-		
+
 		Thread t = new Thread(() -> {
 			try {
 				Thread.sleep(1000);
@@ -139,6 +139,7 @@ public class CharacterSelectUpdate implements Updateable {
 		case 2:
 			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new BlackSkull());
 			GameLobbyMenu.getOverlay1().triggerOverlay(0, 825, 1000);
+
 			break;
 		case 3:
 			GameSetUp.gameCharacter.set(cBox.getCBoxId(), new ThousandYear());
@@ -153,6 +154,7 @@ public class CharacterSelectUpdate implements Updateable {
 			GameLobbyMenu.getOverlay2().triggerOverlay(0, 825, 1000);
 			break;
 		}
+
 		closeUpdate();
 	}
 
@@ -230,7 +232,7 @@ public class CharacterSelectUpdate implements Updateable {
 			start.setDisable(true);
 			start.setId("button-disable-style");
 		}
-		
+
 	}
 
 // --------------------------------------------------------------- Update When Click Unready Button ------------------------------------------------

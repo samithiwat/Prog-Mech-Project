@@ -1,17 +1,22 @@
 package gui.entity;
 
+import java.util.ArrayList;
+
+import component.entity.Minion;
 import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
 import exception.FailToBuyMinionException;
 import exception.FailToCombineException;
 import gui.MainIsland;
+import gui.overlay.TileOverlay;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.GameSetUp;
@@ -118,12 +123,17 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 
 					while (true) {
 						System.out.print("");
-						if (GameSetUp.selectedIcon.size() == 2) {
+						if (GameSetUp.selectedIcon.size() >= 2) {
 							try {
 								GameSetUp.thisTurn.combineMinion();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.selectedIcon.clear();
+								MainIsland.setShowMessage("Successfully combine minion!", Color.web("0xFEFDE8"),
+										Color.web("0x89949B"), 90, 1, 3000);
 							} catch (FailToCombineException e) {
+								EFFECT_ERROR.play();
+								GameSetUp.selectedIcon.clear();
+								GameSetUp.selectedTile.triggerOverlay();
 								MainIsland.setShowMessage("Invalid minion's owner", Color.web("E04B4B"), 90, 3000);
 							}
 							break;

@@ -2,13 +2,19 @@ package gui.entity;
 
 import component.entity.Minion;
 import javafx.event.EventHandler;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import logic.GameSetUp;
 
 public class MinionIcon extends MenuIcon {
 
+	public static final Effect SELECTED_EFFECT = new Bloom();
+	
 	private MinionList minionList;
 	private Minion minion;
 	private MinionIcon minionIcon = this;
@@ -27,7 +33,9 @@ public class MinionIcon extends MenuIcon {
 			public void handle(MouseEvent event) {
 				setCursor(MOUSE_SELECT);
 				EFFECT_MOUSE_ENTER.play();
-				setEffect(new DropShadow());
+				if(getEffect() == null) {
+					setEffect(new DropShadow());					
+				}
 			}
 		});
 
@@ -36,7 +44,9 @@ public class MinionIcon extends MenuIcon {
 			@Override
 			public void handle(MouseEvent event) {
 				setCursor(MOUSE_NORMAL);
-				setEffect(null);
+				if(getEffect() instanceof DropShadow) {
+					setEffect(null);					
+				}
 			}
 		});
 
@@ -89,7 +99,26 @@ public class MinionIcon extends MenuIcon {
 			public void handle(MouseEvent event) {
 				
 				if(event.getButton().equals(MouseButton.PRIMARY)) {
-					GameSetUp.selectedIcon.add(minionIcon);
+					
+					System.out.println("Before" + GameSetUp.selectedIcon);
+					
+					if(GameSetUp.selectedIcon.size() > 0) {
+						if(!(minionIcon.equals(GameSetUp.selectedIcon.get(0)))) {
+							GameSetUp.selectedIcon.add(minionIcon);
+							minionIcon.setEffect(SELECTED_EFFECT);
+						}
+						else {
+							GameSetUp.selectedIcon.remove(0);
+							minionIcon.setEffect(null);
+						}
+					}
+					else {
+						GameSetUp.selectedIcon.add(minionIcon);
+						minionIcon.setEffect(SELECTED_EFFECT);
+					}
+					
+					System.out.println("After" + GameSetUp.selectedIcon);
+					
 				}
 				
 				if(event.getButton().equals(MouseButton.SECONDARY)) {
@@ -116,5 +145,5 @@ public class MinionIcon extends MenuIcon {
 	public Minion getMinion() {
 		return this.minion;
 	}
-
+	
 }

@@ -274,6 +274,14 @@ public abstract class MainCharacter {
 	public void setLossPerTurn(int lossPerTurn) {
 		this.lossPerTurn = lossPerTurn;
 	}
+	
+		public AudioClip getBgm() {
+		return bgm;
+	}
+
+	public AudioClip getSelectBGM() {
+		return selectBGM;
+	}
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 

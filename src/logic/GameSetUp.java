@@ -101,7 +101,6 @@ public class GameSetUp {
 // -------------------------------------------------- Set Up Select Minion Spawn Mode -------------------------------------------------
 
 		GameSetUp.isSelectMinionSpawn = true;
-
 		Thread controller = new Thread(new Runnable() {
 
 			@Override
@@ -113,7 +112,7 @@ public class GameSetUp {
 
 		controller.start();
 		updateAnimation();
-
+		
 	}
 
 // --------------------------------------------------------- Map Set Up Method ------------------------------------------------------------------

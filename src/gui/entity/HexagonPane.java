@@ -146,7 +146,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 				boolean canBuyLand = false;
 
-				if (GameSetUp.thisTurn.getMoney() > GameSetUp.selectedTile.getLocationType().getCost()) {
+				if (GameSetUp.thisTurn.getMoney() >= GameSetUp.selectedTile.getLocationType().getCost()) {
 
 					ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
 
@@ -164,7 +164,7 @@ public class HexagonPane extends Pane implements Clickable {
 					GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(true);
 				}
 
-				if (GameSetUp.thisTurn.getMoney() > Minion.getCost()) {
+				if (GameSetUp.thisTurn.getMoney() >= Minion.getCost()) {
 					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(false);
 				} else {
 					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(true);
@@ -176,19 +176,21 @@ public class HexagonPane extends Pane implements Clickable {
 				for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
 					Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
 					if (minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
-						if (minion.getMyMinion().size() >= 2) {
-							GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
-							canSplit = true;
+						if (minion.getMyMinion().size() >= 1) {
+							for (int j = 0; j < minion.getMyMinion().size(); j++) {
+								if (minion.getMyMinion().get(j).getPossessedBy().equals(GameSetUp.thisTurn)) {
+									GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
+									canSplit = true;
+								}
+							}
 						}
 						count++;
 					}
 
-					if (count >= 2) {
-						GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
-						break;
-					}
 				}
-				if (count < 2) {
+				if (count >= 2) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
+				} else if (count < 2) {
 					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(false);
 				}
 				if (!canSplit) {
@@ -324,7 +326,7 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public void updateMinionIcon(GridPane minionIconPane) {
-		
+
 		minionIconPane.getChildren().clear();
 
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
@@ -467,11 +469,10 @@ public class HexagonPane extends Pane implements Clickable {
 	public void setSpawnable(boolean isSpawnable) {
 		this.isSpawnable = isSpawnable;
 	}
-	
+
 	public static int getMAX_MINION() {
 		return MAX_MINION;
 	}
-	
 
 ///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
 
