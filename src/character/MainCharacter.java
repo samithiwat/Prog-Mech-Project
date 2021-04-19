@@ -8,7 +8,7 @@ import component.weaponCard.WeaponCard;
 import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
-import exception.FailToBuyMinionException;
+import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
 import gui.entity.HexagonPane;
 import javafx.scene.media.AudioClip;
@@ -20,7 +20,7 @@ import update.AudioUpdate;
 
 public abstract class MainCharacter {
 	public final static int M = 1000000;
-	
+
 	private ArrayList<WeaponCard> weaponOnHand;
 	private ArrayList<Minion> myEntity;
 	private ArrayList<Location> possessedArea;
@@ -106,11 +106,11 @@ public abstract class MainCharacter {
 		this.possessedArea.add(location);
 	}
 
-	public void gainIncome() {
+	private void gainIncome() {
 		this.setMoney(this.getMoney() + this.income);
 	}
 
-	public int totalIncome() {
+	private int totalIncome() {
 		int sum = 0;
 		for (int i = 0; i < this.possessedArea.size(); i++) {
 			sum += this.possessedArea.get(i).getIncomePerRound();
@@ -119,12 +119,25 @@ public abstract class MainCharacter {
 		return sum;
 	}
 
-	public void buyMinion() throws FailToBuyMinionException, ExceedToBuyMinionException, ExceedMinionInTileException {
+	private void restMinion() {
+		for (int i = 0; i < myEntity.size(); i++) {
+			myEntity.get(i).setMoveLeft(2);
+		}
+	}
+	
+	public void startNewTurn() {
+		totalIncome();
+		gainIncome();
+		restMinion();
+	}
+	
+
+	public void buyMinion() throws UnSpawnableTileException, ExceedToBuyMinionException, ExceedMinionInTileException {
 		if (GameSetUp.canBuyMinion) {
 			if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= HexagonPane.getMAX_MINION()) {
 				throw new ExceedMinionInTileException();
 			} else if (!GameSetUp.selectedTile.isSpawnable()) {
-				throw new FailToBuyMinionException();
+				throw new UnSpawnableTileException();
 
 			} else {
 				money -= Minion.getCost();
@@ -167,17 +180,16 @@ public abstract class MainCharacter {
 			throw new ExceedMinionInTileException();
 		} else {
 			Minion minion = GameSetUp.selectedIcon.get(0).getMinion();
-			
+
 			int index = findMyMinionIndex(minion);
-			
+
 			if (index < 0) {
 				throw new InvalidOwnershipException();
-			}
-			else {
+			} else {
 				Minion splitedMinion = minion.getMyMinion().get(index);
 				minion.removeMinion(index);
-				GameSetUp.selectedTile.getLocationType().addMinonToLocation(splitedMinion);
-				AudioLoader.combineEffect.play();
+				GameSetUp.selectedTile.getLocationType().addMinionToLocation(splitedMinion);
+				AudioLoader.splitEffect.play();
 			}
 		}
 	}

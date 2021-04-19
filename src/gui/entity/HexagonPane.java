@@ -91,29 +91,6 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public void interact() {
-//		setOnMouseClicked((MouseEvent event) -> {
-//			// need to add that this minion has moves left or not
-//			// minion.getMoveLeft();
-//			if (this.column % 2 == 1) {
-//			}
-//			if (GameSetUp.selectedTile == null) {
-//				GameSetUp.selectedTile = this;
-//				this.highlight();
-//			} else if (GameSetUp.selectedTile == this) {
-//				GameSetUp.selectedTile = null;
-//				this.unhighlight();
-//			} else if (GameSetUp.selectedTile != null && this.moveable == true) {
-//				GameSetUp.selectedTile.unhighlight();
-//				// call minion.move
-////				minion.move(this.x-GameSetUp.selectedTile.getX(), this.y-GameSetUp.selectedTile.getY());
-//				GameSetUp.selectedTile = this;
-//				GameSetUp.selectedTile.highlight();
-//				if(minion.moveleft() == 0) {
-//		            GameSetUp.selectedTile.unhighlight();
-//		            GameSetUp.selectedTile = null;
-//		        }
-//			}
-//		});
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -231,24 +208,46 @@ public class HexagonPane extends Pane implements Clickable {
 			@Override
 			public void handle(MouseEvent event) {
 
+				GameSetUp.selectedTile = hexPane;
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
 					updateMinionPane();
 					updateMinionIcon(minionIconPane);
 					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
 							TileOverlay.getOverlayDelay());
-				} else if (event.getButton().equals(MouseButton.SECONDARY)) {
-					GameSetUp.selectedTile = hexPane;
-
+				}
 //////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
 
-					System.out.println(GameSetUp.selectedTile);
+				System.out.println(GameSetUp.selectedTile);
 
 ///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
-
-				}
-
 			}
 		});
+	}
+
+	public void moveInteract() {
+//		setOnMouseClicked((MouseEvent event) -> {
+//		// need to add that this minion has moves left or not
+//		 minion.getMoveLeft();
+//		if (this.column % 2 == 1) {
+//		}
+//		if (GameSetUp.selectedTile == null) {
+//			GameSetUp.selectedTile = this;
+//			this.highlight();
+//		} else if (GameSetUp.selectedTile == this) {
+//			GameSetUp.selectedTile = null;
+//			this.unhighlight();
+//		} else if (GameSetUp.selectedTile != null && this.moveable == true) {
+//			GameSetUp.selectedTile.unhighlight();
+//			// call minion.move
+//			minion.move(this.x-GameSetUp.selectedTile.getX(), this.y-GameSetUp.selectedTile.getY());
+//			GameSetUp.selectedTile = this;
+//			GameSetUp.selectedTile.highlight();
+//			if(minion.moveleft() == 0) {
+//	            GameSetUp.selectedTile.unhighlight();
+//	            GameSetUp.selectedTile = null;
+//	        }
+//		}
+//	});
 	}
 
 	public void triggerOverlay() {
@@ -493,8 +492,8 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public String toString() {
-		return "Location : " + locationType.getName() + "\n" + "Cost : " + locationType.getCost() + "\n" + "Row : "
-				+ row + ", Column : " + column;
+		return locationType + "\n"
+				+ "Row : " + row + ", Column : " + column + "\n";
 	}
 
 ////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////

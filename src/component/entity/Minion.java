@@ -4,11 +4,17 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.location.Location;
+import component.location.Water;
+import exception.InvalidOwnershipException;
+import exception.NoMoveLeftException;
+import exception.TooFarException;
+import exception.WaterTileException;
+import gui.entity.HexagonPane;
 import logic.GameSetUp;
 
 public class Minion implements moveable {
 	private static final int COST = 3 * MainCharacter.M;
-	
+
 	private MainCharacter possessedBy;
 	private int posX;
 	private int posY;
@@ -43,15 +49,33 @@ public class Minion implements moveable {
 	public void returnThisToOwner() {
 		this.possessedBy.addToMyEntity(this);
 	}
-// overwrite
-	public void move(int x ,int y) {
 
-		this.setPosX(this.getPosX()+x);
-		this.setPosY(this.getPosY()+y);
+// overwrite
+	public void move(int x, int y) throws WaterTileException, NoMoveLeftException,InvalidOwnershipException, TooFarException {
+		
+		HexagonPane tile = GameSetUp.selectedTile;
+
+		if(this.possessedBy != GameSetUp.thisTurn) {
+			throw new InvalidOwnershipException();
+		}
+		
+		else if (this.moveLeft == 0) {
+			throw new NoMoveLeftException();
+		}
+
+		else if (tile.getLocationType() instanceof Water) {
+			throw new WaterTileException();
+		}
+		else if(!(tile.isMoveable())) {
+			throw new TooFarException();
+		}
+
+		this.setPosX(this.getPosX() + x);
+		this.setPosY(this.getPosY() + y);
 		this.onLocation.removeFromLocation(this);
-		GameSetUp.map[this.getPosX()][this.getPosY()].addMinonToLocation(this);
-		
-		
+		setOnLocation(GameSetUp.map[this.getPosY()][this.getPosX()]);
+		this.onLocation.addMinionToLocation(this);
+
 		this.moveLeft -= 1;
 	}
 	// ----------------------getter/setter--------------------------

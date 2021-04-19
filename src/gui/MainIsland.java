@@ -170,8 +170,9 @@ public class MainIsland implements Sceneable {
 		HexTileUpdate.setOverlayInteract();
 		enableESC();
 	}
-	
-	public static void setShowMessage(String message,Color color,Color strokeColor,int size,int strokeWidth,int duration) {
+
+	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
+			int duration) {
 		messageRoot.setVisible(true);
 		getMessage().setFontBold(size);
 		getMessage().setFill(color);
@@ -179,13 +180,13 @@ public class MainIsland implements Sceneable {
 		getMessage().setStrokeWidth(strokeWidth);
 		getMessage().setText(message);
 
-		Thread t = new Thread(()->{
+		Thread t = new Thread(() -> {
 			try {
 				Thread.sleep(duration);
 			} catch (InterruptedException e) {
 
 			}
-			
+
 			Platform.runLater(new Runnable() {
 
 				@Override
@@ -196,21 +197,21 @@ public class MainIsland implements Sceneable {
 		});
 		t.start();
 	}
-	
-	public static void setShowMessage(String message,Color color,int size,int duration) {
+
+	public static void setShowMessage(String message, Color color, int size, int duration) {
 		messageRoot.setVisible(true);
 		getMessage().setFontBold(size);
 		getMessage().setFill(color);
 		getMessage().setStroke(Color.TRANSPARENT);
 		getMessage().setText(message);
 
-		Thread t = new Thread(()->{
+		Thread t = new Thread(() -> {
 			try {
 				Thread.sleep(duration);
 			} catch (InterruptedException e) {
 
 			}
-			
+
 			Platform.runLater(new Runnable() {
 
 				@Override
@@ -260,7 +261,7 @@ public class MainIsland implements Sceneable {
 			}
 
 			if (key.getCode() == KeyCode.ESCAPE) {
-				AudioUpdate.toMapOverview(null);
+				AudioUpdate.change(null, MapOverview.getBgm());
 				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 				SceneController.setScene(SceneController.getMapOverView());
 			}
@@ -333,5 +334,5 @@ public class MainIsland implements Sceneable {
 	public static void setMessage(TextTitle message) {
 		MainIsland.message = message;
 	}
-	
+
 }

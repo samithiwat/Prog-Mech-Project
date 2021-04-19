@@ -96,8 +96,7 @@ public class GameController {
 			for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 				GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
 				MainCharacter character = GameSetUp.thisTurn;
-				character.totalIncome();
-				character.gainIncome();
+				character.startNewTurn();
 
 				if (GameSetUp.theGovernment == character) {
 					// remove/add lawcard
@@ -147,9 +146,9 @@ public class GameController {
 //----------------------spawn minion-----------------	
 	public static void spawnMinion(Minion minion, HexagonPane tile) {
 		minion.setOnLocation(tile.getLocationType());
-		minion.setPosX(tile.getRow());
-		minion.setPosY(tile.getColumn());
-		tile.getLocationType().addMinonToLocation(minion);
+		minion.setPosX(tile.getColumn());
+		minion.setPosY(tile.getRow());
+		tile.getLocationType().addMinionToLocation(minion);
 	}
 	
 

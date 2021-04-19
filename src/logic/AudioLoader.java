@@ -11,6 +11,7 @@ public class AudioLoader {
 	public static AudioClip countDownEffect1 = new AudioClip(ClassLoader.getSystemResource("audio/CountDownEffect1.mp3").toString());
 	public static AudioClip countDownEffect2 = new AudioClip(ClassLoader.getSystemResource("audio/CountDownEffect2.mp3").toString());
 	public static AudioClip combineEffect = new AudioClip(ClassLoader.getSystemResource("audio/CombineEffect.mp3").toString());
+	public static AudioClip splitEffect = new AudioClip(ClassLoader.getSystemResource("audio/SplitEffect.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep2.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep3.mp3").toString());
 	public static AudioClip transitionEffect = new AudioClip(ClassLoader.getSystemResource("audio/TransitionEffect.mp3").toString());

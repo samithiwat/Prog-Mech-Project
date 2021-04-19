@@ -72,6 +72,7 @@ public class GameSetUp {
 	public static boolean isSelectMinionSpawn = false;
 	public static boolean isCountDown = false;
 //	public static Minion selectedMinion = null;
+	public static HexagonPane initialTile = null;
 	public static HexagonPane selectedTile = null;
 	public static ArrayList<MinionIcon> selectedIcon = new ArrayList<MinionIcon>();
 
@@ -112,7 +113,7 @@ public class GameSetUp {
 
 		controller.start();
 		updateAnimation();
-		
+
 	}
 
 // --------------------------------------------------------- Map Set Up Method ------------------------------------------------------------------
@@ -668,7 +669,6 @@ public class GameSetUp {
 
 						if (animationCount + 1 == countDownDuration * 10) {
 							MainIsland.getBg().setEffect(null);
-							AudioLoader.countDownEffect2.play();
 							animationCount = 0;
 							GameSetUp.isCountDown = false;
 						}
@@ -713,7 +713,7 @@ public class GameSetUp {
 
 						MapOverview.getTurnChangeScreen().update();
 						MapOverview.getTurnChangeScreenRoot().setVisible(true);
-						AudioUpdate.toMapOverview(null);
+						AudioUpdate.change(null, MapOverview.getBgm());
 						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 						SceneController.setScene(SceneController.getMapOverView());
 
