@@ -59,9 +59,15 @@
   -fx-background-color: #f9da9e;
 }
 
-#turnbar {
+#turnbar-release-style {
   -fx-background-color: #b26e59;
   -fx-border-color: #fae5cb;
+  -fx-border-width: 5;
+}
+
+#turnbar-hold-style {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #393e46;
   -fx-border-width: 5;
 }
 

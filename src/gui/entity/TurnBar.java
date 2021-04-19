@@ -21,18 +21,9 @@ public class TurnBar extends StackPane implements Clickable {
 
 	public TurnBar() {
 
-		///////////////// FOR DEBUG ONLY /////////////////////
-
-//		GameSetUp.gameCharacter = new ArrayList<MainCharacter>();
-//		GameSetUp.gameCharacter.add(new RedFox());
-//		GameSetUp.gameCharacter.add(new BlackSkull());
-//		GameSetUp.gameCharacter.add(new Teewada());
-
-		////////////////// END OF DEBUG ///////////////////////
-
 // ------------------------------------------ Set Up Bar -----------------------------------------		
 
-		setId("turnbar");
+		setId("turnbar-release-style");
 		setPrefWidth(720);
 		setPrefHeight(140);
 		setAlignment(Pos.CENTER_LEFT);
@@ -61,11 +52,6 @@ public class TurnBar extends StackPane implements Clickable {
 	}
 
 	private void createCharacterIcon(MainCharacter character, int index) {
-////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
-		//System.out.println(character);
-
-////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////
 		TurnCharacterIcon characterIcon = null;
 
 		if (character instanceof RedFox) {
@@ -109,6 +95,24 @@ public class TurnBar extends StackPane implements Clickable {
 //				playerList1.triggerOverlay(0,825,1000);
 			}
 		});
+		
+		setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				EFFECT_MOUSE_ENTER.play();
+				setId("turnbar-hold-style");
+			}
+		});
+		
+		setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				setId("turnbar-release-style");
+			}
+		});
+			
 	}
 
 	@Override
