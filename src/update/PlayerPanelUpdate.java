@@ -14,6 +14,8 @@ import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import gui.entity.TurnCharacterIcon;
 import gui.overlay.HandOverlay;
+import gui.overlay.PlayerList1;
+import gui.overlay.PlayerList2;
 import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.GameSetUp;
@@ -45,6 +47,7 @@ public class PlayerPanelUpdate {
 				break;
 			}
 		}
+		
 	}
 
 // ---------------------------------------------------------- Update Player Status -------------------------------------------------------------
@@ -108,7 +111,7 @@ public class PlayerPanelUpdate {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 				if(column.get(j).isSpawnable()) {
-					column.get(j).setId("grid-hold-style");
+					column.get(j).setId("grid-highlight-style");
 				}
 			}
 		}
@@ -119,7 +122,7 @@ public class PlayerPanelUpdate {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 				if(column.get(j).getLocationType() instanceof Plain) {
-					column.get(j).setId("grid-hold-style");
+					column.get(j).setId("grid-highlight-style");
 				}
 			}
 		}
@@ -168,49 +171,25 @@ public class PlayerPanelUpdate {
 		}
 	}
 	
-//---------------------------------------- Toggle Player Action Menu Mode -----------------------------------------
-	
-	public static void setConfirmButton(boolean isVisible) {
-		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
-			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
-			for (int j = 0; j < column.size(); j++) {
-				column.get(j).getPlayerActionMenu().getConfirm().setVisible(isVisible);
+	public static void updatePlayerList() {
+		for(int i = 0 ; i < MapOverview.allPlayerList1.size() ; i++) {
+			PlayerList1 playerList1 = MapOverview.allPlayerList1.get(i);
+			for(int j = 0 ; j < (int)(playerList1.getAllText().size()/3) ; j++) {
+				MainCharacter character = GameSetUp.gameCharacter.get(j);
+				int k = j*3;
+				playerList1.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
+				playerList1.getAllText().get(k+1).setText(character.getMyEntity().size() + "");
+				playerList1.getAllText().get(k+2).setText(character.getArea() + "");
 			}
 		}
-	}
-	
-	public static void setCombineButton(boolean isVisible) {
-		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
-			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
-			for (int j = 0; j < column.size(); j++) {
-				column.get(j).getPlayerActionMenu().getCombine().setVisible(isVisible);
-			}
-		}
-	}
-	
-	public static void setSplitButton(boolean isVisible) {
-		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
-			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
-			for (int j = 0; j < column.size(); j++) {
-				column.get(j).getPlayerActionMenu().getSplit().setVisible(isVisible);
-			}
-		}
-	}
-	
-	public static void setBuyMinionButton(boolean isDisable) {
-		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
-			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
-			for (int j = 0; j < column.size(); j++) {
-				column.get(j).getPlayerActionMenu().getBuyMinion().setDisable(isDisable);
-			}
-		}
-	}
-	
-	public static void setBuyLandButton(boolean isDisable) {
-		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
-			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
-			for (int j = 0; j < column.size(); j++) {
-				column.get(j).getPlayerActionMenu().getBuyLand().setDisable(isDisable);
+		for(int i = 0 ; i < MapOverview.allPlayerList2.size() ; i++) {
+			PlayerList2 playerList2 = MapOverview.allPlayerList2.get(i);
+			for(int j = 0 ; j < (int)(playerList2.getAllText().size()/3) ; j++) {
+				MainCharacter character = GameSetUp.gameCharacter.get(j+3);
+				int k = j*3;
+				playerList2.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
+				playerList2.getAllText().get(k+1).setText(character.getMyEntity().size() + "");
+				playerList2.getAllText().get(k+2).setText(character.getArea() + "");
 			}
 		}
 	}

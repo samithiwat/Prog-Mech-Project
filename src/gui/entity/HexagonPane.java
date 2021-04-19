@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.BlackSkull;
 import character.Collector;
+import character.MainCharacter;
 import character.RedFox;
 import character.Teewada;
 import character.Teewadee;
@@ -23,19 +24,20 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import logic.GameSetUp;
 import update.HexTileUpdate;
+import update.PlayerPanelUpdate;
 
 public class HexagonPane extends Pane implements Clickable {
 
-	private final int MAX_MINION = 6;
+	private static final int MAX_MINION = 6;
 	private static final int N_COLUMN = 3;
 	private final int INIT_X;
 	private final int INIT_Y;
-	
+
 	private int x;
 	private int y;
 	private int row;
 	private int column;
-	
+
 	private boolean moveable;
 	private boolean isSpawnable = false;
 
@@ -44,8 +46,6 @@ public class HexagonPane extends Pane implements Clickable {
 	private GridPane minionIconPane;
 	private Location locationType;
 	private PlayerActionMenu playerActionMenu;
-
-
 
 	public HexagonPane(int width, int height, int x, int y,
 
@@ -86,14 +86,6 @@ public class HexagonPane extends Pane implements Clickable {
 		minionIconPane.setVgap(10);
 		minionIconPane.setLayoutX(40);
 		minionIconPane.setLayoutY(25);
-
-//		for (int i = 0; i < MAX_MINION / 3; i++) {
-//			for (int j = 0; j < MAX_MINION / 2; j++) {
-//				MinionIcon minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 50, 1, 0);
-//				//minionIcon.setVisible(false);
-//				minionIconPane.add(minionIcon, j, i);
-//			}
-//		}
 
 		getChildren().addAll(minionIconPane);
 	}
@@ -147,66 +139,112 @@ public class HexagonPane extends Pane implements Clickable {
 			}
 		});
 
-//		setOnMouseClicked(new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent event) {
-//				if (event.getButton().equals(MouseButton.PRIMARY)) {
-//					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
-//							TileOverlay.getOverlayDelay());
-//				} else {
-//					//playerActionMenu.show(this, Side.BOTTOM, 0, 0);
-//				}
-//			}
-//
-//		});
-		
 		setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
 			@Override
 			public void handle(ContextMenuEvent event) {
+
+				boolean canBuyLand = false;
+
+				if (GameSetUp.thisTurn.getMoney() > GameSetUp.selectedTile.getLocationType().getCost()) {
+
+					ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
+
+					for (int i = 0; i < minions.size(); i++) {
+						if (minions.get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
+							GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(false);
+							canBuyLand = true;
+							break;
+						}
+					}
+
+				}
+
+				if (!canBuyLand) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(true);
+				}
+
+				if (GameSetUp.thisTurn.getMoney() > Minion.getCost()) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(false);
+				} else {
+					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(true);
+				}
+
+				int count = 0;
+				boolean canSplit = false;
+
+				for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
+					Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
+					if (minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
+						if (minion.getMyMinion().size() >= 2) {
+							GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
+							canSplit = true;
+						}
+						count++;
+					}
+
+					if (count >= 2) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
+						break;
+					}
+				}
+				if (count < 2) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(false);
+				}
+				if (!canSplit) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(false);
+				}
+
 				EFFECT_MOUSE_CLICK.play();
-				playerActionMenu.show(hexPane,event.getSceneX(),event.getSceneY());
+				playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
 			}
-		
+
 		});
-		
+
 	}
-	
+
 	public void dataInteract() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-				if(event.getButton()==MouseButton.PRIMARY) {
+
+				if (event.getButton() == MouseButton.PRIMARY) {
 					GameSetUp.selectedTile = hexPane;
-					
+
 //////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
-				
+
 					System.out.println(GameSetUp.selectedTile);
 
 ///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
-					
+
 				}
 			}
 		});
 	}
-	
+
 	public void overlayInteract() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-					if(event.getButton().equals(MouseButton.PRIMARY)) {
-						updateMinionPane();
-						updateMinionIcon(minionIconPane);
-						overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
+
+				if (event.getButton().equals(MouseButton.PRIMARY)) {
+					updateMinionPane();
+					updateMinionIcon(minionIconPane);
+					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
 							TileOverlay.getOverlayDelay());
-					}
-					
-			
+				} else if (event.getButton().equals(MouseButton.SECONDARY)) {
+					GameSetUp.selectedTile = hexPane;
+
+//////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
+
+					System.out.println(GameSetUp.selectedTile);
+
+///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
+
+				}
+
 			}
 		});
 	}
@@ -239,7 +277,7 @@ public class HexagonPane extends Pane implements Clickable {
 		setY(getY() + speed);
 		setLayoutY(getY());
 	}
-	
+
 	public void setCenter() {
 		setX(INIT_X);
 		setY(INIT_Y);
@@ -284,67 +322,58 @@ public class HexagonPane extends Pane implements Clickable {
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setMoveable(false);
 		}
 	}
-	
+
 	public void updateMinionIcon(GridPane minionIconPane) {
 		
-//////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
-		
-		//minionIconPane.getChildren().clear();
-		
-		//System.out.println("Update Icon Pane");
-		
-///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
-		
+		minionIconPane.getChildren().clear();
+
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
 
 		for (int i = 0; i < minions.size(); i++) {
 
 			minionIconPane.add(createMinionIcon(minions.get(i)), i % N_COLUMN, (int) i / N_COLUMN);
-			
+
 ////////////////////////////////////////////////////////// DEBUG //////////////////////////////////////////////////////////////
-			
-			System.out.println("Update Icon Pane");
-			
+
+			// System.out.println("Update Icon Pane");
+
 ///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
 		}
 	}
-	
+
 	public void updateMinionPane() {
-		
+
 		overlay.getMinionPane().getChildren().clear();
-		
-		System.out.println("Update Minion Pane");
 
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
 		System.out.println(locationType);
 		for (int i = 0; i < minions.size(); i++) {
-			addMinionToPane(minions.get(i), overlay.getMinionPane() , i);
-			
-			
+			addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
+
 		}
 	}
-	
-	private MinionIcon createMinionIcon(Minion minion) {
 
-		MinionIcon minionIcon = null;
+	private MinionPortraits createMinionIcon(Minion minion) {
+
+		MinionPortraits minionIcon = null;
 
 		if (minion.getPossessedBy() instanceof RedFox) {
-			minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 50, 1, 0);
+			minionIcon = new MinionPortraits("img/character/FoxMinionIdle.png", 50, 1, 0);
 		}
 		if (minion.getPossessedBy() instanceof Collector) {
-			minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 50, 37, 0);
+			minionIcon = new MinionPortraits("img/character/LadyCollectorMinionIdle.png", 50, 37, 0);
 		}
 		if (minion.getPossessedBy() instanceof BlackSkull) {
-			minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 50, 6, 7);
+			minionIcon = new MinionPortraits("img/character/BlackSkullMinionWalking.png", 50, 6, 7);
 		}
 		if (minion.getPossessedBy() instanceof ThousandYear) {
-			minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 50, 0, 0);
+			minionIcon = new MinionPortraits("img/character/SirThousandMinionIdle.png", 50, 0, 0);
 		}
 		if (minion.getPossessedBy() instanceof Teewada) {
-			minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, 0);
+			minionIcon = new MinionPortraits("img/character/SirTewadaMinionIdle.png", 0, 0, 0);
 		}
 		if (minion.getPossessedBy() instanceof Teewadee) {
-			minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, 0);
+			minionIcon = new MinionPortraits("img/character/SirTewadeeMinionIdle.png", 0, 0, 0);
 		}
 
 		return minionIcon;
@@ -355,28 +384,27 @@ public class HexagonPane extends Pane implements Clickable {
 		MenuIcon minionIcon = null;
 
 		if (minion.getPossessedBy() instanceof RedFox) {
-			minionIcon = new MenuIcon("img/character/FoxMinionIdle.png", 0, 0);
+			minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 0, 0, minion);
 		}
 		if (minion.getPossessedBy() instanceof Collector) {
-			minionIcon = new MenuIcon("img/character/LadyCollectorMinionIdle.png", 0, 0);
+			minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 0, 0, minion);
 		}
 		if (minion.getPossessedBy() instanceof BlackSkull) {
-			minionIcon = new MenuIcon("img/character/BlackSkullMinionWalking.png", 0, 0);
+			minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 0, 0, minion);
 		}
 		if (minion.getPossessedBy() instanceof ThousandYear) {
-			minionIcon = new MenuIcon("img/character/SirThousandMinionIdle.png", 0, 0);
+			minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 0, 0, minion);
 		}
 		if (minion.getPossessedBy() instanceof Teewada) {
-			minionIcon = new MenuIcon("img/character/SirTewadaMinionIdle.png", 0, 0);
+			minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, minion);
 		}
 		if (minion.getPossessedBy() instanceof Teewadee) {
-			minionIcon = new MenuIcon("img/character/SirTewadeeMinionIdle.png", 0, 0);
+			minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, minion);
 		}
 
 		minionPane.setMinionAtPos(minionIcon, index);
 
 	}
-
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
@@ -423,22 +451,27 @@ public class HexagonPane extends Pane implements Clickable {
 	public GridPane getMinionIconPane() {
 		return minionIconPane;
 	}
-	
-		public HexagonPane getHexPane() {
+
+	public HexagonPane getHexPane() {
 		return hexPane;
 	}
 
 	public PlayerActionMenu getPlayerActionMenu() {
 		return playerActionMenu;
 	}
-	
-		public boolean isSpawnable() {
+
+	public boolean isSpawnable() {
 		return isSpawnable;
 	}
 
 	public void setSpawnable(boolean isSpawnable) {
 		this.isSpawnable = isSpawnable;
 	}
+	
+	public static int getMAX_MINION() {
+		return MAX_MINION;
+	}
+	
 
 ///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
 
@@ -459,9 +492,8 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public String toString() {
-		return "Location : "+locationType.getName()+"\n"
-				+"Cost : "+locationType.getCost()+"\n"
-				+"Row : "+row+", Column : "+column;
+		return "Location : " + locationType.getName() + "\n" + "Cost : " + locationType.getCost() + "\n" + "Row : "
+				+ row + ", Column : " + column;
 	}
 
 ////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////

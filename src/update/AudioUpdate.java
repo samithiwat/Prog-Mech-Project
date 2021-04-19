@@ -4,14 +4,73 @@ import gui.MapOverview;
 import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
-public class AudioUpdate implements Updateable{
-	
+public class AudioUpdate implements Updateable {
+
+	private static Thread playSelectBGM;
+
 	public static void toMapOverview(AudioClip currentBGM) {
-		if(currentBGM != null) {
+		if (currentBGM != null) {
 			currentBGM.stop();
 		}
 		MapOverview.getBgm().setCycleCount(AudioClip.INDEFINITE);
-		MapOverview.getBgm().play();		
+		MapOverview.getBgm().play();
 	}
-	
+
+	public static void change(AudioClip currentBGM, AudioClip nextBGM) {
+		if (currentBGM != null) {
+			currentBGM.stop();
+		}
+		if (nextBGM != null) {
+			nextBGM.setCycleCount(AudioClip.INDEFINITE);
+			nextBGM.play();
+		}
+	}
+
+	public static void playCharacterSelectBGM(AudioClip bgm, AudioClip characterBGM, AudioClip selectBGM) {
+
+		if (bgm != null) {
+			bgm.stop();
+		}
+
+		if (characterBGM != null) {
+			characterBGM.stop();
+		}
+
+		playSelectBGM = new Thread(() -> {
+			selectBGM.play();
+			while(true) {
+				System.out.print("");
+				if(!selectBGM.isPlaying()) {
+					if (bgm != null) {
+						bgm.setCycleCount(AudioClip.INDEFINITE);
+						bgm.play();
+					}
+					if (characterBGM != null) {
+						characterBGM.setCycleCount(AudioClip.INDEFINITE);
+						characterBGM.play();
+					}
+					break;
+				}
+				if(playSelectBGM.isInterrupted()) {
+					if (bgm != null) {
+						bgm.setCycleCount(AudioClip.INDEFINITE);
+						bgm.play();
+					}
+					if (characterBGM != null) {
+						characterBGM.setCycleCount(AudioClip.INDEFINITE);
+						characterBGM.play();
+					}
+					selectBGM.stop();
+					break;
+				}
+			}
+		});
+		playSelectBGM.start();
+
+	}
+
+	public static Thread getPlaySelectBGM() {
+		return playSelectBGM;
+	}
+
 }

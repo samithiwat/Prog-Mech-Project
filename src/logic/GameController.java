@@ -1,47 +1,44 @@
 package logic;
 
-import java.util.ArrayList;
-
 import character.MainCharacter;
 import character.ThousandYear;
 import component.entity.Minion;
-import component.location.Council;
-import component.location.Location;
 import component.location.Plain;
-import component.location.Water;
-import component.weaponCard.WeaponCard;
-import components.character.GameCharacter;
 import gui.MainIsland;
 import gui.entity.HexagonPane;
-import gui.entity.MapGrid;
-import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
+import update.AudioUpdate;
 import update.GameSettingUpdate;
-import update.HexTileUpdate;
 import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
 
+
 public class GameController {
 	public GameController() {
-//--------------------------Choose start minion location-----------------------------------
+//-------------------------- Choose start minion location-----------------------------------
 
 		MainIsland.dataInteractMode();
 		GameSetUp.isHighlightSpawnable = true;
 
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
-
+			
 			GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
-
+			GameSetUp.isSelectMinionSpawn = true;
+			
+			if (GameSetUp.thisTurn instanceof ThousandYear) {
+				
+				GameSetUp.isHighlightSpawnable = false;
+				GameSetUp.isHighlightPlain = true;
+			}
+			
+// ------------------------	Wait Player Choose Spawn Location ---------------------------------
+		
 			while (true) {
 				// empty
-				System.out.println(GameSetUp.selectedTile);
+				System.out.print("");
+				
 				if (GameSetUp.selectedTile != null) {
-					if (GameSetUp.gameCharacter.get(i) instanceof ThousandYear) {
-
-						System.out.println("Thousand Year");
-						
-						GameSetUp.isHighlightSpawnable = false;
-						GameSetUp.isHighlightPlain = true;
+					if (GameSetUp.thisTurn instanceof ThousandYear) {
 
 						if (GameSetUp.selectedTile.getLocationType() instanceof Plain) {
 							
@@ -69,17 +66,31 @@ public class GameController {
 					}
 				}
 			}
-//			System.out.println(GameSetUp.selectedTile);
+	
+// --------------------------------------- After Player Choose Spawn Location -----------------------------------
+			
 			System.out.println("Spawn Minion");
 			spawnMinion(new Minion(GameSetUp.gameCharacter.get(i)), GameSetUp.selectedTile);
 			GameSetUp.isReset = true;
 			GameSetUp.selectedTile = null;
 		}
-		GameSetUp.isEndTurn = true;
+		
+		GameSetUp.isCountDown = true;
+		GameSetUp.countDownDuration = 3;
+		
+		while(true) {
+			System.out.print("");
+			if(!GameSetUp.isCountDown) {
+				break;
+			}
+		}
+		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
+		GameSetUp.isReset = true;
 		MainIsland.overlayInteractMode();
 		MainIslandUpdate.setCenter();
-		GameSetUp.isEndTurn = false;
+
+		
 //------------------------------------------------------------------------------------------
 		while (!GameSetUp.isGameEnd) {
 			for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
@@ -120,20 +131,27 @@ public class GameController {
 //////////////////////////////////////////////////////////////// END OF DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				}
+				
 				GameSetUp.gameLaw.setDefault();
 				GameSetUp.lawSlot.activateAllSlot();
 				GameSetUp.isEndTurn = false;
+				GameSetUp.canBuyMinion = true;
+				GameSetUp.isTurnChange = true;
+				MainIslandUpdate.setCenter();
+				//AudioUpdate.changeTurn(GameSetUp.thisTurn,);
 			}
+			GameSetUp.turn++;
 		}
 	}
 
 //----------------------spawn minion-----------------	
-	public void spawnMinion(Minion minion, HexagonPane tile) {
+	public static void spawnMinion(Minion minion, HexagonPane tile) {
 		minion.setOnLocation(tile.getLocationType());
 		minion.setPosX(tile.getRow());
 		minion.setPosY(tile.getColumn());
 		tile.getLocationType().addMinonToLocation(minion);
 	}
+	
 
 //----------------------Fight/Trade--------------------------	
 

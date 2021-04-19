@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import component.entity.Minion;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
 
 public class Collector extends MainCharacter {
 	public Collector() {
-		super("Ms.Collector", "");
+		super("Lady Collector", "");
 		this.color = Color.web("0x03728C");
+		this.selectBGM = AudioLoader.ladySelectBGM;
+		this.setImg_path("img/character/LadyCollector.png");
 	}
 
 	public int checkIsWin() {

@@ -43,10 +43,8 @@ public class GameLobbyMenu implements Sceneable {
 	private static MenuButton start;
 	private static ArrayList<CharacterSetting> cBoxes;
 
-	private static long lastTimeTrigger = -1;
-	private static final long DURATION = 100000000;
-	private static AnimationTimer animationTimer;
-	
+	private static Thread setUp;
+
 	public GameLobbyMenu() {
 
 //		StartMenu.getMenuThemeSong().stop();
@@ -100,50 +98,48 @@ public class GameLobbyMenu implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
-//				SceneController.loadingScreen();
-				
-				
-				CLICK_EFFECT.play();
-				SceneController.loadingScreen();
-				Thread setUp = new Thread(new Runnable() {
-					
+
+				CLICK_EFFECT.play();				
+				setUp = new Thread(new Runnable() {
+
 					@Override
 					public void run() {
 						GameSetUp gameSetUp = new GameSetUp();
 					}
 				});
-				
-				setUp.start();
 
-				try {
-					
-					setUp.join();
+				setUp.start();
+				SceneController.loadingScreen();
+
 				
-				} catch (InterruptedException e) {
-					
-				}	
+//				try {
+//
+//					setUp.join();
+//
+//				} catch (InterruptedException e) {
+//
+//				}
 				
-				SceneController.setScene(SceneController.getMainIsland());
-				AudioUpdate.toMapOverview(bgm);
-						
-				// ----------------------- Create GameController's Thread Run Parallel -------------------------
-						
-				Thread controller = new Thread(new Runnable() {
-							
-					@Override
-					public void run() {
-						GameController gameController = new GameController();
-						}
-					});
-						
-				controller.start();
-				updateAnimation();
+//				SceneController.setScene(SceneController.getMainIsland());
+
+
+				// ----------------------- Create GameController's Thread Run Parallel
+				// -------------------------
+
+//				Thread controller = new Thread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//						
+//						
+//						GameController gameController = new GameController();
+//					}
+//				});
+//
+//				controller.start();
 			}
-			
+
 		});
-		
-			
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------		
 
@@ -198,54 +194,7 @@ public class GameLobbyMenu implements Sceneable {
 			}
 		});
 	}
-	
-// -------------------------------------------- Update Animation --------------------------------------------------------------------
-	
-	private void updateAnimation() {
-		animationTimer = new AnimationTimer() {
 
-			@Override
-			public void handle(long now) {
-				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
-				if(now - lastTimeTrigger > DURATION) {
-					
-					HexTileUpdate.updateMinionIcon();
-					
-					if(GameSetUp.isHighlightPlain) {
-						PlayerPanelUpdate.highlightPlainTile();
-					}
-					
-					if(GameSetUp.isHighlightSpawnable) {
-						PlayerPanelUpdate.highlightSpawnableTile();
-					}
-					
-					if(GameSetUp.isReset) {
-						PlayerPanelUpdate.resetTile();
-						GameSetUp.isReset = false;
-					}
-					
-					if(GameSetUp.isEndTurn) {
-						AudioUpdate.toMapOverview(null);
-						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-						SceneController.setScene(SceneController.getMapOverView());
-						GameSetUp.isEndTurn = false;
-					}
-					
-					if(GameSetUp.isGameEnd) {
-						animationTimer.stop();
-						lastTimeTrigger = -1;
-					}
-					
-					lastTimeTrigger = now;
-				}
-			}
-			
-		};
-		
-		animationTimer.start();
-	}
-	
-	
 // -------------------------------------------- Getter and Setter -------------------------------------------------------------------
 
 	@Override
@@ -284,5 +233,5 @@ public class GameLobbyMenu implements Sceneable {
 	public static MenuButton getStart() {
 		return start;
 	}
-	
+
 }

@@ -12,8 +12,6 @@ public class Overlay extends SubScene implements Overlayable {
 
 	protected Pane root;
 
-//	protected boolean isVisible = false;
-
 	public Overlay(Pane root,int width,int height,int initX,int initY) {
 		super(root, width, height);
 		//setFill(Color.TRANSPARENT);
@@ -34,6 +32,7 @@ public class Overlay extends SubScene implements Overlayable {
 	public void triggerOverlay(int dx,int dy,int delay) {
 
 //		//FOR DEBIG ONLY
+//		System.out.println(this);
 //		System.out.println(styleProperty());
 //		System.out.println(rootProperty());
 //		System.out.println(fillProperty());
@@ -68,11 +67,13 @@ public class Overlay extends SubScene implements Overlayable {
 			tt.setToY(-dy);
 			
 			Thread t = new Thread(()->{
-				try {
-					Thread.sleep(delay);
-				}catch(InterruptedException e) {
-					
-				}
+				
+					try {
+						Thread.sleep(delay);
+					}catch(InterruptedException e) {
+						
+					}					
+				
 				Platform.runLater(new Runnable() {
 					
 					@Override
@@ -87,4 +88,15 @@ public class Overlay extends SubScene implements Overlayable {
 		}
 		tt.play();
 	}
+	
+//////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////
+	
+	public String toString() {
+		return "-------------------- Overlay ---------------------"+"\n"
+				+"x : "+getLayoutX()+", y : "+getLayoutY()+"\n"
+				+"Class : "+getClass()+"\n"
+				+"---------------------------------------------------";
+	}
+	
+//////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////
 }

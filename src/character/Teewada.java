@@ -2,14 +2,17 @@ package character;
 
 import component.location.Council;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class Teewada extends MainCharacter {
 	public static boolean warCry = true;
 
 	public Teewada() {
-		super("Teewada", ""); 
+		super("Sir Tewada", ""); 
+		this.selectBGM = AudioLoader.sirTewadaSelectBGM;
 		this.color = Color.web("0xFEF67A");
+		this.setImg_path("img/character/SirTewada.png");
 	}
 
 	public int checkIsWin() {

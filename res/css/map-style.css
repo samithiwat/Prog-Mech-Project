@@ -5,6 +5,13 @@
   -fx-border-width: 3px;
 }
 
+.menu-item:disabled {
+  -fx-background-color: #7f8a8f;
+  -fx-padding: 1em 1em 1em 1em;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
 .menu-item:hover {
   -fx-background-color: #393e46;
   -fx-padding: 1em 1em 1em 1em;
@@ -104,4 +111,8 @@
 
 #tile-overlay {
   -fx-fill: rgba(0, 0, 0, 0);
+}
+
+#turn-root {
+  fx-background-color: #fefde8;
 }

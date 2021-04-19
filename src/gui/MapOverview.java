@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
+import gui.entity.TurnChangeScreen;
 import gui.overlay.HandOverlay;
+import gui.overlay.PlayerList1;
+import gui.overlay.PlayerList2;
 //import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -24,29 +28,48 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import logic.AudioLoader;
 import logic.SceneController;
+import update.AudioUpdate;
 
 public class MapOverview implements Sceneable {
 
 	private Scene scene;
-	
+
 	private HandOverlay handOverlay;
+	private PlayerList1 playerList1;
+	private PlayerList2 playerList2;
+	private static MenuIcon mainIsland;
+	private static MenuIcon prisonIsland;
 	private static Pane root;
-	public static ArrayList<HandOverlay>  allHandOverlay;
+	private static TurnChangeScreen turnChangeScreen;
+	private static StackPane turnChangeScreenRoot;
+	public static ArrayList<HandOverlay> allHandOverlay;
+	public static ArrayList<PlayerList1> allPlayerList1;
+	public static ArrayList<PlayerList2> allPlayerList2;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
 	public MapOverview() {
+
+		turnChangeScreen = new TurnChangeScreen();
+		
 		handOverlay = new HandOverlay();
 		allHandOverlay = new ArrayList<HandOverlay>();
 		allHandOverlay.add(handOverlay);
 		
+		playerList1 = new PlayerList1();
+		allPlayerList1 = new ArrayList<PlayerList1>();
+		allPlayerList1.add(playerList1);
 		
+		playerList2 = new PlayerList2();
+		allPlayerList2 = new ArrayList<PlayerList2>();
+		allPlayerList2.add(playerList2);
+
 		PlayerPanel playerPanel = new PlayerPanel();
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.web("0x4DC3D3"));
 
-		MenuIcon prisonIsland = new MenuIcon("img/background/PrisonIslandOverview.png", 186, 171);
+		prisonIsland = new MenuIcon("img/background/PrisonIslandOverview.png", 186, 171);
 		prisonIsland.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -55,24 +78,22 @@ public class MapOverview implements Sceneable {
 			}
 		});
 
-		MenuIcon mainIsland = new MenuIcon("img/background/MainIslandOverview.png", 343, 174);
+		mainIsland = new MenuIcon("img/background/MainIslandOverview.png", 343, 174);
 		mainIsland.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+
+				AudioUpdate.change(bgm, null);
 				
-				bgm.stop();
-				
-				Scene mainIsland = SceneController.getMainIsland();
-				
-				MainIsland.getSceneRoot().getChildren().set(2, PlayerPanel.getStatusPane());
-				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getTurnBar());
-				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getHandsIcon());
-				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getEndTurn());
-				MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getGovernmentPoint());
-				MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGoodnessPoint());	
-				
-				SceneController.setScene(mainIsland);
+				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
+				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
+				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
+				MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
+				MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
+				MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
+
+				SceneController.setScene(SceneController.getMainIsland());
 
 			}
 		});
@@ -83,9 +104,15 @@ public class MapOverview implements Sceneable {
 //		bg.setFitWidth(1200);
 //		bgMap.setFitHeight(880);
 //		bgMap.setPreserveRatio(true);
-
+		
+		turnChangeScreenRoot = new StackPane(turnChangeScreen);
+		turnChangeScreenRoot.setPrefWidth(SceneController.getFullscreenWidth());
+		turnChangeScreenRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		turnChangeScreenRoot.setAlignment(Pos.CENTER);
+		turnChangeScreenRoot.setVisible(false);
+		
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay);
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay,playerList1,playerList2,turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));
@@ -118,6 +145,8 @@ public class MapOverview implements Sceneable {
 
 	}
 
+// -------------------------------------------- Getter and Setter --------------------------------------------------
+
 	public Scene getScene() {
 		return this.scene;
 	}
@@ -132,6 +161,22 @@ public class MapOverview implements Sceneable {
 
 	public void setSceneRoot(Pane root) {
 		this.root = root;
+	}
+
+	public static TurnChangeScreen getTurnChangeScreen() {
+		return turnChangeScreen;
+	}
+
+	public static MenuIcon getMainIsland() {
+		return mainIsland;
+	}
+
+	public static MenuIcon getPrisonIsland() {
+		return prisonIsland;
+	}
+
+	public static StackPane getTurnChangeScreenRoot() {
+		return turnChangeScreenRoot;
 	}
 
 }

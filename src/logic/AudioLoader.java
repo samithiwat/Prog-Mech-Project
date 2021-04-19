@@ -7,6 +7,10 @@ public class AudioLoader {
 	public static AudioClip menuThemeSong = new AudioClip(ClassLoader.getSystemResource("audio/MainMenuThemeSong1.wav").toString());
 	public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep1.mp3").toString());
 	public static AudioClip errorSound = new AudioClip(ClassLoader.getSystemResource("audio/Error.mp3").toString());
+	public static AudioClip buySoundEffect = new AudioClip(ClassLoader.getSystemResource("audio/BuyEffect.mp3").toString());
+	public static AudioClip countDownEffect1 = new AudioClip(ClassLoader.getSystemResource("audio/CountDownEffect1.mp3").toString());
+	public static AudioClip countDownEffect2 = new AudioClip(ClassLoader.getSystemResource("audio/CountDownEffect2.mp3").toString());
+	public static AudioClip combineEffect = new AudioClip(ClassLoader.getSystemResource("audio/CombineEffect.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep2.mp3").toString());
 	//public static AudioClip mouseEnterSound = new AudioClip(ClassLoader.getSystemResource("audio/beep3.mp3").toString());
 	public static AudioClip transitionEffect = new AudioClip(ClassLoader.getSystemResource("audio/TransitionEffect.mp3").toString());

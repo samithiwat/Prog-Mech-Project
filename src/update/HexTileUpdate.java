@@ -7,7 +7,7 @@ import component.entity.Minion;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.MenuIcon;
-import gui.entity.MinionIcon;
+import gui.entity.MinionPortraits;
 import gui.entity.MinionPane;
 import javafx.scene.layout.GridPane;
 import logic.GameSetUp;

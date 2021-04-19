@@ -7,9 +7,11 @@ import logic.GameSetUp;
 
 public class ThousandYear extends MainCharacter {
 	public ThousandYear() {
-		super("Ms.ThousandYear", "");
+		super("Sir Thousand Year", "");
+		this.selectBGM = AudioLoader.sirThousandSelectBGM;
 		this.bgm = AudioLoader.sirThousandBGM;
 		this.color = Color.web("0xCC698D");
+		this.setImg_path("img/character/SirThousandYear.png");
 	}
 
 	public int checkIsWin() {

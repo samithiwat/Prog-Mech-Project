@@ -8,9 +8,11 @@ public class BlackSkull extends MainCharacter {
 	public static boolean prisonOutBreakSkill = true;
 
 	public BlackSkull() {
-		super("Mr.BlackSkull", "");
+		super("Black Skull", "");
 		this.bgm = AudioLoader.blackSkullBGM;
+		this.selectBGM = AudioLoader.blackSkullSelectBGM;
 		this.color = Color.web("0x183F21");
+		this.setImg_path("img/character/BlackSkull.png");
 	}
 
 	public int checkIsWin() {

@@ -63,31 +63,13 @@ public class CharacterSelectUpdate implements Updateable {
 	public static void mouseEnteredUpdate(CharacterCard cc) {
 		cc.setCursor(MOUSE_SELECT);
 		cc.setId("character-card-hold");
-		GameLobbyMenu.getBGM().stop();
-		cc.getSoundEffect().play();
-		t = new Thread(() -> {
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				cc.getSoundEffect().stop();
-				GameLobbyMenu.getBGM().play();
-			}
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					cc.getSoundEffect().stop();
-					GameLobbyMenu.getBGM().play();
-				}
-			});
-		});
-		t.start();
+		AudioUpdate.playCharacterSelectBGM(GameLobbyMenu.getBGM(), null, cc.getSoundEffect());
 	}
 
 	public static void mouseExitedUpdate(CharacterCard cc) {
 		cc.setId("character-card");
 		cc.setCursor(MOUSE_NORMAL);
-		t.interrupt();
+		AudioUpdate.getPlaySelectBGM().interrupt();
 	}
 
 // ------------------------------------------ Set Disable Duration When Click Close Icon For Prevent Sound Bug and Selection Bug ----------------------------------------------
@@ -100,6 +82,7 @@ public class CharacterSelectUpdate implements Updateable {
 				GameLobbyMenu.getCBoxes().get(i).setDisable(true);
 			}
 		}
+		
 		Thread t = new Thread(() -> {
 			try {
 				Thread.sleep(1000);
@@ -177,22 +160,22 @@ public class CharacterSelectUpdate implements Updateable {
 
 	private static void enableCard(String cardName) {
 		switch (cardName) {
-		case "Mr.RedFox":
+		case "Mr.Red Fox":
 			cc.get(0).setSelected(false);
 			break;
-		case "Ms.Collector":
+		case "Lady Collector":
 			cc.get(1).setSelected(false);
 			break;
-		case "Mr.BlackSkull":
+		case "Black Skull":
 			cc.get(2).setSelected(false);
 			break;
-		case "Ms.ThousandYear":
+		case "Sir Thousand Year":
 			cc.get(3).setSelected(false);
 			break;
-		case "Teewada":
+		case "Sir Tewada":
 			cc.get(4).setSelected(false);
 			break;
-		case "Teewadee":
+		case "Sir Tewadee":
 			cc.get(5).setSelected(false);
 			break;
 		}

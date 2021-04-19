@@ -7,6 +7,8 @@ import component.location.Location;
 import logic.GameSetUp;
 
 public class Minion implements moveable {
+	private static final int COST = 3 * MainCharacter.M;
+	
 	private MainCharacter possessedBy;
 	private int posX;
 	private int posY;
@@ -101,7 +103,10 @@ public class Minion implements moveable {
 	public void setOnLocation(Location onLocation) {
 		this.onLocation = onLocation;
 	}
-	
+
+	public static int getCost() {
+		return COST;
+	}
 
 }
 // I'm not sure about this part :/

@@ -5,8 +5,18 @@ import java.util.ArrayList;
 import component.entity.Minion;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
+import exception.ExceedMinionInTileException;
+import exception.ExceedToBuyMinionException;
+import exception.FailToBuyLandException;
+import exception.FailToBuyMinionException;
+import exception.FailToCombineException;
+import gui.entity.HexagonPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
+import logic.GameController;
+import logic.GameSetUp;
+import update.AudioUpdate;
 
 public abstract class MainCharacter {
 	public final static int M = 1000000;
@@ -20,6 +30,7 @@ public abstract class MainCharacter {
 	private String desciption;
 	protected Color color;
 	protected AudioClip bgm;
+	protected AudioClip selectBGM;
 	private int lossPerTurn;
 	private boolean isWin;
 	private int num_Axe;
@@ -27,6 +38,7 @@ public abstract class MainCharacter {
 	private int num_Bow;
 	private int num_Shield;
 	private int num_Gun;
+	private String img_path;
 
 	public MainCharacter(String name, String description) {
 		this.name = name;
@@ -45,31 +57,38 @@ public abstract class MainCharacter {
 		this.num_Shield = 0;
 		this.num_Sword = 0;
 	}
-	
+
 	public void countWeaponCard() {
 		this.num_Axe = 0;
 		this.num_Bow = 0;
 		this.num_Gun = 0;
 		this.num_Shield = 0;
 		this.num_Sword = 0;
-		for(int i = 0 ; i < weaponOnHand.size() ; i++) {
+		for (int i = 0; i < weaponOnHand.size(); i++) {
 			WeaponCard card = weaponOnHand.get(i);
-			if(card.getName().equals("Axe")) {
+			if (card.getName().equals("Axe")) {
 				this.num_Axe++;
-			}
-			else if(card.getName().equals("Bow")) {
+			} else if (card.getName().equals("Bow")) {
 				this.num_Bow++;
-			}
-			else if(card.getName().equals("Gun")) {
+			} else if (card.getName().equals("Gun")) {
 				this.num_Gun++;
-			}
-			else if(card.getName().equals("Shield")) {
+			} else if (card.getName().equals("Shield")) {
 				this.num_Shield++;
-			}
-			else if(card.getName().equals("Sword")) {
+			} else if (card.getName().equals("Sword")) {
 				this.num_Sword++;
 			}
 		}
+	}
+	
+	public int getArea() {
+		int cnt = 0;
+		for(int i = 0 ; i < this.possessedArea.size() ; i++) {
+			Location area = this.possessedArea.get(i);
+			if(area.getName().equals("Mine") || area.getName().equals("SecretBase")|| area.getName().equals("Village")|| area.getName().equals("Field")) {
+				cnt++;
+			}
+		}
+		return cnt;
 	}
 
 	public void addCardtoHand(WeaponCard card) {
@@ -99,24 +118,75 @@ public abstract class MainCharacter {
 	}
 
 	public void gainIncome() {
-		this.setMoney(this.getMoney()+this.income);
+		this.setMoney(this.getMoney() + this.income);
 	}
-	
+
 	public int totalIncome() {
 		int sum = 0;
-		for(int i = 0 ; i< this.possessedArea.size() ; i++) {
+		for (int i = 0; i < this.possessedArea.size(); i++) {
 			sum += this.possessedArea.get(i).getIncomePerRound();
 		}
 		this.income = sum;
 		return sum;
 	}
 
+	public void buyMinion() throws FailToBuyMinionException, ExceedToBuyMinionException, ExceedMinionInTileException {
+		if (GameSetUp.canBuyMinion) {
+			if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= HexagonPane.getMAX_MINION()) {
+				throw new ExceedMinionInTileException();
+			} else if (!GameSetUp.selectedTile.isSpawnable()) {
+				throw new FailToBuyMinionException();
+
+			} else {
+				money -= Minion.getCost();
+				GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
+				AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
+				GameSetUp.canBuyMinion = false;
+			}
+		}
+
+		else {
+			throw new ExceedToBuyMinionException();
+		}
+	}
+
+	public void buyLand() throws FailToBuyLandException {
+		if (GameSetUp.selectedTile.getLocationType().getOwner() == null) {
+			money -= GameSetUp.selectedTile.getLocationType().getCost();
+			GameSetUp.selectedTile.getLocationType().setOwner(GameSetUp.thisTurn);
+			addPossessedLocation(GameSetUp.selectedTile.getLocationType());
+			AudioLoader.buySoundEffect.play();
+		} else {
+			throw new FailToBuyLandException();
+		}
+	}
+
+	public void combineMinion() throws FailToCombineException {
+		if (GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy() == GameSetUp.selectedIcon.get(1).getMinion()
+				.getPossessedBy()) {
+			GameSetUp.selectedIcon.get(0).getMinion().addMinion(GameSetUp.selectedIcon.get(1).getMinion());
+			GameSetUp.selectedTile.getLocationType().removeFromLocation(GameSetUp.selectedIcon.get(1).getMinion());
+			AudioLoader.combineEffect.play();
+		} else {
+			throw new FailToCombineException();
+		}
+	}
+
 	public abstract int checkIsWin();
 	// ----------------------getter/setter---------------------
-
+	
+	
 
 	public ArrayList<WeaponCard> getWeaponHand() {
 		return weaponOnHand;
+	}
+
+	public String getImg_path() {
+		return img_path;
+	}
+
+	public void setImg_path(String img_path) {
+		this.img_path = img_path;
 	}
 
 	public int getNum_Axe() {
@@ -202,41 +272,38 @@ public abstract class MainCharacter {
 	public void setWin(boolean isWin) {
 		this.isWin = isWin;
 	}
-	
+
 	public Color getColor() {
 		return color;
 	}
-	
+
 	public int getIncome() {
 		return income;
 	}
-	
+
 	public void setIncome(int income) {
 		this.income = income;
 	}
-	
+
 	public boolean isWin() {
 		return isWin;
 	}
-	
+
 	public int getLossPerTurn() {
 		return lossPerTurn;
 	}
-	
+
 	public void setLossPerTurn(int lossPerTurn) {
 		this.lossPerTurn = lossPerTurn;
 	}
-	
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
-
 
 	public String toString() {
 		return "-------------------------------------\n" + "Name: " + getName() + "\n" + "Description: "
 				+ getDesciption() + "\n" + "GoodPoint: " + getGoodPoint() + "\n" + "Weapond on hand: " + getWeaponHand()
-				+ "\n" + "Money: " + getMoney() + "\n" + "Minion" + getMyEntity()+"\n"
-				+"-------------------------------------";
+				+ "\n" + "Money: " + getMoney() + "\n" + "Minion" + getMyEntity() + "\n"
+				+ "-------------------------------------";
 	}
 
 ////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////

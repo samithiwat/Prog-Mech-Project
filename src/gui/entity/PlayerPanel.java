@@ -3,6 +3,7 @@ package gui.entity;
 import gui.MapOverview;
 import gui.Sceneable;
 import gui.overlay.HandOverlay;
+import gui.overlay.PlayerList1;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.GameSetUp;
+import update.PlayerPanelUpdate;
 
 public class PlayerPanel extends Pane implements Sceneable {
 	
@@ -26,6 +28,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 	private static StatusPane statusPane;
 	private static MenuIcon handsIcon;
 	private HandOverlay handOverlay;
+	private PlayerList1 playerList1;
 	
 	public PlayerPanel() {
 
@@ -40,10 +43,14 @@ public class PlayerPanel extends Pane implements Sceneable {
 		endTurn.setId("end-turn-button-release-style");
 		endTurnInteract();
 		
-		handOverlay = new HandOverlay();
-		MapOverview.allHandOverlay.add(handOverlay);
+//		handOverlay = new HandOverlay();
+//		MapOverview.allHandOverlay.add(handOverlay);
 		handsIcon = new MenuIcon("img/icon/HandsIcon.png", 42, 632);
 		handInteract();
+		
+//		playerList1 = new PlayerList1();
+//		MapOverview.allPlayerList1.add(playerList1);
+		turnBarInteract();
 		
 		
 		governmentPoint = new PointPane(7, 10, Color.web("0xFFFFFF"));
@@ -54,7 +61,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 		goodnessPoint.setLayoutX(65);
 		goodnessPoint.setLayoutY(592);
 
-		getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint,handOverlay);
+		getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint);
 	}
 
 // ------------------------------------------------ Set Up Button ---------------------------------------------------------
@@ -111,13 +118,25 @@ public class PlayerPanel extends Pane implements Sceneable {
 	
 	private void handInteract() {
 		handsIcon.setOnMouseClicked((MouseEvent event) -> {
-			System.out.println("start");
+//			System.out.println("start");
 			AudioClip effect = AudioLoader.clickEffect;
 			effect.play();
+			PlayerPanelUpdate.updateHandOverlay();
 			for(int i = 0 ; i < MapOverview.allHandOverlay.size() ; i++) {
 				MapOverview.allHandOverlay.get(i).triggerOverlay(0,825,1000);
 			}
-			System.out.println("end");
+//			System.out.println("end");
+		});
+	}
+	
+	private void turnBarInteract() {
+		turnBar.setOnMouseClicked((MouseEvent event) -> {
+			AudioClip effect = AudioLoader.clickEffect;
+			effect.play();
+			PlayerPanelUpdate.updatePlayerList();
+			for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
+				MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
+			}
 		});
 	}
 

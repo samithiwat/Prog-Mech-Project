@@ -1,36 +1,120 @@
 package gui.entity;
 
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
+import component.entity.Minion;
+import javafx.event.EventHandler;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import logic.GameSetUp;
 
-public class MinionIcon extends Pane {
+public class MinionIcon extends MenuIcon {
 
-	private static int RADIUS = 25;
-	private static int WIDTH = 50;
-	private static int HEIGHT = 50;
-	private ImageView img;
+	private MinionList minionList;
+	private Minion minion;
+	private MinionIcon minionIcon = this;
 
-	public MinionIcon(String img_path, double frame_size, int img_x, int img_y) {
-
-		img = new ImageView(ClassLoader.getSystemResource(img_path).toString());
-		if (frame_size > 0) {
-			img.setViewport(new Rectangle2D(img_x, img_y, frame_size, frame_size));
-		}
-		img.setFitWidth(WIDTH);
-		img.setFitHeight(HEIGHT);
-
-		Circle shape = new Circle(RADIUS, RADIUS, RADIUS);
-
-		setClip(shape);
-		setId("character-icon");
-
-		getChildren().add(img);
+	public MinionIcon(String img_path, int x, int y, Minion minion) {
+		super(img_path, x, y);
+		this.minion = minion;
+		minionList = new MinionList(minion);
 	}
 
-	public void setImg(String img_path) {
-		img.setImage(new Image(ClassLoader.getSystemResource(img_path).toString()));
+	@Override
+	public void interact() {
+		setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				setCursor(MOUSE_SELECT);
+				EFFECT_MOUSE_ENTER.play();
+				setEffect(new DropShadow());
+			}
+		});
+
+		setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				setCursor(MOUSE_NORMAL);
+				setEffect(null);
+			}
+		});
+
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if(event.getButton().equals(MouseButton.SECONDARY)) {
+					
+					if(!minionList.isShowing()) {
+						minionList.update();
+						minionList.show(minionIcon,event.getScreenX(),event.getScreenY());											
+					}
+					else {
+						minionList.hide();						
+					}
+				}
+				
+			}
+		});
 	}
+// ---------------------------------------- Set Minion Icon Mode -------------------------------------------------
+	
+	public void moveMode() {
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if(event.getButton().equals(MouseButton.SECONDARY)) {
+					
+					if(!minionList.isShowing()) {
+						minionList.update();
+						minionList.show(minionIcon,event.getScreenX(),event.getScreenY());											
+					}
+					else {
+						minionList.hide();						
+					}
+				}
+				
+			}
+		});
+	}
+	
+	public void selectMode() {
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if(event.getButton().equals(MouseButton.PRIMARY)) {
+					GameSetUp.selectedIcon.add(minionIcon);
+				}
+				
+				if(event.getButton().equals(MouseButton.SECONDARY)) {
+					
+					if(!minionList.isShowing()) {
+						minionList.update();
+						minionList.show(minionIcon,event.getScreenX(),event.getScreenY());											
+					}
+					else {
+						minionList.hide();						
+					}
+				}
+				
+			}
+		});
+	}
+	
+// ---------------------------------------- Getter and Setter -------------------------------------------------
+	
+	public MinionList getMinionList() {
+		return minionList;
+	}
+	
+	public Minion getMinion() {
+		return this.minion;
+	}
+
 }
