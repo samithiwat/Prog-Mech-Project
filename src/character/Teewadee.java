@@ -5,6 +5,10 @@ import javafx.scene.paint.Color;
 import logic.AudioLoader;
 
 public class Teewadee extends MainCharacter {
+	
+	public static final String IMG_PATH = "img/character/SirTewadee.png";
+	public static final String IMG_PATH_MINION_IDLE = "img/character/SirTewadeeMinionIdle.png";
+	
 	public static boolean warCry = true;
 
 	public Teewadee() {

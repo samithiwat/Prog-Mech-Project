@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
+import update.AudioUpdate;
 
 public class MainMenu implements Sceneable{
 
@@ -55,6 +56,14 @@ public class MainMenu implements Sceneable{
 			}
 		});
 		MenuIcon helpIcon = new MenuIcon("img/icon/Help.png",223,60);
+		
+		helpIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+			}
+		});
+		
 		MenuIcon settingIcon = new MenuIcon("img/icon/Setting.png",1300,55);
 		
 // -------------------------------------------- Scene Text --------------------------------------------------------------------

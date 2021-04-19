@@ -14,7 +14,7 @@ import logic.AudioLoader;
 import update.CharacterSelectUpdate;
 
 public class CharacterCard extends StackPane {
-
+	
 	private AudioClip effect;
 	private final int WIDTH_BG1 = 350;
 	private final int HEIGHT_BG1 = 450;

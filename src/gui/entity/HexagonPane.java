@@ -91,29 +91,6 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public void interact() {
-//		setOnMouseClicked((MouseEvent event) -> {
-//			// need to add that this minion has moves left or not
-//			// minion.getMoveLeft();
-//			if (this.column % 2 == 1) {
-//			}
-//			if (GameSetUp.selectedTile == null) {
-//				GameSetUp.selectedTile = this;
-//				this.highlight();
-//			} else if (GameSetUp.selectedTile == this) {
-//				GameSetUp.selectedTile = null;
-//				this.unhighlight();
-//			} else if (GameSetUp.selectedTile != null && this.moveable == true) {
-//				GameSetUp.selectedTile.unhighlight();
-//				// call minion.move
-////				minion.move(this.x-GameSetUp.selectedTile.getX(), this.y-GameSetUp.selectedTile.getY());
-//				GameSetUp.selectedTile = this;
-//				GameSetUp.selectedTile.highlight();
-//				if(minion.moveleft() == 0) {
-//		            GameSetUp.selectedTile.unhighlight();
-//		            GameSetUp.selectedTile = null;
-//		        }
-//			}
-//		});
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -146,7 +123,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 				boolean canBuyLand = false;
 
-				if (GameSetUp.thisTurn.getMoney() > GameSetUp.selectedTile.getLocationType().getCost()) {
+				if (GameSetUp.thisTurn.getMoney() >= GameSetUp.selectedTile.getLocationType().getCost()) {
 
 					ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
 
@@ -164,7 +141,7 @@ public class HexagonPane extends Pane implements Clickable {
 					GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(true);
 				}
 
-				if (GameSetUp.thisTurn.getMoney() > Minion.getCost()) {
+				if (GameSetUp.thisTurn.getMoney() >= Minion.getCost()) {
 					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(false);
 				} else {
 					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(true);
@@ -176,19 +153,21 @@ public class HexagonPane extends Pane implements Clickable {
 				for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
 					Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
 					if (minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
-						if (minion.getMyMinion().size() >= 2) {
-							GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
-							canSplit = true;
+						if (minion.getMyMinion().size() >= 1) {
+							for (int j = 0; j < minion.getMyMinion().size(); j++) {
+								if (minion.getMyMinion().get(j).getPossessedBy().equals(GameSetUp.thisTurn)) {
+									GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
+									canSplit = true;
+								}
+							}
 						}
 						count++;
 					}
 
-					if (count >= 2) {
-						GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
-						break;
-					}
 				}
-				if (count < 2) {
+				if (count >= 2) {
+					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
+				} else if (count < 2) {
 					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(false);
 				}
 				if (!canSplit) {
@@ -229,24 +208,46 @@ public class HexagonPane extends Pane implements Clickable {
 			@Override
 			public void handle(MouseEvent event) {
 
+				GameSetUp.selectedTile = hexPane;
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
 					updateMinionPane();
 					updateMinionIcon(minionIconPane);
 					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
 							TileOverlay.getOverlayDelay());
-				} else if (event.getButton().equals(MouseButton.SECONDARY)) {
-					GameSetUp.selectedTile = hexPane;
-
+				}
 //////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
 
-					System.out.println(GameSetUp.selectedTile);
+				System.out.println(GameSetUp.selectedTile);
 
 ///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
-
-				}
-
 			}
 		});
+	}
+
+	public void moveInteract() {
+//		setOnMouseClicked((MouseEvent event) -> {
+//		// need to add that this minion has moves left or not
+//		 minion.getMoveLeft();
+//		if (this.column % 2 == 1) {
+//		}
+//		if (GameSetUp.selectedTile == null) {
+//			GameSetUp.selectedTile = this;
+//			this.highlight();
+//		} else if (GameSetUp.selectedTile == this) {
+//			GameSetUp.selectedTile = null;
+//			this.unhighlight();
+//		} else if (GameSetUp.selectedTile != null && this.moveable == true) {
+//			GameSetUp.selectedTile.unhighlight();
+//			// call minion.move
+//			minion.move(this.x-GameSetUp.selectedTile.getX(), this.y-GameSetUp.selectedTile.getY());
+//			GameSetUp.selectedTile = this;
+//			GameSetUp.selectedTile.highlight();
+//			if(minion.moveleft() == 0) {
+//	            GameSetUp.selectedTile.unhighlight();
+//	            GameSetUp.selectedTile = null;
+//	        }
+//		}
+//	});
 	}
 
 	public void triggerOverlay() {
@@ -324,7 +325,7 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public void updateMinionIcon(GridPane minionIconPane) {
-		
+
 		minionIconPane.getChildren().clear();
 
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
@@ -467,11 +468,10 @@ public class HexagonPane extends Pane implements Clickable {
 	public void setSpawnable(boolean isSpawnable) {
 		this.isSpawnable = isSpawnable;
 	}
-	
+
 	public static int getMAX_MINION() {
 		return MAX_MINION;
 	}
-	
 
 ///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
 
@@ -492,8 +492,8 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public String toString() {
-		return "Location : " + locationType.getName() + "\n" + "Cost : " + locationType.getCost() + "\n" + "Row : "
-				+ row + ", Column : " + column;
+		return locationType + "\n"
+				+ "Row : " + row + ", Column : " + column + "\n";
 	}
 
 ////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////

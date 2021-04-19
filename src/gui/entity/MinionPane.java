@@ -1,6 +1,7 @@
 package gui.entity;
 
 import javafx.scene.layout.Pane;
+import logic.GameSetUp;
 
 public class MinionPane extends Pane{
 
@@ -20,6 +21,20 @@ public class MinionPane extends Pane{
 		minionIcon.setY(posYList[pos]);
 		getChildren().add(minionIcon);
 		
+	}
+	
+	public void setMinionSelectMode() {
+		for (int i = 0; i < getChildren().size(); i++) {
+			MinionIcon icon = (MinionIcon) getChildren().get(i);
+			icon.selectMode();
+						
+		}
+		
+		///////////////////////// DEBUG ////////////////////////
+		
+		System.out.println(GameSetUp.selectedIcon);
+		
+		///////////////////// END OF DEBUG /////////////////////
 	}
 	
 }

@@ -6,6 +6,10 @@ import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class Teewada extends MainCharacter {
+	
+	public static final String IMG_PATH = "img/character/SirTewada.png";
+	public static final String IMG_PATH_MINION_IDLE = "img/character/SirTewadaMinionIdle.png";
+	
 	public static boolean warCry = true;
 
 	public Teewada() {

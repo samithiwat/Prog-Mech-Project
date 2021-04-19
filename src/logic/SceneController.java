@@ -11,6 +11,7 @@ import gui.StartMenu;
 import gui.entity.PlayerPanel;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import update.CloseGame;
 import input.Input_StartMenu;

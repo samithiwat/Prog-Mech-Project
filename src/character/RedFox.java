@@ -6,6 +6,10 @@ import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class RedFox extends MainCharacter {
+	
+	public static final String IMG_PATH = "img/character/MrRedFox.png";
+	public static final String IMG_PATH_MINION_IDLE = "img/character/FoxMinionIdle.png";
+	
 	public RedFox() {
 		super("Mr.Red Fox","");
 		this.color = Color.web("0xF58C4A");

@@ -7,6 +7,10 @@ import javafx.scene.paint.Color;
 import logic.AudioLoader;
 
 public class Collector extends MainCharacter {
+	
+	public static final String IMG_PATH = "img/character/LadyCollector.png";
+	public static final String IMG_PATH_MINION_IDLE = "img/character/LadyCollectorMinionIdle.png";
+	
 	public Collector() {
 		super("Lady Collector", "");
 		this.color = Color.web("0x03728C");

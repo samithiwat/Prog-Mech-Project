@@ -269,7 +269,7 @@ public class MainIsland implements Sceneable {
 			}
 
 			if (key.getCode() == KeyCode.ESCAPE) {
-				AudioUpdate.toMapOverview(null);
+				AudioUpdate.change(null, MapOverview.getBgm());
 				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 				SceneController.setScene(SceneController.getMapOverView());
 			}

@@ -1,20 +1,17 @@
 package update;
 
 import gui.MapOverview;
+import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
+import logic.AudioLoader;
+import logic.GameSetUp;
 
 public class AudioUpdate implements Updateable {
 
 	private static Thread playSelectBGM;
 
-	public static void toMapOverview(AudioClip currentBGM) {
-		if (currentBGM != null) {
-			currentBGM.stop();
-		}
-		MapOverview.getBgm().setCycleCount(AudioClip.INDEFINITE);
-		MapOverview.getBgm().play();
-	}
+	private static int count = 0;
 
 	public static void change(AudioClip currentBGM, AudioClip nextBGM) {
 		if (currentBGM != null) {
@@ -38,9 +35,9 @@ public class AudioUpdate implements Updateable {
 
 		playSelectBGM = new Thread(() -> {
 			selectBGM.play();
-			while(true) {
+			while (true) {
 				System.out.print("");
-				if(!selectBGM.isPlaying()) {
+				if (!selectBGM.isPlaying()) {
 					if (bgm != null) {
 						bgm.setCycleCount(AudioClip.INDEFINITE);
 						bgm.play();
@@ -51,7 +48,7 @@ public class AudioUpdate implements Updateable {
 					}
 					break;
 				}
-				if(playSelectBGM.isInterrupted()) {
+				if (playSelectBGM.isInterrupted()) {
 					if (bgm != null) {
 						bgm.setCycleCount(AudioClip.INDEFINITE);
 						bgm.play();

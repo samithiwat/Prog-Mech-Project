@@ -49,7 +49,7 @@ public class Location {
 		}
 	}
 	
-	public void addMinonToLocation(Minion minion) {
+	public void addMinionToLocation(Minion minion) {
 		if(this.getPossessedBy() == null) {
 			this.setPossesedBy(minion);
 		}
