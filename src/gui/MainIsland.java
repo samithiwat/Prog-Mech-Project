@@ -107,9 +107,12 @@ public class MainIsland implements Sceneable {
 
 		Government government = new Government();
 		MapOverview.allGovernment.add(government);
+		
+		TradeOverlay tradeOverlay = new TradeOverlay();
+		MapOverview.allTradeOverlay.add(tradeOverlay);
 
 		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
-				playerList1, playerList2, currentLaw, government, messageRoot);
+				playerList1, playerList2, currentLaw, government,tradeOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);
