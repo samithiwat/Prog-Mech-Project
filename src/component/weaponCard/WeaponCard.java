@@ -16,7 +16,9 @@ public class WeaponCard {
 		int rand_value = rand.nextInt(this.attack_max-this.attack_max+1)+this.attack_max;
 		return rand_value;
 	}
-	// ---------------------getter/setter------------------
+// --------------------- Equal Class -----------------
+	
+// --------------------- getter/setter------------------
 	public String getName() {
 		return name;
 	}

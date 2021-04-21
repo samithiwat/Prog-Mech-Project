@@ -120,5 +120,25 @@
 }
 
 #turn-root {
-  fx-background-color: #fefde8;
+  -fx-background-color: #fefde8;
+}
+
+#law-overlay-bg {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #fae5cb;
+  -fx-border-width: 10;
+}
+
+#current-law-overlay-info-root {
+  -fx-background-color: #fefde8;
+  -fx-border-color: #c45663;
+  -fx-border-width: 10;
+}
+
+#law-card-unselected-style {
+  -fx-opacity: 1;
+}
+
+#law-card-selected-style {
+  -fx-opacity: 0.5;
 }

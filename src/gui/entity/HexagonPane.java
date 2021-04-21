@@ -120,62 +120,66 @@ public class HexagonPane extends Pane implements Clickable {
 
 			@Override
 			public void handle(ContextMenuEvent event) {
+				
+				if(GameSetUp.selectedTile != null) {
 
-				boolean canBuyLand = false;
-
-				if (GameSetUp.thisTurn.getMoney() >= GameSetUp.selectedTile.getLocationType().getCost()) {
-
-					ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
-
-					for (int i = 0; i < minions.size(); i++) {
-						if (minions.get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
-							GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(false);
-							canBuyLand = true;
-							break;
-						}
-					}
-
-				}
-
-				if (!canBuyLand) {
-					GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(true);
-				}
-
-				if (GameSetUp.thisTurn.getMoney() >= Minion.getCost()) {
-					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(false);
-				} else {
-					GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(true);
-				}
-
-				int count = 0;
-				boolean canSplit = false;
-
-				for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
-					Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
-					if (minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
-						if (minion.getMyMinion().size() >= 1) {
-							for (int j = 0; j < minion.getMyMinion().size(); j++) {
-								if (minion.getMyMinion().get(j).getPossessedBy().equals(GameSetUp.thisTurn)) {
-									GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
-									canSplit = true;
-								}
+					boolean canBuyLand = false;
+					
+					if (GameSetUp.thisTurn.getMoney() >= GameSetUp.selectedTile.getLocationType().getCost()) {
+						
+						ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
+						
+						for (int i = 0; i < minions.size(); i++) {
+							if (minions.get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
+								GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(false);
+								canBuyLand = true;
+								break;
 							}
 						}
-						count++;
+						
 					}
+					
+					if (!canBuyLand) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(true);
+					}
+					
+					if (GameSetUp.thisTurn.getMoney() >= Minion.COST) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(false);
+					} else {
+						GameSetUp.selectedTile.getPlayerActionMenu().getBuyMinion().setDisable(true);
+					}
+					
+					int count = 0;
+					boolean canSplit = false;
+					
+					for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
+						Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
+						if (minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
+							if (minion.getMyMinion().size() >= 1) {
+								for (int j = 0; j < minion.getMyMinion().size(); j++) {
+									if (minion.getMyMinion().get(j).getPossessedBy().equals(GameSetUp.thisTurn)) {
+										GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(true);
+										canSplit = true;
+									}
+								}
+							}
+							count++;
+						}
+						
+					}
+					if (count >= 2) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
+					} else if (count < 2) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(false);
+					}
+					if (!canSplit) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(false);
+					}
+					
+					EFFECT_MOUSE_CLICK.play();
+					playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
+				}
 
-				}
-				if (count >= 2) {
-					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(true);
-				} else if (count < 2) {
-					GameSetUp.selectedTile.getPlayerActionMenu().getCombine().setVisible(false);
-				}
-				if (!canSplit) {
-					GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(false);
-				}
-
-				EFFECT_MOUSE_CLICK.play();
-				playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
 			}
 
 		});

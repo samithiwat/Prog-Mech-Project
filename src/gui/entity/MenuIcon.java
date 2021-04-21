@@ -20,6 +20,11 @@ public class MenuIcon extends ImageView implements Clickable{
 		setY(y);
 		interact();
 	}
+	
+	public MenuIcon(String img_path) {
+		super(ClassLoader.getSystemResource(img_path).toString());
+		interact();
+	}
 
 	@Override
 	public void interact() {

@@ -3,10 +3,10 @@ package component.location;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import component.Component;
 import component.entity.Minion;
 
-public class Location {
-	private String name;
+public class Location extends Component{
 	private String description;
 	private Minion possessedBy;
 	private MainCharacter owner;
@@ -16,7 +16,7 @@ public class Location {
 	private int cost; 
 	private boolean isPossessable;
 	public Location(String name, String description, int income, int cost) {
-		this.name = name;
+		super(name);
 		this.description = description;
 		this.incomePerRound = income*MainCharacter.M;
 		this.possessedBy = null;
@@ -57,12 +57,6 @@ public class Location {
 	}
 	
 	// ------------------------------getter/setter--------------------------
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getDescription() {
 		return description;
 	}

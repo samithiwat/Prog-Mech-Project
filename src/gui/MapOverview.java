@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
 import gui.entity.TurnChangeScreen;
+import gui.overlay.CurrentLaw;
+import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
@@ -45,25 +47,35 @@ public class MapOverview implements Sceneable {
 	public static ArrayList<HandOverlay> allHandOverlay;
 	public static ArrayList<PlayerList1> allPlayerList1;
 	public static ArrayList<PlayerList2> allPlayerList2;
+	public static ArrayList<CurrentLaw> allCurrentLaw;
+	public static ArrayList<Government> allGovernment;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
 	public MapOverview() {
 
 		turnChangeScreen = new TurnChangeScreen();
-		
+
 		handOverlay = new HandOverlay();
 		allHandOverlay = new ArrayList<HandOverlay>();
 		allHandOverlay.add(handOverlay);
-		
+
 		playerList1 = new PlayerList1();
 		allPlayerList1 = new ArrayList<PlayerList1>();
 		allPlayerList1.add(playerList1);
-		
+
 		playerList2 = new PlayerList2();
 		allPlayerList2 = new ArrayList<PlayerList2>();
 		allPlayerList2.add(playerList2);
 
+		CurrentLaw currentLaw = new CurrentLaw();
+		allCurrentLaw = new ArrayList<CurrentLaw>();
+		allCurrentLaw.add(currentLaw);
+
+		Government government = new Government();
+		allGovernment = new ArrayList<Government>();
+		allGovernment.add(government);
+		
 		PlayerPanel playerPanel = new PlayerPanel();
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
@@ -85,7 +97,7 @@ public class MapOverview implements Sceneable {
 			public void handle(MouseEvent event) {
 
 				AudioUpdate.change(bgm, null);
-				
+
 				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
 				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
 				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
@@ -104,15 +116,16 @@ public class MapOverview implements Sceneable {
 //		bg.setFitWidth(1200);
 //		bgMap.setFitHeight(880);
 //		bgMap.setPreserveRatio(true);
-		
+
 		turnChangeScreenRoot = new StackPane(turnChangeScreen);
 		turnChangeScreenRoot.setPrefWidth(SceneController.getFullscreenWidth());
 		turnChangeScreenRoot.setPrefHeight(SceneController.getFullscreenHeight());
 		turnChangeScreenRoot.setAlignment(Pos.CENTER);
 		turnChangeScreenRoot.setVisible(false);
-		
+
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay,playerList1,playerList2,turnChangeScreenRoot);
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay, playerList1, playerList2,
+				currentLaw,government, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));

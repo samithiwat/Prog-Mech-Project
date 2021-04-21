@@ -32,7 +32,7 @@ public class CharacterInfo extends Overlay {
 
 // ------------------------------------------------- Set Overlay Background --------------------------------------------------------		
 		Rectangle bg1 = new Rectangle(WIDTH, HEIGHT);
-		bg1.setFill(Color.web("0x393E46"));
+		bg1.setFill(BG_COLOR);
 		bg2 = new Rectangle(WIDTH_BG, HEIGHT_BG);
 		bg2.setX(100);
 		bg2.setY(50);
@@ -47,7 +47,7 @@ public class CharacterInfo extends Overlay {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				triggerOverlay(0, 825, 1000);
 				CharacterSelectUpdate.closeUpdate();
 				Thread t = new Thread(() -> {

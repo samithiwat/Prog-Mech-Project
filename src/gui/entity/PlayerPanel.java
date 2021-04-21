@@ -139,6 +139,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 			}
 		});
 	}
+	
 
 	public static Button getEndTurn() {
 		return endTurn;
