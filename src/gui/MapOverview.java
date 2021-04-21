@@ -10,6 +10,7 @@ import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
+import gui.overlay.TradeOverlay;
 //import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -39,6 +40,7 @@ public class MapOverview implements Sceneable {
 	private HandOverlay handOverlay;
 	private PlayerList1 playerList1;
 	private PlayerList2 playerList2;
+	private TradeOverlay tradeOverlay;
 	private static MenuIcon mainIsland;
 	private static MenuIcon prisonIsland;
 	private static Pane root;
@@ -49,6 +51,7 @@ public class MapOverview implements Sceneable {
 	public static ArrayList<PlayerList2> allPlayerList2;
 	public static ArrayList<CurrentLaw> allCurrentLaw;
 	public static ArrayList<Government> allGovernment;
+	public static ArrayList<TradeOverlay> allTradeOverlay;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
@@ -76,6 +79,10 @@ public class MapOverview implements Sceneable {
 		allGovernment = new ArrayList<Government>();
 		allGovernment.add(government);
 		
+		tradeOverlay = new TradeOverlay();
+		allTradeOverlay = new ArrayList<TradeOverlay>();
+		allTradeOverlay.add(tradeOverlay);
+    
 		PlayerPanel playerPanel = new PlayerPanel();
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
@@ -125,7 +132,7 @@ public class MapOverview implements Sceneable {
 
 		root = new Pane();
 		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay, playerList1, playerList2,
-				currentLaw,government, turnChangeScreenRoot);
+				currentLaw,government,tradeOverlay, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));

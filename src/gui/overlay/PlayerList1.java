@@ -7,6 +7,7 @@ import gui.GameLobbyMenu;
 import gui.MapOverview;
 import gui.entity.Clickable;
 import gui.entity.MenuIcon;
+import gui.entity.PlayerActionMenu;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,6 +16,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -30,6 +32,7 @@ public class PlayerList1 extends Overlay {
 	protected static final int WIDTH = 1400;
 
 	private ArrayList<TextTitle> allText;
+	private PlayerList1 instance = this;
 
 	public PlayerList1() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -800);
@@ -107,6 +110,26 @@ public class PlayerList1 extends Overlay {
 				setCursor(Clickable.MOUSE_NORMAL);
 				img.setEffect(null);
 			});
+			
+			PlayerActionMenu playerActionMenu = new PlayerActionMenu();
+			img.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+				@Override
+				public void handle(ContextMenuEvent event) {
+					// TODO Auto-generated method stub
+					GameSetUp.selectedCharacter = character;
+					playerActionMenu.getBuyLand().setVisible(false);
+					playerActionMenu.getCombine().setVisible(false);
+					playerActionMenu.getBuyMinion().setVisible(false);
+					playerActionMenu.getSplit().setVisible(false);
+					playerActionMenu.getTrade().setVisible(true);
+					if(GameSetUp.thisTurn == character) {
+						playerActionMenu.getTrade().setVisible(false);
+					}
+					playerActionMenu.show(instance, event.getSceneX(), event.getSceneY());
+					// no update yet, will write it later
+				}
+			});
 
 			allText.add(money_text);
 			allText.add(minion_text);
@@ -119,13 +142,14 @@ public class PlayerList1 extends Overlay {
 			grid.add(minion_text, j + 1, 2);
 			grid.add(land, j + 2, 2);
 			grid.add(land_text, j + 3, 2);
+			
 
 		}
 		root.getChildren().addAll(bg, grid, closeIcon, changePageIcon);
 	}
 
 	// -------------------------------------------------------getter/setter-------------------------------------------------
-
+	
 	public ArrayList<TextTitle> getAllText() {
 		return allText;
 	}

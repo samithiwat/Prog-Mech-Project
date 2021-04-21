@@ -10,9 +10,11 @@ import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
 import exception.OutOfMinionException;
 import gui.MainIsland;
+import gui.MapOverview;
 import gui.overlay.TileOverlay;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
@@ -21,6 +23,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.GameSetUp;
+import update.TradeOverlayUpdate;
 
 public class PlayerActionMenu extends ContextMenu implements Clickable {
 
@@ -30,6 +33,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 	private MenuItem buyLand;
 	private MenuItem combine;
 	private MenuItem split;
+	private MenuItem trade;
 
 	public PlayerActionMenu() {
 		buyMinion = new MenuItem("Buy Minion");
@@ -198,7 +202,23 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 
 //		setId("player-action-menu-style");
 
-		getItems().addAll(buyMinion, buyLand, combine, split, cancle);
+		trade = new MenuItem("Trade");
+		trade.setVisible(false);
+		trade.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				TradeOverlayUpdate.pfpUpdate();
+				TradeOverlayUpdate.invUpdate();
+				TradeOverlayUpdate.traderofferUpdate();
+				TradeOverlayUpdate.acceptUpdate();
+				for(int i = 0 ; i < MapOverview.allTradeOverlay.size() ; i++) {
+					MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
+				}
+			}
+		});
+		getItems().addAll(buyMinion, buyLand, combine, split, trade, cancle);
 	}
 
 	@Override
@@ -228,5 +248,10 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 	public MenuItem getSplit() {
 		return split;
 	}
+
+	public MenuItem getTrade() {
+		return trade;
+	}
+	
 
 }

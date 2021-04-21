@@ -1,6 +1,7 @@
 package character;
 
 import gui.entity.GameSetting;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 import logic.GameSetUp;
@@ -17,6 +18,7 @@ public class RedFox extends MainCharacter {
 		this.setImg_path("img/character/MrRedFox.png");
 		//this.bgm = AudioLoader.
 		this.setMoney(11*M);
+		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
 	}
 	public int checkIsWin() {
 		int count = 0;

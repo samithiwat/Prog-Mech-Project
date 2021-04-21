@@ -6,10 +6,12 @@ public class WeaponCard {
 	private String name;
 	private int attack_min;
 	private int attack_max;
-	public WeaponCard(String name, int attack_min, int attack_max) {
+	private String img_path;
+	public WeaponCard(String name, int attack_min, int attack_max, String img_path) {
 		this.name = name;
 		this.attack_max = attack_max;
 		this.attack_min = attack_min;
+		this.img_path = img_path;
 	}
 	public int rand_attack() {
 		Random rand = new Random();
@@ -37,5 +39,9 @@ public class WeaponCard {
 	public void setAttack_max(int attack_max) {
 		this.attack_max = attack_max;
 	}
+	public String getImg_path() {
+		return img_path;
+	}
+	
 	
 }

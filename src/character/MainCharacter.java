@@ -13,6 +13,7 @@ import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
 import exception.OutOfMinionException;
 import gui.entity.HexagonPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
@@ -27,7 +28,7 @@ public abstract class MainCharacter extends Component{
 	private ArrayList<Minion> myEntity;
 	private ArrayList<Location> possessedArea;
 	private int goodPoint;
-	private int money;
+	private double money;
 	private int income;
 	private String desciption;
 	protected Color color;
@@ -41,6 +42,7 @@ public abstract class MainCharacter extends Component{
 	private int num_Shield;
 	private int num_Gun;
 	private String img_path;
+	private ImageView pfp;
 
 	public MainCharacter(String name, String description) {
 		super(name);
@@ -291,11 +293,11 @@ public abstract class MainCharacter extends Component{
 		this.weaponOnHand = weaponOnHand;
 	}
 
-	public int getMoney() {
+	public double getMoney() {
 		return money;
 	}
 
-	public void setMoney(int money) {
+	public void setMoney(double money) {
 		this.money = Math.max(0, money);
 	}
 
@@ -358,8 +360,17 @@ public abstract class MainCharacter extends Component{
 	public AudioClip getSelectBGM() {
 		return selectBGM;
 	}
+	
+	public ImageView getPfp() {
+		return pfp;
+	}
+	
+	public void setPfp(ImageView pfp) {
+		this.pfp = pfp;
+	}
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
 
 	public String toString() {
 		return "-------------------------------------\n" + "Name: " + getName() + "\n" + "Description: "

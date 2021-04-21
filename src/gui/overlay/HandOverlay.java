@@ -1,5 +1,6 @@
 package gui.overlay;
 
+import character.MainCharacter;
 import gui.MapOverview;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
@@ -27,6 +28,7 @@ public class HandOverlay extends Overlay {
 	private TextTitle num_slot3;
 	private TextTitle num_slot4;
 	private TextTitle num_slot5;
+	private MenuIcon drawCard;
 
 	
 
@@ -53,11 +55,11 @@ public class HandOverlay extends Overlay {
 			}
 		});
 
-		ImageView slot1 = new ImageView(ClassLoader.getSystemResource("img/icon/Cardback.png").toString());
-		ImageView slot2 = new ImageView(ClassLoader.getSystemResource("img/icon/Cardback.png").toString());
-		ImageView slot3 = new ImageView(ClassLoader.getSystemResource("img/icon/Cardback.png").toString());
-		ImageView slot4 = new ImageView(ClassLoader.getSystemResource("img/icon/Cardback.png").toString());
-		ImageView slot5 = new ImageView(ClassLoader.getSystemResource("img/icon/Cardback.png").toString());
+		ImageView slot1 = new ImageView(ClassLoader.getSystemResource("img/weapon/SwordCard.png").toString());
+		ImageView slot2 = new ImageView(ClassLoader.getSystemResource("img/weapon/AxeCard.png").toString());
+		ImageView slot3 = new ImageView(ClassLoader.getSystemResource("img/weapon/ShieldCard.png").toString());
+		ImageView slot4 = new ImageView(ClassLoader.getSystemResource("img/weapon/BowCard.png").toString());
+		ImageView slot5 = new ImageView(ClassLoader.getSystemResource("img/weapon/GunCard.png").toString());
 
 		num_slot1 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Sword(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
 		num_slot2 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Axe(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
@@ -65,6 +67,8 @@ public class HandOverlay extends Overlay {
 		num_slot4 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Bow(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
 		num_slot5 = new TextTitle("x"+GameSetUp.thisTurn.getNum_Gun(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
 
+		drawCard = new MenuIcon("img/icon/HandsIcon.png", 944, 439);
+		
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.add(slot1, 0, 0);
@@ -77,6 +81,7 @@ public class HandOverlay extends Overlay {
 		gridPane.add(num_slot4, 1, 1);
 		gridPane.add(slot5, 2, 1);
 		gridPane.add(num_slot5, 3, 1);
+		gridPane.add(drawCard, 4, 1, 2, 1);
 		gridPane.setHgap(82);
 		gridPane.setVgap(45);
 		gridPane.setPadding(new Insets(87, 100, 87, 100));
@@ -113,5 +118,12 @@ public class HandOverlay extends Overlay {
 	public TextTitle getNum_slot5() {
 		return num_slot5;
 	}
+
+
+	public MenuIcon getDrawCard() {
+		return drawCard;
+	}
+	
+	
 	
 }

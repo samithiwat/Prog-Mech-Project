@@ -131,5 +131,9 @@ public class Minion extends Component implements moveable {
 		this.onLocation = onLocation;
 	}
 
+	public static double getCost() {
+		return COST;
+	}
+
 }
 // I'm not sure about this part :/

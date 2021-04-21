@@ -12,9 +12,10 @@ public class Location extends Component{
 	private MainCharacter owner;
 //	private ArrayList<E> *TODO:for group minion that is on the tile*
 	private ArrayList<Minion> minionOnLocation;
-	private int incomePerRound;
-	private int cost; 
+	private double incomePerRound;
+	private double cost; 
 	private boolean isPossessable;
+
 	public Location(String name, String description, int income, int cost) {
 		super(name);
 		this.description = description;
@@ -73,13 +74,13 @@ public class Location extends Component{
 		}
 		return false;
 	}
-	public int getIncomePerRound() {
+	public double getIncomePerRound() {
 		return incomePerRound;
 	}
 	public void setIncomePerRound(int incomePerRound) {
 		this.incomePerRound = incomePerRound;
 	}
-	public int getCost() {
+	public double getCost() {
 		return cost;
 	}
 	public void setCost(int cost) {

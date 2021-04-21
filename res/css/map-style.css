@@ -142,3 +142,13 @@
 #law-card-selected-style {
   -fx-opacity: 0.5;
 }
+
+#button-hold-style {
+  -fx-text-fill: rgb(77, 77, 77);
+  -fx-background-color: rgba(185, 185, 185, 0.9);
+}
+
+#button-release-style {
+  -fx-background-color: rgba(120, 120, 120, 0.9);
+}
+

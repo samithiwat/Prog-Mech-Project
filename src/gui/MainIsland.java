@@ -13,6 +13,7 @@ import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
+import gui.overlay.TradeOverlay;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
