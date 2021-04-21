@@ -11,6 +11,7 @@ import gui.entity.TurnBar;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
+import gui.overlay.TradeOverlay;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -95,12 +96,15 @@ public class MainIsland implements Sceneable {
 
 		PlayerList1 playerList1 = new PlayerList1();
 		MapOverview.allPlayerList1.add(playerList1);
-		
+
 		PlayerList2 playerList2 = new PlayerList2();
 		MapOverview.allPlayerList2.add(playerList2);
 
-		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, messageRoot,
-				handOverlay, playerList1, playerList2);
+		TradeOverlay tradeOverlay = new TradeOverlay();
+		MapOverview.allTradeOverlay.add(tradeOverlay);
+
+		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
+				playerList1, playerList2, tradeOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);

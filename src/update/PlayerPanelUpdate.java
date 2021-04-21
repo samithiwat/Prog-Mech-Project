@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.location.Plain;
+import gui.MainIsland;
 import gui.MapOverview;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
@@ -16,6 +17,7 @@ import gui.entity.TurnCharacterIcon;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.GameSetUp;
@@ -161,6 +163,7 @@ public class PlayerPanelUpdate {
 //---------------------------------------- Update HandOverlay -----------------------------------------
 	
 	public static void updateHandOverlay() {
+		GameSetUp.thisTurn.countWeaponCard();
 		for(int i = 0 ; i < MapOverview.allHandOverlay.size() ; i++) {
 			HandOverlay handOverlay = MapOverview.allHandOverlay.get(i);
 			handOverlay.getNum_slot1().setText("x"+GameSetUp.thisTurn.getNum_Sword());
@@ -168,6 +171,20 @@ public class PlayerPanelUpdate {
 			handOverlay.getNum_slot3().setText("x"+GameSetUp.thisTurn.getNum_Shield());
 			handOverlay.getNum_slot4().setText("x"+GameSetUp.thisTurn.getNum_Bow());
 			handOverlay.getNum_slot5().setText("x"+GameSetUp.thisTurn.getNum_Gun());
+			if(GameSetUp.thisTurn.getMoney() < MainCharacter.M) {
+				handOverlay.getDrawCard().setOnMouseClicked((MouseEvent event) -> {
+					MainIsland.setShowMessage("Not enough money!", Color.WHITE, 36, 3);
+				});
+			}
+			else {
+				handOverlay.getDrawCard().setOnMouseClicked((MouseEvent event) -> {
+					if(GameSetUp.thisTurn.getMoney() >= 1*MainCharacter.M ) {
+						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - 1*MainCharacter.M);
+						GameSetUp.thisTurn.addCardtoHand(GameSetUp.weaponDeck.drawCard());	
+						updateHandOverlay();
+					}
+				});				
+			}
 		}
 	}
 	

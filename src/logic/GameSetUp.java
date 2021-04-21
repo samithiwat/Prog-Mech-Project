@@ -71,11 +71,10 @@ public class GameSetUp {
 	public static boolean isTurnChange = false;
 	public static boolean isSelectMinionSpawn = false;
 	public static boolean isCountDown = false;
-//	public static Minion selectedMinion = null;
 	public static HexagonPane initialTile = null;
 	public static HexagonPane selectedTile = null;
 	public static ArrayList<MinionIcon> selectedIcon = new ArrayList<MinionIcon>();
-
+	public static MainCharacter selectedCharacter = null;
 	public GameSetUp() {
 		thisTurn = gameCharacter.get(0);
 //----------------------------------Weapon Set Up---------------------------------------------------

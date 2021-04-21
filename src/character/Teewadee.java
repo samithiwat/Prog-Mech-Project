@@ -1,6 +1,7 @@
 package character;
 
 import component.location.Island;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 
@@ -16,6 +17,7 @@ public class Teewadee extends MainCharacter {
 		this.selectBGM = AudioLoader.sirTewadeeSelectBGM;
 		this.color = Color.web("0xF75959");
 		this.setImg_path("img/character/SirTewadee.png");
+		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
 	}
 
 	public int checkIsWin() {

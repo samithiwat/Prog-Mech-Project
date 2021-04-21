@@ -77,11 +77,11 @@ public class GameLaw {
 	
 	public void activateEachCycle() {
 		if(this.setMoneyToAverage) {
-			int sum = 0;
+			double sum = 0;
 			for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
 				sum += GameSetUp.gameCharacter.get(i).getMoney();
 			}
-			int averageSum = 1*MainCharacter.M;
+			double averageSum = 1*MainCharacter.M;
 			while(averageSum*GameSetUp.gameCharacter.size() < sum) {
 				averageSum += 500000;
 			}

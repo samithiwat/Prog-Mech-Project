@@ -1,6 +1,7 @@
 package character;
 
 import component.location.Prison;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 import logic.GameSetUp;
@@ -16,6 +17,7 @@ public class ThousandYear extends MainCharacter {
 		this.bgm = AudioLoader.sirThousandBGM;
 		this.color = Color.web("0xCC698D");
 		this.setImg_path("img/character/SirThousandYear.png");
+		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
 	}
 
 	public int checkIsWin() {

@@ -8,6 +8,7 @@ import gui.entity.TurnChangeScreen;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
+import gui.overlay.TradeOverlay;
 //import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -37,6 +38,7 @@ public class MapOverview implements Sceneable {
 	private HandOverlay handOverlay;
 	private PlayerList1 playerList1;
 	private PlayerList2 playerList2;
+	private TradeOverlay tradeOverlay;
 	private static MenuIcon mainIsland;
 	private static MenuIcon prisonIsland;
 	private static Pane root;
@@ -45,24 +47,29 @@ public class MapOverview implements Sceneable {
 	public static ArrayList<HandOverlay> allHandOverlay;
 	public static ArrayList<PlayerList1> allPlayerList1;
 	public static ArrayList<PlayerList2> allPlayerList2;
+	public static ArrayList<TradeOverlay> allTradeOverlay;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
 	public MapOverview() {
 
 		turnChangeScreen = new TurnChangeScreen();
-		
+
 		handOverlay = new HandOverlay();
 		allHandOverlay = new ArrayList<HandOverlay>();
 		allHandOverlay.add(handOverlay);
-		
+
 		playerList1 = new PlayerList1();
 		allPlayerList1 = new ArrayList<PlayerList1>();
 		allPlayerList1.add(playerList1);
-		
+
 		playerList2 = new PlayerList2();
 		allPlayerList2 = new ArrayList<PlayerList2>();
 		allPlayerList2.add(playerList2);
+
+		tradeOverlay = new TradeOverlay();
+		allTradeOverlay = new ArrayList<TradeOverlay>();
+		allTradeOverlay.add(tradeOverlay);
 
 		PlayerPanel playerPanel = new PlayerPanel();
 
@@ -85,7 +92,7 @@ public class MapOverview implements Sceneable {
 			public void handle(MouseEvent event) {
 
 				AudioUpdate.change(bgm, null);
-				
+
 				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
 				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
 				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
@@ -104,15 +111,16 @@ public class MapOverview implements Sceneable {
 //		bg.setFitWidth(1200);
 //		bgMap.setFitHeight(880);
 //		bgMap.setPreserveRatio(true);
-		
+
 		turnChangeScreenRoot = new StackPane(turnChangeScreen);
 		turnChangeScreenRoot.setPrefWidth(SceneController.getFullscreenWidth());
 		turnChangeScreenRoot.setPrefHeight(SceneController.getFullscreenHeight());
 		turnChangeScreenRoot.setAlignment(Pos.CENTER);
 		turnChangeScreenRoot.setVisible(false);
-		
+
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay,playerList1,playerList2,turnChangeScreenRoot);
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay, playerList1, playerList2,
+				tradeOverlay, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));

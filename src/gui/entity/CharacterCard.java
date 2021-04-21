@@ -28,29 +28,7 @@ public class CharacterCard extends StackPane {
 
 	public CharacterCard(int id, String img_path, AudioClip effect, int x, int y) {
 		super();
-//		//FOR DEBIG ONLY
-//		System.out.println(styleProperty());
-//		System.out.println(rootProperty());
-//		System.out.println(fillProperty());
-//		System.out.println(root.getChildren());
-//		System.out.println(userAgentStylesheetProperty());
-//		System.out.println("visible : " + isVisible());
-//		System.out.println("x : "+getLayoutX()+" , y : "+getLayoutY());
-//		//System.out.println("Style : "+getCssMetaData());
-//		ArrayList<String> log = new ArrayList<String>();
-//		for(CssMetaData<? extends Styleable, ?> data : getCssMetaData()) {
-//			for(String splitedData : data.toString().split("CSSProperty"))
-//			{
-//				log.add(splitedData);
-//				log.add("\n");
-//			}
-//		}
-//		try {
-//			FileController.write("C:\\Computer Programing\\Java\\ProjectRes\\ProjectLog\\log7.txt", log);
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		//END OF DEBUG
+		
 		setCardId(id);
 		setId("character-card");
 		setAlignment(Pos.CENTER);

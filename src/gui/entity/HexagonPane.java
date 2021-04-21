@@ -319,7 +319,12 @@ public class HexagonPane extends Pane implements Clickable {
 			if (GameSetUp.map[this.row + x][this.column + y] instanceof Water) {
 				continue;
 			}
-			MapGrid.getGrids().get(this.row + x).get(this.column + y).setId("grid-release-style");
+			if(MapGrid.isEnable()) {
+				MapGrid.getGrids().get(this.row + x).get(this.column + y).setId("grid-release-style");				
+			}
+			else {
+				MapGrid.getGrids().get(this.row + x).get(this.column + y).setId("grid-disable");
+			}
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setMoveable(false);
 		}
 	}

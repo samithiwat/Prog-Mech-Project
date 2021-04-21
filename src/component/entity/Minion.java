@@ -13,7 +13,7 @@ import gui.entity.HexagonPane;
 import logic.GameSetUp;
 
 public class Minion implements moveable {
-	private static final int COST = 3 * MainCharacter.M;
+	private static final double COST = 3 * MainCharacter.M;
 
 	private MainCharacter possessedBy;
 	private int posX;
@@ -128,7 +128,7 @@ public class Minion implements moveable {
 		this.onLocation = onLocation;
 	}
 
-	public static int getCost() {
+	public static double getCost() {
 		return COST;
 	}
 
