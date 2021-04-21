@@ -101,6 +101,7 @@ public class TurnBar extends StackPane implements Clickable {
 			@Override
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_ENTER.play();
+				setCursor(MOUSE_SELECT);
 				setId("turnbar-hold-style");
 			}
 		});
@@ -109,6 +110,7 @@ public class TurnBar extends StackPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
+				setCursor(MOUSE_NORMAL);
 				setId("turnbar-release-style");
 			}
 		});

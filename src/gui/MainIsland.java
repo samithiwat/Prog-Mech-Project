@@ -8,6 +8,8 @@ import gui.entity.PointPane;
 import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import gui.entity.TurnBar;
+import gui.overlay.CurrentLaw;
+import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
@@ -100,11 +102,14 @@ public class MainIsland implements Sceneable {
 		PlayerList2 playerList2 = new PlayerList2();
 		MapOverview.allPlayerList2.add(playerList2);
 
-		TradeOverlay tradeOverlay = new TradeOverlay();
-		MapOverview.allTradeOverlay.add(tradeOverlay);
+		CurrentLaw currentLaw = new CurrentLaw();
+		MapOverview.allCurrentLaw.add(currentLaw);
+
+		Government government = new Government();
+		MapOverview.allGovernment.add(government);
 
 		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
-				playerList1, playerList2, tradeOverlay, messageRoot);
+				playerList1, playerList2, currentLaw, government, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);
@@ -115,17 +120,6 @@ public class MainIsland implements Sceneable {
 
 		});
 
-		//////////////// FOR DEBUG ONLY //////////////////////
-
-//		System.out.println("Width : "+bg.getFitWidth()+", Height : "+bg.getFitHeight());
-
-//		System.out.println(MapGrid.getGrids());
-
-//		HexagonPane test1 = new HexagonPane(350,350,0,0);
-//		HexagonPane test2 = new HexagonPane(350,350,190+350,0);
-//		root.getChildren().addAll(test1);
-
-		//////////////// END OF DEBUG /////////////////////////
 	}
 
 	public static void moveBgLeft(int speed) {

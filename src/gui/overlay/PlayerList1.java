@@ -50,7 +50,7 @@ public class PlayerList1 extends Overlay {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
 					MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
 				}
@@ -62,7 +62,7 @@ public class PlayerList1 extends Overlay {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 //				GameLobbyMenu.getOverlay2().triggerOverlay(0, 875, 500);
 				for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
 					MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 500);

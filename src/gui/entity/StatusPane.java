@@ -3,6 +3,9 @@ package gui.entity;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import gui.MapOverview;
+import gui.overlay.CurrentLaw;
+import gui.overlay.Government;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,7 +24,7 @@ import logic.GameController;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
-public class StatusPane extends GridPane {
+public class StatusPane extends GridPane implements Clickable{
 
 	private static StatusBar money;
 	private static StatusBar minion;
@@ -48,30 +51,45 @@ public class StatusPane extends GridPane {
 		buttonPane.setId("button-pane");
 		CircleButton finance = new CircleButton("img/icon/GoldIngot.png", 50, 50, 25, 0, 0);
 		Tooltip totalIncometooltip = new Tooltip();
-		totalIncometooltip.setFont(Font.font("Bai Jamjuree",20)); //set font here
-		totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.getIncome() / MainCharacter.M + "M\nLoss : " + GameSetUp.thisTurn.getLossPerTurn() );
+		totalIncometooltip.setFont(Font.font("Bai Jamjuree", 20)); // set font here
+		totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.getIncome() / MainCharacter.M + "M\nLoss : "
+				+ GameSetUp.thisTurn.getLossPerTurn());
 		finance.setOnMouseClicked((MouseEvent event) -> {
-			if(finance.isClicked() == false) {
-				totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY()+10);
+			if (finance.isClicked() == false) {
+				totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY() + 10);
 				setId("circle-button-hold-style");
 				finance.setClicked(true);
-			}
-			else {
+			} else {
 				setId("circle-button-release-style");
 				totalIncometooltip.hide();
 				finance.setClicked(false);
 			}
 		});
-	
 
-		CircleButton currentLaw = new CircleButton("img/icon/LawIcon.png", 50, 50, 25, 0 ,0);
+		CircleButton currentLaw = new CircleButton("img/icon/LawIcon.png", 50, 50, 25, 0, 0);
+
+		currentLaw.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				triggerGovernment();
+				
+//				if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
+//
+//				} else {
+//					EFFECT_MOUSE_CLICK.play();
+//					triggerCurrentLaw();
+//				}
+			}
+		});
 
 		CircleButton landInfo = new CircleButton("img/icon/LandIcon.png", 50, 50, 25, 0, 0);
 
 		CircleButton characterInfo = new CircleButton("!", 36, Color.web("0xFECEB8"), 50, 50, 25, 0, 0);
 
 		CircleButton toggleGrid = new CircleButton("img/icon/GridIcon.png", 50, 50, 25, 0, 0);
-		
+
 		toggleGrid.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -80,10 +98,10 @@ public class StatusPane extends GridPane {
 				effect.play();
 				PlayerPanelUpdate.toggleGridUpdate();
 			}
-		
+
 		});
 
-		//buttonPane.getChildren().addAll(finance, characterInfo, toggleGrid);
+		// buttonPane.getChildren().addAll(finance, characterInfo, toggleGrid);
 
 		buttonPane.getChildren().addAll(finance, currentLaw, landInfo, characterInfo, toggleGrid);
 
@@ -104,6 +122,26 @@ public class StatusPane extends GridPane {
 
 	}
 
+// ---------------------------------------------------- Trigger Law Overlay ------------------------------------------------------------
+
+	public static void triggerCurrentLaw() {
+		for (int i = 0; i < MapOverview.allCurrentLaw.size(); i++) {
+			CurrentLaw overlay = MapOverview.allCurrentLaw.get(i);
+			overlay.update();
+			overlay.triggerOverlay(0, 875, 1000);
+		}
+	}
+	
+	public static void triggerGovernment() {
+		for(int i =0;i<MapOverview.allGovernment.size();i++) {
+			Government overlay = MapOverview.allGovernment.get(i);
+			overlay.updateActivedLaw();
+			overlay.triggerOverlay(0, 875, 1000);
+		}
+	}
+
+// ---------------------------------------------------- Getter and Setter --------------------------------------------------------------
+
 	public static StatusBar getMoney() {
 		return money;
 	}
@@ -114,6 +152,16 @@ public class StatusPane extends GridPane {
 
 	public static StatusBar getLand() {
 		return land;
+	}
+
+	@Override
+	public void interact() {
+		// Empty
+	}
+
+	@Override
+	public void triggerDisable() {
+		setDisable(!isDisable());
 	}
 
 }

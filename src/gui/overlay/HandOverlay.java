@@ -48,7 +48,7 @@ public class HandOverlay extends Overlay {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				for (int i = 0; i < MapOverview.allHandOverlay.size(); i++) {
 					MapOverview.allHandOverlay.get(i).triggerOverlay(0, 825, 1000);
 				}

@@ -38,6 +38,8 @@ public class MinionIcon extends MenuIcon {
 
 			@Override
 			public void handle(MouseEvent event) {
+				minionList.update();
+				minionList.show(minionIcon,event.getScreenX() + 20,event.getScreenY() - 20);
 				setCursor(MOUSE_SELECT);
 				EFFECT_MOUSE_ENTER.play();
 				if (getEffect() == null) {
@@ -50,6 +52,7 @@ public class MinionIcon extends MenuIcon {
 
 			@Override
 			public void handle(MouseEvent event) {
+				minionList.hide();
 				setCursor(MOUSE_NORMAL);
 				if (getEffect() instanceof DropShadow) {
 					setEffect(null);
@@ -84,6 +87,7 @@ public class MinionIcon extends MenuIcon {
 			public void handle(MouseEvent event) {
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
 					MainIsland.dataInteractMode();
+					MainIsland.getInfoRoot().setVisible(false);
 					GameSetUp.initialTile = GameSetUp.selectedTile;
 					GameSetUp.initialTile.triggerOverlay();
 					GameSetUp.initialTile.highlight();

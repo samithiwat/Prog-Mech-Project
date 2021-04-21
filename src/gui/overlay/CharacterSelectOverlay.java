@@ -24,7 +24,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 // -------------------------------------------- Scene Background --------------------------------------------------------------	
 
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
-		bg.setFill(Color.web("0x393E46"));
+		bg.setFill(BG_COLOR);
 		bg.setId("overlay-bg");
 
 // -------------------------------------------- Close Icon ---------------------------------------------------------------------
@@ -35,7 +35,7 @@ public abstract class CharacterSelectOverlay extends Overlay {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				triggerOverlay(0, 875, 1500);
 				CharacterSelectUpdate.closeUpdate();
 			}

@@ -2,6 +2,7 @@ package character;
 
 import java.util.ArrayList;
 
+import component.Component;
 import component.entity.Minion;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
@@ -10,6 +11,7 @@ import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
 import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
+import exception.OutOfMinionException;
 import gui.entity.HexagonPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
@@ -19,8 +21,8 @@ import logic.GameController;
 import logic.GameSetUp;
 import update.AudioUpdate;
 
-public abstract class MainCharacter {
-	public final static double M = 1000000;
+public abstract class MainCharacter extends Component{
+	public final static int M = 1000000;
 
 	private ArrayList<WeaponCard> weaponOnHand;
 	private ArrayList<Minion> myEntity;
@@ -28,7 +30,6 @@ public abstract class MainCharacter {
 	private int goodPoint;
 	private double money;
 	private int income;
-	private String name;
 	private String desciption;
 	protected Color color;
 	protected AudioClip bgm;
@@ -44,7 +45,7 @@ public abstract class MainCharacter {
 	private ImageView pfp;
 
 	public MainCharacter(String name, String description) {
-		this.name = name;
+		super(name);
 		this.desciption = description;
 		this.money = 7 * M;
 		this.weaponOnHand = new ArrayList<WeaponCard>();
@@ -146,24 +147,42 @@ public abstract class MainCharacter {
 	}
 	
 
-	public void buyMinion() throws UnSpawnableTileException, ExceedToBuyMinionException, ExceedMinionInTileException {
-		if (GameSetUp.canBuyMinion) {
-			if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= HexagonPane.getMAX_MINION()) {
-				throw new ExceedMinionInTileException();
-			} else if (!GameSetUp.selectedTile.isSpawnable()) {
-				throw new UnSpawnableTileException();
-
-			} else {
-				money -= Minion.getCost();
-				GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
-				AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
-				GameSetUp.canBuyMinion = false;
-			}
+	public void buyMinion() throws UnSpawnableTileException, ExceedToBuyMinionException, ExceedMinionInTileException, OutOfMinionException {
+		if(Minion.MAX_MINION - GameSetUp.thisTurn.getMyEntity().size()<=0) {
+			throw new OutOfMinionException();
 		}
-
-		else {
+		if(!GameSetUp.canBuyMinion) {
 			throw new ExceedToBuyMinionException();
 		}
+		if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= HexagonPane.getMAX_MINION()) {
+			throw new ExceedMinionInTileException();
+		}
+		if (!GameSetUp.selectedTile.isSpawnable()) {
+			throw new UnSpawnableTileException();
+		}
+			money -= Minion.COST;
+			GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
+			AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
+			GameSetUp.canBuyMinion = false;
+		
+		
+//		if (GameSetUp.canBuyMinion) {
+//			if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= HexagonPane.getMAX_MINION()) {
+//				throw new ExceedMinionInTileException();
+//			} else if (!GameSetUp.selectedTile.isSpawnable()) {
+//				throw new UnSpawnableTileException();
+//
+//			} else {
+//				money -= Minion.COST;
+//				GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
+//				AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
+//				GameSetUp.canBuyMinion = false;
+//			}
+//		}
+//
+//		else {
+//			throw new ExceedToBuyMinionException();
+//		}
 	}
 
 	public void buyLand() throws FailToBuyLandException {
@@ -292,14 +311,6 @@ public abstract class MainCharacter {
 
 	public void setGoodPoint(int goodPoint) {
 		this.goodPoint = goodPoint;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getDesciption() {

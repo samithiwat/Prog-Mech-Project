@@ -8,6 +8,7 @@ import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
 import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
+import exception.OutOfMinionException;
 import gui.MainIsland;
 import gui.MapOverview;
 import gui.overlay.TileOverlay;
@@ -63,13 +64,19 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								MainIsland.overlayInteractMode();
 								MainIsland.setShowMessage("Hello master!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 										120, 1, 3000);
-							} catch (UnSpawnableTileException e) {
+							}
+							catch(OutOfMinionException e) {
+								EFFECT_ERROR.play();
+								MainIsland.setShowMessage("I don't have any minion left!", Color.web("E04B4B"), 120,
+										3000);
+							} 
+							catch (UnSpawnableTileException e) {
 								EFFECT_ERROR.play();
 								MainIsland.setShowMessage("I can't spawn in this tile!", Color.web("E04B4B"), 120,
 										3000);
 							} catch (ExceedToBuyMinionException e) {
 								EFFECT_ERROR.play();
-								MainIsland.setShowMessage("I must wait next to spawn next minion!", Color.web("E04B4B"),
+								MainIsland.setShowMessage("I must wait next turn to spawn next minion!", Color.web("E04B4B"),
 										90, 3000);
 							} catch (ExceedMinionInTileException e) {
 								EFFECT_ERROR.play();

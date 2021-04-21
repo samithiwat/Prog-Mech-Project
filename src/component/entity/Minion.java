@@ -3,6 +3,7 @@ package component.entity;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import component.Component;
 import component.location.Location;
 import component.location.Water;
 import exception.InvalidOwnershipException;
@@ -12,9 +13,10 @@ import exception.WaterTileException;
 import gui.entity.HexagonPane;
 import logic.GameSetUp;
 
-public class Minion implements moveable {
-	private static final double COST = 3 * MainCharacter.M;
-
+public class Minion extends Component implements moveable {
+	public static final int COST = 3 * MainCharacter.M;
+	public static final int MAX_MINION = 6;
+	
 	private MainCharacter possessedBy;
 	private int posX;
 	private int posY;
@@ -23,6 +25,7 @@ public class Minion implements moveable {
 	private int moveLeft;
 
 	public Minion(MainCharacter possessedBy) {
+		super("");
 		this.possessedBy = possessedBy;
 		possessedBy.addToMyEntity(this);
 		myMinion = new ArrayList<Minion>();
