@@ -36,8 +36,13 @@ public class LawSlot {
 
 	public void activateAllSlot() {
 		for (int i = 0; i < this.slotCard.size(); i++) {
-			if(this.slotCard.get(i).getLaw()!=null) {
-				this.slotCard.get(i).getLaw().activateEffectCard();				
+			try {
+				if(this.slotCard.get(i).getLaw()!=null) {
+					this.slotCard.get(i).getLaw().activateEffectCard();				
+				}				
+			}
+			catch(Exception e) {
+				
 			}
 		}
 	}

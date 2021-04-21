@@ -10,9 +10,14 @@ import gui.MapOverview;
 import gui.overlay.Government;
 import javafx.event.EventHandler;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import logic.GameSetUp;
@@ -59,13 +64,13 @@ public class LawCardIcon extends Pane implements Clickable {
 	public LawCardIcon(String img_path, WeaponCard weapon) {
 		setId("law-card-unselected-style");
 
-//		ArrayList<WeaponCard> bannedWeapon = GameSetUp.lawSlot.getBannedWeapon();
-//		for (int i = 0; i < bannedWeapon.size(); i++) {
-//			if (bannedWeapon.get(i).isSameType(weapon)) {
-//				setId("law-card-selected-style");
-//				setSelected(true);
-//			}
-//		}
+		ArrayList<WeaponCard> bannedWeapon = GameSetUp.lawSlot.getBannedWeapon();
+		for (int i = 0; i < bannedWeapon.size(); i++) {
+			if (bannedWeapon.get(i).isSameType(weapon)) {
+				setId("law-card-selected-style");
+				setSelected(true);
+			}
+		}
 
 		this.selectedWeapon = weapon;
 
@@ -83,7 +88,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 	@Override
 	public void interact() {
-
+		
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -124,6 +129,73 @@ public class LawCardIcon extends Pane implements Clickable {
 					}
 				}
 			}
+		});
+		
+		setOnDragDetected(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				Dragboard db = img.startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent content = new ClipboardContent();
+				content.putString(""+MapOverview.allGovernment.get(0).getCardSlot().getChildren().indexOf(lawCardIcon));
+				db.setContent(content);
+				event.consume();
+				System.out.println(MapOverview.allGovernment.get(0).getCardSlot().getChildren().indexOf(lawCardIcon));
+			}
+			
+		});
+		
+		setOnDragEntered(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				setEffect(new Bloom());
+				event.consume();
+			}
+		});
+		
+		setOnDragExited(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				setEffect(null);
+				event.consume();
+			}
+		});
+		
+		setOnDragOver(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				if (event.getGestureSource() != lawCardIcon && event.getDragboard().hasString()) {
+					event.acceptTransferModes(TransferMode.MOVE);
+				}
+
+				event.consume();
+			}
+		});
+		
+		setOnDragDropped(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+				boolean isSuccess = false;
+				if(db.hasString()) {
+					try {
+						LawCardIcon lawCardIcon = (LawCardIcon) MapOverview.allGovernment.get(0).getCardSlot().getChildren().get(Integer.parseInt(db.getString()));
+						addLaw(lawCardIcon);
+						isSuccess = true;
+					} catch (FullSlotException e) {
+						EFFECT_ERROR.play();
+						PlayerPanelUpdate.setShowMessage("No slot left for this law.", Color.web("0xE04B4B"),
+								Color.web("0xFEFDE8"), 90, 1, 2000);
+					}					
+				}
+				event.setDropCompleted(isSuccess);
+				event.consume();
+			}
+			
 		});
 	}
 
@@ -207,18 +279,47 @@ public class LawCardIcon extends Pane implements Clickable {
 			throw new FullSlotException();
 		}
 	}
+	
+	private void addLaw(LawCardIcon lawCardIcon) throws FullSlotException {
+
+		boolean isAdded = false;
+		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
+			try {
+				if (GameSetUp.lawSlot.getSlot(i).getLaw() == null) {
+					GameSetUp.lawSlot.setSlot(i, lawCardIcon);
+					lawCardIcon.setSelected(true);
+					updateActiveLaw();
+					isAdded = true;
+					break;
+				}
+			} catch (Exception e) {
+				GameSetUp.lawSlot.setSlot(i, lawCardIcon);
+				lawCardIcon.setSelected(true);
+				updateActiveLaw();
+				isAdded = true;
+				break;
+			}
+		}
+		if (!isAdded) {
+			throw new FullSlotException();
+		}
+	}
 
 	private void removeLaw() {
 		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
 			LawCardIcon lawCard = GameSetUp.lawSlot.getSlot(i);
-			if (lawCard.getLaw() != null) {
-				if (lawCard.getLaw().equals(law)) {
-					lawCard.setSelected(false);
-					lawCard.setId("law-card-unselected-style");
-					GameSetUp.lawSlot.setSlot(i, null);
-					updateActiveLaw();
-					break;
-				}
+			try {
+				if (lawCard.getLaw() != null) {
+					if (lawCard.getLaw().equals(law)) {
+						lawCard.setSelected(false);
+						lawCard.setId("law-card-unselected-style");
+						GameSetUp.lawSlot.setSlot(i, null);
+						updateActiveLaw();
+						break;
+					}
+				}	
+			}catch(Exception e) {
+				continue;
 			}
 		}
 	}
@@ -227,6 +328,13 @@ public class LawCardIcon extends Pane implements Clickable {
 		for (int i = 0; i < MapOverview.allGovernment.size(); i++) {
 			Government overlay = MapOverview.allGovernment.get(i);
 			overlay.updateActivedLaw();
+		}
+	}
+	
+	private void setSelected() {
+		for(int i = 0; i < MapOverview.allGovernment.size(); i++) {
+			LawCardSlot cardSlot = MapOverview.allGovernment.get(i).getCardSlot();
+			
 		}
 	}
 
@@ -261,12 +369,33 @@ public class LawCardIcon extends Pane implements Clickable {
 
 		return lastString;
 	}
+// -------------------------------------------------- Equal Method ---------------------------------------------------------
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LawCardIcon other = (LawCardIcon) obj;
+		if (isSelected != other.isSelected)
+			return false;
+		if (law == null) {
+			if (other.law != null)
+				return false;
+		} else if (!law.equals(other.law))
+			return false;
+		return true;
+	}
+	
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------
 
 	public boolean isSelected() {
 		return isSelected;
 	}
+
 
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
