@@ -3,21 +3,22 @@ package component.law;
 import java.util.ArrayList;
 
 import component.weaponCard.WeaponCard;
+import gui.entity.LawCardIcon;
 
 public class LawSlot {
 	public static int N_SLOT = 2;
 	
-	private ArrayList<LawCard> slotCard;
+	private ArrayList<LawCardIcon> slotCard;
 	private ArrayList<WeaponCard> bannedWeapon;
 	
 	public LawSlot() {
-		this.slotCard = new ArrayList<LawCard>();
+		this.slotCard = new ArrayList<LawCardIcon>();
 		for(int i=0;i<N_SLOT;i++) {
 			this.slotCard.add(null);			
 		}
 	}
 
-	public boolean addLawToSlot(LawCard lawCard){
+	public boolean addLawToSlot(LawCardIcon lawCard){
 		if (this.slotCard.size() >= 2) {
 			return false;
 		}
@@ -25,7 +26,7 @@ public class LawSlot {
 		return true;
 	}
 	
-	public void setLawAtSlot(int index, LawCard lawCard) {
+	public void setLawAtSlot(int index, LawCardIcon lawCard) {
 		this.slotCard.set(index, lawCard);
 	}
 
@@ -35,8 +36,8 @@ public class LawSlot {
 
 	public void activateAllSlot() {
 		for (int i = 0; i < this.slotCard.size(); i++) {
-			if(this.slotCard.get(i)!=null) {
-				this.slotCard.get(i).activateEffectCard();				
+			if(this.slotCard.get(i).getLaw()!=null) {
+				this.slotCard.get(i).getLaw().activateEffectCard();				
 			}
 		}
 	}
@@ -45,10 +46,18 @@ public class LawSlot {
 		return slotCard.size();
 	}
 	
-	public LawCard getSlot(int index) {
+	public LawCardIcon getSlot(int index) {
 		return slotCard.get(index);
 	}
 
+	public void setSlot(int index,LawCardIcon law) {
+		slotCard.set(index, law);
+	}
+	
+	public void removeSlot(int index) {
+		slotCard.remove(index);
+	}
+	
 	public ArrayList<WeaponCard> getBannedWeapon() {
 		return bannedWeapon;
 	}

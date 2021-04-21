@@ -13,6 +13,7 @@ import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
+import gui.overlay.SelectWeaponOverlay;
 import gui.overlay.TradeOverlay;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -107,6 +108,9 @@ public class MainIsland implements Sceneable {
 
 		Government government = new Government();
 		MapOverview.allGovernment.add(government);
+		
+		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
+		MapOverview.allSelectWeapon.add(selectWeaponOverlay);
 		
 		TradeOverlay tradeOverlay = new TradeOverlay();
 		MapOverview.allTradeOverlay.add(tradeOverlay);

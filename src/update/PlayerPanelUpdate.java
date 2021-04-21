@@ -18,6 +18,7 @@ import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.GameSetUp;
@@ -211,5 +212,17 @@ public class PlayerPanelUpdate {
 		}
 	}
 
+// ------------------------------------------ Update Message -----------------------------------------------
+	
+	public static void setShowMessage(String message, Color color, int size, int duration) {
+		MapOverview.setShowMessage(message, color, size, duration);
+		MainIsland.setShowMessage(message, color, size, duration);
+	}
+	
+	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
+			int duration) {
+		MapOverview.setShowMessage(message, color, strokeColor, size, strokeWidth, duration);
+		MainIsland.setShowMessage(message, color, strokeColor, size, strokeWidth, duration);
+	}
 	
 }

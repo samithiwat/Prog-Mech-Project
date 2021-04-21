@@ -1,13 +1,22 @@
 package gui.entity;
 
+import java.util.ArrayList;
+
 import component.law.LawCard;
 import component.weaponCard.WeaponCard;
+import exception.FullSlotException;
+import gui.MainIsland;
+import gui.MapOverview;
+import gui.overlay.Government;
 import javafx.event.EventHandler;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import logic.GameSetUp;
+import update.PlayerPanelUpdate;
 
 public class LawCardIcon extends Pane implements Clickable {
 
@@ -49,24 +58,23 @@ public class LawCardIcon extends Pane implements Clickable {
 
 	public LawCardIcon(String img_path, WeaponCard weapon) {
 		setId("law-card-unselected-style");
-		
-		
+
+//		ArrayList<WeaponCard> bannedWeapon = GameSetUp.lawSlot.getBannedWeapon();
+//		for (int i = 0; i < bannedWeapon.size(); i++) {
+//			if (bannedWeapon.get(i).isSameType(weapon)) {
+//				setId("law-card-selected-style");
+//				setSelected(true);
+//			}
+//		}
+
 		this.selectedWeapon = weapon;
-		
-		if (law != null) {
-			img = new ImageView(ClassLoader.getSystemResource(img_path).toString());
-		} else {
-			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
-		}
+
+		img = new ImageView(ClassLoader.getSystemResource(img_path).toString());
 		img.setFitWidth(imgWidth);
 		img.setFitHeight(imgHeight);
 
-		if (law != null) {
-			info = new Tooltip();
-			setInfo();
-		} else {
-			info = new Tooltip("Empty");
-		}
+		info = new Tooltip();
+		setInfo("Ban " + weapon.getName());
 
 		interact();
 
@@ -102,13 +110,19 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-
 				if (isSelected) {
-					setId("law-card-unselected-style");
+					removeLaw();
+
 				} else {
-					setId("law-card-selected-style");
+					try {
+						addLaw();
+						setId("law-card-selected-style");
+					} catch (FullSlotException e) {
+						EFFECT_ERROR.play();
+						PlayerPanelUpdate.setShowMessage("No slot left for this law.", Color.web("0xE04B4B"),
+								Color.web("0xFEFDE8"), 90, 1, 2000);
+					}
 				}
-				setSelected(!isSelected);
 			}
 		});
 	}
@@ -144,7 +158,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 		info.setText(String.join("", infoWord));
 	}
-	
+
 	public void setInfo(String description) {
 		String[] word = description.split(" ");
 
@@ -167,6 +181,53 @@ public class LawCardIcon extends Pane implements Clickable {
 		}
 
 		info.setText(String.join("", infoWord));
+	}
+
+	private void addLaw() throws FullSlotException {
+
+		boolean isAdded = false;
+		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
+			try {
+				if (GameSetUp.lawSlot.getSlot(i).getLaw() == null) {
+					GameSetUp.lawSlot.setSlot(i, this);
+					setSelected(true);
+					updateActiveLaw();
+					isAdded = true;
+					break;
+				}
+			} catch (Exception e) {
+				GameSetUp.lawSlot.setSlot(i, this);
+				setSelected(true);
+				updateActiveLaw();
+				isAdded = true;
+				break;
+			}
+		}
+		if (!isAdded) {
+			throw new FullSlotException();
+		}
+	}
+
+	private void removeLaw() {
+		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
+			LawCardIcon lawCard = GameSetUp.lawSlot.getSlot(i);
+			if (lawCard.getLaw() != null) {
+				if (lawCard.getLaw().equals(law)) {
+					lawCard.setSelected(false);
+					lawCard.setId("law-card-unselected-style");
+					GameSetUp.lawSlot.setSlot(i, null);
+					updateActiveLaw();
+					break;
+				}
+			}
+		}
+	}
+
+	private void updateActiveLaw() {
+		for (int i = 0; i < MapOverview.allGovernment.size(); i++) {
+			Government overlay = MapOverview.allGovernment.get(i);
+			overlay.updateActivedLaw();
+		}
 	}
 
 // ------------------------------------------------ Array Method -----------------------------------------------------------
@@ -231,4 +292,15 @@ public class LawCardIcon extends Pane implements Clickable {
 		LawCardIcon.imgHeight = imgHeight;
 	}
 
+/////////////////////////////////////////////// DEBUG /////////////////////////////////////////////////////////
+
+	public String toString() {
+		if (law != null) {
+			return "-------------------------------" + "\n" + "Law : " + law.getName() + "\n" + "select : " + isSelected
+					+ "\n" + "---------------------------------";
+		}
+		return "-------------------------------" + "\n" + "Law : null\n" + "---------------------------------";
+	}
+
+//////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////
 }

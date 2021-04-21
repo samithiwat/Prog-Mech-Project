@@ -3,7 +3,10 @@ package gui.overlay;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.SubScene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -19,6 +22,7 @@ public class Overlay extends SubScene implements Overlayable {
 		setLayoutX(initX);
 		setLayoutY(initY);
 		setVisible(false);
+		setESCKey();
 	}
  
 	public Pane getOverlayRoot() {
@@ -87,6 +91,19 @@ public class Overlay extends SubScene implements Overlayable {
 			
 		}
 		tt.play();
+	}
+	
+	public void setESCKey() {
+		setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				System.out.println("Click");
+				if(event.getCode().equals(KeyCode.ESCAPE)) {
+					triggerOverlay(0, 875, 1500);
+				}
+			}
+		});
 	}
 	
 //////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////

@@ -9,6 +9,7 @@ import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
 import gui.overlay.CreditOverlay;
 import gui.overlay.QuitOverlay;
+import gui.overlay.SelectWeaponOverlay;
 import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -56,13 +57,6 @@ public class MainMenu implements Sceneable{
 			}
 		});
 		MenuIcon helpIcon = new MenuIcon("img/icon/Help.png",223,60);
-		
-		helpIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-			}
-		});
 		
 		MenuIcon settingIcon = new MenuIcon("img/icon/Setting.png",1300,55);
 		

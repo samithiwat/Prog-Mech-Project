@@ -93,7 +93,7 @@ public class CurrentLaw extends Overlay {
 
 			if (GameSetUp.lawSlot.getSlot(i) != null) {
 
-				LawCard law = GameSetUp.lawSlot.getSlot(i);
+				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
 
 				ImageView img = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
 				img.setFitWidth(IMG_WIDTH);

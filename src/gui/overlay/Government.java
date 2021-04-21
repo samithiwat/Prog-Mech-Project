@@ -28,6 +28,8 @@ public class Government extends Overlay {
 	private static final int HEIGHT_ACTIVE_LAW = 650;
 	private static final int ACTIVED_LAW_IMG_WIDTH = 170;
 	private static final int ACTIVED_LAW_IMG_HEIGHT = 250;
+	
+	private static int mode = -1;
 
 	private VBox activedLaw;
 
@@ -68,7 +70,6 @@ public class Government extends Overlay {
 			@Override
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_CLICK.play();
-				triggerOverlay(0, 875, 1500);
 				StatusPane.triggerGovernment();
 			}
 		});
@@ -86,9 +87,10 @@ public class Government extends Overlay {
 
 			if (GameSetUp.lawSlot.getSlot(i) != null) {
 
-				LawCard law = GameSetUp.lawSlot.getSlot(i);
+				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
 
 				LawCardIcon img = new LawCardIcon(law);
+				img.setSelected(true);
 				activedLaw.getChildren().add(img);
 			}
 
@@ -100,5 +102,17 @@ public class Government extends Overlay {
 		}
 
 	}
+
+	
+// ---------------------------------------- Getter and Setter -----------------------------------------
+	
+	public static int getMode() {
+		return mode;
+	}
+	
+	public static void setMode(int mode) {
+		Government.mode = mode;
+	}
+	
 
 }

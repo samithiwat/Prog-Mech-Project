@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
+import gui.entity.TextTitle;
 import gui.entity.TurnChangeScreen;
 import gui.overlay.CurrentLaw;
 import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
+import gui.overlay.SelectWeaponOverlay;
 import gui.overlay.TradeOverlay;
+import javafx.application.Platform;
 //import gui.entity.HexagonalButton;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -29,6 +32,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
 import update.AudioUpdate;
@@ -44,14 +48,20 @@ public class MapOverview implements Sceneable {
 	private static MenuIcon mainIsland;
 	private static MenuIcon prisonIsland;
 	private static Pane root;
+
 	private static TurnChangeScreen turnChangeScreen;
 	private static StackPane turnChangeScreenRoot;
+
+	private static StackPane messageRoot;
+	private static TextTitle message;
+
 	public static ArrayList<HandOverlay> allHandOverlay;
 	public static ArrayList<PlayerList1> allPlayerList1;
 	public static ArrayList<PlayerList2> allPlayerList2;
 	public static ArrayList<CurrentLaw> allCurrentLaw;
 	public static ArrayList<Government> allGovernment;
 	public static ArrayList<TradeOverlay> allTradeOverlay;
+	public static ArrayList<SelectWeaponOverlay> allSelectWeapon;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
@@ -78,11 +88,23 @@ public class MapOverview implements Sceneable {
 		Government government = new Government();
 		allGovernment = new ArrayList<Government>();
 		allGovernment.add(government);
-		
+
+		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
+		allSelectWeapon = new ArrayList<SelectWeaponOverlay>();
+		allSelectWeapon.add(selectWeaponOverlay);
+
 		tradeOverlay = new TradeOverlay();
 		allTradeOverlay = new ArrayList<TradeOverlay>();
 		allTradeOverlay.add(tradeOverlay);
-    
+
+		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
+
+		messageRoot = new StackPane(message);
+		messageRoot.setPrefWidth(SceneController.getFullscreenWidth());
+		messageRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		messageRoot.setAlignment(Pos.CENTER);
+		messageRoot.setVisible(false);
+
 		PlayerPanel playerPanel = new PlayerPanel();
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
@@ -132,7 +154,7 @@ public class MapOverview implements Sceneable {
 
 		root = new Pane();
 		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay, playerList1, playerList2,
-				currentLaw,government,tradeOverlay, turnChangeScreenRoot);
+				currentLaw, government, tradeOverlay, messageRoot, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));
@@ -163,6 +185,60 @@ public class MapOverview implements Sceneable {
 			//////////////// END OF DEBUG /////////////////////////
 		});
 
+	}
+
+// ----------------------------------------------- Show Message ------------------------------------------------------------
+	
+public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
+			int duration) {
+		messageRoot.setVisible(true);
+		getMessage().setFontBold(size);
+		getMessage().setFill(color);
+		getMessage().setStroke(strokeColor);
+		getMessage().setStrokeWidth(strokeWidth);
+		getMessage().setText(message);
+
+		Thread t = new Thread(() -> {
+			try {
+				Thread.sleep(duration);
+			} catch (InterruptedException e) {
+
+			}
+
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					messageRoot.setVisible(false);
+				}
+			});
+		});
+		t.start();
+	}
+
+	public static void setShowMessage(String message, Color color, int size, int duration) {
+		messageRoot.setVisible(true);
+		getMessage().setFontBold(size);
+		getMessage().setFill(color);
+		getMessage().setStroke(Color.TRANSPARENT);
+		getMessage().setText(message);
+
+		Thread t = new Thread(() -> {
+			try {
+				Thread.sleep(duration);
+			} catch (InterruptedException e) {
+
+			}
+
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					messageRoot.setVisible(false);
+				}
+			});
+		});
+		t.start();
 	}
 
 // -------------------------------------------- Getter and Setter --------------------------------------------------
@@ -198,5 +274,23 @@ public class MapOverview implements Sceneable {
 	public static StackPane getTurnChangeScreenRoot() {
 		return turnChangeScreenRoot;
 	}
+
+	public static StackPane getMessageRoot() {
+		return messageRoot;
+	}
+
+	public static void setMessageRoot(StackPane messageRoot) {
+		MapOverview.messageRoot = messageRoot;
+	}
+
+	public static TextTitle getMessage() {
+		return message;
+	}
+
+	public static void setMessage(TextTitle message) {
+		MapOverview.message = message;
+	}
+	
+	
 
 }

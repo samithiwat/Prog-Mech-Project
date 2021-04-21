@@ -18,7 +18,11 @@ public class WeaponCard {
 		int rand_value = rand.nextInt(this.attack_max-this.attack_max+1)+this.attack_max;
 		return rand_value;
 	}
-// --------------------- Equal Class -----------------
+// --------------------- Check Equal Type -------------------
+	
+	public boolean isSameType(WeaponCard weapon) {
+		return weapon.getClass() == this.getClass();
+	}
 	
 // --------------------- getter/setter------------------
 	public String getName() {

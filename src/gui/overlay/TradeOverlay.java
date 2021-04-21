@@ -69,7 +69,7 @@ public class TradeOverlay extends Overlay {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				for (int i = 0; i < MapOverview.allTradeOverlay.size(); i++) {
 					MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
 				}

@@ -6,6 +6,7 @@ import character.MainCharacter;
 import gui.MapOverview;
 import gui.overlay.CurrentLaw;
 import gui.overlay.Government;
+import gui.overlay.SelectWeaponOverlay;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,7 +25,7 @@ import logic.GameController;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
-public class StatusPane extends GridPane implements Clickable{
+public class StatusPane extends GridPane implements Clickable {
 
 	private static StatusBar money;
 	private static StatusBar minion;
@@ -72,9 +73,9 @@ public class StatusPane extends GridPane implements Clickable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				
+
 				triggerGovernment();
-				
+
 //				if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
 //
 //				} else {
@@ -131,11 +132,19 @@ public class StatusPane extends GridPane implements Clickable{
 			overlay.triggerOverlay(0, 875, 1000);
 		}
 	}
-	
+
 	public static void triggerGovernment() {
-		for(int i =0;i<MapOverview.allGovernment.size();i++) {
+		for (int i = 0; i < MapOverview.allGovernment.size(); i++) {
 			Government overlay = MapOverview.allGovernment.get(i);
 			overlay.updateActivedLaw();
+			overlay.triggerOverlay(0, 875, 1000);
+		}
+	}
+
+	public static void triggerSelectWeapon() {
+		for (int i = 0; i < MapOverview.allSelectWeapon.size(); i++) {
+			SelectWeaponOverlay overlay = MapOverview.allSelectWeapon.get(i);
+			overlay.updateWeaponList(Government.getMode());
 			overlay.triggerOverlay(0, 875, 1000);
 		}
 	}
