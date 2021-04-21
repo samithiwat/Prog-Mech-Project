@@ -11,6 +11,7 @@ import exception.FailToBuyLandException;
 import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
 import gui.entity.HexagonPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
@@ -19,13 +20,13 @@ import logic.GameSetUp;
 import update.AudioUpdate;
 
 public abstract class MainCharacter {
-	public final static int M = 1000000;
+	public final static double M = 1000000;
 
 	private ArrayList<WeaponCard> weaponOnHand;
 	private ArrayList<Minion> myEntity;
 	private ArrayList<Location> possessedArea;
 	private int goodPoint;
-	private int money;
+	private double money;
 	private int income;
 	private String name;
 	private String desciption;
@@ -40,6 +41,7 @@ public abstract class MainCharacter {
 	private int num_Shield;
 	private int num_Gun;
 	private String img_path;
+	private ImageView pfp;
 
 	public MainCharacter(String name, String description) {
 		this.name = name;
@@ -272,11 +274,11 @@ public abstract class MainCharacter {
 		this.weaponOnHand = weaponOnHand;
 	}
 
-	public int getMoney() {
+	public double getMoney() {
 		return money;
 	}
 
-	public void setMoney(int money) {
+	public void setMoney(double money) {
 		this.money = Math.max(0, money);
 	}
 
@@ -347,8 +349,17 @@ public abstract class MainCharacter {
 	public AudioClip getSelectBGM() {
 		return selectBGM;
 	}
+	
+	public ImageView getPfp() {
+		return pfp;
+	}
+	
+	public void setPfp(ImageView pfp) {
+		this.pfp = pfp;
+	}
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
 
 	public String toString() {
 		return "-------------------------------------\n" + "Name: " + getName() + "\n" + "Description: "

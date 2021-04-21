@@ -6,7 +6,7 @@ import character.MainCharacter;
 import component.entity.Minion;
 
 public class Prison extends Location {
-	public static final int PLEDGE = 7*MainCharacter.M;
+	public static final double PLEDGE = 7*MainCharacter.M;
 	public static ArrayList<Minion> minionInPrison;
 	public Prison() {
 		super("Prison","Get arrested",0,0);

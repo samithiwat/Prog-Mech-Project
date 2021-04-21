@@ -12,8 +12,8 @@ public class ChuayLeauKonJon extends LawCard {
 	}
 
 	public void activateEffectCard() {
-		int max = Integer.MIN_VALUE;
-		int min = Integer.MAX_VALUE;
+		double max = Integer.MIN_VALUE;
+		double min = Integer.MAX_VALUE;
 		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
 			max = Math.max(max, GameSetUp.gameCharacter.get(i).getMoney());
 			min = Math.min(min, GameSetUp.gameCharacter.get(i).getMoney());
