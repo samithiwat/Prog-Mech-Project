@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import component.law.LawCard;
 import component.weaponCard.WeaponCard;
+import exception.DuplicateLawException;
 import exception.FullSlotException;
 import gui.MainIsland;
 import gui.MapOverview;
@@ -19,6 +20,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
@@ -32,6 +34,7 @@ public class LawCardIcon extends Pane implements Clickable {
 	private LawCardIcon lawCardIcon = this;
 	private ImageView img;
 	private boolean isSelected = false;
+	private int row;
 
 	private static int imgWidth;
 	private static int imgHeight;
@@ -40,6 +43,30 @@ public class LawCardIcon extends Pane implements Clickable {
 
 	public LawCardIcon(LawCard law) {
 		setId("law-card-unselected-style");
+		this.law = law;
+		if (law != null) {
+			img = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
+		} else {
+			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
+		}
+		img.setFitWidth(imgWidth);
+		img.setFitHeight(imgHeight);
+
+		if (law != null) {
+			info = new Tooltip();
+			setInfo();
+		} else {
+			info = new Tooltip("Empty");
+		}
+
+		interact();
+
+		getChildren().addAll(img);
+	}
+	
+	public LawCardIcon(LawCard law,int row) {
+		setId("law-card-unselected-style");
+		this.row = row;
 		this.law = law;
 		if (law != null) {
 			img = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
@@ -115,20 +142,17 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if (isSelected) {
-					removeLaw();
-
-				} else {
 					try {
 						addLaw();
-						setId("law-card-selected-style");
+//						setId("law-card-selected-style");
+					}catch(DuplicateLawException e) {
+						removeLaw();
 					} catch (FullSlotException e) {
 						EFFECT_ERROR.play();
 						PlayerPanelUpdate.setShowMessage("No slot left for this law.", Color.web("0xE04B4B"),
 								Color.web("0xFEFDE8"), 90, 1, 2000);
 					}
 				}
-			}
 		});
 		
 		setOnDragDetected(new EventHandler<MouseEvent>() {
@@ -140,7 +164,6 @@ public class LawCardIcon extends Pane implements Clickable {
 				content.putString(""+MapOverview.allGovernment.get(0).getCardSlot().getChildren().indexOf(lawCardIcon));
 				db.setContent(content);
 				event.consume();
-				System.out.println(MapOverview.allGovernment.get(0).getCardSlot().getChildren().indexOf(lawCardIcon));
 			}
 			
 		});
@@ -183,12 +206,16 @@ public class LawCardIcon extends Pane implements Clickable {
 				boolean isSuccess = false;
 				if(db.hasString()) {
 					try {
-						LawCardIcon lawCardIcon = (LawCardIcon) MapOverview.allGovernment.get(0).getCardSlot().getChildren().get(Integer.parseInt(db.getString()));
-						addLaw(lawCardIcon);
-						isSuccess = true;
-					} catch (FullSlotException e) {
+						if(Integer.parseInt(db.getString()) >= 0) {
+							LawCardIcon lawCardIcon = (LawCardIcon) MapOverview.allGovernment.get(0).getCardSlot().getChildren().get(Integer.parseInt(db.getString()));
+							addLaw(lawCardIcon);
+							isSuccess = true;							
+						}
+					}catch(DuplicateLawException e) {
+						removeLaw();
+					}catch (FullSlotException e) {
 						EFFECT_ERROR.play();
-						PlayerPanelUpdate.setShowMessage("No slot left for this law.", Color.web("0xE04B4B"),
+						PlayerPanelUpdate.setShowMessage("No slot is already actived.", Color.web("0xE04B4B"),
 								Color.web("0xFEFDE8"), 90, 1, 2000);
 					}					
 				}
@@ -255,21 +282,21 @@ public class LawCardIcon extends Pane implements Clickable {
 		info.setText(String.join("", infoWord));
 	}
 
-	private void addLaw() throws FullSlotException {
+	private void addLaw() throws FullSlotException,DuplicateLawException {
 
+		if(lawCardIcon.isSelected) {
+			throw new DuplicateLawException();
+		}
+		
 		boolean isAdded = false;
+		
+		System.out.println(GameSetUp.lawSlot.getSlotCard());
+		
 		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
-			try {
-				if (GameSetUp.lawSlot.getSlot(i).getLaw() == null) {
-					GameSetUp.lawSlot.setSlot(i, this);
-					setSelected(true);
-					updateActiveLaw();
-					isAdded = true;
-					break;
-				}
-			} catch (Exception e) {
+			if (GameSetUp.lawSlot.getSlot(i).getLaw() == null) {
 				GameSetUp.lawSlot.setSlot(i, this);
-				setSelected(true);
+//				setSelected(true);
+				setSelectedAll(lawCardIcon);
 				updateActiveLaw();
 				isAdded = true;
 				break;
@@ -280,21 +307,18 @@ public class LawCardIcon extends Pane implements Clickable {
 		}
 	}
 	
-	private void addLaw(LawCardIcon lawCardIcon) throws FullSlotException {
+	private void addLaw(LawCardIcon lawCardIcon) throws FullSlotException,DuplicateLawException {
 
+		if(lawCardIcon.isSelected) {
+			throw new DuplicateLawException();
+		}
+		
 		boolean isAdded = false;
 		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
-			try {
-				if (GameSetUp.lawSlot.getSlot(i).getLaw() == null) {
-					GameSetUp.lawSlot.setSlot(i, lawCardIcon);
-					lawCardIcon.setSelected(true);
-					updateActiveLaw();
-					isAdded = true;
-					break;
-				}
-			} catch (Exception e) {
-				GameSetUp.lawSlot.setSlot(i, lawCardIcon);
-				lawCardIcon.setSelected(true);
+			if (GameSetUp.lawSlot.getSlot(row).getLaw() == null) {
+				GameSetUp.lawSlot.setSlot(row, lawCardIcon);
+//				lawCardIcon.setSelected(true);
+				setSelectedAll(lawCardIcon);
 				updateActiveLaw();
 				isAdded = true;
 				break;
@@ -311,9 +335,10 @@ public class LawCardIcon extends Pane implements Clickable {
 			try {
 				if (lawCard.getLaw() != null) {
 					if (lawCard.getLaw().equals(law)) {
-						lawCard.setSelected(false);
-						lawCard.setId("law-card-unselected-style");
-						GameSetUp.lawSlot.setSlot(i, null);
+						unSelectedAll(this);
+//						lawCard.setSelected(false);
+//						lawCard.setId("law-card-unselected-style");
+						GameSetUp.lawSlot.setSlot(i, new LawCardIcon(null));
 						updateActiveLaw();
 						break;
 					}
@@ -331,10 +356,27 @@ public class LawCardIcon extends Pane implements Clickable {
 		}
 	}
 	
-	private void setSelected() {
+	private void setSelectedAll(LawCardIcon lawCardIcon) {
+		LawCardSlot cardSlot = MapOverview.allGovernment.get(0).getCardSlot();
+		int index = cardSlot.getChildren().indexOf(lawCardIcon);
+		if(index >= 0) {
+			for(int i = 0; i < MapOverview.allGovernment.size(); i++) {
+				cardSlot = MapOverview.allGovernment.get(i).getCardSlot();
+				LawCardIcon cardIcon = (LawCardIcon) cardSlot.getChildren().get(index);
+				cardIcon.setSelected(true);
+				cardIcon.setId("law-card-selected-style");
+			}			
+		}
+	}
+	
+	private void unSelectedAll(LawCardIcon lawCardIcon) {
+		LawCardSlot cardSlot = MapOverview.allGovernment.get(0).getCardSlot();
+		int index = cardSlot.getChildren().indexOf(lawCardIcon);
 		for(int i = 0; i < MapOverview.allGovernment.size(); i++) {
-			LawCardSlot cardSlot = MapOverview.allGovernment.get(i).getCardSlot();
-			
+			cardSlot = MapOverview.allGovernment.get(i).getCardSlot();
+			LawCardIcon cardIcon = (LawCardIcon) cardSlot.getChildren().get(index);
+			cardIcon.setSelected(false);
+			cardIcon.setId("law-card-unselected-style");
 		}
 	}
 
@@ -428,7 +470,9 @@ public class LawCardIcon extends Pane implements Clickable {
 			return "-------------------------------" + "\n" + "Law : " + law.getName() + "\n" + "select : " + isSelected
 					+ "\n" + "---------------------------------";
 		}
-		return "-------------------------------" + "\n" + "Law : null\n" + "---------------------------------";
+		return "-------------------------------" + "\n" 
+		+ "Law : null\n" 
+		+ "---------------------------------";
 	}
 
 //////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////

@@ -14,7 +14,7 @@ public class LawSlot {
 	public LawSlot() {
 		this.slotCard = new ArrayList<LawCardIcon>();
 		for(int i=0;i<N_SLOT;i++) {
-			this.slotCard.add(null);			
+			this.slotCard.add(new LawCardIcon(null));			
 		}
 	}
 
@@ -36,14 +36,9 @@ public class LawSlot {
 
 	public void activateAllSlot() {
 		for (int i = 0; i < this.slotCard.size(); i++) {
-			try {
-				if(this.slotCard.get(i).getLaw()!=null) {
+			if(this.slotCard.get(i).getLaw()!=null) {
 					this.slotCard.get(i).getLaw().activateEffectCard();				
-				}				
-			}
-			catch(Exception e) {
-				
-			}
+			}				
 		}
 	}
 	
@@ -66,5 +61,10 @@ public class LawSlot {
 	public ArrayList<WeaponCard> getBannedWeapon() {
 		return bannedWeapon;
 	}
+
+	public ArrayList<LawCardIcon> getSlotCard() {
+		return slotCard;
+	}
+	
 	
 }

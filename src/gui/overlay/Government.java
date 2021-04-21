@@ -82,7 +82,12 @@ public class Government extends Overlay {
 	}
 
 	public void updateActivedLaw() {
-		activedLaw.getChildren().clear();
+		try {
+			activedLaw.getChildren().clear();			
+		}
+		catch(Exception e) {
+			
+		}
 
 		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
 
@@ -90,13 +95,13 @@ public class Government extends Overlay {
 
 				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
 
-				LawCardIcon img = new LawCardIcon(law);
+				LawCardIcon img = new LawCardIcon(law,i);
 				img.setSelected(true);
 				activedLaw.getChildren().add(img);
 			}
 
 			else {
-				LawCardIcon img = new LawCardIcon(null);
+				LawCardIcon img = new LawCardIcon(null,i);
 				activedLaw.getChildren().add(img);
 			}
 
@@ -117,6 +122,10 @@ public class Government extends Overlay {
 
 	public LawCardSlot getCardSlot() {
 		return lawCardSlot;
+	}
+
+	public VBox getActivedLaw() {
+		return activedLaw;
 	}
 
 }
