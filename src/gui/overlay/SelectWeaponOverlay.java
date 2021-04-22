@@ -1,6 +1,7 @@
 package gui.overlay;
 
 import component.law.BanArWut;
+import component.law.PaSeeArWut;
 import component.weaponCard.Axe;
 import component.weaponCard.Bow;
 import component.weaponCard.Gun;
@@ -10,9 +11,12 @@ import gui.entity.LawCardIcon;
 import gui.entity.MenuIcon;
 import gui.entity.StatusPane;
 import gui.entity.TextTitle;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -30,6 +34,12 @@ public class SelectWeaponOverlay extends Overlay {
 
 	private HBox weaponList;
 
+	private LawCardIcon sword;
+	private LawCardIcon axe;
+	private LawCardIcon bow;
+	private LawCardIcon gun;
+	private LawCardIcon shield;
+
 	public SelectWeaponOverlay() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -850);
 		setCursor(CURSOR_NORMAL);
@@ -43,6 +53,14 @@ public class SelectWeaponOverlay extends Overlay {
 		weaponList.setSpacing(30);
 		weaponList.setPadding(new Insets(104, 70, 104, 70));
 
+		sword = new LawCardIcon(null);
+		axe = new LawCardIcon(null);
+		bow = new LawCardIcon(null);
+		gun = new LawCardIcon(null);
+		shield = new LawCardIcon(null);
+
+		weaponList.getChildren().addAll(sword, axe, bow, gun, shield);
+
 		StackPane weaponListRoot = new StackPane(weaponList);
 		weaponListRoot.setId("law-overlay-bg");
 		weaponListRoot.setPrefWidth(WEAPON_LIST_ROOT_WIDTH);
@@ -54,57 +72,80 @@ public class SelectWeaponOverlay extends Overlay {
 // ---------------------------------------------------------- Title --------------------------------------------------------
 
 		TextTitle title = new TextTitle("Select Weapon", Color.WHITE, FontWeight.BOLD, 96, 356, 135);
-		
+
 // ------------------------------------------ Close Icon -------------------------------------------------------
 
-				MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
+		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
 
-				closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-					@Override
-					public void handle(MouseEvent event) {
-						EFFECT_MOUSE_CLICK.play();
-						triggerOverlay(0, 875, 1500);
-					}
-				});
+			@Override
+			public void handle(MouseEvent event) {
+				EFFECT_MOUSE_CLICK.play();
+				StatusPane.triggerSelectWeapon();
+			}
+		});
 
 // ---------------------------------------------- Add Overlay's Component to Root -------------------------------------------
 
-		root.getChildren().addAll(bg, weaponListRoot, title,closeIcon);
+		root.getChildren().addAll(bg, weaponListRoot, title, closeIcon);
 	}
 
 	public void updateWeaponList(int mode) {
-		
-		weaponList.getChildren().clear();
-		
+//		try {
+//			weaponList.getChildren().clear();			
+//		}catch(Exception e) {
+//			
+//		}
+		ObservableList<Node> allWeapon = weaponList.getChildren();
+		for (int i = allWeapon.size() - 1; i >= 0; i--) {
+			allWeapon.remove(i);
+		}
+
 		// ---------------------- Mode ------------------------
 		// 0 = Ban Weapon
 		// 1 = Weapon Tax
 		// ----------------------------------------------------
 
-		 if(mode == 0) {
-			 
-			 LawCardIcon sword = new LawCardIcon("img/card/BanWeaponSword.png", new Sword());
-			 LawCardIcon axe = new LawCardIcon("img/card/BanWeaponAxe.png", new Axe());
-			 LawCardIcon bow = new LawCardIcon("img/card/BanWeaponBow.png", new Bow());
-			 LawCardIcon gun = new LawCardIcon("img/card/BanWeaponGun.png", new Gun());
-			 LawCardIcon shield = new LawCardIcon("img/card/BanWeaponShield.png", new Shield());
-			 
-			 weaponList.getChildren().addAll(sword, axe, bow, gun, shield);
-			 
-		 }
+		if (mode == 0) {
 
-		if(mode == 1) {
-			
-			LawCardIcon sword = new LawCardIcon("img/card/WeaponTaxSword.png", new Sword());
-			LawCardIcon axe = new LawCardIcon("img/card/WeaponTaxAxe.png", new Axe());
-			LawCardIcon bow = new LawCardIcon("img/card/WeaponTaxBow.png", new Bow());
-			LawCardIcon gun = new LawCardIcon("img/card/WeaponTaxGun.png", new Gun());
-			LawCardIcon shield = new LawCardIcon("img/card/WeaponTaxShield.png", new Shield());
+			sword = new LawCardIcon(new BanArWut(new Sword()));
+			axe = new LawCardIcon(new BanArWut(new Axe()));
+			bow = new LawCardIcon(new BanArWut(new Bow()));
+			gun = new LawCardIcon(new BanArWut(new Gun()));
+			shield = new LawCardIcon(new BanArWut(new Shield()));
+
+			weaponList.getChildren().addAll(sword, axe, bow, gun, shield);
+
+		}
+
+		if (mode == 1) {
+
+			sword = new LawCardIcon(new PaSeeArWut(new Sword()));
+			axe = new LawCardIcon(new PaSeeArWut(new Axe()));
+			bow = new LawCardIcon(new PaSeeArWut(new Bow()));
+			gun = new LawCardIcon(new PaSeeArWut(new Gun()));
+			shield = new LawCardIcon(new PaSeeArWut(new Shield()));
 
 			weaponList.getChildren().addAll(sword, axe, bow, gun, shield);
 
 		}
 	}
 
+// --------------------------------------------- Getter and Setter ------------------------------------------------
+
+	public HBox getWeaponList() {
+		return weaponList;
+	}
+
+//////////////////////////////////////////////// DEBUG //////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "----------------- Select Weapon ---------------\n" 
+				+ "Weapon List\n"
+				 + this.weaponList.getChildren()
+				+ "\n" + "----------------------------------------------";
+	}
+
+//////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////
 }

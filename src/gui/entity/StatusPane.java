@@ -142,7 +142,10 @@ public class StatusPane extends GridPane implements Clickable {
 	}
 
 	public static void triggerSelectWeapon() {
-		for (int i = 0; i < MapOverview.allSelectWeapon.size(); i++) {
+		
+		System.out.println("Triggered!");
+		
+		for (int i = 0; i < MapOverview.allSelectWeapon.size(); i++) {			
 			SelectWeaponOverlay overlay = MapOverview.allSelectWeapon.get(i);
 			overlay.updateWeaponList(Government.getMode());
 			overlay.triggerOverlay(0, 875, 1000);

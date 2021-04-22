@@ -10,8 +10,11 @@ public class LawSlot {
 	
 	private ArrayList<LawCardIcon> slotCard;
 	private ArrayList<WeaponCard> bannedWeapon;
+	private ArrayList<WeaponCard> listedWeapon;
 	
 	public LawSlot() {
+		this.bannedWeapon = new ArrayList<WeaponCard>();
+		this.listedWeapon = new ArrayList<WeaponCard>();
 		this.slotCard = new ArrayList<LawCardIcon>();
 		for(int i=0;i<N_SLOT;i++) {
 			this.slotCard.add(new LawCardIcon(null));			
@@ -62,9 +65,12 @@ public class LawSlot {
 		return bannedWeapon;
 	}
 
+	public ArrayList<WeaponCard> getListedWeapon() {
+		return listedWeapon;
+	}
+	
 	public ArrayList<LawCardIcon> getSlotCard() {
 		return slotCard;
 	}
-	
 	
 }

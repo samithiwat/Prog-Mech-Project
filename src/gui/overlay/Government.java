@@ -1,5 +1,6 @@
 package gui.overlay;
 
+import component.law.BanArWut;
 import component.law.LawCard;
 import gui.entity.LawCardIcon;
 import gui.entity.LawCardSlot;
@@ -94,8 +95,14 @@ public class Government extends Overlay {
 			if (GameSetUp.lawSlot.getSlot(i) != null) {
 
 				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
+				LawCardIcon img;
 
-				LawCardIcon img = new LawCardIcon(law,i);
+				if(law instanceof BanArWut) {
+					img = new LawCardIcon((BanArWut) law ,i);					
+				}
+				else {
+					img	= new LawCardIcon(law,i);
+				}
 				img.setSelected(true);
 				activedLaw.getChildren().add(img);
 			}
