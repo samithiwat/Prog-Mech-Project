@@ -27,8 +27,9 @@ public class QuitOverlay extends Overlay {
 		setId("mainmenu-overlay");
 
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
-		bg.setFill(Color.rgb(57, 62, 70));
-
+//		bg.setFill(Color.rgb(57, 62, 70, 0.8));
+		bg.setId("overlay-bg");
+		
 		VBox textBox = new VBox();
 		textBox.setAlignment(Pos.CENTER);
 

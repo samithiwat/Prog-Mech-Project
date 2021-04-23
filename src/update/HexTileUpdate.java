@@ -50,6 +50,17 @@ public class HexTileUpdate {
 			}
 		}
 	}
+	
+// ----------------------------------------------------- Show Land Info ----------------------------------------------------------------
+	
+	public static void showLandInfo() {
+		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
+			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
+			for (int j = 0; j < column.size(); j++) {
+				column.get(j).showLandInfo();;
+			}
+		}
+	}
 
 // ---------------------------------------------------- Getter and Setter ------------------------------------------------------------
 

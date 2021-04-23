@@ -1,5 +1,6 @@
 package gui.overlay;
 
+import component.law.BanArWut;
 import component.law.LawCard;
 import gui.entity.LawCardIcon;
 import gui.entity.LawCardSlot;
@@ -32,7 +33,8 @@ public class Government extends Overlay {
 	private static int mode = -1;
 
 	private VBox activedLaw;
-
+	private LawCardSlot lawCardSlot;
+	
 	public Government() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -850);
 		setCursor(CURSOR_NORMAL);
@@ -50,7 +52,7 @@ public class Government extends Overlay {
 		activedLaw.setSpacing(50);
 		activedLaw.setPadding(new Insets(50, 90, 50, 59));
 
-		LawCardSlot lawCardSlot = new LawCardSlot();
+		lawCardSlot = new LawCardSlot();
 		lawCardSlot.setLayoutX(460);
 		lawCardSlot.setLayoutY(110);
 
@@ -81,21 +83,32 @@ public class Government extends Overlay {
 	}
 
 	public void updateActivedLaw() {
-		activedLaw.getChildren().clear();
+		try {
+			activedLaw.getChildren().clear();			
+		}
+		catch(Exception e) {
+			
+		}
 
 		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
 
 			if (GameSetUp.lawSlot.getSlot(i) != null) {
 
 				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
+				LawCardIcon img;
 
-				LawCardIcon img = new LawCardIcon(law);
+				if(law instanceof BanArWut) {
+					img = new LawCardIcon((BanArWut) law ,i);					
+				}
+				else {
+					img	= new LawCardIcon(law,i);
+				}
 				img.setSelected(true);
 				activedLaw.getChildren().add(img);
 			}
 
 			else {
-				LawCardIcon img = new LawCardIcon(null);
+				LawCardIcon img = new LawCardIcon(null,i);
 				activedLaw.getChildren().add(img);
 			}
 
@@ -113,6 +126,13 @@ public class Government extends Overlay {
 	public static void setMode(int mode) {
 		Government.mode = mode;
 	}
-	
+
+	public LawCardSlot getCardSlot() {
+		return lawCardSlot;
+	}
+
+	public VBox getActivedLaw() {
+		return activedLaw;
+	}
 
 }

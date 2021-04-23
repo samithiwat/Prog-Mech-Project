@@ -20,8 +20,11 @@ import component.law.SaNabSaNoonKonDee;
 import component.law.SaNabSaNoonKongTub;
 import component.law.SakSeeKonJon;
 import component.law.TaoTeumTookKon;
+import gui.overlay.Government;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 public class LawCardSlot extends GridPane{
@@ -50,6 +53,16 @@ public class LawCardSlot extends GridPane{
 	
 	private void setUpSlot() {
 		LawCardIcon banWeapon = new LawCardIcon(new BanArWut());
+		banWeapon.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				Government.setMode(0);
+				StatusPane.triggerSelectWeapon();
+			}
+		
+		});
+		
 		LawCardIcon capture = new LawCardIcon(new JubKaoKuk());
 		LawCardIcon encourageGoodGuy = new LawCardIcon(new SaNabSaNoonKonDee());
 		LawCardIcon equality = new LawCardIcon(new TaoTeumTookKon());
@@ -90,6 +103,15 @@ public class LawCardSlot extends GridPane{
 		LawCardIcon tradeTax = new LawCardIcon(new PaSeeLaekKong());
 		LawCardIcon unite = new LawCardIcon(new SaMakeeProngDong());
 		LawCardIcon weaponTax = new LawCardIcon(new PaSeeArWut());
+		weaponTax.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				Government.setMode(1);
+				StatusPane.triggerSelectWeapon();
+			}
+		
+		});
 		
 		add(supportArmy,0,3);
 		add(sympatheticPoor,1,3);
