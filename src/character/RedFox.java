@@ -19,6 +19,10 @@ public class RedFox extends MainCharacter {
 		//this.bgm = AudioLoader.
 		this.setMoney(11*M);
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.objectiveInfo1 = "Capture";
+		this.objectiveInfo2 = "Mine.";
+		this.skill = "Get extra money when start game";
+		this.nWinCount = 3;
 	}
 	public int checkIsWin() {
 		int count = 0;
@@ -27,7 +31,7 @@ public class RedFox extends MainCharacter {
 				count += 1;
 			}
 		}
-		if(count >= 3) {
+		if(count >= nWinCount) {
 			this.setWin(true);
 		}
 		else {

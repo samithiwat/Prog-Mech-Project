@@ -18,6 +18,10 @@ public class Collector extends MainCharacter {
 		this.selectBGM = AudioLoader.ladySelectBGM;
 		this.setImg_path("img/character/LadyCollector.png");
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.objectiveInfo1 = "Capture";
+		this.objectiveInfo2 = "Minion.";
+		this.skill = "Get extra attact while defencing";
+		this.nWinCount = 3;
 	}
 
 	public int checkIsWin() {
@@ -44,7 +48,7 @@ public class Collector extends MainCharacter {
 				}
 			}
 		}
-		if (count >= 3) {
+		if (count >= nWinCount) {
 			this.setWin(true);
 		} else {
 			this.setWin(false);

@@ -19,11 +19,15 @@ public class Teewada extends MainCharacter {
 		this.color = Color.web("0xFEF67A");
 		this.setImg_path("img/character/SirTewada.png");
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.objectiveInfo1 = "Has government";
+		this.objectiveInfo2 = "times in a row.";
+		this.skill = "Power of goodness (can use only one time)";
+		this.nWinCount = 7;
 	}
 
 	public int checkIsWin() {
 		int howLong = Council.howLong();
-		if (howLong >= 7) {
+		if (howLong >= nWinCount) {
 			this.setWin(true);
 //			GameSetUp.theGovernment.setWin(true);
 		} else {

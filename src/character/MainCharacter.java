@@ -32,7 +32,11 @@ public abstract class MainCharacter extends Component{
 	private int goodPoint;
 	private double money;
 	private int income;
+	protected int nWinCount;
 	private String desciption;
+	protected String objectiveInfo1;
+	protected String objectiveInfo2;
+	protected String skill;
 	protected Color color;
 	protected AudioClip bgm;
 	protected AudioClip selectBGM;
@@ -354,8 +358,23 @@ public abstract class MainCharacter extends Component{
 		this.pfp = pfp;
 	}
 
+	public int getnWinCount() {
+		return nWinCount;
+	}
+	
+	public String getObjectiveInfo1() {
+		return objectiveInfo1;
+	}
+	
+	public String getObjectiveInfo2() {
+		return objectiveInfo2;
+	}
+	
+	public String getSkill() {
+		return skill;
+	}
+		
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
 
 	public String toString() {
 		return "-------------------------------------\n" + "Name: " + getName() + "\n" + "Description: "

@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.MenuIcon;
@@ -11,6 +13,7 @@ import gui.entity.TurnBar;
 import gui.overlay.CurrentLaw;
 import gui.overlay.Government;
 import gui.overlay.HandOverlay;
+import gui.overlay.ObjectiveOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
 import gui.overlay.SelectWeaponOverlay;
@@ -112,11 +115,14 @@ public class MainIsland implements Sceneable {
 		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
 		MapOverview.allSelectWeapon.add(selectWeaponOverlay);
 		
+		ObjectiveOverlay objectiveOverlay = new ObjectiveOverlay();
+		MapOverview.allObjectiveOverlay.add(objectiveOverlay);
+		
 		TradeOverlay tradeOverlay = new TradeOverlay();
 		MapOverview.allTradeOverlay.add(tradeOverlay);
 
 		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
-				playerList1, playerList2, currentLaw, government,tradeOverlay,selectWeaponOverlay, messageRoot);
+				playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);

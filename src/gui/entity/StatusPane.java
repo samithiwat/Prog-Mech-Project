@@ -6,6 +6,7 @@ import character.MainCharacter;
 import gui.MapOverview;
 import gui.overlay.CurrentLaw;
 import gui.overlay.Government;
+import gui.overlay.ObjectiveOverlay;
 import gui.overlay.SelectWeaponOverlay;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -69,15 +70,15 @@ public class StatusPane extends GridPane implements Clickable {
 		});
 
 		CircleButton currentLaw = new CircleButton("img/icon/LawIcon.png", 50, 50, 25, 0, 0);
-		
+
 		currentLaw.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
+
 				if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
 					triggerGovernment();
-					
+
 				} else {
 					EFFECT_MOUSE_CLICK.play();
 					triggerCurrentLaw();
@@ -87,20 +88,29 @@ public class StatusPane extends GridPane implements Clickable {
 		});
 
 		CircleButton landInfo = new CircleButton("img/icon/LandIcon.png", 50, 50, 25, 0, 0);
-		
+
 		landInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_CLICK.play();
 				GameSetUp.isShowLandInfo = !GameSetUp.isShowLandInfo;
-				if(!GameSetUp.isShowLandInfo) {					
+				if (!GameSetUp.isShowLandInfo) {
 					GameSetUp.isReset = true;
 				}
 			}
 		});
 
 		CircleButton characterInfo = new CircleButton("!", 36, Color.web("0xFECEB8"), 50, 50, 25, 0, 0);
+		
+		characterInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				EFFECT_MOUSE_CLICK.play();
+				triggerObjective();
+			}
+		});
 
 		CircleButton toggleGrid = new CircleButton("img/icon/GridIcon.png", 50, 50, 25, 0, 0);
 
@@ -155,12 +165,18 @@ public class StatusPane extends GridPane implements Clickable {
 	}
 
 	public static void triggerSelectWeapon() {
-		
-		System.out.println("Triggered!");
-		
-		for (int i = 0; i < MapOverview.allSelectWeapon.size(); i++) {			
+
+		for (int i = 0; i < MapOverview.allSelectWeapon.size(); i++) {
 			SelectWeaponOverlay overlay = MapOverview.allSelectWeapon.get(i);
 			overlay.updateWeaponList(Government.getMode());
+			overlay.triggerOverlay(0, 875, 1000);
+		}
+	}
+
+	public static void triggerObjective() {
+		for (int i = 0; i < MapOverview.allObjectiveOverlay.size(); i++) {
+			ObjectiveOverlay overlay = MapOverview.allObjectiveOverlay.get(i);
+			overlay.updateInfo();
 			overlay.triggerOverlay(0, 875, 1000);
 		}
 	}

@@ -18,10 +18,14 @@ public class ThousandYear extends MainCharacter {
 		this.color = Color.web("0xCC698D");
 		this.setImg_path("img/character/SirThousandYear.png");
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.objectiveInfo1 = "Government arrest";
+		this.objectiveInfo2 = "Prisoner.";
+		this.skill = "Get extra attact while attacking";
+		this.nWinCount = 3;
 	}
 
 	public int checkIsWin() {
-		if (Prison.minionInPrison.size() >= 3) {
+		if (Prison.minionInPrison.size() >= nWinCount) {
 			this.setWin(true);
 		} else {
 //			GameSetUp.theGovernment.checkIsWin();
