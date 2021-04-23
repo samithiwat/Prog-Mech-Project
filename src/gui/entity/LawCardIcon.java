@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import component.law.BanArWut;
 import component.law.LawCard;
-import component.law.LawSlot;
 import component.law.PaSeeArWut;
 import component.weaponCard.WeaponCard;
 import exception.DuplicateLawException;
 import exception.FullSlotException;
-import gui.MainIsland;
 import gui.MapOverview;
 import gui.overlay.Government;
 import javafx.event.EventHandler;
@@ -22,16 +20,15 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
 public class LawCardIcon extends Pane implements Clickable {
 
-	private static int LINE_LENGTH = 50;
+	private static int LINE_LENGTH = 45;
 	private static final int SELECT_WEAPON_WIDTH = 200;
 	private static final int SELECT_WEAPON_HEIGHT = 290;
 
@@ -61,6 +58,8 @@ public class LawCardIcon extends Pane implements Clickable {
 			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
 			info = new Tooltip("Empty");
 		}
+		
+		info.setFont(Font.font("Bai Jamjuree", 14));
 		
 		img.setFitWidth(imgWidth);
 		img.setFitHeight(imgHeight);
@@ -95,7 +94,7 @@ public class LawCardIcon extends Pane implements Clickable {
 				img.setFitWidth(SELECT_WEAPON_WIDTH);
 				img.setFitHeight(SELECT_WEAPON_HEIGHT);
 				selectWeaponInteract();
-				ArrayList<WeaponCard> listedWeapon = GameSetUp.lawSlot.getListedWeapon();
+				ArrayList<WeaponCard> listedWeapon = GameSetUp.lawSlot.getTaxedWeapon();
 				for (int i = 0; i < listedWeapon.size(); i++) {
 					if (listedWeapon.get(i).isSameType(weapon)) {
 						setId("law-card-selected-style");
@@ -143,6 +142,7 @@ public class LawCardIcon extends Pane implements Clickable {
 			}
 		}
 		
+		info.setFont(Font.font("Bai Jamjuree", 14));
 		img.setFitWidth(imgWidth);
 		img.setFitHeight(imgHeight);
 
@@ -162,7 +162,7 @@ public class LawCardIcon extends Pane implements Clickable {
 				EFFECT_MOUSE_ENTER.play();
 				setCursor(MOUSE_SELECT);
 				setEffect(new Glow());
-				info.show(lawCardIcon, event.getScreenX() + 20, event.getScreenY() - 20);
+				info.show(lawCardIcon, event.getScreenX() + 10, event.getScreenY() + 25);
 			}
 		});
 
@@ -181,6 +181,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
+				EFFECT_MOUSE_CLICK.play();
 				try {
 					addLaw();
 				} catch (DuplicateLawException e) {
@@ -247,6 +248,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(DragEvent event) {
+				EFFECT_MOUSE_CLICK.play();
 				Dragboard db = event.getDragboard();
 				boolean isSuccess = false;
 				if (db.hasString()) {
@@ -277,7 +279,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println("What!");
+				EFFECT_MOUSE_CLICK.play();
 				try {
 					addLaw();
 					
@@ -288,15 +290,12 @@ public class LawCardIcon extends Pane implements Clickable {
 						unSelectedAll(new LawCardIcon(new BanArWut()));						
 					}
 					if(law instanceof PaSeeArWut) {
-						weaponList = GameSetUp.lawSlot.getListedWeapon();
+						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
 						weaponList.add(((PaSeeArWut)law).getListWeapon());
 						unSelectedAll(new LawCardIcon(new PaSeeArWut()));
 					}
 					
 					StatusPane.triggerSelectWeapon();
-
-					System.out.println("Ban Weapon"+GameSetUp.lawSlot.getBannedWeapon());
-					System.out.println("List Weapon"+GameSetUp.lawSlot.getListedWeapon());
 					
 				} catch (FullSlotException e) {
 					EFFECT_ERROR.play();
@@ -310,14 +309,11 @@ public class LawCardIcon extends Pane implements Clickable {
 						weaponList.remove(((BanArWut)law).getBannedWeapon());
 					}
 					if(law instanceof PaSeeArWut) {
-						weaponList = GameSetUp.lawSlot.getListedWeapon();
+						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
 						weaponList.remove(((PaSeeArWut)law).getListWeapon());
 					}
 					
 					removeLaw();
-					
-					System.out.println("Ban Weapon"+GameSetUp.lawSlot.getBannedWeapon());
-					System.out.println("List Weapon"+GameSetUp.lawSlot.getListedWeapon());
 				}
 			}
 		});

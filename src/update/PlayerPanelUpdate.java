@@ -136,6 +136,7 @@ public class PlayerPanelUpdate {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 					column.get(j).setId("grid-release-style");
+					column.get(j).getLandInfoRoot().setVisible(false);
 			}
 		}
 	}

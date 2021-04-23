@@ -17,8 +17,8 @@ public interface Overlayable {
 	AudioClip EFFECT_MOUSE_ENTER = AudioLoader.mouseEnterSound;
 	AudioClip EFFECT_ERROR = AudioLoader.errorSound;
 	
-	Color BG_COLOR = Color.web("0x393E46");
-	
+	Color BG_COLOR = Color.web("0x393E46",0.85);
+
 	public void triggerOverlay(int dx,int dy,int delay);
 	
 }
