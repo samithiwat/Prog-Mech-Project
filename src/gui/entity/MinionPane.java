@@ -37,4 +37,6 @@ public class MinionPane extends Pane{
 		///////////////////// END OF DEBUG /////////////////////
 	}
 	
+	
+	
 }

@@ -7,6 +7,7 @@ import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import gui.entity.TurnChangeScreen;
 import gui.overlay.CurrentLaw;
+import gui.overlay.FightOverlay;
 import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.ObjectiveOverlay;
@@ -46,6 +47,7 @@ public class MapOverview implements Sceneable {
 	private PlayerList1 playerList1;
 	private PlayerList2 playerList2;
 	private TradeOverlay tradeOverlay;
+	private FightOverlay fightOverlay;
 	private static MenuIcon mainIsland;
 	private static MenuIcon prisonIsland;
 	private static Pane root;
@@ -64,6 +66,7 @@ public class MapOverview implements Sceneable {
 	public static ArrayList<TradeOverlay> allTradeOverlay;
 	public static ArrayList<SelectWeaponOverlay> allSelectWeapon;
 	public static ArrayList<ObjectiveOverlay> allObjectiveOverlay;
+	public static ArrayList<FightOverlay> allFightOverlay;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
 
@@ -71,6 +74,10 @@ public class MapOverview implements Sceneable {
 
 		turnChangeScreen = new TurnChangeScreen();
 
+		fightOverlay = new FightOverlay();
+		allFightOverlay = new ArrayList<FightOverlay>();
+		allFightOverlay.add(fightOverlay);
+		
 		handOverlay = new HandOverlay();
 		allHandOverlay = new ArrayList<HandOverlay>();
 		allHandOverlay.add(handOverlay);

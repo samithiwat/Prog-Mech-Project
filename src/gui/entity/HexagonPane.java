@@ -169,7 +169,8 @@ public class HexagonPane extends Pane implements Clickable {
 
 					int count = 0;
 					boolean canSplit = false;
-
+					boolean canFight = false;
+					
 					for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
 						Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
 						if (minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
@@ -183,6 +184,10 @@ public class HexagonPane extends Pane implements Clickable {
 							}
 							count++;
 						}
+						else {
+							canFight = true;							
+						}
+						
 
 					}
 					if (count >= 2) {
@@ -193,7 +198,13 @@ public class HexagonPane extends Pane implements Clickable {
 					if (!canSplit) {
 						GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(false);
 					}
-
+					if(canFight) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(true);						
+					}
+					else if(!canFight) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(false);						
+					}
+					
 					EFFECT_MOUSE_CLICK.play();
 					playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
 				}

@@ -5,15 +5,17 @@ import component.weaponCard.WeaponCard;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import logic.FightController;
 import logic.GameSetUp;
 import logic.TradeController;
+import update.FightOverlayUpdate;
 import update.TradeOverlayUpdate;
 
 public class InvCard extends ImageView implements Clickable {
 	private int index;
 	private WeaponCard card;
 	private int key;
-	
+
 	public InvCard(WeaponCard card, int key) {
 		super(ClassLoader.getSystemResource(card.getImg_path()).toString());
 		this.card = card;
@@ -23,37 +25,57 @@ public class InvCard extends ImageView implements Clickable {
 		this.setFitWidth(97);
 		interact();
 	}
-	
+
 	public int findCard(int key) {
-		MainCharacter character;
-		if(key < 5 || GameSetUp.selectedCharacter == null) {
+		MainCharacter character = GameSetUp.thisTurn;
+		if (key < 5 || GameSetUp.selectedCharacter == null) {
 			character = GameSetUp.thisTurn;
-		}
-		else {
+		} else if (key >= 5 && key < 10) {
 			character = GameSetUp.selectedCharacter;
+		} 
+		if (key >= 10 && key < 15 && GameSetUp.selectedIcon.size() > 0) {
+			character = FightOverlayUpdate.challenger.getPossessedBy();
+		} else if(key >= 15 && GameSetUp.selectedIcon.size() > 0){
+//			System.out.println("findcard");
+			character = FightOverlayUpdate.challenged.getPossessedBy();
 		}
+//		System.out.println(character.getName());
 		this.index = -1;
-		for(int i = 0 ; i < character.getWeaponHand().size(); i++) {
-			if(character.getWeaponHand().get(i).getName().equals(card.getName())) {
+		for (int i = 0; i < character.getWeaponHand().size(); i++) {
+			if (character.getWeaponHand().get(i).getName().equals(card.getName())) {
 				this.index = i;
 			}
 		}
 		return this.index;
 	}
-	
+
 	public void interact() {
 		setOnMouseClicked((MouseEvent event) -> {
-			if(key < 5) {
+			// 0-9
+			if (key < 5) {
 				TradeController.trader_WeaponSlot.add(GameSetUp.thisTurn.getWeaponHand().get(index));
 				GameSetUp.thisTurn.getWeaponHand().remove(index);
 				setVisible(false);
 				TradeOverlayUpdate.traderofferUpdate();
-			}
-			else {
+			} else if (key >= 5 && key < 10) {
 				TradeController.traded_WeaponSlot.add(GameSetUp.selectedCharacter.getWeaponHand().get(index));
 				GameSetUp.selectedCharacter.getWeaponHand().remove(index);
 				setVisible(false);
 				TradeOverlayUpdate.tradedofferUpdate();
+			}
+			// 10-19
+			else if (key >= 10 && key < 15) {
+				FightController.challenger_slot
+						.add(FightOverlayUpdate.challenger.getPossessedBy().getWeaponHand().get(index));
+				FightOverlayUpdate.challenger.getPossessedBy().getWeaponHand().remove(index);
+				setVisible(false);
+				FightOverlayUpdate.challengerofferUpdate();
+			} else if (key >= 15) {
+				FightController.challenged_slot
+						.add(FightOverlayUpdate.challenged.getPossessedBy().getWeaponHand().get(index));
+				FightOverlayUpdate.challenged.getPossessedBy().getWeaponHand().remove(index);
+				setVisible(false);
+				FightOverlayUpdate.challengedofferUpdate();
 			}
 		});
 		setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -62,9 +84,9 @@ public class InvCard extends ImageView implements Clickable {
 			public void handle(MouseEvent event) {
 				setCursor(MOUSE_NORMAL);
 				setId("button-release-style");
-				//System.out.println(getStyle());
+				// System.out.println(getStyle());
 			}
-			
+
 		});
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
@@ -74,20 +96,18 @@ public class InvCard extends ImageView implements Clickable {
 				EFFECT_MOUSE_ENTER.play();
 				setId("button-hold-style");
 			}
-			
+
 		});
 	}
 
 	@Override
 	public void triggerDisable() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public int getKey() {
 		return key;
 	}
-	
-	
 
 }

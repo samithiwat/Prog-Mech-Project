@@ -25,6 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 import update.GameSettingUpdate;
+import update.TradeOverlayUpdate;
 
 public class PlayerList2 extends Overlay {
 
@@ -54,6 +55,7 @@ public class PlayerList2 extends Overlay {
 				for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
 					MapOverview.allPlayerList2.get(i).triggerOverlay(0, 825, 1000);
 				}
+				GameSetUp.isFightTradeMode = false;
 			}
 		});
 
@@ -115,13 +117,19 @@ public class PlayerList2 extends Overlay {
 				public void handle(ContextMenuEvent event) {
 					// TODO Auto-generated method stub
 					GameSetUp.selectedCharacter = character;
+					if(GameSetUp.isFightTradeMode) {
+						TradeOverlayUpdate.traded = character;
+					}
 					playerActionMenu.getBuyLand().setVisible(false);
 					playerActionMenu.getCombine().setVisible(false);
 					playerActionMenu.getBuyMinion().setVisible(false);
 					playerActionMenu.getSplit().setVisible(false);
 					playerActionMenu.getTrade().setVisible(true);
-					if(GameSetUp.thisTurn == character) {
+					if(GameSetUp.thisTurn == character || character.isTraded()) {
 						playerActionMenu.getTrade().setVisible(false);
+					}
+					if(GameSetUp.isFightTradeMode == true && TradeOverlayUpdate.trader != character && character.isFightTraded() == false) {
+						playerActionMenu.getTrade().setVisible(true);
 					}
 					playerActionMenu.show(instance, event.getSceneX(), event.getSceneY());
 					// no update yet, will write it later
