@@ -61,13 +61,8 @@ public class HexagonPane extends Pane implements Clickable {
 	private TextTitle landInfo;
 	private StackPane landInfoRoot;
 
-	public HexagonPane(int width, int height, int x, int y,
+	public HexagonPane(int width, int height, int x, int y, int row, int column) {
 
-			//////////////// FOR DEBUG ONLY //////////////////////
-
-			int row, int column) {
-
-		//////////////// END OF DEBUG /////////////////////////
 
 // --------------------------------------------------- Set Up HexagonPane -----------------------------------------------
 		setRow(row);
@@ -229,12 +224,6 @@ public class HexagonPane extends Pane implements Clickable {
 				if (event.getButton() == MouseButton.PRIMARY) {
 					GameSetUp.selectedTile = hexPane;
 
-//////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
-
-//					System.out.println(GameSetUp.selectedTile);
-
-///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
-
 				}
 			}
 		});
@@ -253,11 +242,6 @@ public class HexagonPane extends Pane implements Clickable {
 					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
 							TileOverlay.getOverlayDelay());
 				}
-//////////////////////////////////////////////////////////DEBUG //////////////////////////////////////////////////////////////
-
-//				System.out.println(GameSetUp.selectedTile);
-
-///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
 			}
 		});
 	}
@@ -283,7 +267,7 @@ public class HexagonPane extends Pane implements Clickable {
 				else {
 					landInfo.setText("Name : "+locationType.getName()+"\n"
 							+"Owner : NONE\n"
-							+"Income : "+((Incomeable)locationType).getIncome());
+							+"Income : $"+(((Incomeable)locationType).getIncome()/MainCharacter.M)+" M");
 					landInfoRoot.setVisible(true);
 					setId("grid-highlight-style");
 				}
@@ -293,12 +277,11 @@ public class HexagonPane extends Pane implements Clickable {
 			if(locationType instanceof SecretBase) {
 				
 				landInfo.setText("Name : "+locationType.getName()+"\n"
-						+"Income : "+((Incomeable)locationType).getIncome());
+						+"Income : $"+(((Incomeable)locationType).getIncome()/MainCharacter.M)+" M");
 				landInfoRoot.setBackground(new Background(new BackgroundFill(Color.web("0x3F9466"), null, null)));
 				landInfoRoot.setOpacity(0.8);
 				landInfoRoot.setVisible(true);
 				
-//				setId("grid-highlight-style");
 			}
 	}
 
@@ -390,11 +373,6 @@ public class HexagonPane extends Pane implements Clickable {
 
 			minionIconPane.add(createMinionIcon(minions.get(i)), i % N_COLUMN, (int) i / N_COLUMN);
 
-////////////////////////////////////////////////////////// DEBUG //////////////////////////////////////////////////////////////
-
-			// System.out.println("Update Icon Pane");
-
-///////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////
 		}
 	}
 

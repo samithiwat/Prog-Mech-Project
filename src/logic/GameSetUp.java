@@ -95,15 +95,10 @@ public class GameSetUp {
 //----------------------------------Add Law Card----------------------------------------------------
 		lawDeck.setUpLawDeck();
 //----------------------------------Map Initialize------------------------------------------------------
+		
 		setUpMap();
 		SceneController.createGameScene();
-		setUpMapWithHexPane();
-
-//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
-//printMap();
-
-////////////////////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////////////////	
+		setUpMapWithHexPane();	
 
 // -------------------------------------------------- Set Up Select Minion Spawn Mode -------------------------------------------------
 
@@ -471,42 +466,6 @@ public class GameSetUp {
 				}
 
 			} else if (column % 2 == 0) {
-
-				try {
-					System.out.println(MapGrid.getGrids().get(row - 1).get(column - 1).getLocationType());
-				} catch (Exception e) {
-
-				}
-
-				try {
-					System.out.println(MapGrid.getGrids().get(row - 1).get(column).getLocationType());
-				} catch (Exception e) {
-
-				}
-
-				try {
-					System.out.println(MapGrid.getGrids().get(row - 1).get(column + 1).getLocationType());
-				} catch (Exception e) {
-
-				}
-
-				try {
-					System.out.println(MapGrid.getGrids().get(row).get(column - 1).getLocationType());
-				} catch (Exception e) {
-
-				}
-
-				try {
-					System.out.println(MapGrid.getGrids().get(row).get(column + 1).getLocationType());
-				} catch (Exception e) {
-
-				}
-
-				try {
-					System.out.println(MapGrid.getGrids().get(row + 1).get(column).getLocationType());
-				} catch (Exception e) {
-
-				}
 
 				try {
 					if (MapGrid.getGrids().get(row - 1).get(column - 1).getLocationType() instanceof Plain) {

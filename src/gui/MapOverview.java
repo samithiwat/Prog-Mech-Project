@@ -10,6 +10,7 @@ import gui.overlay.CurrentLaw;
 import gui.overlay.FightOverlay;
 import gui.overlay.Government;
 import gui.overlay.HandOverlay;
+import gui.overlay.ObjectiveOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
 import gui.overlay.SelectWeaponOverlay;
@@ -64,6 +65,7 @@ public class MapOverview implements Sceneable {
 	public static ArrayList<Government> allGovernment;
 	public static ArrayList<TradeOverlay> allTradeOverlay;
 	public static ArrayList<SelectWeaponOverlay> allSelectWeapon;
+	public static ArrayList<ObjectiveOverlay> allObjectiveOverlay;
 	public static ArrayList<FightOverlay> allFightOverlay;
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
@@ -99,6 +101,10 @@ public class MapOverview implements Sceneable {
 		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
 		allSelectWeapon = new ArrayList<SelectWeaponOverlay>();
 		allSelectWeapon.add(selectWeaponOverlay);
+		
+		ObjectiveOverlay objectiveOverlay = new ObjectiveOverlay();
+		allObjectiveOverlay = new ArrayList<ObjectiveOverlay>();
+		allObjectiveOverlay.add(objectiveOverlay);
 
 		tradeOverlay = new TradeOverlay();
 		allTradeOverlay = new ArrayList<TradeOverlay>();
@@ -161,7 +167,7 @@ public class MapOverview implements Sceneable {
 
 		root = new Pane();
 		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay, playerList1, playerList2,
-				currentLaw, government, tradeOverlay,selectWeaponOverlay, messageRoot, turnChangeScreenRoot);
+				currentLaw, government,objectiveOverlay, tradeOverlay,selectWeaponOverlay, messageRoot, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));

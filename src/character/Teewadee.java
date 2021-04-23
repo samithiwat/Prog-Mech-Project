@@ -18,10 +18,14 @@ public class Teewadee extends MainCharacter {
 		this.color = Color.web("0xF75959");
 		this.setImg_path("img/character/SirTewadee.png");
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.objectiveInfo1 = "Has total";
+		this.objectiveInfo2 = "exiled government in the ocean.";
+		this.skill = "Power of goodness (can use only one time)";
+		this.nWinCount = 6;
 	}
 
 	public int checkIsWin() {
-		if (Island.banishedMinion.size() >= 6) {
+		if (Island.banishedMinion.size() >= nWinCount) {
 			this.setWin(true);
 		} else {
 			this.setWin(false);

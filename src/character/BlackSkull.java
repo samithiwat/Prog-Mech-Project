@@ -19,6 +19,10 @@ public class BlackSkull extends MainCharacter {
 		this.color = Color.web("0x183F21");
 		this.setImg_path("img/character/BlackSkull.png");
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.objectiveInfo1 = "Has anyone stand on";
+		this.objectiveInfo2 = "Secret Base.";
+		this.skill = "Prison break (can use only one time)";
+		this.nWinCount = 4;
 	}
 
 	public int checkIsWin() {
@@ -28,7 +32,7 @@ public class BlackSkull extends MainCharacter {
 				count++;
 			}
 		}
-		if (count >= 4) {
+		if (count >= nWinCount) {
 			this.setWin(true);
 		} else {
 			this.setWin(false);
