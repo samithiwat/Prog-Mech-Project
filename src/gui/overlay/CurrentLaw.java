@@ -40,6 +40,7 @@ public class CurrentLaw extends Overlay {
 
 		Rectangle bg1 = new Rectangle(WIDTH_BG1, HEIGHT_BG1);
 		bg1.setFill(BG_COLOR);
+		bg1.setOpacity(0.8);
 
 		StackPane bg2 = new StackPane();
 		bg2.setAlignment(Pos.CENTER);
@@ -91,7 +92,7 @@ public class CurrentLaw extends Overlay {
 
 		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
 
-			if (GameSetUp.lawSlot.getSlot(i) != null) {
+			if (GameSetUp.lawSlot.getSlot(i).getLaw() != null) {
 
 				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
 

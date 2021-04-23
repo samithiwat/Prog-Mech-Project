@@ -24,14 +24,13 @@ public class CreditOverlay extends Overlay {
 	public CreditOverlay() {
 		super((new Pane()),WIDTH,HEIGHT,75,-800);
 
-		setId("overlay");
 		prefHeight(HEIGHT);
 		prefWidth(WIDTH);
 		
 		Rectangle mainBG = new Rectangle(WIDTH, HEIGHT);
 		mainBG.setId("overlay-bg");
 		Rectangle bg1 = new Rectangle(1200, 600);
-		bg1.setFill(Color.rgb(20, 20, 20));
+		bg1.setFill(Color.web("0x393E46"));
 		bg1.setX(100);
 		bg1.setY(100);
 

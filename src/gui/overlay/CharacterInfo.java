@@ -21,7 +21,6 @@ public class CharacterInfo extends Overlay {
 
 	public CharacterInfo() {
 		super(new AnchorPane(), WIDTH, HEIGHT, 170, -675);
-		setId("overlay");
 
 // ------------------------------------------------- Set Overlay Text --------------------------------------------------------
 
@@ -33,6 +32,7 @@ public class CharacterInfo extends Overlay {
 // ------------------------------------------------- Set Overlay Background --------------------------------------------------------		
 		Rectangle bg1 = new Rectangle(WIDTH, HEIGHT);
 		bg1.setFill(BG_COLOR);
+
 		bg2 = new Rectangle(WIDTH_BG, HEIGHT_BG);
 		bg2.setX(100);
 		bg2.setY(50);

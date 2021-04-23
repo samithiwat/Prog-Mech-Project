@@ -174,8 +174,6 @@ public class MinionIcon extends MenuIcon {
 
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
 
-					System.out.println("Before" + GameSetUp.selectedIcon);
-
 					if (GameSetUp.selectedIcon.size() > 0) {
 						if (!(minionIcon.equals(GameSetUp.selectedIcon.get(0)))) {
 							GameSetUp.selectedIcon.add(minionIcon);
@@ -189,10 +187,8 @@ public class MinionIcon extends MenuIcon {
 						minionIcon.setEffect(SELECTED_EFFECT);
 					}
 
-					System.out.println("After" + GameSetUp.selectedIcon);
-
 				}
-
+				
 				if (event.getButton().equals(MouseButton.SECONDARY)) {
 
 					if (!minionList.isShowing()) {

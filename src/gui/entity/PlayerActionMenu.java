@@ -190,6 +190,10 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							}
 							break;
 						}
+						if(GameSetUp.isCancel) {
+							GameSetUp.isCancel=false;
+							break;
+						}
 
 					}
 				});

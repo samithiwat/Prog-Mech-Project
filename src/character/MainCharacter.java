@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import component.Component;
 import component.entity.Minion;
+import component.location.Buyable;
+import component.location.BuyableLocation;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
 import exception.ExceedMinionInTileException;
@@ -128,7 +130,8 @@ public abstract class MainCharacter extends Component{
 	private int totalIncome() {
 		int sum = 0;
 		for (int i = 0; i < this.possessedArea.size(); i++) {
-			sum += this.possessedArea.get(i).getIncomePerRound();
+			BuyableLocation location = (BuyableLocation) this.possessedArea.get(i);
+			sum += location.getIncome();				
 		}
 		this.income = sum;
 		return sum;
@@ -164,31 +167,13 @@ public abstract class MainCharacter extends Component{
 			GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
 			AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
 			GameSetUp.canBuyMinion = false;
-		
-		
-//		if (GameSetUp.canBuyMinion) {
-//			if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= HexagonPane.getMAX_MINION()) {
-//				throw new ExceedMinionInTileException();
-//			} else if (!GameSetUp.selectedTile.isSpawnable()) {
-//				throw new UnSpawnableTileException();
-//
-//			} else {
-//				money -= Minion.COST;
-//				GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
-//				AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
-//				GameSetUp.canBuyMinion = false;
-//			}
-//		}
-//
-//		else {
-//			throw new ExceedToBuyMinionException();
-//		}
 	}
 
 	public void buyLand() throws FailToBuyLandException {
-		if (GameSetUp.selectedTile.getLocationType().getOwner() == null) {
-			money -= GameSetUp.selectedTile.getLocationType().getCost();
-			GameSetUp.selectedTile.getLocationType().setOwner(GameSetUp.thisTurn);
+		BuyableLocation location = (BuyableLocation) GameSetUp.selectedTile.getLocationType();
+		if (location.getOwner() == null) {
+			money -= location.getCost();
+			location.setOwner(GameSetUp.thisTurn);
 			addPossessedLocation(GameSetUp.selectedTile.getLocationType());
 			AudioLoader.buySoundEffect.play();
 		} else {

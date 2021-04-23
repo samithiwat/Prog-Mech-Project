@@ -9,11 +9,11 @@ import component.entity.Minion;
 public class Location extends Component{
 	private String description;
 	private Minion possessedBy;
-	private MainCharacter owner;
+	protected MainCharacter owner;
 //	private ArrayList<E> *TODO:for group minion that is on the tile*
 	private ArrayList<Minion> minionOnLocation;
-	private double incomePerRound;
-	private double cost; 
+	protected double incomePerRound;
+	protected double cost; 
 	private boolean isPossessable;
 
 	public Location(String name, String description, int income, int cost) {
@@ -74,30 +74,30 @@ public class Location extends Component{
 		}
 		return false;
 	}
-	public double getIncomePerRound() {
-		return incomePerRound;
-	}
-	public void setIncomePerRound(int incomePerRound) {
-		this.incomePerRound = incomePerRound;
-	}
-	public double getCost() {
-		return cost;
-	}
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
+//	public double getIncomePerRound() {
+//		return incomePerRound;
+//	}
+//	public void setIncomePerRound(int incomePerRound) {
+//		this.incomePerRound = incomePerRound;
+//	}
+//	public double getCost() {
+//		return cost;
+//	}
+//	public void setCost(int cost) {
+//		this.cost = cost;
+//	}
 	
 	public ArrayList<Minion> getMinionOnLocation() {
 		return minionOnLocation;
 	}
 	
-	public MainCharacter getOwner() {
-		return owner;
-	}
+//	public MainCharacter getOwner() {
+//		return owner;
+//	}
 
-	public void setOwner(MainCharacter owner) {
-		this.owner = owner;
-	}
+//	public void setOwner(MainCharacter owner) {
+//		this.owner = owner;
+//	}
 
 	////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 	public String toString() {

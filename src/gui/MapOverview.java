@@ -154,7 +154,7 @@ public class MapOverview implements Sceneable {
 
 		root = new Pane();
 		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay, playerList1, playerList2,
-				currentLaw, government, tradeOverlay, messageRoot, turnChangeScreenRoot);
+				currentLaw, government, tradeOverlay,selectWeaponOverlay, messageRoot, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));

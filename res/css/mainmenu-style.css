@@ -1,10 +1,12 @@
 #button-hold-style {
-  -fx-text-fill: rgb(77, 77, 77);
-  -fx-background-color: rgba(185, 185, 185, 0.9);
+  -fx-text-fill: #393e46;
+  -fx-background-color: #cccccc;
+  -fx-opacity: 0.85;
 }
 
 #button-release-style {
-  -fx-background-color: rgba(120, 120, 120, 0.9);
+  -fx-background-color: #787878;
+  -fx-opacity: 0.85;
 }
 
 #overlay {
@@ -16,5 +18,5 @@
 }
 
 #overlay-bg {
-  -fx-fill: rgba(57, 62, 70, 0.9);
+  -fx-fill: rgba(57, 62, 70, 0.8);
 }
