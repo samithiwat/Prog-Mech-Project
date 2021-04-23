@@ -45,6 +45,8 @@ public abstract class MainCharacter extends Component{
 	private int num_Gun;
 	private String img_path;
 	private ImageView pfp;
+	private boolean isTraded;
+	private boolean isFightTraded;
 
 	public MainCharacter(String name, String description) {
 		super(name);
@@ -62,6 +64,8 @@ public abstract class MainCharacter extends Component{
 		this.num_Gun = 0;
 		this.num_Shield = 0;
 		this.num_Sword = 0;
+		this.isTraded = false;
+		this.isFightTraded = false;
 	}
 
 	public void countWeaponCard() {
@@ -341,6 +345,14 @@ public abstract class MainCharacter extends Component{
 	public AudioClip getBgm() {
 		return bgm;
 	}
+	
+	public boolean isTraded() {
+		return isTraded;
+	}
+
+	public void setTraded(boolean isTraded) {
+		this.isTraded = isTraded;
+	}
 
 	public AudioClip getSelectBGM() {
 		return selectBGM;
@@ -354,7 +366,16 @@ public abstract class MainCharacter extends Component{
 		this.pfp = pfp;
 	}
 
+	public boolean isFightTraded() {
+		return isFightTraded;
+	}
+	
+	public void setFightTraded(boolean isFightTraded) {
+		this.isFightTraded = isFightTraded;
+	}
+	
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
 
 
 	public String toString() {

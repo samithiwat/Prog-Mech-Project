@@ -9,6 +9,7 @@ import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import gui.overlay.CurrentLaw;
+import gui.overlay.FightOverlay;
 import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.PlayerList1;
@@ -93,6 +94,7 @@ public class MainIsland implements Sceneable {
 		messageRoot.setVisible(false);
 
 		root.getChildren().addAll(bg, infoRoot, grid);
+		// --------------------------overlay/others section-----------------------------
 
 		HandOverlay handOverlay = new HandOverlay();
 		MapOverview.allHandOverlay.add(handOverlay);
@@ -108,15 +110,18 @@ public class MainIsland implements Sceneable {
 
 		Government government = new Government();
 		MapOverview.allGovernment.add(government);
-		
+
 		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
 		MapOverview.allSelectWeapon.add(selectWeaponOverlay);
-		
+
 		TradeOverlay tradeOverlay = new TradeOverlay();
 		MapOverview.allTradeOverlay.add(tradeOverlay);
 
+		FightOverlay fightOverlay = new FightOverlay();
+		MapOverview.allFightOverlay.add(fightOverlay);
+		// -----------------------------------------------------------------------
 		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
-				playerList1, playerList2, currentLaw, government,tradeOverlay,selectWeaponOverlay, messageRoot);
+			playerList1, playerList2, currentLaw, government,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(CURSOR_NORMAL);

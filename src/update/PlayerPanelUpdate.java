@@ -175,7 +175,8 @@ public class PlayerPanelUpdate {
 			handOverlay.getNum_slot5().setText("x"+GameSetUp.thisTurn.getNum_Gun());
 			if(GameSetUp.thisTurn.getMoney() < MainCharacter.M) {
 				handOverlay.getDrawCard().setOnMouseClicked((MouseEvent event) -> {
-					MainIsland.setShowMessage("Not enough money!", Color.WHITE, 36, 3);
+					MainIsland.setShowMessage("Not enough money!", Color.WHITE, 120, 2000);
+					setShowMessage("Not enough money!", Color.WHITE, 120, 2000);
 				});
 			}
 			else {
@@ -183,9 +184,15 @@ public class PlayerPanelUpdate {
 					if(GameSetUp.thisTurn.getMoney() >= 1*MainCharacter.M ) {
 						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - 1*MainCharacter.M);
 						GameSetUp.thisTurn.addCardtoHand(GameSetUp.weaponDeck.drawCard());	
+						MainIsland.setShowMessage("You bought a card!", Color.WHITE, 120, 2000);
+						setShowMessage("You bought a card!", Color.WHITE, 120, 2000);
+						GameSetUp.isDraw = false;
 						updateHandOverlay();
 					}
 				});				
+			}
+			if(GameSetUp.isDraw == false) {
+				handOverlay.getDrawCard().setVisible(false);
 			}
 		}
 	}

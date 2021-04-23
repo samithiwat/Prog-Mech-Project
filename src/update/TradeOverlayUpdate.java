@@ -1,5 +1,6 @@
 package update;
 
+import character.MainCharacter;
 import component.weaponCard.WeaponCard;
 import gui.MapOverview;
 import gui.entity.InvCard;
@@ -11,11 +12,15 @@ import logic.GameSetUp;
 import logic.TradeController;
 
 public class TradeOverlayUpdate {
+	public static MainCharacter trader;
+	public static MainCharacter traded;
+	
+	
 	public static void pfpUpdate() {
 		for(int i = 0 ; i< MapOverview.allTradeOverlay.size() ; i++) {
 			TradeOverlay overlay = MapOverview.allTradeOverlay.get(i);
-			overlay.getTraded_img().setImage(new Image(ClassLoader.getSystemResource(GameSetUp.selectedCharacter.getImg_path()).toString()));
-			overlay.getTrader_img().setImage(new Image(ClassLoader.getSystemResource(GameSetUp.thisTurn.getImg_path()).toString()));
+			overlay.getTraded_img().setImage(new Image(ClassLoader.getSystemResource(traded.getImg_path()).toString()));
+			overlay.getTrader_img().setImage(new Image(ClassLoader.getSystemResource(trader.getImg_path()).toString()));
 		}
 	}
 	public static void invUpdate() {
@@ -53,7 +58,7 @@ public class TradeOverlayUpdate {
 				card_img.setFitWidth(97);
 				card_img.setOnMouseClicked((MouseEvent event) -> {
 					//key > 4
-					GameSetUp.selectedCharacter.getWeaponOnHand().add(card);
+					traded.getWeaponOnHand().add(card);
 					TradeController.traded_WeaponSlot.remove(card);
 					tradedofferUpdate();
 				});
@@ -74,7 +79,7 @@ public class TradeOverlayUpdate {
 				card_img.setFitWidth(97);
 				card_img.setOnMouseClicked((MouseEvent event) -> {
 					//key > 4
-					GameSetUp.thisTurn.getWeaponOnHand().add(card);
+					trader.getWeaponOnHand().add(card);
 					TradeController.trader_WeaponSlot.remove(card);
 					traderofferUpdate();
 				});
@@ -99,6 +104,12 @@ public class TradeOverlayUpdate {
 			} else {
 				overlay.getTrader_accept().setStyle("-fx-background-color : #C4C4C4;");
 			}
+		}
+	}
+	
+	public static void resetIstraded() {
+		for(int i = 0 ; i < GameSettingUpdate.getNPlayer() ; i++) {
+			GameSetUp.gameCharacter.get(i).setTraded(false);
 		}
 	}
 }

@@ -36,6 +36,7 @@ public class Minion extends Component implements moveable {
 		this.myMinion.add(minion);
 		addGroupMinion(minion);
 		minion.possessedBy.removeFromMyEntity(minion);
+		minion.getOnLocation().removeFromLocation(minion);
 	}
 
 	public void removeMinion(int index) {
