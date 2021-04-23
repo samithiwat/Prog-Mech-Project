@@ -35,6 +35,7 @@ import javafx.application.Platform;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.paint.Color;
 import update.AudioUpdate;
+import update.FightOverlayUpdate;
 import update.HexTileUpdate;
 import update.PlayerPanelUpdate;
 
@@ -75,6 +76,9 @@ public class GameSetUp {
 	public static HexagonPane selectedTile = null;
 	public static ArrayList<MinionIcon> selectedIcon = new ArrayList<MinionIcon>();
 	public static MainCharacter selectedCharacter = null;
+	public static boolean isDraw = true;
+	public static boolean isFightOverlayOffersUpdate = false;
+	public static boolean isFightTradeMode = false;
 	public GameSetUp() {
 		thisTurn = gameCharacter.get(0);
 //----------------------------------Weapon Set Up---------------------------------------------------
@@ -743,6 +747,12 @@ public class GameSetUp {
 						});
 						t.start();
 						GameSetUp.isTurnChange = false;
+					}
+					
+					if(isFightOverlayOffersUpdate) {
+						FightOverlayUpdate.challengedofferUpdate();
+						FightOverlayUpdate.challengerofferUpdate();
+						isFightOverlayOffersUpdate = false;
 					}
 
 					if (GameSetUp.isGameEnd) {

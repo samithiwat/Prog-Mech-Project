@@ -14,6 +14,7 @@ import gui.entity.Clickable;
 import gui.entity.InvCard;
 import gui.entity.MenuButton;
 import gui.entity.MenuIcon;
+import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -31,6 +32,7 @@ import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 import logic.TradeController;
 import update.PlayerPanelUpdate;
+import update.TradeOverlayUpdate;
 
 public class TradeOverlay extends Overlay {
 
@@ -63,19 +65,6 @@ public class TradeOverlay extends Overlay {
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
 		bg.setFill(Color.web("0x393E46"));
 		bg.setId("overlay-bg");
-
-		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1300, 50);
-		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				EFFECT_MOUSE_CLICK.play();
-				for (int i = 0; i < MapOverview.allTradeOverlay.size(); i++) {
-					MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
-				}
-
-			}
-		});
 
 		TextTitle trade = new TextTitle("Trade", Color.WHITE, FontWeight.BOLD, 50, 599 + 45, 72);
 		ImageView tradeIcon = new ImageView(ClassLoader.getSystemResource("img/icon/TradeIcon.png").toString());
@@ -277,18 +266,19 @@ public class TradeOverlay extends Overlay {
 		});
 
 		root.getChildren().addAll(bg, trade, tradeIcon, trader_img, trader_inv, traded_img, traded_inv, trader_offer,
-				traded_offer, trader_accept, traded_accept, closeIcon);
+				traded_offer, trader_accept, traded_accept);
 
 	}
 	
 	public void trade() {
 		TradeController.traded_money = (int)(MainCharacter.M*Float.parseFloat(traded_money.getText()));
 		TradeController.trader_money = (int)(MainCharacter.M*Float.parseFloat(trader_money.getText()));
-		TradeController.trade(GameSetUp.thisTurn, GameSetUp.selectedCharacter);
+		TradeController.trade(TradeOverlayUpdate.trader, TradeOverlayUpdate.traded);
 		for(int i = 0 ; i < MapOverview.allTradeOverlay.size() ; i++) {
 			MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
 		}
-		MainIsland.setShowMessage("Trade success!", Color.WHITE, 120, 2000);
+		MainIsland.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
+		PlayerPanelUpdate.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
 		traded_IsAccepted = false;
 		trader_IsAccepted = false;
 		traded_accept.setStyle("-fx-background-color : #C4C4C4;");
