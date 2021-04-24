@@ -30,7 +30,12 @@ public class FightOverlayUpdate {
 	public static void pfpUpdate() {
 		for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
 			FightOverlay overlay = MapOverview.allFightOverlay.get(i);
-			overlay.getchallenged_img().setImage(new Image(ClassLoader.getSystemResource(challenged.getPossessedBy().getImg_path()).toString()));
+			if(challenged != null) {
+				overlay.getchallenged_img().setImage(new Image(ClassLoader.getSystemResource(challenged.getPossessedBy().getImg_path()).toString()));				
+			}
+			else {
+				overlay.getchallenged_img().setImage(new Image(ClassLoader.getSystemResource("img/card/CouncilCard ").toString()));
+			}
 			overlay.getchallenger_img().setImage(new Image(ClassLoader.getSystemResource(challenger.getPossessedBy().getImg_path()).toString()));
 		}
 	}

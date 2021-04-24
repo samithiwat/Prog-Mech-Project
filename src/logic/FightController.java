@@ -53,6 +53,14 @@ public class FightController {
 			}
 			for(int j = 0 ; j < MapOverview.allFightOverlay.size() ; j++) {
 				TextTitle t = MapOverview.allFightOverlay.get(j).getChallenger_outcome();
+				if(challenger.getPossessedBy().getName().equals("Ms.ThousandYear")) {
+					challenger_atkPoint += 1;
+					t.setText(t.getText() + " + 1" );
+				}
+				if(challenged.getPossessedBy().getName().equals("Ms.Collector")) {
+					challenger_atkPoint -= 1;
+					t.setText(t.getText() + " + -1" );
+				}
 				if(challenger_isShield) {
 					t.setText(t.getText() + " = " + "DEF");
 				}
@@ -93,6 +101,7 @@ public class FightController {
 					System.out.println("error");
 				}
 			}
+			
 			for(int j = 0 ; j < MapOverview.allFightOverlay.size() ; j++) {
 				TextTitle t = MapOverview.allFightOverlay.get(j).getChallenged_outcome();
 				if(challenged_isShield) {
@@ -106,12 +115,6 @@ public class FightController {
 				Thread.sleep(2000);				
 			}catch(Exception e){
 				System.out.println("error");
-			}
-			if(challenger.getPossessedBy().getName().equals("Ms.ThousandYear")) {
-				challenger_atkPoint += 1;
-			}
-			if(challenged.getPossessedBy().getName().equals("Ms.Collector")) {
-				challenger_atkPoint -= 1;
 			}
 			if(challenged_isShield || challenger_isShield) {
 				MainIsland.setShowMessage("Shield", Color.WHITE, 120, 2000);

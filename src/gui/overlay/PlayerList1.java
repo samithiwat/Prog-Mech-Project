@@ -128,7 +128,7 @@ public class PlayerList1 extends Overlay {
 					playerActionMenu.getBuyMinion().setVisible(false);
 					playerActionMenu.getSplit().setVisible(false);
 					playerActionMenu.getTrade().setVisible(true);
-					if(GameSetUp.thisTurn == character || character.isTraded()) {
+					if(GameSetUp.thisTurn == character || character.isTraded() || TradeOverlayUpdate.trader == character) {
 						playerActionMenu.getTrade().setVisible(false);
 					}
 					if(GameSetUp.isFightTradeMode == true && TradeOverlayUpdate.trader != character && character.isFightTraded() == false) {

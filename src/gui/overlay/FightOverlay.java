@@ -100,8 +100,9 @@ public class FightOverlay extends Overlay {
 		challenger_outcome_box.setLayoutY(703);
 		challenger_outcome_box.setPrefHeight(31);
 		challenger_outcome_box.setPrefWidth(472);
+		challenger_outcome_box.setPadding(new Insets(5,45,5,45));
 		challenger_outcome_box.setStyle("-fx-background-color: #C4C4C4;");
-		challenger_outcome = new TextTitle("",Color.WHITE, FontWeight.BOLD, 18, 0, 0);
+		challenger_outcome = new TextTitle("",Color.WHITE, FontWeight.BOLD, 20, 0, 0);
 		challenger_outcome_box.getChildren().add(challenger_outcome);
 		
 		
@@ -143,8 +144,9 @@ public class FightOverlay extends Overlay {
 		challenged_outcome_box.setLayoutY(159);
 		challenged_outcome_box.setPrefHeight(31);
 		challenged_outcome_box.setPrefWidth(472);
+		challenged_outcome_box.setPadding(new Insets(5,45,5,45));
 		challenged_outcome_box.setStyle("-fx-background-color: #C4C4C4;");
-		challenged_outcome = new TextTitle("",Color.WHITE, FontWeight.BOLD, 18, 0, 0);
+		challenged_outcome = new TextTitle("",Color.WHITE, FontWeight.BOLD, 20, 0, 0);
 		challenged_outcome_box.getChildren().add(challenged_outcome);
 		// ------------challenged_inv-------------------
 
@@ -398,6 +400,14 @@ public class FightOverlay extends Overlay {
 			challenger_IsAccepted = false;
 			challenged_accept.setStyle("-fx-background-color : #C4C4C4;");
 			challenger_accept.setStyle("-fx-background-color : #C4C4C4;");
+			challenged_outcome.setText("");
+			challenger_outcome.setText("");
+			for(int i = 0 ; i < FightController.challenged_slot.size() ; i++) {
+				GameSetUp.removedDeck.addToRemovedDeck(FightController.challenged_slot.get(i));
+			}
+			for(int i = 0 ; i < FightController.challenger_slot.size() ; i++) {
+				GameSetUp.removedDeck.addToRemovedDeck(FightController.challenger_slot.get(i));
+			}
 			FightController.challenged_slot.clear();
 			FightController.challenger_slot.clear();
 		});

@@ -29,9 +29,9 @@ public class InvCard extends ImageView implements Clickable {
 	public int findCard(int key) {
 		MainCharacter character = GameSetUp.thisTurn;
 		if (key < 5 || GameSetUp.selectedCharacter == null) {
-			character = GameSetUp.thisTurn;
+			character = TradeOverlayUpdate.trader;
 		} else if (key >= 5 && key < 10) {
-			character = GameSetUp.selectedCharacter;
+			character = TradeOverlayUpdate.traded;
 		} 
 		if (key >= 10 && key < 15 && GameSetUp.selectedIcon.size() > 0) {
 			character = FightOverlayUpdate.challenger.getPossessedBy();
@@ -41,10 +41,12 @@ public class InvCard extends ImageView implements Clickable {
 		}
 //		System.out.println(character.getName());
 		this.index = -1;
-		for (int i = 0; i < character.getWeaponHand().size(); i++) {
-			if (character.getWeaponHand().get(i).getName().equals(card.getName())) {
-				this.index = i;
-			}
+		if(character != null) {
+			for (int i = 0; i < character.getWeaponHand().size(); i++) {
+				if (character.getWeaponHand().get(i).getName().equals(card.getName())) {
+					this.index = i;
+				}
+			}			
 		}
 		return this.index;
 	}
@@ -53,13 +55,13 @@ public class InvCard extends ImageView implements Clickable {
 		setOnMouseClicked((MouseEvent event) -> {
 			// 0-9
 			if (key < 5) {
-				TradeController.trader_WeaponSlot.add(GameSetUp.thisTurn.getWeaponHand().get(index));
-				GameSetUp.thisTurn.getWeaponHand().remove(index);
+				TradeController.trader_WeaponSlot.add(TradeOverlayUpdate.trader.getWeaponHand().get(index));
+				TradeOverlayUpdate.trader.getWeaponHand().remove(index);
 				setVisible(false);
 				TradeOverlayUpdate.traderofferUpdate();
 			} else if (key >= 5 && key < 10) {
-				TradeController.traded_WeaponSlot.add(GameSetUp.selectedCharacter.getWeaponHand().get(index));
-				GameSetUp.selectedCharacter.getWeaponHand().remove(index);
+				TradeController.traded_WeaponSlot.add(TradeOverlayUpdate.traded.getWeaponHand().get(index));
+				TradeOverlayUpdate.traded.getWeaponHand().remove(index);
 				setVisible(false);
 				TradeOverlayUpdate.tradedofferUpdate();
 			}
