@@ -70,7 +70,6 @@ public class GameController {
 	
 // --------------------------------------- After Player Choose Spawn Location -----------------------------------
 			
-			System.out.println("Spawn Minion");
 			spawnMinion(new Minion(GameSetUp.gameCharacter.get(i)), GameSetUp.selectedTile);
 			GameSetUp.isReset = true;
 			GameSetUp.selectedTile = null;
@@ -126,12 +125,18 @@ public class GameController {
 
 					}
 
+					if(GameSetUp.isGameEnd) {
+						break;
+					}
 //////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //						System.out.println("Current Turn :" + GameSetUp.thisTurn);
 
 //////////////////////////////////////////////////////////////// END OF DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+				}
+				if(GameSetUp.isGameEnd) {
+					break;
 				}
 				
 				GameSetUp.gameLaw.setDefault();
@@ -144,6 +149,7 @@ public class GameController {
 			}
 			GameSetUp.turn++;
 		}
+		System.out.println("END!!!");
 	}
 
 //----------------------spawn minion-----------------	

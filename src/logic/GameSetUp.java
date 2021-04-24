@@ -612,6 +612,7 @@ public class GameSetUp {
 
 						MapOverview.getMainIsland().setEffect(blur);
 						MapOverview.getPrisonIsland().setEffect(blur);
+						MapOverview.getOceanTile().setEffect(blur);
 						SceneController.getMapOverView().getRoot().setDisable(true);
 
 						PlayerPanelUpdate.closePanel();
@@ -628,6 +629,7 @@ public class GameSetUp {
 								public void run() {
 									MapOverview.getMainIsland().setEffect(null);
 									MapOverview.getPrisonIsland().setEffect(null);
+									MapOverview.getOceanTile().setEffect(null);
 									MapOverview.getTurnChangeScreenRoot().setVisible(false);
 									PlayerPanelUpdate.openPanel();
 									SceneController.getMapOverView().getRoot().setDisable(false);

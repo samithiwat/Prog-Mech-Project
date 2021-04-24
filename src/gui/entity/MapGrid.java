@@ -9,11 +9,11 @@ public class MapGrid extends Pane {
 
 	private final int HEXAGON_WIDTH = 250;
 	private final int HEXAGON_HEIGHT = 250;
-	private final int HEXAGON_DISSTANCE_X = 140;
-	private final int HEXAGON_INIT_X_ODD = -317;
-	private final int HEXAGON_INIT_Y_ODD = -483;
-	private final int HEXAGON_INIT_X_EVEN = -121;
-	private final int HEXAGON_INIT_Y_EVEN = -357;
+	private final double HEXAGON_DISSTANCE_X = 125;
+	private final double HEXAGON_INIT_X_ODD = -317;
+	private final double HEXAGON_INIT_Y_ODD = -483;
+	private final double HEXAGON_INIT_X_EVEN = -129.5;
+	private final double HEXAGON_INIT_Y_EVEN = -358;
 	private static final int N_ROW = 9;
 	private static final int N_COLUMN = 6;
 
@@ -28,8 +28,8 @@ public class MapGrid extends Pane {
 			ArrayList<GridPane> iconColumn = new ArrayList<GridPane>();
 			
 			for (int j = 0; j < N_COLUMN; j++) {
-				int dx = j * (HEXAGON_DISSTANCE_X + HEXAGON_WIDTH);
-				int dy = i * HEXAGON_HEIGHT;
+				double dx = j * (HEXAGON_DISSTANCE_X + HEXAGON_WIDTH);
+				double dy = i * HEXAGON_HEIGHT;
 				if (j == 5) {
 					HexagonPane hexagonPaneOdd = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT, HEXAGON_INIT_X_ODD + dx,
 							HEXAGON_INIT_Y_ODD + dy, i, j*2);

@@ -125,7 +125,9 @@ public class MainIsland implements Sceneable {
 
 		FightOverlay fightOverlay = new FightOverlay();
 		MapOverview.allFightOverlay.add(fightOverlay);
-		// -----------------------------------------------------------------------
+		
+// ----------------------------------------------------- Add Scene's Component --------------------------------------------------------
+		
 		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
 			playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 
