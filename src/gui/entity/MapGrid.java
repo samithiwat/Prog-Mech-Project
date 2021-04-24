@@ -7,13 +7,13 @@ import javafx.scene.layout.Pane;
 
 public class MapGrid extends Pane {
 
-	private final int HEXAGON_WIDTH = 250;
-	private final int HEXAGON_HEIGHT = 250;
-	private final double HEXAGON_DISSTANCE_X = 125;
-	private final double HEXAGON_INIT_X_ODD = -317;
-	private final double HEXAGON_INIT_Y_ODD = -483;
-	private final double HEXAGON_INIT_X_EVEN = -129.5;
-	private final double HEXAGON_INIT_Y_EVEN = -358;
+	private final int HEXAGON_WIDTH = 200;
+	private final int HEXAGON_HEIGHT = 200;
+	private final double HEXAGON_DISSTANCE_X = 100;
+	private final double HEXAGON_INIT_X_ODD = -100;
+	private final double HEXAGON_INIT_Y_ODD = -300;
+	private final double HEXAGON_INIT_X_EVEN = 50;
+	private final double HEXAGON_INIT_Y_EVEN = -200;
 	private static final int N_ROW = 9;
 	private static final int N_COLUMN = 6;
 

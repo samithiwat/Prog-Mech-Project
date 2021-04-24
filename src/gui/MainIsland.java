@@ -45,8 +45,8 @@ import update.PlayerPanelUpdate;
 
 public class MainIsland implements Sceneable {
 
-	private final static int BG_CENTER_X = 720;
-	private final static int BG_CENTER_Y = 670;
+	private final static int BG_CENTER_X = 415;
+	private final static int BG_CENTER_Y = 420;
 	private static int bgX = BG_CENTER_X;
 	private static int bgY = BG_CENTER_Y;
 
@@ -74,6 +74,8 @@ public class MainIsland implements Sceneable {
 		root = new Pane();
 
 		bg = new ImageView(ClassLoader.getSystemResource("img/background/MainIsland.png").toString());
+//		bg.setFitWidth(BG_SIZE);
+//		bg.setFitHeight(BG_SIZE);
 		bg.setViewport(new Rectangle2D(BG_CENTER_X, BG_CENTER_Y, SceneController.getFullscreenWidth(),
 				SceneController.getFullscreenHeight()));
 

@@ -76,7 +76,7 @@ public class HexagonPane extends Pane implements Clickable {
 		moveable = false;
 
 //		double[] points = { 53, 0.5, 197, 0.5, 250, 125.5, 197, 250.5, 53, 250.5, 0, 125.5 };
-		double[] points = { 62.5, 0, 187.5, 0, 250, 125, 187.5, 250, 62.5, 250, 0, 125 };
+		double[] points = { 50, 0, 150, 0, 200, 100, 150, 200, 50, 200, 0, 100 };
 
 		Polygon poly = new Polygon(points);
 

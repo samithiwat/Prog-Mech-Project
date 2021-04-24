@@ -43,7 +43,7 @@ public class MainIslandUpdate {
 
 	public static void moveRight() {
 		calSpeed();
-		if (MainIsland.getBgX() + current_speed < 2900 - SceneController.getFullscreenWidth() - 10) {
+		if (MainIsland.getBgX() + current_speed < 2250 - SceneController.getFullscreenWidth() - 10) {
 			for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 				ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 				for (int j = 0; j < column.size(); j++) {
@@ -71,7 +71,7 @@ public class MainIslandUpdate {
 
 	public static void moveDown() {
 		calSpeed();
-		if (MainIsland.getBgY() + current_speed < 2900 - SceneController.getFullscreenHeight()) {
+		if (MainIsland.getBgY() + current_speed < 2250 - SceneController.getFullscreenHeight()) {
 			for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 				ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 				for (int j = 0; j < column.size(); j++) {
