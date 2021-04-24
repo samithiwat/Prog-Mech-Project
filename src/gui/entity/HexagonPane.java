@@ -41,11 +41,11 @@ public class HexagonPane extends Pane implements Clickable {
 
 	private static final int MAX_MINION = 6;
 	private static final int N_COLUMN = 3;
-	private final int INIT_X;
-	private final int INIT_Y;
+	private final double INIT_X;
+	private final double INIT_Y;
 
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	private int row;
 	private int column;
 
@@ -61,7 +61,7 @@ public class HexagonPane extends Pane implements Clickable {
 	private TextTitle landInfo;
 	private StackPane landInfoRoot;
 
-	public HexagonPane(int width, int height, int x, int y, int row, int column) {
+	public HexagonPane(int width, int height, double x, double y, int row, int column) {
 
 // --------------------------------------------------- Set Up HexagonPane -----------------------------------------------
 		setRow(row);
@@ -72,7 +72,8 @@ public class HexagonPane extends Pane implements Clickable {
 		this.INIT_Y = y;
 		moveable = false;
 
-		double[] points = { 53, 0.5, 197, 0.5, 250, 125.5, 197, 250.5, 53, 250.5, 0, 125.5 };
+//		double[] points = { 53, 0.5, 197, 0.5, 250, 125.5, 197, 250.5, 53, 250.5, 0, 125.5 };
+		double[] points = { 62.5, 0, 187.5, 0, 250, 125, 187.5, 250, 62.5, 250, 0, 125 };
 
 		Polygon poly = new Polygon(points);
 
@@ -447,7 +448,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
@@ -459,15 +460,15 @@ public class HexagonPane extends Pane implements Clickable {
 		this.moveable = moveable;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
