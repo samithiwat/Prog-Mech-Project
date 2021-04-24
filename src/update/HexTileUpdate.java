@@ -29,6 +29,12 @@ public class HexTileUpdate {
 		}
 	}
 	
+	public static void setChallengerInteract() {
+		for(int i = 0 ; i < 6 ; i++) {
+			MapGrid.getGrids().get(HexagonPane.tileSurroundCouncil[2*i]).get(HexagonPane.tileSurroundCouncil[2*i+1]).dataInteract();;
+		}
+	}
+	
 	public static void setOverlayInteract() {
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);

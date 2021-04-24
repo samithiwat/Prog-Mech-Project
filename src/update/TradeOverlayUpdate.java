@@ -26,6 +26,7 @@ public class TradeOverlayUpdate {
 	public static void invUpdate() {
 		for(int i = 0 ; i < MapOverview.allTradeOverlay.size() ; i++) {
 			TradeOverlay overlay = MapOverview.allTradeOverlay.get(i);
+			System.out.println(trader.getName() + "  " + traded.getName());
 			for(int j = 0 ; j < overlay.trader_weaponCard.size() ; j++) {
 				InvCard card = overlay.trader_weaponCard.get(j);
 				if(card.findCard(card.getKey()) == -1 || TradeController.trader_WeaponSlot.size() >= 2  ) {

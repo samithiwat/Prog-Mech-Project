@@ -204,6 +204,9 @@ public class PlayerPanelUpdate {
 			if(GameSetUp.isDraw == false) {
 				handOverlay.getDrawCard().setVisible(false);
 			}
+			else {
+				handOverlay.getDrawCard().setVisible(true);
+			}
 		}
 	}
 	

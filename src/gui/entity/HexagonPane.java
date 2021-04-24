@@ -39,6 +39,9 @@ import update.PlayerPanelUpdate;
 
 public class HexagonPane extends Pane implements Clickable {
 
+	public static final int[] tileSurroundCouncil = { 1, 5, 2, 6, 2, 7, 3, 7, 4, 7, 5, 6, 5, 5, 5, 4, 4, 3, 3, 3, 2, 3, 2,
+			4 };
+	
 	private static final int MAX_MINION = 6;
 	private static final int N_COLUMN = 3;
 	private final double INIT_X;
@@ -218,6 +221,10 @@ public class HexagonPane extends Pane implements Clickable {
 
 	}
 
+	public void councilInteract() {
+
+	}
+
 	public void dataInteract() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -363,6 +370,17 @@ public class HexagonPane extends Pane implements Clickable {
 				MapGrid.getGrids().get(this.row + x).get(this.column + y).setId("grid-disable");
 			}
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setMoveable(false);
+		}
+	}
+
+	public static void highlight2() {
+		for(int i = 0 ; i < 6 ; i++) {
+			MapGrid.getGrids().get(tileSurroundCouncil[2*i]).get(tileSurroundCouncil[2*i+1]).setId("grid-hold-style");
+		}
+	}
+	public static void unhighlight2() {
+		for(int i = 0 ; i < 6 ; i++) {
+			MapGrid.getGrids().get(tileSurroundCouncil[2*i]).get(tileSurroundCouncil[2*i+1]).setId("grid-release-style");
 		}
 	}
 
