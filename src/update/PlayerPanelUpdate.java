@@ -6,6 +6,7 @@ import character.MainCharacter;
 import component.location.Plain;
 import gui.MainIsland;
 import gui.MapOverview;
+import gui.PrisonIsland;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.PlayerPanel;
@@ -132,10 +133,19 @@ public class PlayerPanelUpdate {
 	}
 	
 	public static void resetTile() {
+		String id;
+		
+		if(MapGrid.isEnable()) {
+			id = "grid-release-style";
+		}
+		else {
+			id = "grid-disable";
+		}
+		
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
-					column.get(j).setId("grid-release-style");
+					column.get(j).setId(id);
 					column.get(j).getLandInfoRoot().setVisible(false);
 			}
 		}
@@ -225,12 +235,14 @@ public class PlayerPanelUpdate {
 	public static void setShowMessage(String message, Color color, int size, int duration) {
 		MapOverview.setShowMessage(message, color, size, duration);
 		MainIsland.setShowMessage(message, color, size, duration);
+		PrisonIsland.setShowMessage(message, color, size, duration);
 	}
 	
 	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
 			int duration) {
 		MapOverview.setShowMessage(message, color, strokeColor, size, strokeWidth, duration);
 		MainIsland.setShowMessage(message, color, strokeColor, size, strokeWidth, duration);
+		PrisonIsland.setShowMessage(message, color, strokeColor, size, strokeWidth, duration);
 	}
 	
 }

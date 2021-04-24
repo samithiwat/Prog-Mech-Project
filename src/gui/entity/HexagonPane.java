@@ -63,7 +63,6 @@ public class HexagonPane extends Pane implements Clickable {
 
 	public HexagonPane(int width, int height, int x, int y, int row, int column) {
 
-
 // --------------------------------------------------- Set Up HexagonPane -----------------------------------------------
 		setRow(row);
 		setColumn(column);
@@ -141,20 +140,26 @@ public class HexagonPane extends Pane implements Clickable {
 				if (GameSetUp.selectedTile != null) {
 
 					boolean canBuyLand = false;
-					BuyableLocation location = (BuyableLocation) GameSetUp.selectedTile.getLocationType();
+					
+					if (GameSetUp.selectedTile.getLocationType() instanceof Buyable) {
 
-					if (GameSetUp.thisTurn.getMoney() >= location.getCost()) {
+						BuyableLocation location = (BuyableLocation) GameSetUp.selectedTile.getLocationType();
 
-						ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
+						if (GameSetUp.thisTurn.getMoney() >= location.getCost()) {
 
-						for (int i = 0; i < minions.size(); i++) {
-							if (minions.get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
-								GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(false);
-								canBuyLand = true;
-								break;
+							ArrayList<Minion> minions = GameSetUp.selectedTile.getLocationType().getMinionOnLocation();
+
+							for (int i = 0; i < minions.size(); i++) {
+
+								if (minions.get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
+									
+									GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(false);
+									canBuyLand = true;
+									break;
+								}
 							}
-						}
 
+						}
 					}
 
 					if (!canBuyLand) {
@@ -170,7 +175,7 @@ public class HexagonPane extends Pane implements Clickable {
 					int count = 0;
 					boolean canSplit = false;
 					boolean canFight = false;
-					
+
 					for (int i = 0; i < GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size(); i++) {
 						Minion minion = GameSetUp.selectedTile.getLocationType().getMinionOnLocation().get(i);
 						if (minion.getPossessedBy().equals(GameSetUp.thisTurn)) {
@@ -183,11 +188,9 @@ public class HexagonPane extends Pane implements Clickable {
 								}
 							}
 							count++;
+						} else {
+							canFight = true;
 						}
-						else {
-							canFight = true;							
-						}
-						
 
 					}
 					if (count >= 2) {
@@ -198,13 +201,12 @@ public class HexagonPane extends Pane implements Clickable {
 					if (!canSplit) {
 						GameSetUp.selectedTile.getPlayerActionMenu().getSplit().setVisible(false);
 					}
-					if(canFight) {
-						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(true);						
+					if (canFight) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(true);
+					} else if (!canFight) {
+						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(false);
 					}
-					else if(!canFight) {
-						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(false);						
-					}
-					
+
 					EFFECT_MOUSE_CLICK.play();
 					playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
 				}
@@ -245,44 +247,44 @@ public class HexagonPane extends Pane implements Clickable {
 			}
 		});
 	}
-	public void showLandInfo() {			
-			
-			if(locationType instanceof Buyable) {
-				
-				BuyableLocation location = (BuyableLocation) locationType;
-				
-				if(location.getOwner()!=null) {
-					
-					landInfo.setText("Name : "+locationType.getName()+"\n"
-							+"Owner : "+location.getOwner().getName()+"\n"
-							+"Income : $"+(((Incomeable)locationType).getIncome()/MainCharacter.M)+" M");
-					
-					landInfoRoot.setBackground(new Background(new BackgroundFill(location.getOwner().getColor(), null, null)));
-					landInfoRoot.setOpacity(0.8);
-					landInfoRoot.setVisible(true);
-					setId("grid-disable");
-					
-				}
-				
-				else {
-					landInfo.setText("Name : "+locationType.getName()+"\n"
-							+"Owner : NONE\n"
-							+"Income : $"+(((Incomeable)locationType).getIncome()/MainCharacter.M)+" M");
-					landInfoRoot.setVisible(true);
-					setId("grid-highlight-style");
-				}
-				
-			}
-		
-			if(locationType instanceof SecretBase) {
-				
-				landInfo.setText("Name : "+locationType.getName()+"\n"
-						+"Income : $"+(((Incomeable)locationType).getIncome()/MainCharacter.M)+" M");
-				landInfoRoot.setBackground(new Background(new BackgroundFill(Color.web("0x3F9466"), null, null)));
+
+	public void showLandInfo() {
+
+		if (locationType instanceof Buyable) {
+
+			BuyableLocation location = (BuyableLocation) locationType;
+
+			if (location.getOwner() != null) {
+
+				landInfo.setText("Name : " + locationType.getName() + "\n" + "Owner : " + location.getOwner().getName()
+						+ "\n" + "Income : $" + (((Incomeable) locationType).getIncome() / MainCharacter.M) + " M");
+
+				landInfoRoot
+						.setBackground(new Background(new BackgroundFill(location.getOwner().getColor(), null, null)));
 				landInfoRoot.setOpacity(0.8);
 				landInfoRoot.setVisible(true);
-				
+				setId("grid-disable");
+
 			}
+
+			else {
+				landInfo.setText("Name : " + locationType.getName() + "\n" + "Owner : NONE\n" + "Income : $"
+						+ (((Incomeable) locationType).getIncome() / MainCharacter.M) + " M");
+				landInfoRoot.setVisible(true);
+				setId("grid-highlight-style");
+			}
+
+		}
+
+		if (locationType instanceof SecretBase) {
+
+			landInfo.setText("Name : " + locationType.getName() + "\n" + "Income : $"
+					+ (((Incomeable) locationType).getIncome() / MainCharacter.M) + " M");
+			landInfoRoot.setBackground(new Background(new BackgroundFill(Color.web("0x3F9466"), null, null)));
+			landInfoRoot.setOpacity(0.8);
+			landInfoRoot.setVisible(true);
+
+		}
 	}
 
 	public void triggerOverlay() {
@@ -387,7 +389,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 		}
 	}
-	
+
 // ------------------------------------------------- Private Method ----------------------------------------------------------------
 
 	private MinionPortraits createMinionIcon(Minion minion) {
@@ -442,7 +444,6 @@ public class HexagonPane extends Pane implements Clickable {
 		minionPane.setMinionAtPos(minionIcon, index);
 
 	}
-	
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
@@ -513,26 +514,24 @@ public class HexagonPane extends Pane implements Clickable {
 	public int getRow() {
 		return row;
 	}
-	
+
 	public void setRow(int row) {
 		this.row = row;
 	}
-	
+
 	public int getColumn() {
 		return column;
 	}
-	
+
 	public void setColumn(int column) {
 		this.column = column;
 	}
-	
+
 	public StackPane getLandInfoRoot() {
 		return landInfoRoot;
 	}
-	
-	
-///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
 
 	public String toString() {
 		return locationType + "\n" + "Row : " + row + ", Column : " + column + "\n";

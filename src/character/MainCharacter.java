@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import component.Component;
 import component.entity.Minion;
-import component.location.Buyable;
 import component.location.BuyableLocation;
+import component.location.Incomeable;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
 import exception.ExceedMinionInTileException;
@@ -98,7 +98,7 @@ public abstract class MainCharacter extends Component{
 		int cnt = 0;
 		for(int i = 0 ; i < this.possessedArea.size() ; i++) {
 			Location area = this.possessedArea.get(i);
-			if(area.getName().equals("Mine") || area.getName().equals("SecretBase")|| area.getName().equals("Village")|| area.getName().equals("Field")) {
+			if(area instanceof Incomeable)	{
 				cnt++;
 			}
 		}
@@ -175,6 +175,7 @@ public abstract class MainCharacter extends Component{
 			GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
 			AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
 			GameSetUp.canBuyMinion = false;
+			GameSetUp.thisTurn.checkIsWin();
 	}
 
 	public void buyLand() throws FailToBuyLandException {
@@ -184,6 +185,7 @@ public abstract class MainCharacter extends Component{
 			location.setOwner(GameSetUp.thisTurn);
 			addPossessedLocation(GameSetUp.selectedTile.getLocationType());
 			AudioLoader.buySoundEffect.play();
+			GameSetUp.thisTurn.checkIsWin();
 		} else {
 			throw new FailToBuyLandException();
 		}

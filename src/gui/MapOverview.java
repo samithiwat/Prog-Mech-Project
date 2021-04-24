@@ -14,6 +14,7 @@ import gui.overlay.ObjectiveOverlay;
 import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
 import gui.overlay.SelectWeaponOverlay;
+import gui.overlay.TileOverlay;
 import gui.overlay.TradeOverlay;
 import javafx.application.Platform;
 //import gui.entity.HexagonalButton;
@@ -50,6 +51,7 @@ public class MapOverview implements Sceneable {
 	private FightOverlay fightOverlay;
 	private static MenuIcon mainIsland;
 	private static MenuIcon prisonIsland;
+	private static MenuIcon oceanTile;
 	private static Pane root;
 
 	private static TurnChangeScreen turnChangeScreen;
@@ -77,7 +79,7 @@ public class MapOverview implements Sceneable {
 		fightOverlay = new FightOverlay();
 		allFightOverlay = new ArrayList<FightOverlay>();
 		allFightOverlay.add(fightOverlay);
-		
+
 		handOverlay = new HandOverlay();
 		allHandOverlay = new ArrayList<HandOverlay>();
 		allHandOverlay.add(handOverlay);
@@ -101,7 +103,7 @@ public class MapOverview implements Sceneable {
 		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
 		allSelectWeapon = new ArrayList<SelectWeaponOverlay>();
 		allSelectWeapon.add(selectWeaponOverlay);
-		
+
 		ObjectiveOverlay objectiveOverlay = new ObjectiveOverlay();
 		allObjectiveOverlay = new ArrayList<ObjectiveOverlay>();
 		allObjectiveOverlay.add(objectiveOverlay);
@@ -123,12 +125,30 @@ public class MapOverview implements Sceneable {
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.web("0x4DC3D3"));
 
-		prisonIsland = new MenuIcon("img/background/PrisonIslandOverview.png", 186, 171);
+		int[] posXList = { 147, 384, 641, 869, 1040, 1164 };
+		int[] posYList = { 518, 418, 401, 449, 550, 398 };
+
+		TileOverlay oceanOverlay = new TileOverlay("img/background/Ocean.png", posXList, posYList);
+
+		oceanTile = new MenuIcon("img/background/OceanTile.png", 1230, 190);
+
+		oceanTile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				CLICK_EFFECT.play();
+				oceanOverlay.triggerOverlay(0, 825, 1000);
+			}
+		});
+
+		prisonIsland = new MenuIcon("img/background/PrisonIslandOverview.png", 80, 140);
 		prisonIsland.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-
+				AudioUpdate.change(bgm, PrisonIsland.getBgm());
+				PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
+				SceneController.setScene(SceneController.getPrisonIsland());
 			}
 		});
 
@@ -166,8 +186,9 @@ public class MapOverview implements Sceneable {
 		turnChangeScreenRoot.setVisible(false);
 
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, handOverlay, playerList1, playerList2,
-				currentLaw, government,objectiveOverlay, tradeOverlay,selectWeaponOverlay, messageRoot, turnChangeScreenRoot);
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, oceanTile, oceanOverlay, handOverlay,
+				playerList1, playerList2, currentLaw, government, objectiveOverlay, tradeOverlay, selectWeaponOverlay,
+				messageRoot, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
 //		root.getChildren().add(createHexAt(529, 91.69+68.98));
 //		root.getChildren().add(createHexAt(583.25,57.2));
@@ -201,8 +222,8 @@ public class MapOverview implements Sceneable {
 	}
 
 // ----------------------------------------------- Show Message ------------------------------------------------------------
-	
-public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
+
+	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
 			int duration) {
 		messageRoot.setVisible(true);
 		getMessage().setFontBold(size);
@@ -283,6 +304,10 @@ public static void setShowMessage(String message, Color color, Color strokeColor
 	public static MenuIcon getPrisonIsland() {
 		return prisonIsland;
 	}
+	
+	public static MenuIcon getOceanTile() {
+		return oceanTile;
+	}
 
 	public static StackPane getTurnChangeScreenRoot() {
 		return turnChangeScreenRoot;
@@ -303,7 +328,5 @@ public static void setShowMessage(String message, Color color, Color strokeColor
 	public static void setMessage(TextTitle message) {
 		MapOverview.message = message;
 	}
-	
-	
 
 }

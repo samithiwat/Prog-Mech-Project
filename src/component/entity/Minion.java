@@ -2,6 +2,7 @@ package component.entity;
 
 import java.util.ArrayList;
 
+import character.BlackSkull;
 import character.MainCharacter;
 import component.Component;
 import component.location.Location;
@@ -81,6 +82,7 @@ public class Minion extends Component implements moveable {
 		this.onLocation.addMinionToLocation(this);
 
 		this.moveLeft -= 1;
+		BlackSkull.checkWin();
 	}
 	// ----------------------getter/setter--------------------------
 

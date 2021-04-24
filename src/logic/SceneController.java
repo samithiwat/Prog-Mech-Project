@@ -7,6 +7,7 @@ import gui.LoadingScreen2;
 import gui.MainIsland;
 import gui.MainMenu;
 import gui.MapOverview;
+import gui.PrisonIsland;
 import gui.StartMenu;
 import gui.entity.PlayerPanel;
 import javafx.animation.AnimationTimer;
@@ -94,9 +95,9 @@ public class SceneController {
 		SceneController.mapOverView= (new MapOverview()).getScene();
 		PlayerPanel dummy = new PlayerPanel();
 		
-		SceneController.mainIsland= (new MainIsland()).getScene();
-//		SceneController.prisonIsland = (new PrisonIsland()).getScene();
 //		SceneController.Ocean = (new Ocean()).getScene();
+		SceneController.prisonIsland = (new PrisonIsland()).getScene();
+		SceneController.mainIsland= (new MainIsland()).getScene();
 	}
 	
 	public static void loadingScreen() {
