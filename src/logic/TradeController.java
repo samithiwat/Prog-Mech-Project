@@ -19,7 +19,9 @@ public class TradeController {
 		traded.getWeaponHand().addAll(trader_WeaponSlot);
 		trader.setMoney(trader.getMoney() + traded_money - trader_money);
 		traded.setMoney(traded.getMoney() - traded_money + trader_money);
-		FightOverlayUpdate.invUpdate();
+		if(GameSetUp.isFightTradeMode) {
+			FightOverlayUpdate.invUpdate();			
+		}
 		traded_WeaponSlot.clear();
 		trader_WeaponSlot.clear();
 		trader_money = 0;

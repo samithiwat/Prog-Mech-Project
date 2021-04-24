@@ -82,6 +82,8 @@ public class GameSetUp {
 	public static boolean isDraw = true;
 	public static boolean isFightOverlayOffersUpdate = false;
 	public static boolean isFightTradeMode = false;
+	public static boolean isChallenge = false;
+	
 	public GameSetUp() {
 		thisTurn = gameCharacter.get(0);
 //----------------------------------Weapon Set Up---------------------------------------------------
