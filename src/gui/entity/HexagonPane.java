@@ -96,8 +96,8 @@ public class HexagonPane extends Pane implements Clickable {
 		minionIconPane = new GridPane();
 		minionIconPane.setHgap(10);
 		minionIconPane.setVgap(10);
-		minionIconPane.setLayoutX(40);
-		minionIconPane.setLayoutY(25);
+		minionIconPane.setLayoutX(52);
+		minionIconPane.setLayoutY(20);
 
 		landInfo = new TextTitle("", Color.web("0xFEFDE8"), FontWeight.BOLD, 20);
 

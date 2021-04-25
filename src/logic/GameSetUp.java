@@ -607,8 +607,7 @@ public class GameSetUp {
 						MapOverview.getTurnChangeScreen().update();
 						MapOverview.getTurnChangeScreenRoot().setVisible(true);
 						AudioUpdate.change(null, MapOverview.getBgm());
-						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-						SceneController.setScene(SceneController.getMapOverView());
+						SceneController.goToMapOverview();
 
 						MapOverview.getMainIsland().setEffect(blur);
 						MapOverview.getPrisonIsland().setEffect(blur);
@@ -627,6 +626,7 @@ public class GameSetUp {
 
 								@Override
 								public void run() {
+									PlayerPanelUpdate.updateActivedLawPane();
 									MapOverview.getMainIsland().setEffect(null);
 									MapOverview.getPrisonIsland().setEffect(null);
 									MapOverview.getOceanTile().setEffect(null);

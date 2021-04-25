@@ -1,5 +1,6 @@
 package gui;
 
+import gui.entity.ActivedLawPane;
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
@@ -30,6 +31,7 @@ import logic.AudioLoader;
 import logic.SceneController;
 import update.AudioUpdate;
 import update.MainIslandUpdate;
+import update.PlayerPanelUpdate;
 
 public class PrisonIsland implements Sceneable {
 
@@ -75,6 +77,9 @@ public class PrisonIsland implements Sceneable {
 
 		playerPanel = new PlayerPanel();
 		
+		ActivedLawPane activedLawPane = new ActivedLawPane();
+		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
+		
 		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
 
 		messageRoot = new StackPane(message);
@@ -112,7 +117,7 @@ public class PrisonIsland implements Sceneable {
 		
 // ------------------------------------------------------ Add Component ------------------------------------------------------------------
 
-		root.getChildren().addAll(bg, playerPanel ,prison, prisonOverlay);
+		root.getChildren().addAll(bg, playerPanel ,prison,activedLawPane, prisonOverlay);
 		root.getChildren().addAll( handOverlay,
 				playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 		scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());

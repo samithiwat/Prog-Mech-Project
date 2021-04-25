@@ -4,14 +4,15 @@ import gui.MainIsland;
 import javafx.scene.paint.Color;
 import update.PlayerPanelUpdate;
 
-public class JubKaoKuk extends LawCard implements Interactable{
+public class JubKaoKuk extends InteractLawCard{
 	
 	public static final String IMG_PATH = "img/card/law/Capture.png";
 	
 	public JubKaoKuk() {
-		super("JubKaoKuk","The government can arrest one random minion from the map.(If there is no sub-minion, the government "
+		super("Capture!","The government can arrest one random minion from the map.(If there is no sub-minion, the government "
 				+ "can arrest the header");
 		this.img_path = "img/card/law/Capture.png";
+		this.icon_img_path = "img/icon/JailIcon.png";
 	}
 	public void activateEffectCard() {
 		//arrest a minion to the prison 
@@ -22,4 +23,5 @@ public class JubKaoKuk extends LawCard implements Interactable{
 		
 		
 	}
+	
 }

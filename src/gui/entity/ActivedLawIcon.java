@@ -1,42 +1,47 @@
 package gui.entity;
 
+import component.law.InteractLawCard;
 import component.law.Interactable;
 import component.law.LawCard;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 
-public class ActivedLawIcon extends HBox implements Clickable {
+public class ActivedLawIcon extends VBox implements Clickable {
 
 	private ImageView icon;
 	private TextTitle name;
 	private LawCard law;
 	
-	private boolean isActive = true;
+	private boolean isInteractable = true;
 
 	public ActivedLawIcon(LawCard law) {
 // ------------------------------------------- Set Up -------------------------------------------------------------
 
 		this.law = law;
 		setSpacing(20);
+		setAlignment(Pos.CENTER);
 		interact();
 
 // ----------------------------------------- Components -----------------------------------------------------------
 
 		if (law instanceof Interactable) {
 
-			icon = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
-			name = new TextTitle(law.getName(), Color.WHITE, FontWeight.BOLD, 36);
+			InteractLawCard interactLaw = (InteractLawCard) law;
+			
+			icon = new ImageView(ClassLoader.getSystemResource(interactLaw.getIcon_img_path()).toString());
+			name = new TextTitle(interactLaw.getName(), Color.WHITE, FontWeight.BOLD, 36);
 
 		} else {
 
-			icon = new ImageView(ClassLoader.getSystemResource("img/card/BackCard.png").toString());
+			icon = new ImageView(ClassLoader.getSystemResource("img/card/CardBack.png").toString());
 			name = new TextTitle("", Color.WHITE, FontWeight.BOLD, 36);
-			isActive = false;
+			isInteractable = false;
 			setVisible(false);
 
 		}
@@ -73,6 +78,7 @@ public class ActivedLawIcon extends HBox implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
+				EFFECT_MOUSE_CLICK.play();
 				law.activateEffectCard();
 			}
 		});
@@ -85,8 +91,8 @@ public class ActivedLawIcon extends HBox implements Clickable {
 
 // ------------------------------------------------- Getter and Setter ---------------------------------------------------------------	
 
-	public boolean isActive() {
-		return this.isActive;
+	public boolean isInteractable() {
+		return this.isInteractable;
 	}
 	
 }

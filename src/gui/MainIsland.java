@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import gui.entity.ActivedLawPane;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.MenuIcon;
@@ -130,7 +131,10 @@ public class MainIsland implements Sceneable {
 		
 // ----------------------------------------------------- Add Scene's Component --------------------------------------------------------
 		
-		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
+		ActivedLawPane activedLawPane = new ActivedLawPane();
+		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
+		
+		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint,activedLawPane, handOverlay,
 			playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());

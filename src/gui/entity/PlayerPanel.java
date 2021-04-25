@@ -27,8 +27,6 @@ public class PlayerPanel extends Pane implements Sceneable {
 	private static TurnBar turnBar;
 	private static StatusPane statusPane;
 	private static MenuIcon handsIcon;
-	private HandOverlay handOverlay;
-	private PlayerList1 playerList1;
 	
 	public PlayerPanel() {
 
@@ -163,10 +161,6 @@ public class PlayerPanel extends Pane implements Sceneable {
 
 	public static MenuIcon getHandsIcon() {
 		return handsIcon;
-	}
-
-	public static void setHandsIcon(MenuIcon handsIcon) {
-		PlayerPanel.handsIcon = handsIcon;
 	}
 	
 }

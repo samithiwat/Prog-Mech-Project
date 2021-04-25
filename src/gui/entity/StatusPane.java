@@ -75,14 +75,14 @@ public class StatusPane extends GridPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-
-				if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
-					triggerGovernment();
-
-				} else {
-					EFFECT_MOUSE_CLICK.play();
-					triggerCurrentLaw();
-				}
+				triggerGovernment();
+//				if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
+//					triggerGovernment();
+//
+//				} else {
+//					EFFECT_MOUSE_CLICK.play();
+//					triggerCurrentLaw();
+//				}
 
 			}
 		});
