@@ -1,6 +1,6 @@
 package component.law;
 
-public class RatTaBarnPatTinKrubBarn extends LawCard {
+public class RatTaBarnPatTinKrubBarn extends LawCard implements Interactable{
 	
 	public static final String IMG_PATH = "img/card/law/Pardon.png";
 	

@@ -7,7 +7,7 @@ import javafx.util.Duration;
 import logic.AudioLoader;
 import logic.GameSetUp;
 
-public class AudioUpdate implements Updateable {
+public class AudioUpdate{
 
 	private static Thread playSelectBGM;
 

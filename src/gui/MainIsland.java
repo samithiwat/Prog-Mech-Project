@@ -134,7 +134,7 @@ public class MainIsland implements Sceneable {
 			playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		scene.setCursor(CURSOR_NORMAL);
+		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
 		scene.setOnKeyReleased(key -> {
@@ -289,9 +289,10 @@ public class MainIsland implements Sceneable {
 			}
 
 			if (key.getCode() == KeyCode.ESCAPE) {
+//				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
+//				SceneController.setScene(SceneController.getMapOverView());
 				AudioUpdate.change(null, MapOverview.getBgm());
-				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-				SceneController.setScene(SceneController.getMapOverView());
+				SceneController.goToMapOverview();
 			}
 		});
 	}

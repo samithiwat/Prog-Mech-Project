@@ -37,6 +37,7 @@ public abstract class MainCharacter extends Component{
 	protected String objectiveInfo1;
 	protected String objectiveInfo2;
 	protected String skill;
+	private String img_path;
 	protected Color color;
 	protected AudioClip bgm;
 	protected AudioClip selectBGM;
@@ -47,8 +48,8 @@ public abstract class MainCharacter extends Component{
 	private int num_Bow;
 	private int num_Shield;
 	private int num_Gun;
-	private String img_path;
 	private ImageView pfp;
+	protected ImageView winnerImg;
 	private boolean isTraded;
 	private boolean isFightTraded;
 
@@ -388,7 +389,13 @@ public abstract class MainCharacter extends Component{
 		return skill;
 	}
 		
+	public ImageView getWinnerImg() {
+		return winnerImg;
+	}
+	
+	
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
+
 
 	public boolean isFightTraded() {
 		return isFightTraded;

@@ -136,7 +136,7 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				oceanOverlay.triggerOverlay(0, 825, 1000);
 			}
 		});
@@ -146,9 +146,10 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
+//				PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
+//				SceneController.setScene(SceneController.getPrisonIsland());
 				AudioUpdate.change(bgm, PrisonIsland.getBgm());
-				PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
-				SceneController.setScene(SceneController.getPrisonIsland());
+				SceneController.goToPrisonIsland();
 			}
 		});
 
@@ -157,17 +158,20 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-
+				
 				AudioUpdate.change(bgm, null);
 
-				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
-				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
-				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
-				MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
-				MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
-				MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
+				SceneController.goToMainIsland();
 
-				SceneController.setScene(SceneController.getMainIsland());
+//
+//				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
+//				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
+//				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
+//				MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
+//				MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
+//				MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
+//
+//				SceneController.setScene(SceneController.getMainIsland());
 
 			}
 		});
@@ -208,7 +212,7 @@ public class MapOverview implements Sceneable {
 //		}
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		scene.setCursor(CURSOR_NORMAL);
+		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
 		this.scene.setOnKeyPressed(key -> {

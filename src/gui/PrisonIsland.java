@@ -116,7 +116,7 @@ public class PrisonIsland implements Sceneable {
 		root.getChildren().addAll( handOverlay,
 				playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 		scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
-		scene.setCursor(CURSOR_NORMAL);
+		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 		
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {

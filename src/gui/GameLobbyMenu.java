@@ -83,7 +83,7 @@ public class GameLobbyMenu implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				SceneController.setScene((new MainMenu()).getScene());
 				bgm.stop();
 				StartMenu.getMenuThemeSong().play();
@@ -99,7 +99,7 @@ public class GameLobbyMenu implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 
-				CLICK_EFFECT.play();				
+				EFFECT_MOUSE_CLICK.play();				
 				setUp = new Thread(new Runnable() {
 
 					@Override
@@ -178,7 +178,7 @@ public class GameLobbyMenu implements Sceneable {
 				characterOverlay2, characterInfo);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
-		scene.setCursor(CURSOR_NORMAL);
+		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/lobby-style.css").toExternalForm());
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 

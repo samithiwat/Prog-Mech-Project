@@ -19,6 +19,7 @@ public class Teewada extends MainCharacter {
 		this.color = Color.web("0xFEF67A");
 		this.setImg_path("img/character/SirTewada.png");
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/SirTewadaWinner.png").toString());
 		this.objectiveInfo1 = "Has government";
 		this.objectiveInfo2 = "times in a row.";
 		this.skill = "Power of goodness (can use only one time)";

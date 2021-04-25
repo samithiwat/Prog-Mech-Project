@@ -2,7 +2,7 @@ package component.law;
 
 import logic.GameSetUp;
 
-public class ReakKurnKongKumRang extends LawCard {
+public class ReakKurnKongKumRang extends LawCard implements Interactable{
 	
 	public static final String IMG_PATH = "img/card/law/RecallArmy.png";
 	

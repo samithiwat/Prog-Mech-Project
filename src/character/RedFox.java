@@ -19,6 +19,7 @@ public class RedFox extends MainCharacter {
 		//this.bgm = AudioLoader.
 		this.setMoney(11*M);
 		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/MrRedFoxWinner.png").toString());
 		this.objectiveInfo1 = "Capture";
 		this.objectiveInfo2 = "Mine.";
 		this.skill = "Get extra money when start game";
