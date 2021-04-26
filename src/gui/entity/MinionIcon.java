@@ -237,7 +237,7 @@ public class MinionIcon extends MenuIcon {
 				GameSetUp.selectedIcon.add(minionIcon);
 				Tooltip message = new Tooltip(
 						"Do you want to ransom this minion for $" + (Prison.PLEDGE / MainCharacter.M) + "M\n"
-								+ "click agian to confirm \n" + "or click another minion to cancle.");
+								+ "click agian to confirm \n" + "or click another minion to cancel.");
 				message.setFont(Font.font(FONT_NAME,20));
 				message.show(minionIcon, event.getScreenX() + 20, event.getScreenY() + 20);
 				PrisonIsland.getOverlay().getMinionPane().setOneMinionSelectMode();
