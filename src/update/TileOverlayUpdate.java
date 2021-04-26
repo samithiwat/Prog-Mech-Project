@@ -2,6 +2,7 @@ package update;
 
 import gui.overlay.TileOverlay;
 import javafx.application.Platform;
+import logic.GameSetUp;
 
 public class TileOverlayUpdate {
 
@@ -13,6 +14,7 @@ public class TileOverlayUpdate {
 		Thread t = new Thread(()->{
 			
 			overlay.getMinionPane().setDisable(true);
+			GameSetUp.selectedTile = null;
 			
 			try {
 				Thread.sleep(TileOverlay.getOverlayDelay());

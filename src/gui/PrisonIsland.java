@@ -1,7 +1,19 @@
 package gui;
 
+import java.util.ArrayList;
+
+import character.BlackSkull;
+import character.Collector;
+import character.RedFox;
+import character.Teewada;
+import character.Teewadee;
+import character.ThousandYear;
+import component.entity.Minion;
+import component.location.Prison;
 import gui.entity.ActivedLawPane;
 import gui.entity.MenuIcon;
+import gui.entity.MinionIcon;
+import gui.entity.MinionPane;
 import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import gui.overlay.CurrentLaw;
@@ -28,6 +40,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
+import logic.GameSetUp;
 import logic.SceneController;
 import update.AudioUpdate;
 import update.MainIslandUpdate;
@@ -44,6 +57,8 @@ public class PrisonIsland implements Sceneable {
 	
 	private static StackPane messageRoot;
 	private static TextTitle message;
+	
+	private static TileOverlay overlay;
 
 	public PrisonIsland() {
 
@@ -59,7 +74,7 @@ public class PrisonIsland implements Sceneable {
 		int[] posXList = { 147, 384, 641, 869, 1040, 1164 };
 		int[] posYList = { 518, 418, 401, 449, 550, 398 };
 		
-		TileOverlay prisonOverlay = new TileOverlay("img/background/jailBackground.png", posXList, posYList);
+		overlay = new TileOverlay("img/background/jailBackground.png", posXList, posYList);
 
 // --------------------------------------------------------- Prison ----------------------------------------------------------------------
 
@@ -68,7 +83,8 @@ public class PrisonIsland implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				prisonOverlay.triggerOverlay(0, 825, 1000);
+				updateOverlay();
+				overlay.triggerOverlay(0, 825, 1000);
 			}
 			
 		});
@@ -117,7 +133,7 @@ public class PrisonIsland implements Sceneable {
 		
 // ------------------------------------------------------ Add Component ------------------------------------------------------------------
 
-		root.getChildren().addAll(bg, playerPanel ,prison,activedLawPane, prisonOverlay);
+		root.getChildren().addAll(bg, playerPanel ,prison,activedLawPane, overlay);
 		root.getChildren().addAll( handOverlay,
 				playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 		scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
@@ -137,7 +153,7 @@ public class PrisonIsland implements Sceneable {
 		});
 	}
 	
-	// ----------------------------------------------- Show Message ------------------------------------------------------------
+// ----------------------------------------------- Show Message ------------------------------------------------------------
 	
 	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
 				int duration) {
@@ -190,6 +206,49 @@ public class PrisonIsland implements Sceneable {
 			});
 			t.start();
 		}
+		
+// ------------------------------------------------- Update Prison Overlay  ------------------------------------------------------------
+		
+		public static void updateOverlay() {
+			overlay.getMinionPane().getChildren().clear();
+			
+			ArrayList<Minion> minions = Prison.minionInPrison;
+			for (int i = 0; i < minions.size(); i++) {
+				addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
+
+			}
+			
+			overlay.getMinionPane().setRansomMode();
+		}
+		
+// ---------------------------------------------------- Private Method -----------------------------------------------------------------
+		
+		private static void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
+
+			MenuIcon minionIcon = null;
+
+			if (minion.getPossessedBy() instanceof RedFox) {
+				minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 0, 0, minion);
+			}
+			if (minion.getPossessedBy() instanceof Collector) {
+				minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 0, 0, minion);
+			}
+			if (minion.getPossessedBy() instanceof BlackSkull) {
+				minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 0, 0, minion);
+			}
+			if (minion.getPossessedBy() instanceof ThousandYear) {
+				minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 0, 0, minion);
+			}
+			if (minion.getPossessedBy() instanceof Teewada) {
+				minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, minion);
+			}
+			if (minion.getPossessedBy() instanceof Teewadee) {
+				minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, minion);
+			}
+
+			minionPane.setMinionAtPos(minionIcon, index);
+
+		}
 
 // --------------------------------------------------- Getter and Setter ---------------------------------------------------------------
 		
@@ -212,6 +271,10 @@ public class PrisonIsland implements Sceneable {
 
 	public static TextTitle getMessage() {
 		return message;
+	}
+
+	public static TileOverlay getOverlay() {
+		return overlay;
 	}
 	
 	

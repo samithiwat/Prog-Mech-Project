@@ -23,7 +23,7 @@ import logic.GameController;
 import logic.GameSetUp;
 import update.AudioUpdate;
 
-public abstract class MainCharacter extends Component{
+public abstract class MainCharacter extends Component {
 	public final static int M = 1000000;
 
 	private ArrayList<WeaponCard> weaponOnHand;
@@ -42,6 +42,7 @@ public abstract class MainCharacter extends Component{
 	protected AudioClip bgm;
 	protected AudioClip selectBGM;
 	private int lossPerTurn;
+	private int minionLeft;
 	private boolean isWin;
 	private int num_Axe;
 	private int num_Sword;
@@ -59,6 +60,12 @@ public abstract class MainCharacter extends Component{
 		this.money = 7 * M;
 		this.weaponOnHand = new ArrayList<WeaponCard>();
 		this.myEntity = new ArrayList<Minion>();
+
+		for (int i = 0; i < Minion.MAX_MINION; i++) {
+			new Minion(this);
+		}
+		this.minionLeft = myEntity.size();
+
 		this.possessedArea = new ArrayList<Location>();
 		this.goodPoint = 0;
 		this.isWin = false;
@@ -94,12 +101,12 @@ public abstract class MainCharacter extends Component{
 			}
 		}
 	}
-	
+
 	public int getArea() {
 		int cnt = 0;
-		for(int i = 0 ; i < this.possessedArea.size() ; i++) {
+		for (int i = 0; i < this.possessedArea.size(); i++) {
 			Location area = this.possessedArea.get(i);
-			if(area instanceof Incomeable)	{
+			if (area instanceof Incomeable) {
 				cnt++;
 			}
 		}
@@ -140,7 +147,7 @@ public abstract class MainCharacter extends Component{
 		int sum = 0;
 		for (int i = 0; i < this.possessedArea.size(); i++) {
 			BuyableLocation location = (BuyableLocation) this.possessedArea.get(i);
-			sum += location.getIncome();				
+			sum += location.getIncome();
 		}
 		this.income = sum;
 		return sum;
@@ -151,19 +158,33 @@ public abstract class MainCharacter extends Component{
 			myEntity.get(i).setMoveLeft(2);
 		}
 	}
-	
+
 	public void startNewTurn() {
 		totalIncome();
 		gainIncome();
 		restMinion();
+		updateMinionLeft();
 	}
 	
+	public void updateMinionLeft() {
+		int count = 0;
+		Minion minion = null;
+		for (int i = 0; i < Minion.MAX_MINION; i++) {
+			minion = GameSetUp.thisTurn.getMyEntity().get(i);
+			if(minion.getOnLocation() == null) {
+				count++;
+			}
+		}
+		minionLeft = count;
+	}
 
-	public void buyMinion() throws UnSpawnableTileException, ExceedToBuyMinionException, ExceedMinionInTileException, OutOfMinionException {
-		if(Minion.MAX_MINION - GameSetUp.thisTurn.getMyEntity().size()<=0) {
+	public void buyMinion() throws UnSpawnableTileException, ExceedToBuyMinionException, ExceedMinionInTileException,
+			OutOfMinionException {
+		
+		if (isOutOfMinion()) {
 			throw new OutOfMinionException();
 		}
-		if(!GameSetUp.canBuyMinion) {
+		if (!GameSetUp.canBuyMinion) {
 			throw new ExceedToBuyMinionException();
 		}
 		if (GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() >= HexagonPane.getMAX_MINION()) {
@@ -172,11 +193,12 @@ public abstract class MainCharacter extends Component{
 		if (!GameSetUp.selectedTile.isSpawnable()) {
 			throw new UnSpawnableTileException();
 		}
-			money -= Minion.COST;
-			GameController.spawnMinion(new Minion(GameSetUp.thisTurn), GameSetUp.selectedTile);
-			AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
-			GameSetUp.canBuyMinion = false;
-			GameSetUp.thisTurn.checkIsWin();
+		money -= Minion.COST;
+		GameController.spawnMinion( GameSetUp.selectedTile);
+		AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
+		updateMinionLeft();
+		GameSetUp.canBuyMinion = false;
+		GameSetUp.thisTurn.checkIsWin();
 	}
 
 	public void buyLand() throws FailToBuyLandException {
@@ -231,11 +253,20 @@ public abstract class MainCharacter extends Component{
 		}
 		return -1;
 	}
-
+	
+	private boolean isOutOfMinion() {
+		Minion minion = null;
+		for (int i = 0; i < Minion.MAX_MINION; i++) {
+			minion = GameSetUp.thisTurn.getMyEntity().get(i);
+			if(minion.getOnLocation() == null) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public abstract int checkIsWin();
 	// ----------------------getter/setter---------------------
-	
-	
 
 	public ArrayList<WeaponCard> getWeaponHand() {
 		return weaponOnHand;
@@ -352,7 +383,7 @@ public abstract class MainCharacter extends Component{
 	public AudioClip getBgm() {
 		return bgm;
 	}
-	
+
 	public boolean isTraded() {
 		return isTraded;
 	}
@@ -364,11 +395,11 @@ public abstract class MainCharacter extends Component{
 	public AudioClip getSelectBGM() {
 		return selectBGM;
 	}
-	
+
 	public ImageView getPfp() {
 		return pfp;
 	}
-	
+
 	public void setPfp(ImageView pfp) {
 		this.pfp = pfp;
 	}
@@ -376,42 +407,45 @@ public abstract class MainCharacter extends Component{
 	public int getnWinCount() {
 		return nWinCount;
 	}
-	
+
 	public String getObjectiveInfo1() {
 		return objectiveInfo1;
 	}
-	
+
 	public String getObjectiveInfo2() {
 		return objectiveInfo2;
 	}
-	
+
 	public String getSkill() {
 		return skill;
 	}
-		
+
 	public ImageView getWinnerImg() {
 		return winnerImg;
 	}
 	
+	public int getMinionLeft() {
+		return minionLeft;
+	}
 	
+
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 
 
 	public boolean isFightTraded() {
 		return isFightTraded;
 	}
-	
+
 	public void setFightTraded(boolean isFightTraded) {
 		this.isFightTraded = isFightTraded;
 	}
-	
+
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 
 	public String toString() {
-		return "-------------------------------------\n" + "Name: " + getName() + "\n" + "Description: "
+		return "Name: " + getName() + "\n" + "Description: "
 				+ getDesciption() + "\n" + "GoodPoint: " + getGoodPoint() + "\n" + "Weapond on hand: " + getWeaponHand()
-				+ "\n" + "Money: " + getMoney() + "\n" + "Minion" + getMyEntity() + "\n"
-				+ "-------------------------------------";
+				+ "\n" + "Money: " + getMoney() + "\n" + "Minion" + getMyEntity() + "\n";
 	}
 
 ////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////

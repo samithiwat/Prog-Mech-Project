@@ -4,6 +4,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import logic.AudioLoader;
 
 public interface Constant {
@@ -28,4 +29,7 @@ public interface Constant {
 	ImageView SIR_TEWADA = new ImageView(ClassLoader.getSystemResource("img/character/SirTewada.png").toString());
 	ImageView SIR_TEWADEE = new ImageView(ClassLoader.getSystemResource("img/character/SirTewadee.png").toString());
 	
+	Color COLOR_ERROR = Color.web("E04B4B");
+	Color COLOR_INFO = Color.web("0xFEFDE8");
+	Color COLOR_STROKE_INFO = Color.web("0x89949B");
 }

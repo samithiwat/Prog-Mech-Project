@@ -191,7 +191,7 @@ public class MainIsland implements Sceneable {
 		disableESC();
 	}
 
-	public static void overlayInteractMode() {
+	public static void overlayInteractMode(String mode) {
 		turnBar.setVisible(true);
 		statusPane.setVisible(true);
 		endTurn.setVisible(true);
@@ -199,7 +199,7 @@ public class MainIsland implements Sceneable {
 		goodnessPoint.setVisible(true);
 		handsIcon.setVisible(true);
 		infoRoot.setVisible(false);
-		HexTileUpdate.setOverlayInteract();
+		HexTileUpdate.setOverlayInteract(mode);
 		enableESC();
 	}
 

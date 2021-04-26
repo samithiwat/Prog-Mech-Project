@@ -13,6 +13,7 @@ import component.location.Forest;
 import component.location.Location;
 import component.location.Mine;
 import component.location.Plain;
+import component.location.Prison;
 import component.location.SecretBase;
 import component.location.Village;
 import component.location.Water;
@@ -49,6 +50,7 @@ public class GameSetUp {
 	private static AnimationTimer animationTimer;
 	private static int animationCount = 0;
 
+	public static Prison prison;
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
 	public static WeaponDeck weaponDeck = new WeaponDeck();
@@ -98,6 +100,7 @@ public class GameSetUp {
 		lawDeck.setUpLawDeck();
 //----------------------------------Map Initialize------------------------------------------------------
 		
+		prison = new Prison();
 		setUpMap();
 		SceneController.createGameScene();
 		setUpMapWithHexPane();	
@@ -164,7 +167,7 @@ public class GameSetUp {
 
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 //				System.out.println(overlay);;
-				System.out.println(Math.round(count++)+"%");
+				System.out.println(Math.round(++count)+"%");
 
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 			}

@@ -117,20 +117,20 @@ public class FightController {
 				System.out.println("error");
 			}
 			if(challenged_isShield || challenger_isShield) {
-				MainIsland.setShowMessage("Shield", Color.WHITE, 120, 2000);
+//				MainIsland.setShowMessage("Shield", Color.WHITE, 120, 2000);
 				PlayerPanelUpdate.setShowMessage("Shield", Color.WHITE, 120, 2000);
 			}
 			else if(challenger_atkPoint > challenged_atkPoint) {
 				challenger.addMinion(challenged);
-				MainIsland.setShowMessage("You win", Color.WHITE, 120, 2000);
+//				MainIsland.setShowMessage("You win", Color.WHITE, 120, 2000);
 				PlayerPanelUpdate.setShowMessage("You win", Color.WHITE, 120, 2000);
 			}
 			else if(challenger_atkPoint < challenged_atkPoint) {
 				challenged.addMinion(challenger);
-				MainIsland.setShowMessage("You lose", Color.WHITE, 120, 2000);
+//				MainIsland.setShowMessage("You lose", Color.WHITE, 120, 2000);
 				PlayerPanelUpdate.setShowMessage("You lose", Color.WHITE, 120, 2000);
 			}else {
-				MainIsland.setShowMessage("Draw", Color.WHITE, 120, 2000);
+//				MainIsland.setShowMessage("Draw", Color.WHITE, 120, 2000);
 				PlayerPanelUpdate.setShowMessage("Draw", Color.WHITE, 120, 2000);
 			}
 		});

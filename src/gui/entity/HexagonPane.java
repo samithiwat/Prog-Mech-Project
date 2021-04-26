@@ -239,7 +239,7 @@ public class HexagonPane extends Pane implements Clickable {
 		});
 	}
 
-	public void overlayInteract() {
+	public void overlayInteract(String mode) {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -247,7 +247,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 				GameSetUp.selectedTile = hexPane;
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
-					updateMinionPane();
+					updateMinionPane(mode);
 					updateMinionIcon(minionIconPane);
 					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
 							TileOverlay.getOverlayDelay());
@@ -397,15 +397,23 @@ public class HexagonPane extends Pane implements Clickable {
 		}
 	}
 
-	public void updateMinionPane() {
+	public void updateMinionPane(String mode) {
 
 		overlay.getMinionPane().getChildren().clear();
-
+	
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
-		System.out.println(locationType);
 		for (int i = 0; i < minions.size(); i++) {
 			addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
 
+		}
+	
+		switch(mode) {
+		case "OneMinion":
+			overlay.getMinionPane().setOneMinionSelectMode();
+			break;
+		case "TwoMinion":
+			overlay.getMinionPane().setTwoMinionSelectMode();
+			break;
 		}
 	}
 

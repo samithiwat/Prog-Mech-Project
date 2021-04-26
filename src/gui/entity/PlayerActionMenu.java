@@ -64,24 +64,24 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 						if (GameSetUp.selectedTile != null) {
 							GameSetUp.isReset = true;
 							GameSetUp.isHighlightSpawnable = false;
-							MainIsland.overlayInteractMode();
+							MainIsland.overlayInteractMode("");
 							try {
 								GameSetUp.thisTurn.buyMinion();
-								MainIsland.overlayInteractMode();
-								MainIsland.setShowMessage("Hello master!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+//								MainIsland.overlayInteractMode("");
+								MainIsland.setShowMessage("Hello master!", COLOR_INFO, COLOR_STROKE_INFO,
 										120, 1, 3000);
 							} catch (OutOfMinionException e) {
 								EFFECT_ERROR.play();
-								MainIsland.setShowMessage("I don't have any minion left!", Color.web("E04B4B"), 120,
+								MainIsland.setShowMessage("I don't have any minion left!", COLOR_ERROR, 120,
 										3000);
 							} catch (UnSpawnableTileException e) {
 								EFFECT_ERROR.play();
-								MainIsland.setShowMessage("I can't spawn in this tile!", Color.web("E04B4B"), 120,
+								MainIsland.setShowMessage("I can't spawn in this tile!", COLOR_ERROR, 120,
 										3000);
 							} catch (ExceedToBuyMinionException e) {
 								EFFECT_ERROR.play();
 								MainIsland.setShowMessage("I must wait next turn to spawn next minion!",
-										Color.web("E04B4B"), 90, 3000);
+										COLOR_ERROR, 90, 3000);
 							} catch (ExceedMinionInTileException e) {
 								EFFECT_ERROR.play();
 								MainIsland.setShowMessage("This tile has reach the maximum of minion!",
@@ -128,9 +128,9 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 
 			@Override
 			public void handle(ActionEvent event) {
-				GameSetUp.selectedTile.updateMinionPane();
+				GameSetUp.selectedTile.updateMinionPane("");
 				GameSetUp.selectedTile.triggerOverlay();
-				GameSetUp.selectedTile.getOverlay().getMinionPane().setMinionSelectMode();
+				GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
 				Thread selectMinion = new Thread(() -> {
 
 					while (true) {
@@ -140,13 +140,13 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								GameSetUp.thisTurn.combineMinion();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.selectedIcon.clear();
-								MainIsland.setShowMessage("I can feel the power!!!", Color.web("0xFEFDE8"),
-										Color.web("0x89949B"), 120, 1, 3000);
+								MainIsland.setShowMessage("I can feel the power!!!", COLOR_INFO,
+										COLOR_STROKE_INFO, 120, 1, 3000);
 							} catch (InvalidOwnershipException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
 								GameSetUp.selectedTile.triggerOverlay();
-								MainIsland.setShowMessage("I don't like this guys!", Color.web("E04B4B"), 120, 3000);
+								MainIsland.setShowMessage("I don't like this guys!", COLOR_ERROR, 120, 3000);
 							}
 							break;
 						}
@@ -166,9 +166,9 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			@Override
 			public void handle(ActionEvent event) {
 
-				GameSetUp.selectedTile.updateMinionPane();
+				GameSetUp.selectedTile.updateMinionPane("");
 				GameSetUp.selectedTile.triggerOverlay();
-				GameSetUp.selectedTile.getOverlay().getMinionPane().setMinionSelectMode();
+				GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
 
 				Thread selectMinion = new Thread(() -> {
 					while (true) {
@@ -178,19 +178,19 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								GameSetUp.thisTurn.splitMinion();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.selectedIcon.clear();
-								MainIsland.setShowMessage("Splited!", Color.web("0xFEFDE8"), Color.web("0x89949B"), 150,
+								MainIsland.setShowMessage("Splited!", COLOR_INFO, COLOR_STROKE_INFO, 150,
 										1, 3000);
 							} catch (ExceedMinionInTileException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
 								GameSetUp.selectedTile.triggerOverlay();
-								MainIsland.setShowMessage("Too much minion in this tile!", Color.web("E04B4B"), 90,
+								MainIsland.setShowMessage("Too much minion in this tile!", COLOR_ERROR, 90,
 										3000);
 							} catch (InvalidOwnershipException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
 								GameSetUp.selectedTile.triggerOverlay();
-								MainIsland.setShowMessage("You're not my master!", Color.web("E04B4B"), 90, 3000);
+								MainIsland.setShowMessage("You're not my master!", COLOR_ERROR, 90, 3000);
 							}
 							break;
 						}
@@ -244,9 +244,9 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				GameSetUp.selectedTile.updateMinionPane();
+				GameSetUp.selectedTile.updateMinionPane("");
 				GameSetUp.selectedTile.triggerOverlay();
-				GameSetUp.selectedTile.getOverlay().getMinionPane().setMinionSelectMode();
+				GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
 				Thread selectMinion = new Thread(() -> {
 
 					while (true) {
@@ -314,7 +314,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 									break;									
 								}
 								else {
-									GameSetUp.selectedTile.getOverlay().getMinionPane().setMinionSelectMode();
+									GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
 									while(true) {
 										if(GameSetUp.selectedIcon.size() > 0) {
 											if(GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy() != GameSetUp.thisTurn) {
@@ -334,7 +334,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 						}
 					});
 					HexagonPane.unhighlight2();
-					HexTileUpdate.setOverlayInteract();
+					HexTileUpdate.setOverlayInteract("");
 				}
 				
 			}

@@ -71,7 +71,7 @@ public class PlayerPanelUpdate {
 		TextTitle landStatus = StatusPane.getLand().getStatus();
 
 		moneyStatus.setText("$" + money + " M");
-		minionStatus.setText("" + character.getMyEntity().size());
+		minionStatus.setText("" + character.getMinionLeft());
 		landStatus.setText("" + character.getPossessedArea().size());
 
 	}
