@@ -43,6 +43,34 @@ public class FightController {
 				}
 			}
 			int challenger_atkPoint = 0 , challenged_atkPoint = 0;
+			MainCharacter challengerMCh = challenger.getPossessedBy();
+			MainCharacter challengedMCh = challenged.getPossessedBy();
+			GameLaw gameLaw = GameSetUp.gameLaw;
+			if(gameLaw.goodPointAdvantage>0) {
+				
+				if(challengerMCh.getGoodPoint() > challengedMCh.getGoodPoint()) {
+					challenger_atkPoint+=gameLaw.goodPointAdvantage;
+				}
+				else if(challengerMCh.getGoodPoint() < challengedMCh.getGoodPoint()) {
+					challenged_atkPoint+=gameLaw.goodPointAdvantage;
+				}
+			}
+			if(gameLaw.poorerAdvantage>0) {
+				if(challengerMCh.getMoney() < challengedMCh.getMoney()) {
+					challenger_atkPoint += gameLaw.poorerAdvantage;
+				}
+				else if(challengerMCh.getMoney() > challengedMCh.getMoney()) {
+					challenged_atkPoint += gameLaw.poorerAdvantage;
+				}
+			}
+			if(gameLaw.richerAdvantage>0) {
+				if(challengerMCh.getMoney() < challengedMCh.getMoney()) {
+					challenged_atkPoint += gameLaw.richerAdvantage;
+				}
+				else if(challengerMCh.getMoney() > challengedMCh.getMoney()) {
+					challenger_atkPoint += gameLaw.richerAdvantage;
+				}
+			}
 			boolean challenger_isShield = false;
 			for(int i = 0 ; i < challenger_slot.size() ; i++) {
 				int randomized_atkPoint = challenger_slot.get(i).rand_attack();
@@ -217,6 +245,7 @@ public class FightController {
 		}
 		return false;
 	}
+	
 	//-------------------------getter/setter-------------------------
 	
 }

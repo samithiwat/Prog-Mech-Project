@@ -8,4 +8,8 @@ public class SecretBase extends Location implements Incomeable{
 	public double getIncome() {
 		return this.incomePerRound;
 	}
+	
+	public void setIncome(double income) {
+		this.incomePerRound = income;
+	}
 }

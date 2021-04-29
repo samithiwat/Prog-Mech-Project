@@ -4,21 +4,27 @@ import java.util.ArrayList;
 
 import component.entity.Minion;
 
-public class Island extends Location {
+public class Ocean extends Location {
 	public static ArrayList<Minion> banishedMinion;
-	public Island() {
+	public static boolean canPardon = true;
+	public Ocean() {
 		super("Island","Get isolated",0,0);
 		banishedMinion = new ArrayList<Minion>();
+		
+		/////////////////////// DEBUG ////////////////////////
+		
+		
+		//////////////////// END OF DEBUG ////////////////////
 	}
 	 
-	public void addToIsland(Minion minion) {
-		this.banishedMinion.add(minion);
+	public static void addToOcean(Minion minion) {
+		banishedMinion.add(minion);
 		while(minion.getMyMinion().size() > 0) {
 			minion.getMyMinion().get(0).getPossessedBy();
 		}
 	}
 	
-	public void removeFromIsland(Minion minion) {
+	public static void removeFromOcean(Minion minion) {
 		minion.returnThisToOwner();
 	}
 	

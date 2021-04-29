@@ -13,6 +13,7 @@ import component.location.Field;
 import component.location.Forest;
 import component.location.Location;
 import component.location.Mine;
+import component.location.Ocean;
 import component.location.Plain;
 import component.location.Prison;
 import component.location.SecretBase;
@@ -52,6 +53,7 @@ public class GameSetUp {
 	private static int animationCount = 0;
 
 	public static Prison prison;
+	public static Ocean ocean;
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
 	public static WeaponDeck weaponDeck = new WeaponDeck();
@@ -104,6 +106,7 @@ public class GameSetUp {
 //----------------------------------Map Initialize------------------------------------------------------
 		
 		prison = new Prison();
+		ocean = new Ocean();
 		setUpMap();
 		SceneController.createGameScene();
 		setUpMapWithHexPane();	

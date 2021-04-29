@@ -6,6 +6,7 @@ import component.location.Prison;
 import exception.InvalidOwnershipException;
 import exception.LackOfMoneyException;
 import exception.OutOfActionException;
+import exception.SupportArmyException;
 import exception.TooFarException;
 import exception.WaterTileException;
 import gui.MainIsland;
@@ -110,7 +111,7 @@ public class MinionIcon extends MenuIcon {
 										minion.move(
 												GameSetUp.selectedTile.getColumn() - GameSetUp.initialTile.getColumn(),
 												GameSetUp.selectedTile.getRow() - GameSetUp.initialTile.getRow());
-										MainIsland.setShowMessage("Walking...!", Color.web("0xFEFDE8"),
+										PlayerPanelUpdate.setShowMessage("Walking...!", Color.web("0xFEFDE8"),
 												Color.web("0x89949B"), 120, 1, 1000);
 
 										if (minion.getMoveLeft() <= 0) {
@@ -125,21 +126,29 @@ public class MinionIcon extends MenuIcon {
 										GameSetUp.initialTile.highlight();
 									} catch (InvalidOwnershipException e) {
 										EFFECT_ERROR.play();
-										MainIsland.setShowMessage("I only Lister to my *Master*", Color.web("E04B4B"),
+										PlayerPanelUpdate.setShowMessage("I only Lister to my *Master*", COLOR_ERROR,
 												110, 3000);
 										break;
 									} catch (WaterTileException e) {
 										EFFECT_ERROR.play();
-										MainIsland.setShowMessage("Bruhh I hate water!", Color.web("E04B4B"), 120,
+										PlayerPanelUpdate.setShowMessage("Bruhh I hate water!", COLOR_ERROR, 120,
 												3000);
 										break;
 									} catch (TooFarException e) {
 										EFFECT_ERROR.play();
-										MainIsland.setShowMessage("That's too far!", Color.web("E04B4B"), 120, 3000);
+										PlayerPanelUpdate.setShowMessage("That's too far!", COLOR_ERROR, 120, 3000);
 										break;
 									} catch (OutOfActionException e) {
 										EFFECT_ERROR.play();
-										MainIsland.setShowMessage("I need some rest!", Color.web("E04B4B"), 120, 3000);
+										PlayerPanelUpdate.setShowMessage("I need some rest!", COLOR_ERROR, 120, 3000);
+										break;
+									}catch(LackOfMoneyException e) {
+										EFFECT_ERROR.play();
+										PlayerPanelUpdate.setShowMessage("I don't have enough money for tax fee.", COLOR_ERROR, 100, 3000);
+										break;
+									}catch(SupportArmyException e) {
+										EFFECT_ERROR.play();
+										PlayerPanelUpdate.setShowMessage("We can;t leave our army.", COLOR_ERROR, 120, 3000);
 										break;
 									}
 
@@ -271,6 +280,30 @@ public class MinionIcon extends MenuIcon {
 				confirm.start();
 			}
 
+		});
+	}
+	
+	public void pardonMode() {
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if(GameSetUp.thisTurn == GameSetUp.theGovernment) {
+					if (event.getButton().equals(MouseButton.PRIMARY)) {
+						GameSetUp.selectedIcon.add(minionIcon);
+					}
+
+					if (event.getButton().equals(MouseButton.SECONDARY)) {
+
+						if (!minionList.isShowing()) {
+							minionList.update();
+							minionList.show(minionIcon, event.getScreenX(), event.getScreenY());
+						} else {
+							minionList.hide();
+						}
+					}
+				}
+			}
 		});
 	}
 

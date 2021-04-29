@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import component.weaponCard.WeaponCard;
 import gui.entity.LawCardIcon;
+import logic.GameSetUp;
 
 public class LawSlot {
 	public static int N_SLOT = 2;
@@ -38,6 +39,7 @@ public class LawSlot {
 	}
 
 	public void activateAllSlot() {
+		GameSetUp.gameLaw.setDefault();
 		for (int i = 0; i < this.slotCard.size(); i++) {
 			if(this.slotCard.get(i).getLaw()!=null) {
 					this.slotCard.get(i).getLaw().activateEffectCard();				
