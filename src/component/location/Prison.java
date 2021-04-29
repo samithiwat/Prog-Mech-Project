@@ -8,17 +8,18 @@ import component.entity.Minion;
 public class Prison extends Location {
 	public static final double PLEDGE = 7*MainCharacter.M;
 	public static ArrayList<Minion> minionInPrison;
+	public static boolean canCapture = true;
 	public Prison() {
 		super("Prison","Get arrested",0,0);
 		this.minionInPrison = new ArrayList<Minion>();
 	}
 	
-	public void removeMinion(int index) {
-		this.minionInPrison.get(index).returnThisToOwner();
+	public static void removeMinion(int index) {
+		minionInPrison.get(index).returnThisToOwner();
 	}
 	
-	public void addToPrison(Minion minion) {
-		this.minionInPrison.add(minion);
+	public static void addToPrison(Minion minion) {
+		minionInPrison.add(minion);
 	}
 	
 }

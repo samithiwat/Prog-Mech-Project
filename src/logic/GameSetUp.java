@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
+import character.Dummy_Government;
 import character.MainCharacter;
 import component.entity.Minion;
 import component.law.LawDeck;
@@ -13,6 +14,7 @@ import component.location.Forest;
 import component.location.Location;
 import component.location.Mine;
 import component.location.Plain;
+import component.location.Prison;
 import component.location.SecretBase;
 import component.location.Village;
 import component.location.Water;
@@ -49,6 +51,7 @@ public class GameSetUp {
 	private static AnimationTimer animationTimer;
 	private static int animationCount = 0;
 
+	public static Prison prison;
 	public static ArrayList<MainCharacter> gameCharacter = new ArrayList<MainCharacter>();
 	public static GameLaw gameLaw = new GameLaw();
 	public static WeaponDeck weaponDeck = new WeaponDeck();
@@ -64,7 +67,8 @@ public class GameSetUp {
 	public static boolean canBuyMinion = true;
 	public static boolean isGameEnd = false;
 	public static boolean isEndTurn;
-	public static MainCharacter theGovernment = null;
+	public static MainCharacter theGovernment = new Dummy_Government();
+	public static Minion theGovenment_minion = null;
 	public static Location[][] map = new Location[9][11];
 	public static MainCharacter thisTurn;
 	public static boolean isHighlightSpawnable = false;
@@ -83,6 +87,7 @@ public class GameSetUp {
 	public static boolean isFightOverlayOffersUpdate = false;
 	public static boolean isFightTradeMode = false;
 	public static boolean isChallenge = false;
+	public static boolean isChallenging = false;
 	
 	public GameSetUp() {
 		thisTurn = gameCharacter.get(0);
@@ -98,6 +103,7 @@ public class GameSetUp {
 		lawDeck.setUpLawDeck();
 //----------------------------------Map Initialize------------------------------------------------------
 		
+		prison = new Prison();
 		setUpMap();
 		SceneController.createGameScene();
 		setUpMapWithHexPane();	
@@ -164,7 +170,7 @@ public class GameSetUp {
 
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 //				System.out.println(overlay);;
-				System.out.println(Math.round(count++)+"%");
+				System.out.println(Math.round(++count)+"%");
 
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 			}
@@ -607,8 +613,7 @@ public class GameSetUp {
 						MapOverview.getTurnChangeScreen().update();
 						MapOverview.getTurnChangeScreenRoot().setVisible(true);
 						AudioUpdate.change(null, MapOverview.getBgm());
-						MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-						SceneController.setScene(SceneController.getMapOverView());
+						SceneController.goToMapOverview();
 
 						MapOverview.getMainIsland().setEffect(blur);
 						MapOverview.getPrisonIsland().setEffect(blur);
@@ -627,6 +632,7 @@ public class GameSetUp {
 
 								@Override
 								public void run() {
+									PlayerPanelUpdate.updateActivedLawPane();
 									MapOverview.getMainIsland().setEffect(null);
 									MapOverview.getPrisonIsland().setEffect(null);
 									MapOverview.getOceanTile().setEffect(null);

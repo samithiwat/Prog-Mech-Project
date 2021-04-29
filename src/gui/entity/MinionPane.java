@@ -23,20 +23,29 @@ public class MinionPane extends Pane{
 		
 	}
 	
-	public void setMinionSelectMode() {
+	public void setOneMinionSelectMode() {
 		for (int i = 0; i < getChildren().size(); i++) {
 			MinionIcon icon = (MinionIcon) getChildren().get(i);
-			icon.selectMode();
+			icon.selectOneMinionMode();
+						
+		}
+	}
+	
+	public void setTwoMinionSelectMode() {
+		for (int i = 0; i < getChildren().size(); i++) {
+			MinionIcon icon = (MinionIcon) getChildren().get(i);
+			icon.selectTwoMinionMode();
 						
 		}
 		
-		///////////////////////// DEBUG ////////////////////////
-		
-		System.out.println(GameSetUp.selectedIcon);
-		
-		///////////////////// END OF DEBUG /////////////////////
 	}
 	
-	
+	public void setRansomMode() {
+		for (int i = 0; i < getChildren().size(); i++) {
+			MinionIcon icon = (MinionIcon) getChildren().get(i);
+			icon.ransomMode();
+						
+		}
+	}
 	
 }

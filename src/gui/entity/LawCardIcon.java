@@ -41,7 +41,6 @@ public class LawCardIcon extends Pane implements Clickable {
 
 	private static int imgWidth;
 	private static int imgHeight;
-	
 
 	private Tooltip info;
 
@@ -50,6 +49,7 @@ public class LawCardIcon extends Pane implements Clickable {
 	public LawCardIcon(LawCard law) {
 		setId("law-card-unselected-style");
 		this.law = law;
+		this.row = -1;
 		if (law != null) {
 			img = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
 			info = new Tooltip();
@@ -58,18 +58,17 @@ public class LawCardIcon extends Pane implements Clickable {
 			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
 			info = new Tooltip("Empty");
 		}
-		
+
 		info.setFont(Font.font("Bai Jamjuree", 14));
-		
+
 		img.setFitWidth(imgWidth);
 		img.setFitHeight(imgHeight);
 
-		
 		interact();
 		dragAndDropInteract();
 
 		if (law instanceof BanArWut) {
-			WeaponCard weapon = ((BanArWut) law).getBannedWeapon();	
+			WeaponCard weapon = ((BanArWut) law).getBannedWeapon();
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getBan_img_path()).toString());
 				setInfo("Ban " + weapon.getName());
@@ -120,7 +119,7 @@ public class LawCardIcon extends Pane implements Clickable {
 			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
 			info = new Tooltip("Empty");
 		}
-		
+
 		interact();
 		dragAndDropInteract();
 
@@ -141,11 +140,10 @@ public class LawCardIcon extends Pane implements Clickable {
 				selectWeaponInteract();
 			}
 		}
-		
+
 		info.setFont(Font.font("Bai Jamjuree", 14));
 		img.setFitWidth(imgWidth);
 		img.setFitHeight(imgHeight);
-
 
 		getChildren().addAll(img);
 	}
@@ -186,7 +184,7 @@ public class LawCardIcon extends Pane implements Clickable {
 					addLaw();
 				} catch (DuplicateLawException e) {
 					removeLaw();
-					
+
 				} catch (FullSlotException e) {
 					EFFECT_ERROR.play();
 					PlayerPanelUpdate.setShowMessage("No slot left for this law.", Color.web("0xE04B4B"),
@@ -202,13 +200,13 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(!(law instanceof BanArWut) && !(law instanceof PaSeeArWut)) {
+				if (!(law instanceof BanArWut) && !(law instanceof PaSeeArWut)) {
 					Dragboard db = img.startDragAndDrop(TransferMode.MOVE);
 					ClipboardContent content = new ClipboardContent();
 					content.putString(
 							"" + MapOverview.allGovernment.get(0).getCardSlot().getChildren().indexOf(lawCardIcon));
 					db.setContent(content);
-					event.consume();					
+					event.consume();
 				}
 			}
 
@@ -248,7 +246,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(DragEvent event) {
-				EFFECT_MOUSE_CLICK.play();
+
 				Dragboard db = event.getDragboard();
 				boolean isSuccess = false;
 				if (db.hasString()) {
@@ -258,9 +256,13 @@ public class LawCardIcon extends Pane implements Clickable {
 									.getChildren().get(Integer.parseInt(db.getString()));
 							addLaw(lawCardIcon);
 							isSuccess = true;
+							EFFECT_MOUSE_CLICK.play();
 						}
 					} catch (DuplicateLawException e) {
-						removeLaw();
+						if (row > -1) {
+							removeLaw();
+							EFFECT_MOUSE_CLICK.play();
+						}
 					} catch (FullSlotException e) {
 						EFFECT_ERROR.play();
 						PlayerPanelUpdate.setShowMessage("This slot is already actived.", Color.web("0xE04B4B"),
@@ -282,37 +284,37 @@ public class LawCardIcon extends Pane implements Clickable {
 				EFFECT_MOUSE_CLICK.play();
 				try {
 					addLaw();
-					
+
 					ArrayList<WeaponCard> weaponList;
-					if(law instanceof BanArWut) {
+					if (law instanceof BanArWut) {
 						weaponList = GameSetUp.lawSlot.getBannedWeapon();
-						weaponList.add(((BanArWut)law).getBannedWeapon());
-						unSelectedAll(new LawCardIcon(new BanArWut()));						
+						weaponList.add(((BanArWut) law).getBannedWeapon());
+						unSelectedAll(new LawCardIcon(new BanArWut()));
 					}
-					if(law instanceof PaSeeArWut) {
+					if (law instanceof PaSeeArWut) {
 						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
-						weaponList.add(((PaSeeArWut)law).getListWeapon());
+						weaponList.add(((PaSeeArWut) law).getListWeapon());
 						unSelectedAll(new LawCardIcon(new PaSeeArWut()));
 					}
-					
+
 					StatusPane.triggerSelectWeapon();
-					
+
 				} catch (FullSlotException e) {
 					EFFECT_ERROR.play();
 					PlayerPanelUpdate.setShowMessage("No slot left for this law.", Color.web("0xE04B4B"),
 							Color.web("0xFEFDE8"), 90, 1, 2000);
 				} catch (DuplicateLawException e) {
-					
+
 					ArrayList<WeaponCard> weaponList;
-					if(law instanceof BanArWut) {
+					if (law instanceof BanArWut) {
 						weaponList = GameSetUp.lawSlot.getBannedWeapon();
-						weaponList.remove(((BanArWut)law).getBannedWeapon());
+						weaponList.remove(((BanArWut) law).getBannedWeapon());
 					}
-					if(law instanceof PaSeeArWut) {
+					if (law instanceof PaSeeArWut) {
 						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
-						weaponList.remove(((PaSeeArWut)law).getListWeapon());
+						weaponList.remove(((PaSeeArWut) law).getListWeapon());
 					}
-					
+
 					removeLaw();
 				}
 			}
@@ -404,6 +406,7 @@ public class LawCardIcon extends Pane implements Clickable {
 		}
 
 		boolean isAdded = false;
+
 		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
 			if (GameSetUp.lawSlot.getSlot(row).getLaw() == null) {
 				GameSetUp.lawSlot.setSlot(row, lawCardIcon);
@@ -434,16 +437,20 @@ public class LawCardIcon extends Pane implements Clickable {
 //				continue;
 //			}
 //		}
+
+
 		unSelectedAll(this);
 		GameSetUp.lawSlot.setSlot(row, new LawCardIcon(null));
 		updateActiveLaw();
 	}
-	
+
 	private void updateActiveLaw() {
 		for (int i = 0; i < MapOverview.allGovernment.size(); i++) {
 			Government overlay = MapOverview.allGovernment.get(i);
 			overlay.updateActivedLaw();
 		}
+		PlayerPanelUpdate.updateActivedLawPane();
+		;
 	}
 
 	private void setSelectedAll(LawCardIcon lawCardIcon) {
@@ -454,6 +461,7 @@ public class LawCardIcon extends Pane implements Clickable {
 				cardSlot = MapOverview.allGovernment.get(i).getCardSlot();
 				LawCardIcon cardIcon = (LawCardIcon) cardSlot.getChildren().get(index);
 				cardIcon.setSelected(true);
+				cardIcon.setDisable(true);
 				cardIcon.setId("law-card-selected-style");
 			}
 		}
@@ -462,13 +470,14 @@ public class LawCardIcon extends Pane implements Clickable {
 	private void unSelectedAll(LawCardIcon lawCardIcon) {
 		LawCardSlot cardSlot = MapOverview.allGovernment.get(0).getCardSlot();
 		int index = cardSlot.getChildren().indexOf(lawCardIcon);
-		if(index>=0) {
+		if (index >= 0) {
 			for (int i = 0; i < MapOverview.allGovernment.size(); i++) {
 				cardSlot = MapOverview.allGovernment.get(i).getCardSlot();
 				LawCardIcon cardIcon = (LawCardIcon) cardSlot.getChildren().get(index);
 				cardIcon.setSelected(false);
+				cardIcon.setDisable(false);
 				cardIcon.setId("law-card-unselected-style");
-			}			
+			}
 		}
 	}
 
@@ -567,7 +576,7 @@ public class LawCardIcon extends Pane implements Clickable {
 	public String toString() {
 		if (law != null) {
 			return "-------------------------------" + "\n" + "Law : " + law.getName() + "\n" + "select : " + isSelected
-					+ "\n" + "---------------------------------";
+					+ "\n" + "Row : " + row + "\n" + "---------------------------------";
 		}
 		return "-------------------------------" + "\n" + "Law : null\n" + "---------------------------------";
 	}

@@ -84,7 +84,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				CharacterSelectUpdate.setcBox(getcBox());
 				CharacterSelectUpdate.removeUpdate();
 			}
@@ -97,7 +97,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				CharacterSelectUpdate.setcBox(getcBox());
 				CharacterSelectUpdate.readyUpdate();
 			}
@@ -111,7 +111,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				CharacterSelectUpdate.setcBox(getcBox());
 				CharacterSelectUpdate.unreadyUpdate();
 			}
@@ -151,7 +151,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 			public void handle(MouseEvent event) {
 				AudioClip effect = AudioLoader.mouseEnterSound;
 				effect.play();
-				setCursor(CURSOR_SELECTED);
+				setCursor(MOUSE_SELECT);
 				texts.get(0).setFill(Color.WHITE);
 				bg.get(0).setId("character-box-hold");
 			}
@@ -161,7 +161,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				setCursor(CURSOR_NORMAL);
+				setCursor(MOUSE_NORMAL);
 				if (!isSelected()) {
 					texts.get(0).setFill(Color.rgb(57, 62, 70));
 					bg.get(0).setId("character-box");
@@ -175,7 +175,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				CharacterSelectUpdate.setcBox(getcBox());
 				CharacterSelectUpdate.overlayUpdate();
 				GameLobbyMenu.getOverlay1().triggerOverlay(0, 875, 1000);

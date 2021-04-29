@@ -20,6 +20,8 @@ public class MapGrid extends Pane {
 	private static boolean isEnable = true;
 	private static ArrayList<ArrayList<HexagonPane>> grids = new ArrayList<ArrayList<HexagonPane>>();
 	private static ArrayList<ArrayList<GridPane>> minionIconPanes = new ArrayList<ArrayList<GridPane>>();
+	
+	public static HexagonPane councilTile;
 
 	public MapGrid() {
 		for (int i = 0; i < N_ROW; i++) {
@@ -51,6 +53,7 @@ public class MapGrid extends Pane {
 			grids.add(column);
 			minionIconPanes.add(iconColumn);
 		}
+		councilTile = grids.get(3).get(5);
 	}
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------

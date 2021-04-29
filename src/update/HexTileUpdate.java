@@ -35,11 +35,11 @@ public class HexTileUpdate {
 		}
 	}
 	
-	public static void setOverlayInteract() {
+	public static void setOverlayInteract(String mode) {
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
-				column.get(j).overlayInteract();
+				column.get(j).overlayInteract(mode);
 			}
 		}
 	}

@@ -441,4 +441,9 @@ public class CharacterSelectUpdate implements Updateable {
 
 	}
 
+	@Override
+	public void update() {
+		// Empty
+	}
+
 }

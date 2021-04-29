@@ -8,9 +8,9 @@ import javafx.scene.shape.Circle;
 
 public class MinionPortraits extends Pane {
 
-	private static int RADIUS = 25;
-	private static int WIDTH = 50;
-	private static int HEIGHT = 50;
+	private static double RADIUS = 12.5;
+	private static int WIDTH = 25;
+	private static int HEIGHT = 25;
 	private ImageView img;
 
 	public MinionPortraits(String img_path, double frame_size, int img_x, int img_y) {

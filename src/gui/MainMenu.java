@@ -127,7 +127,7 @@ public class MainMenu implements Sceneable{
 		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay, quitOverlay);
 		
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		scene.setCursor(CURSOR_NORMAL);
+		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/mainmenu-style.css").toExternalForm());
 
 	}

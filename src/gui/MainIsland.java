@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import gui.entity.ActivedLawPane;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.MenuIcon;
@@ -130,11 +131,14 @@ public class MainIsland implements Sceneable {
 		
 // ----------------------------------------------------- Add Scene's Component --------------------------------------------------------
 		
-		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint, handOverlay,
+		ActivedLawPane activedLawPane = new ActivedLawPane();
+		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
+		
+		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint,activedLawPane, handOverlay,
 			playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		scene.setCursor(CURSOR_NORMAL);
+		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
 		scene.setOnKeyReleased(key -> {
@@ -187,7 +191,7 @@ public class MainIsland implements Sceneable {
 		disableESC();
 	}
 
-	public static void overlayInteractMode() {
+	public static void overlayInteractMode(String mode) {
 		turnBar.setVisible(true);
 		statusPane.setVisible(true);
 		endTurn.setVisible(true);
@@ -195,7 +199,7 @@ public class MainIsland implements Sceneable {
 		goodnessPoint.setVisible(true);
 		handsIcon.setVisible(true);
 		infoRoot.setVisible(false);
-		HexTileUpdate.setOverlayInteract();
+		HexTileUpdate.setOverlayInteract(mode);
 		enableESC();
 	}
 
@@ -289,9 +293,10 @@ public class MainIsland implements Sceneable {
 			}
 
 			if (key.getCode() == KeyCode.ESCAPE) {
+//				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
+//				SceneController.setScene(SceneController.getMapOverView());
 				AudioUpdate.change(null, MapOverview.getBgm());
-				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-				SceneController.setScene(SceneController.getMapOverView());
+				SceneController.goToMapOverview();
 			}
 		});
 	}

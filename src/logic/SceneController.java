@@ -14,6 +14,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import update.AudioUpdate;
 import update.CloseGame;
 import input.Input_StartMenu;
 
@@ -115,7 +116,31 @@ public class SceneController {
 		}
 	}
 	
-// -------------------------------------------- Getter and Setter --------------------------------------------------------------------
+// -------------------------------------------------- Change Scene Method ---------------------------------------------------------------
+	
+	public static void goToMapOverview() {
+		MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
+		setScene(SceneController.getMapOverView());	
+	}
+	
+	public static void goToMainIsland() {
+
+		MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
+		MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
+		MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
+		MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
+		MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
+		MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
+
+		setScene(SceneController.getMainIsland());
+	}
+	
+	public static void goToPrisonIsland() {
+		PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
+		setScene(SceneController.getPrisonIsland());
+	}
+	
+// --------------------------------------------------- Getter and Setter ----------------------------------------------------------------
 	
 	public static Scene getGameSettingMenu() {
 		return gameSettingMenu;

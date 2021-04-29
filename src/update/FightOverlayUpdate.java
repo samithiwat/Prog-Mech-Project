@@ -16,6 +16,7 @@ import logic.TradeController;
 public class FightOverlayUpdate {
 	public static Minion challenger;
 	public static Minion challenged;
+	
 	public static void updateSelectors() {
 		if(GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy().equals(GameSetUp.thisTurn)) {
 			challenger = GameSetUp.selectedIcon.get(0).getMinion();
@@ -83,6 +84,9 @@ public class FightOverlayUpdate {
 					FightController.challenged_slot.remove(card);
 					challengedofferUpdate();
 				});
+				if(challenged.getPossessedBy().getName().equals("Council")) {
+					card_img.setDisable(true);
+				}
 				if(j < 3) {
 					if(j == 3) {
 						overlay.getChallenged_offer1().add(overlay.getChallenged_page1_right(), 4, 0);
@@ -153,6 +157,9 @@ public class FightOverlayUpdate {
 	}
 	
 	public static void acceptUpdate() {
+		if(challenged.getPossessedBy().getName().equals("Council")) {
+			FightOverlay.challenged_IsAccepted = true;
+		}
 		for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
 			FightOverlay overlay = MapOverview.allFightOverlay.get(i);
 			if (FightOverlay.challenged_IsAccepted) {

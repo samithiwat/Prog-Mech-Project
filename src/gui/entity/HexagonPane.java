@@ -96,8 +96,8 @@ public class HexagonPane extends Pane implements Clickable {
 		minionIconPane = new GridPane();
 		minionIconPane.setHgap(10);
 		minionIconPane.setVgap(10);
-		minionIconPane.setLayoutX(40);
-		minionIconPane.setLayoutY(25);
+		minionIconPane.setLayoutX(52);
+		minionIconPane.setLayoutY(20);
 
 		landInfo = new TextTitle("", Color.web("0xFEFDE8"), FontWeight.BOLD, 20);
 
@@ -210,7 +210,13 @@ public class HexagonPane extends Pane implements Clickable {
 					} else if (!canFight) {
 						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(false);
 					}
-
+					
+					for(int i = 0 ; i < 12 ; i++) {
+						if(tileSurroundCouncil[2*i] == row && tileSurroundCouncil[2*i+1] == column && GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() > 0) {
+							GameSetUp.selectedTile.getPlayerActionMenu().getCouncilFight().setVisible(true);
+							break;
+						}
+					}
 					EFFECT_MOUSE_CLICK.play();
 					playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
 				}
@@ -239,7 +245,7 @@ public class HexagonPane extends Pane implements Clickable {
 		});
 	}
 
-	public void overlayInteract() {
+	public void overlayInteract(String mode) {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -247,7 +253,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 				GameSetUp.selectedTile = hexPane;
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
-					updateMinionPane();
+					updateMinionPane(mode);
 					updateMinionIcon(minionIconPane);
 					overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(),
 							TileOverlay.getOverlayDelay());
@@ -373,17 +379,6 @@ public class HexagonPane extends Pane implements Clickable {
 		}
 	}
 
-	public static void highlight2() {
-		for(int i = 0 ; i < 6 ; i++) {
-			MapGrid.getGrids().get(tileSurroundCouncil[2*i]).get(tileSurroundCouncil[2*i+1]).setId("grid-hold-style");
-		}
-	}
-	public static void unhighlight2() {
-		for(int i = 0 ; i < 6 ; i++) {
-			MapGrid.getGrids().get(tileSurroundCouncil[2*i]).get(tileSurroundCouncil[2*i+1]).setId("grid-release-style");
-		}
-	}
-
 	public void updateMinionIcon(GridPane minionIconPane) {
 
 		minionIconPane.getChildren().clear();
@@ -397,15 +392,23 @@ public class HexagonPane extends Pane implements Clickable {
 		}
 	}
 
-	public void updateMinionPane() {
+	public void updateMinionPane(String mode) {
 
 		overlay.getMinionPane().getChildren().clear();
-
+	
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
-		System.out.println(locationType);
 		for (int i = 0; i < minions.size(); i++) {
 			addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
 
+		}
+	
+		switch(mode) {
+		case "OneMinion":
+			overlay.getMinionPane().setOneMinionSelectMode();
+			break;
+		case "TwoMinion":
+			overlay.getMinionPane().setTwoMinionSelectMode();
+			break;
 		}
 	}
 

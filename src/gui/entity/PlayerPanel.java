@@ -27,8 +27,6 @@ public class PlayerPanel extends Pane implements Sceneable {
 	private static TurnBar turnBar;
 	private static StatusPane statusPane;
 	private static MenuIcon handsIcon;
-	private HandOverlay handOverlay;
-	private PlayerList1 playerList1;
 	
 	public PlayerPanel() {
 
@@ -84,7 +82,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_ENTER.play();
-				setCursor(CURSOR_SELECTED);
+				setCursor(MOUSE_SELECT);
 				endTurn.setId("end-turn-button-hold-style");
 			}
 		});
@@ -93,7 +91,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				setCursor(CURSOR_NORMAL);
+				setCursor(MOUSE_NORMAL);
 				endTurn.setId("end-turn-button-release-style");
 			}
 		});
@@ -102,7 +100,7 @@ public class PlayerPanel extends Pane implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				GameSetUp.isEndTurn = true;
 				
 ///////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////////////////////				
@@ -163,10 +161,6 @@ public class PlayerPanel extends Pane implements Sceneable {
 
 	public static MenuIcon getHandsIcon() {
 		return handsIcon;
-	}
-
-	public static void setHandsIcon(MenuIcon handsIcon) {
-		PlayerPanel.handsIcon = handsIcon;
 	}
 	
 }

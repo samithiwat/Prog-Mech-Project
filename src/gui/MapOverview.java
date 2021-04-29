@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import gui.entity.ActivedLawPane;
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
@@ -39,6 +40,7 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
 import update.AudioUpdate;
+import update.PlayerPanelUpdate;
 
 public class MapOverview implements Sceneable {
 
@@ -111,6 +113,7 @@ public class MapOverview implements Sceneable {
 		tradeOverlay = new TradeOverlay();
 		allTradeOverlay = new ArrayList<TradeOverlay>();
 		allTradeOverlay.add(tradeOverlay);
+		
 
 		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
 
@@ -121,6 +124,9 @@ public class MapOverview implements Sceneable {
 		messageRoot.setVisible(false);
 
 		PlayerPanel playerPanel = new PlayerPanel();
+		
+		ActivedLawPane activedLawPane = new ActivedLawPane();
+		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
 
 		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		bg.setFill(Color.web("0x4DC3D3"));
@@ -136,7 +142,7 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				CLICK_EFFECT.play();
+				EFFECT_MOUSE_CLICK.play();
 				oceanOverlay.triggerOverlay(0, 825, 1000);
 			}
 		});
@@ -147,8 +153,7 @@ public class MapOverview implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 				AudioUpdate.change(bgm, PrisonIsland.getBgm());
-				PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
-				SceneController.setScene(SceneController.getPrisonIsland());
+				SceneController.goToPrisonIsland();
 			}
 		});
 
@@ -157,17 +162,10 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-
+				
 				AudioUpdate.change(bgm, null);
 
-				MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
-				MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
-				MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
-				MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
-				MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
-				MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
-
-				SceneController.setScene(SceneController.getMainIsland());
+				SceneController.goToMainIsland();
 
 			}
 		});
@@ -186,7 +184,7 @@ public class MapOverview implements Sceneable {
 		turnChangeScreenRoot.setVisible(false);
 
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, oceanTile, oceanOverlay, handOverlay,
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, oceanTile,activedLawPane, oceanOverlay, handOverlay,
 				playerList1, playerList2, currentLaw, government, objectiveOverlay, tradeOverlay, selectWeaponOverlay,
 				messageRoot, turnChangeScreenRoot);
 //		root.getChildren().addAll(bg,createHexAt(529,91.69));
@@ -208,7 +206,7 @@ public class MapOverview implements Sceneable {
 //		}
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
-		scene.setCursor(CURSOR_NORMAL);
+		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
 		this.scene.setOnKeyPressed(key -> {
