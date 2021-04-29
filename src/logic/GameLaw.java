@@ -73,7 +73,7 @@ public class GameLaw {
 		
 		if(this.taxPerPossessedArea) {
 			tax += character.getPossessedArea().size();
-
+		}
 		if(!this.supportArmy) {
 			for(int i=0;i<GameSetUp.allsecretBases.size();i++) {
 				GameSetUp.allsecretBases.get(i).setIncome(1);
