@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import character.BlackSkull;
 import character.MainCharacter;
 import component.Component;
+import component.law.PaSeeKarnKreunTee;
 import component.location.Location;
+import component.location.Ocean;
 import component.location.Prison;
 import component.location.Water;
 import exception.OutOfActionException;
+import exception.SupportArmyException;
 import exception.ExceedMinionInTileException;
 import exception.InvalidOwnershipException;
 import exception.LackOfMoneyException;
@@ -69,7 +72,7 @@ public class Minion extends Component implements moveable {
 
 // overwrite
 	public void move(int x, int y)
-			throws WaterTileException, OutOfActionException, InvalidOwnershipException, TooFarException {
+			throws WaterTileException, OutOfActionException, InvalidOwnershipException, TooFarException, LackOfMoneyException, SupportArmyException {
 
 		HexagonPane tile = GameSetUp.selectedTile;
 
@@ -83,10 +86,19 @@ public class Minion extends Component implements moveable {
 
 		else if (tile.getLocationType() instanceof Water) {
 			throw new WaterTileException();
-		} else if (!(tile.isMoveable())) {
+		}
+		else if (!(tile.isMoveable())) {
 			throw new TooFarException();
 		}
-
+		else if(GameSetUp.gameLaw.taxPerTile){
+			if(GameSetUp.thisTurn.getMoney() < PaSeeKarnKreunTee.FEE) {
+				throw new LackOfMoneyException();
+			}
+		}
+		else if(GameSetUp.gameLaw.supportArmy) {
+			throw new SupportArmyException();
+		}
+		
 		this.setPosX(this.getPosX() + x);
 		this.setPosY(this.getPosY() + y);
 		this.onLocation.removeFromLocation(this);
@@ -140,6 +152,34 @@ public class Minion extends Component implements moveable {
 				GameSetUp.gameCharacter.get(i).updateMinionLeft();
 			}
 		}
+	}
+	
+// ------------------------------------------------------ Pardon Method -------------------------------------------------------------
+	
+	public void exiled() throws OutOfActionException, ExceedMinionInTileException {
+		if(Ocean.banishedMinion.size()>=6) {
+			throw new ExceedMinionInTileException();
+		}
+		
+		Ocean.canPardon = false;
+		onLocation.removeFromLocation(this);
+		onLocation = GameSetUp.ocean;
+		Ocean.addToOcean(this);
+		this.prisonerNumber = Ocean.banishedMinion.size() -1;
+	}
+	
+	public void pardon() throws OutOfActionException {
+		
+		if(!Ocean.canPardon) {
+			throw new OutOfActionException();
+		}
+		
+		Ocean.banishedMinion.remove(prisonerNumber);
+		returnToOwner();
+		prisonerNumber = -1;
+		onLocation = null;
+		updateMinionLeft();
+		
 	}
 
 	// ----------------------getter/setter--------------------------

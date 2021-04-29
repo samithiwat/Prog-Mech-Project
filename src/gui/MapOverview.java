@@ -2,8 +2,19 @@ package gui;
 
 import java.util.ArrayList;
 
+import character.BlackSkull;
+import character.Collector;
+import character.RedFox;
+import character.Teewada;
+import character.Teewadee;
+import character.ThousandYear;
+import component.entity.Minion;
+import component.location.Ocean;
+import component.location.Prison;
 import gui.entity.ActivedLawPane;
 import gui.entity.MenuIcon;
+import gui.entity.MinionIcon;
+import gui.entity.MinionPane;
 import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import gui.entity.TurnChangeScreen;
@@ -54,6 +65,7 @@ public class MapOverview implements Sceneable {
 	private static MenuIcon mainIsland;
 	private static MenuIcon prisonIsland;
 	private static MenuIcon oceanTile;
+	private static TileOverlay oceanOverlay;
 	private static Pane root;
 
 	private static TurnChangeScreen turnChangeScreen;
@@ -134,7 +146,7 @@ public class MapOverview implements Sceneable {
 		int[] posXList = { 147, 384, 641, 869, 1040, 1164 };
 		int[] posYList = { 518, 418, 401, 449, 550, 398 };
 
-		TileOverlay oceanOverlay = new TileOverlay("img/background/Ocean.png", posXList, posYList);
+		oceanOverlay = new TileOverlay("img/background/Ocean.png", posXList, posYList);
 
 		oceanTile = new MenuIcon("img/background/OceanTile.png", 1230, 190);
 
@@ -143,6 +155,7 @@ public class MapOverview implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_CLICK.play();
+				MapOverview.updateOverlay();
 				oceanOverlay.triggerOverlay(0, 825, 1000);
 			}
 		});
@@ -272,6 +285,50 @@ public class MapOverview implements Sceneable {
 		});
 		t.start();
 	}
+	
+	// ------------------------------------------------- Update Prison Overlay  ------------------------------------------------------------
+	
+			public static void updateOverlay() {
+				oceanOverlay.getMinionPane().getChildren().clear();
+				
+				ArrayList<Minion> minions = Ocean.banishedMinion;
+				for (int i = 0; i < minions.size(); i++) {
+					addMinionToPane(minions.get(i), oceanOverlay.getMinionPane(), i);
+
+				}
+				
+				oceanOverlay.getMinionPane().setPardonMode();
+			}
+			
+	// ---------------------------------------------------- Private Method -----------------------------------------------------------------
+			
+			private static void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
+
+				MenuIcon minionIcon = null;
+
+				if (minion.getPossessedBy() instanceof RedFox) {
+					minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 0, 0, minion);
+				}
+				if (minion.getPossessedBy() instanceof Collector) {
+					minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 0, 0, minion);
+				}
+				if (minion.getPossessedBy() instanceof BlackSkull) {
+					minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 0, 0, minion);
+				}
+				if (minion.getPossessedBy() instanceof ThousandYear) {
+					minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 0, 0, minion);
+				}
+				if (minion.getPossessedBy() instanceof Teewada) {
+					minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, minion);
+				}
+				if (minion.getPossessedBy() instanceof Teewadee) {
+					minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, minion);
+				}
+
+				minionPane.setMinionAtPos(minionIcon, index);
+
+			}
+
 
 // -------------------------------------------- Getter and Setter --------------------------------------------------
 
@@ -325,6 +382,10 @@ public class MapOverview implements Sceneable {
 
 	public static void setMessage(TextTitle message) {
 		MapOverview.message = message;
+	}
+
+	public static TileOverlay getOceanOverlay() {
+		return oceanOverlay;
 	}
 
 }

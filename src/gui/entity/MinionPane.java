@@ -48,4 +48,11 @@ public class MinionPane extends Pane{
 		}
 	}
 	
+	public void setPardonMode() {
+		for (int i = 0; i < getChildren().size(); i++) {
+			MinionIcon icon = (MinionIcon) getChildren().get(i);
+			icon.pardonMode();
+						
+		}
+	}
 }

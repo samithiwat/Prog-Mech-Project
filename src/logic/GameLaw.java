@@ -3,6 +3,9 @@ package logic;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import component.law.LawCard;
+import component.law.LongTodeKonShua;
+import component.law.PaSeeMeung;
 import component.location.Mine;
 import component.weaponCard.WeaponCard;
 
@@ -19,10 +22,10 @@ public class GameLaw {
 	public boolean taxPerPossessedArea;
 	public boolean giftNoWeapon;
 	public int goodPointAdvantage;
-	public int noGoodPointDisadvantage;
 	public int richerAdvantage;
 	public int poorerAdvantage;
 	public boolean setMoneyToAverage;
+	public boolean supportArmy;
 	
 	public GameLaw() {
 		this.setDefault();
@@ -31,7 +34,6 @@ public class GameLaw {
 	public void setDefault() {
 		this.poorerAdvantage = 0;
 		this.richerAdvantage = 0;
-		this.noGoodPointDisadvantage = 0;
 		this.goodPointAdvantage = 0;
 		this.taxPerTile = false;
 		this.giftPerGoodPoint = false;
@@ -44,9 +46,11 @@ public class GameLaw {
 		this.taxPerPossessedArea = false;
 		this.bannedWeapon = null;
 		this.setMoneyToAverage = false;
+		this.supportArmy = false;
 	}
 	
 	public void activateEachTurn(MainCharacter character) {
+
 		int tax = 0;
 		if(this.taxMine) {
 			for(int i = 0 ; i < character.getPossessedArea().size() ; i++) {
@@ -60,7 +64,7 @@ public class GameLaw {
 		}
 		
 		if(this.giftPerGoodPoint) {
-			//tax -= character.getGoodPoint();
+			tax -= character.getGoodPoint();
 		}
 		
 		if(this.giftNoWeapon && character.getWeaponHand().size() == 0) {
@@ -68,7 +72,12 @@ public class GameLaw {
 		}
 		
 		if(this.taxPerPossessedArea) {
-			//tax += character.getPossessedArea().size();
+			tax += character.getPossessedArea().size();
+		}
+		if(!this.supportArmy) {
+			for(int i=0;i<GameSetUp.allsecretBases.size();i++) {
+				GameSetUp.allsecretBases.get(i).setIncome(1);
+			}
 		}
 		
 		character.setMoney(character.getMoney()-tax*MainCharacter.M);
@@ -93,3 +102,4 @@ public class GameLaw {
 	}
 	
 }
+

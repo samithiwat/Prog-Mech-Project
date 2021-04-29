@@ -3,6 +3,7 @@ package logic;
 import character.MainCharacter;
 import character.ThousandYear;
 import component.entity.Minion;
+import component.location.Ocean;
 import component.location.Plain;
 import component.location.Prison;
 import gui.MainIsland;
@@ -95,11 +96,13 @@ public class GameController {
 				GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
 				GameSetUp.isDraw = true;
 				MainCharacter character = GameSetUp.thisTurn;
+				GameSetUp.gameLaw.activateEachTurn(character);
 				character.startNewTurn();
 
 				if (GameSetUp.theGovernment == character) {
 					// remove/add lawcard
 					Prison.canCapture = true;
+					Ocean.canPardon = true;
 					GameSetUp.governmentPoint++;
 				}
 				// what you do in a turn
@@ -133,7 +136,6 @@ public class GameController {
 					break;
 				}
 
-				GameSetUp.gameLaw.setDefault();
 				GameSetUp.lawSlot.activateAllSlot();
 				GameSetUp.isEndTurn = false;
 				GameSetUp.canBuyMinion = true;
@@ -142,6 +144,7 @@ public class GameController {
 				// AudioUpdate.changeTurn(GameSetUp.thisTurn,);
 			}
 			GameSetUp.turn++;
+			GameSetUp.gameLaw.activateEachCycle();
 		}
 		System.out.println("END!!!");
 	}

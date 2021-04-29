@@ -1,5 +1,7 @@
 package component.law;
 
+import logic.GameSetUp;
+
 public class SaNabSaNoonKongTub extends LawCard{
 	
 	public static final String IMG_PATH = "img/card/law/SupportArmy.png";
@@ -10,5 +12,9 @@ public class SaNabSaNoonKongTub extends LawCard{
 	}
 	public void activateEffectCard() {
 		// wait when secretbase location is done.
+		GameSetUp.gameLaw.supportArmy = true;
+		for(int i=0;i<GameSetUp.allsecretBases.size();i++) {
+			GameSetUp.allsecretBases.get(i).setIncome(4);
+		}
 	}
 }

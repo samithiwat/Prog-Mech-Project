@@ -1,6 +1,6 @@
 package character;
 
-import component.location.Island;
+import component.location.Ocean;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
@@ -26,11 +26,11 @@ public class Teewadee extends MainCharacter {
 	}
 
 	public int checkIsWin() {
-		if (Island.banishedMinion.size() >= nWinCount) {
+		if (Ocean.banishedMinion.size() >= nWinCount) {
 			this.setWin(true);
 		} else {
 			this.setWin(false);
 		}
-		return Island.banishedMinion.size();
+		return Ocean.banishedMinion.size();
 	}
 }
