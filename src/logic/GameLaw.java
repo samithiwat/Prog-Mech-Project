@@ -60,7 +60,7 @@ public class GameLaw {
 		}
 		
 		if(this.giftPerGoodPoint) {
-			//tax -= character.getGoodPoint();
+			tax -= character.getGoodPoint();
 		}
 		
 		if(this.giftNoWeapon && character.getWeaponHand().size() == 0) {
@@ -68,7 +68,7 @@ public class GameLaw {
 		}
 		
 		if(this.taxPerPossessedArea) {
-			//tax += character.getPossessedArea().size();
+			tax += character.getPossessedArea().size();
 		}
 		
 		character.setMoney(character.getMoney()-tax*MainCharacter.M);

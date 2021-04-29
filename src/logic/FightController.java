@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.entity.Minion;
+import component.location.Council;
 import component.location.Location;
 import component.weaponCard.WeaponCard;
 import gui.MainIsland;
 import gui.MapOverview;
+import gui.entity.MapGrid;
 import gui.entity.TextTitle;
 import gui.overlay.FightOverlay;
 import javafx.scene.paint.Color;
@@ -22,6 +24,24 @@ public class FightController {
 	public static void Fight(Minion challenger , Minion challenged) {
 		//Each player choose their weapon card to add in these slots.
 		Thread temp = new Thread(() -> {
+			if(GameSetUp.isChallenging) {
+				if(challenger_slot.size() >= 1) {
+					try {
+						Thread.sleep(500);				
+					}catch(Exception e){
+						System.out.println("error");
+					}
+					challenged_slot.add(GameSetUp.weaponDeck.drawCard());
+					GameSetUp.isFightOverlayOffersUpdate = true;
+					try {
+						Thread.sleep(500);				
+					}catch(Exception e){
+						System.out.println("error");
+					}
+					challenged_slot.add(GameSetUp.weaponDeck.drawCard());
+					GameSetUp.isFightOverlayOffersUpdate = true;
+				}
+			}
 			int challenger_atkPoint = 0 , challenged_atkPoint = 0;
 			boolean challenger_isShield = false;
 			for(int i = 0 ; i < challenger_slot.size() ; i++) {
@@ -116,23 +136,52 @@ public class FightController {
 			}catch(Exception e){
 				System.out.println("error");
 			}
-			if(challenged_isShield || challenger_isShield) {
+			if(GameSetUp.isChallenging == false) {
+				if(challenged_isShield || challenger_isShield) {
 //				MainIsland.setShowMessage("Shield", Color.WHITE, 120, 2000);
-				PlayerPanelUpdate.setShowMessage("Shield", Color.WHITE, 120, 2000);
-			}
-			else if(challenger_atkPoint > challenged_atkPoint) {
-				challenger.addMinion(challenged);
+					PlayerPanelUpdate.setShowMessage("Shield", Color.WHITE, 120, 2000);
+				}
+				else if(challenger_atkPoint > challenged_atkPoint) {
+					challenger.addMinion(challenged);
 //				MainIsland.setShowMessage("You win", Color.WHITE, 120, 2000);
-				PlayerPanelUpdate.setShowMessage("You win", Color.WHITE, 120, 2000);
-			}
-			else if(challenger_atkPoint < challenged_atkPoint) {
-				challenged.addMinion(challenger);
+					PlayerPanelUpdate.setShowMessage("You win", Color.WHITE, 120, 2000);
+				}
+				else if(challenger_atkPoint < challenged_atkPoint) {
+					challenged.addMinion(challenger);
 //				MainIsland.setShowMessage("You lose", Color.WHITE, 120, 2000);
-				PlayerPanelUpdate.setShowMessage("You lose", Color.WHITE, 120, 2000);
-			}else {
+					PlayerPanelUpdate.setShowMessage("You lose", Color.WHITE, 120, 2000);
+				}else {
 //				MainIsland.setShowMessage("Draw", Color.WHITE, 120, 2000);
-				PlayerPanelUpdate.setShowMessage("Draw", Color.WHITE, 120, 2000);
+					PlayerPanelUpdate.setShowMessage("Draw", Color.WHITE, 120, 2000);				
+				}
 			}
+			else if(GameSetUp.isChallenging == true && MapGrid.councilTile.getLocationType().getMinionOnLocation().size()==0 ) {
+				if(challenger_atkPoint > challenged_atkPoint) {
+					Council council = (Council)MapGrid.councilTile.getLocationType();
+					challenger.getOnLocation().removeFromLocation(challenger);
+					council.addMinionToLocation(challenger);
+					council.changeTheGovernment(challenger.getPossessedBy());
+					PlayerPanelUpdate.setShowMessage("Victory!", Color.WHITE, 120, 2000);
+				}
+				else {
+					PlayerPanelUpdate.setShowMessage("Defeat", Color.WHITE, 120, 2000);
+				}
+			}
+			else if(GameSetUp.isChallenging == true && MapGrid.councilTile.getLocationType().getMinionOnLocation().size() > 0 ) {
+				if(challenger_atkPoint > challenged_atkPoint) {
+					Council council = (Council)MapGrid.councilTile.getLocationType();
+					challenger.getOnLocation().removeFromLocation(challenger);
+					//add minion to island
+					council.getMinionOnLocation().remove(0);
+					council.addMinionToLocation(challenger);
+					council.changeTheGovernment(challenger.getPossessedBy());
+					PlayerPanelUpdate.setShowMessage("Victory!", Color.WHITE, 120, 2000);
+				}
+				else {
+					PlayerPanelUpdate.setShowMessage("Defeat", Color.WHITE, 120, 2000);
+				}
+			}
+			GameSetUp.isChallenging = false;
 		});
 		temp.start();
 		try {
