@@ -225,27 +225,6 @@ public class FightController {
 		}
 
 	}
-	public static boolean Fight(Minion challenger, Location challenged) {
-		//Each player choose their weapon card to add in these slots.
-		challenged_slot.add(GameSetUp.weaponDeck.drawCard());
-		challenged_slot.add(GameSetUp.weaponDeck.drawCard());
-		int challenger_atkPoint = 0 , challenged_atkPoint = 0;
-		for(int i = 0 ; i < challenger_slot.size() ; i++) {
-			int randomized_atkPoint = challenger_slot.get(i).rand_attack();
-			//update the randomized atk to the screen
-			challenger_atkPoint += randomized_atkPoint;
-		}
-		for(int i = 0 ; i < challenged_slot.size() ; i++) {
-			int randomized_atkPoint = challenged_slot.get(i).rand_attack();
-			//update the randomized atk to the screen
-			challenged_atkPoint += randomized_atkPoint;
-		}
-		if(challenger_atkPoint > challenged_atkPoint) {
-			return true;
-		}
-		return false;
-	}
-	
 	//-------------------------getter/setter-------------------------
 	
 }

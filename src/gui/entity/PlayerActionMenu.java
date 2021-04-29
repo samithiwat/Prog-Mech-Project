@@ -3,6 +3,7 @@ package gui.entity;
 import java.util.ArrayList;
 
 import character.Dummy_Government;
+import character.MainCharacter;
 import component.entity.Minion;
 import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
@@ -24,6 +25,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import logic.GameLaw;
 import logic.GameSetUp;
 import update.FightOverlayUpdate;
 import update.GameSettingUpdate;
@@ -219,17 +221,33 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				boolean key = true;
 				if(!GameSetUp.isFightTradeMode) {
 					TradeOverlayUpdate.trader = GameSetUp.thisTurn;
 				}
 				TradeOverlayUpdate.traded = GameSetUp.selectedCharacter;
-				TradeOverlayUpdate.pfpUpdate();
-				TradeOverlayUpdate.invUpdate();
-				TradeOverlayUpdate.traderofferUpdate();
-				TradeOverlayUpdate.tradedofferUpdate();
-				TradeOverlayUpdate.acceptUpdate();
-				for (int i = 0; i < MapOverview.allTradeOverlay.size(); i++) {
-					MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
+				if(GameSetUp.gameLaw.taxTrade) {
+					if(TradeOverlayUpdate.trader.getMoney() < 1*MainCharacter.M) {
+						key = false;
+					}
+					else {
+						TradeOverlayUpdate.trader.setMoney(TradeOverlayUpdate.trader.getMoney()-1*MainCharacter.M);
+					}
+				}
+				if(!key) {
+					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
+					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							100, 1, 3000);
+				}
+				else {
+					TradeOverlayUpdate.pfpUpdate();
+					TradeOverlayUpdate.invUpdate();
+					TradeOverlayUpdate.traderofferUpdate();
+					TradeOverlayUpdate.tradedofferUpdate();
+					TradeOverlayUpdate.acceptUpdate();
+					for (int i = 0; i < MapOverview.allTradeOverlay.size(); i++) {
+						MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
+					}
 				}
 			}
 		});
@@ -246,55 +264,75 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				GameSetUp.selectedTile.updateMinionPane("");
-				GameSetUp.selectedTile.triggerOverlay();
-				GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
-				PlayerPanelUpdate.setShowMessage("Choose your own minion and the opponent.", Color.WHITE, 70, 3000);
-				MainIsland.setShowMessage("Choose your own minion and the opponent.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-						70, 1, 3000);
-				Thread selectMinion = new Thread(() -> {
-
-					while (true) {
-						System.out.print("");
-						if (GameSetUp.selectedIcon.size() >= 2) {
-							GameSetUp.selectedTile.triggerOverlay();
-							GameSetUp.isFightTradeMode = true;
-							FightOverlayUpdate.updateSelectors();
-							TradeOverlayUpdate.trader = FightOverlayUpdate.challenged.getPossessedBy();
-							for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
-								GameSetUp.gameCharacter.get(i).setFightTraded(false);
-							}
-							for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
-								MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
-							}
-							MainIsland.setShowMessage("You are being challenged, find someone to help!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-									120, 1, 3000);
-							while (true) {
-								System.out.print("");
-								if (GameSetUp.isFightTradeMode == false) {
-									break;
-								}
-							}
-							FightOverlayUpdate.pfpUpdate();
-							FightOverlayUpdate.invUpdate();
-							GameSetUp.isFightOverlayOffersUpdate = true;
-							FightOverlayUpdate.acceptUpdate();
-
-							for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
-								MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
-							}
-							MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-									120, 1, 3000);
-
-							break;
-						}
+				boolean key = true;
+				if(GameSetUp.gameLaw.taxFighting) {
+					if(GameSetUp.thisTurn.getMoney() < 1*MainCharacter.M) {
+						key = false;
 					}
-
-				});
-				selectMinion.start();
+					else {
+						key = true;
+						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney()-1*MainCharacter.M);
+					}
+				}
+				if(!key) {
+					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
+					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							100, 1, 3000);
+				}
+				else {
+					GameSetUp.selectedTile.updateMinionPane("");
+					GameSetUp.selectedTile.triggerOverlay();
+					GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
+					PlayerPanelUpdate.setShowMessage("Choose your own minion and the opponent.", Color.WHITE, 70, 3000);
+					MainIsland.setShowMessage("Choose your own minion and the opponent.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							70, 1, 3000);
+					Thread selectMinion = new Thread(() -> {
+						
+						while (true) {
+							System.out.print("");
+							if (GameSetUp.selectedIcon.size() >= 2) {
+								GameSetUp.selectedTile.triggerOverlay();
+								GameSetUp.isFightTradeMode = true;
+								FightOverlayUpdate.updateSelectors();
+								TradeOverlayUpdate.trader = FightOverlayUpdate.challenged.getPossessedBy();
+								for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
+									GameSetUp.gameCharacter.get(i).setFightTraded(false);
+								}
+								for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
+									MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
+								}
+								MainIsland.setShowMessage("You are being challenged, find someone to help!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+										120, 1, 3000);
+								while (true) {
+									System.out.print("");
+									if (GameSetUp.isFightTradeMode == false) {
+										break;
+									}
+								}
+								FightOverlayUpdate.pfpUpdate();
+								FightOverlayUpdate.invUpdate();
+								GameSetUp.isFightOverlayOffersUpdate = true;
+								FightOverlayUpdate.acceptUpdate();
+								
+								for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+									MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
+								}
+								MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+										120, 1, 3000);
+								
+								break;
+							}
+						}
+						
+					});
+					selectMinion.start();
+				}
 			}
 		});
 		
+		icon = new ImageView(ClassLoader.getSystemResource("img/icon/FightIcon.png").toString());
+		icon.setFitHeight(25);
+		icon.setFitWidth(25);
 		councilFight = new MenuItem("Challenge");
 		councilFight.setGraphic(icon);
 		councilFight.setVisible(false);
@@ -303,51 +341,68 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				GameSetUp.selectedTile.updateMinionPane("");
-				GameSetUp.selectedTile.triggerOverlay();
-				GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
-				PlayerPanelUpdate.setShowMessage("Choose your own minion.", Color.WHITE, 70, 3000);
-				MainIsland.setShowMessage("Choose your own minion.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-						70, 1, 3000);
-				Thread selectMinion = new Thread(() -> {
-
-					while (true) {
-						System.out.print("");
-						if (GameSetUp.selectedIcon.size() >= 1) {
-							if(!GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy().equals(GameSetUp.thisTurn)) {
-								MainIsland.setShowMessage("You can not do that.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+				boolean key = true;
+				if(GameSetUp.gameLaw.taxFighting) {
+					if(GameSetUp.thisTurn.getMoney() < 1*MainCharacter.M) {
+						key = false;
+					}
+					else {
+						key = true;
+						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney()-1*MainCharacter.M);
+					}
+				}
+				if(!key) {
+					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
+					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							100, 1, 3000);
+				}
+				else {
+					GameSetUp.selectedTile.updateMinionPane("");
+					GameSetUp.selectedTile.triggerOverlay();
+					GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
+					PlayerPanelUpdate.setShowMessage("Choose your own minion.", Color.WHITE, 100, 3000);
+					MainIsland.setShowMessage("Choose your own minion.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							100, 1, 3000);
+					Thread selectMinion = new Thread(() -> {
+						
+						while (true) {
+							System.out.print("");
+							if (GameSetUp.selectedIcon.size() >= 1) {
+								if(!GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy().equals(GameSetUp.thisTurn)) {
+									MainIsland.setShowMessage("You can not do that.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+											120, 1, 3000);
+									PlayerPanelUpdate.setShowMessage("You can not do that.", Color.WHITE, 120, 3000);
+									break;
+								}
+								GameSetUp.isChallenging = true;
+								GameSetUp.selectedTile.triggerOverlay();
+								FightOverlayUpdate.challenger = GameSetUp.selectedIcon.get(0).getMinion();
+								if(GameSetUp.theGovernment.getName().equals("Council")) {
+									FightOverlayUpdate.challenged = GameSetUp.theGovernment.getMyEntity().get(0); 
+								}
+								else {
+									FightOverlayUpdate.challenged = GameSetUp.theGovenment_minion;
+								}
+								FightOverlayUpdate.pfpUpdate();
+								FightOverlayUpdate.invUpdate();
+								GameSetUp.isFightOverlayOffersUpdate = true;
+								FightOverlayUpdate.acceptUpdate();
+								
+								for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+									MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
+								}
+								MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 										120, 1, 3000);
-								PlayerPanelUpdate.setShowMessage("You can not do that.", Color.WHITE, 120, 3000);
+								PlayerPanelUpdate.setShowMessage("Let's fight!!!", Color.WHITE, 120, 3000);
+								
+								
 								break;
 							}
-							GameSetUp.isChallenging = true;
-							GameSetUp.selectedTile.triggerOverlay();
-							FightOverlayUpdate.challenger = GameSetUp.selectedIcon.get(0).getMinion();
-							if(GameSetUp.theGovernment.getName().equals("Council")) {
-								FightOverlayUpdate.challenged = GameSetUp.theGovernment.getMyEntity().get(0); 
-							}
-							else {
-								FightOverlayUpdate.challenged = GameSetUp.theGovenment_minion;
-							}
-							FightOverlayUpdate.pfpUpdate();
-							FightOverlayUpdate.invUpdate();
-							GameSetUp.isFightOverlayOffersUpdate = true;
-							FightOverlayUpdate.acceptUpdate();
-
-							for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
-								MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
-							}
-							MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-									120, 1, 3000);
-							PlayerPanelUpdate.setShowMessage("Let's fight!!!", Color.WHITE, 120, 3000);
-							
-
-							break;
 						}
-					}
-
-				});
-				selectMinion.start();
+						
+					});
+					selectMinion.start();
+				}
 			}
 		});
 
