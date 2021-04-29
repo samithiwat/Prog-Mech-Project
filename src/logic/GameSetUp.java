@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
+import character.Dummy_Government;
 import character.MainCharacter;
 import component.entity.Minion;
 import component.law.LawDeck;
@@ -68,7 +69,8 @@ public class GameSetUp {
 	public static boolean canBuyMinion = true;
 	public static boolean isGameEnd = false;
 	public static boolean isEndTurn;
-	public static MainCharacter theGovernment = null;
+	public static MainCharacter theGovernment = new Dummy_Government();
+	public static Minion theGovenment_minion = null;
 	public static Location[][] map = new Location[9][11];
 	public static MainCharacter thisTurn;
 	public static boolean isHighlightSpawnable = false;
@@ -87,6 +89,7 @@ public class GameSetUp {
 	public static boolean isFightOverlayOffersUpdate = false;
 	public static boolean isFightTradeMode = false;
 	public static boolean isChallenge = false;
+	public static boolean isChallenging = false;
 	
 	public GameSetUp() {
 		thisTurn = gameCharacter.get(0);

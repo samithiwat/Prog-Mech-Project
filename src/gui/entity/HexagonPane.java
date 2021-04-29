@@ -210,7 +210,13 @@ public class HexagonPane extends Pane implements Clickable {
 					} else if (!canFight) {
 						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(false);
 					}
-
+					
+					for(int i = 0 ; i < 12 ; i++) {
+						if(tileSurroundCouncil[2*i] == row && tileSurroundCouncil[2*i+1] == column && GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() > 0) {
+							GameSetUp.selectedTile.getPlayerActionMenu().getCouncilFight().setVisible(true);
+							break;
+						}
+					}
 					EFFECT_MOUSE_CLICK.play();
 					playerActionMenu.show(hexPane, event.getSceneX(), event.getSceneY());
 				}
@@ -370,17 +376,6 @@ public class HexagonPane extends Pane implements Clickable {
 				MapGrid.getGrids().get(this.row + x).get(this.column + y).setId("grid-disable");
 			}
 			MapGrid.getGrids().get(this.row + x).get(this.column + y).setMoveable(false);
-		}
-	}
-
-	public static void highlight2() {
-		for(int i = 0 ; i < 6 ; i++) {
-			MapGrid.getGrids().get(tileSurroundCouncil[2*i]).get(tileSurroundCouncil[2*i+1]).setId("grid-hold-style");
-		}
-	}
-	public static void unhighlight2() {
-		for(int i = 0 ; i < 6 ; i++) {
-			MapGrid.getGrids().get(tileSurroundCouncil[2*i]).get(tileSurroundCouncil[2*i+1]).setId("grid-release-style");
 		}
 	}
 
