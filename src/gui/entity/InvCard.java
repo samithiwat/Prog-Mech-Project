@@ -2,13 +2,16 @@ package gui.entity;
 
 import character.MainCharacter;
 import component.weaponCard.WeaponCard;
+import gui.MainIsland;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import logic.FightController;
 import logic.GameSetUp;
 import logic.TradeController;
 import update.FightOverlayUpdate;
+import update.PlayerPanelUpdate;
 import update.TradeOverlayUpdate;
 
 public class InvCard extends ImageView implements Clickable {
@@ -32,21 +35,21 @@ public class InvCard extends ImageView implements Clickable {
 			character = TradeOverlayUpdate.trader;
 		} else if (key >= 5 && key < 10) {
 			character = TradeOverlayUpdate.traded;
-		} 
+		}
 		if (key >= 10 && key < 15 && GameSetUp.selectedIcon.size() > 0) {
 			character = FightOverlayUpdate.challenger.getPossessedBy();
-		} else if(key >= 15 && GameSetUp.selectedIcon.size() > 0){
+		} else if (key >= 15 && GameSetUp.selectedIcon.size() > 0) {
 //			System.out.println("findcard");
 			character = FightOverlayUpdate.challenged.getPossessedBy();
 		}
 //		System.out.println(character.getName());
 		this.index = -1;
-		if(character != null) {
+		if (character != null) {
 			for (int i = 0; i < character.getWeaponHand().size(); i++) {
 				if (character.getWeaponHand().get(i).getName().equals(card.getName())) {
 					this.index = i;
 				}
-			}			
+			}
 		}
 		return this.index;
 	}
@@ -67,16 +70,54 @@ public class InvCard extends ImageView implements Clickable {
 			}
 			// 10-19
 			else if (key >= 10 && key < 15) {
-				FightController.challenger_slot
-						.add(FightOverlayUpdate.challenger.getPossessedBy().getWeaponHand().get(index));
-				FightOverlayUpdate.challenger.getPossessedBy().getWeaponHand().remove(index);
-				setVisible(false);
+				boolean flag = true;
+				if (GameSetUp.gameLaw.taxWeapon) {
+					for (int i = 0; i < GameSetUp.lawSlot.getTaxedWeapon().size(); i++) {
+						if (FightOverlayUpdate.challenger.getPossessedBy().getWeaponHand().get(index).getName()
+								.equals(GameSetUp.lawSlot.getTaxedWeapon().get(i).getName())) {
+							MainCharacter character = FightOverlayUpdate.challenger.getPossessedBy();
+							if (character.getMoney() < 1 * MainCharacter.M) {
+								flag = false;
+							} else {
+								character.setMoney(character.getMoney() - 1 * MainCharacter.M);
+							}
+						}
+					}
+				}
+				if (!flag) {
+					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
+					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"), 100, 1, 3000);
+				} else {
+					FightController.challenger_slot
+							.add(FightOverlayUpdate.challenger.getPossessedBy().getWeaponHand().get(index));
+					FightOverlayUpdate.challenger.getPossessedBy().getWeaponHand().remove(index);
+					setVisible(false);
+				}
 				FightOverlayUpdate.challengerofferUpdate();
 			} else if (key >= 15) {
-				FightController.challenged_slot
-						.add(FightOverlayUpdate.challenged.getPossessedBy().getWeaponHand().get(index));
-				FightOverlayUpdate.challenged.getPossessedBy().getWeaponHand().remove(index);
-				setVisible(false);
+				boolean flag = true;
+				if (GameSetUp.gameLaw.taxWeapon) {
+					for (int i = 0; i < GameSetUp.lawSlot.getTaxedWeapon().size(); i++) {
+						if (FightOverlayUpdate.challenged.getPossessedBy().getWeaponHand().get(index).getName()
+								.equals(GameSetUp.lawSlot.getTaxedWeapon().get(i).getName())) {
+							MainCharacter character = FightOverlayUpdate.challenged.getPossessedBy();
+							if (character.getMoney() < 1 * MainCharacter.M) {
+								flag = false;
+							} else {
+								character.setMoney(character.getMoney() - 1 * MainCharacter.M);
+							}
+						}
+					}
+				}
+				if (!flag) {
+					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
+					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"), 100, 1, 3000);
+				} else {
+					FightController.challenged_slot
+							.add(FightOverlayUpdate.challenged.getPossessedBy().getWeaponHand().get(index));
+					FightOverlayUpdate.challenged.getPossessedBy().getWeaponHand().remove(index);
+					setVisible(false);
+				}
 				FightOverlayUpdate.challengedofferUpdate();
 			}
 		});
@@ -110,6 +151,10 @@ public class InvCard extends ImageView implements Clickable {
 
 	public int getKey() {
 		return key;
+	}
+
+	public WeaponCard getCard() {
+		return card;
 	}
 
 }

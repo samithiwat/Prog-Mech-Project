@@ -1,6 +1,7 @@
 package character;
 
 import component.entity.Minion;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
@@ -15,7 +16,7 @@ public class Dummy_Government extends MainCharacter {
 		super("Council", "");
 		this.color = Color.web("0x183F21");
 		this.setImg_path(IMG_PATH);
-		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.setPfp(new Image(ClassLoader.getSystemResource(IMG_PATH).toString()));
 		this.getMyEntity().add(new Minion(this));
 	}
 

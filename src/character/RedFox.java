@@ -1,6 +1,7 @@
 package character;
 
 import gui.entity.GameSetting;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
@@ -18,7 +19,7 @@ public class RedFox extends MainCharacter {
 		this.setImg_path("img/character/MrRedFox.png");
 		//this.bgm = AudioLoader.
 		this.setMoney(11*M);
-		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.setPfp(new Image(ClassLoader.getSystemResource(IMG_PATH).toString()));
 		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/MrRedFoxWinner.png").toString());
 		this.objectiveInfo1 = "Capture";
 		this.objectiveInfo2 = "Mine.";
