@@ -13,6 +13,7 @@ import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
 import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
+import exception.OutOfActionException;
 import exception.OutOfMinionException;
 import gui.entity.HexagonPane;
 import javafx.scene.image.ImageView;
@@ -53,6 +54,7 @@ public abstract class MainCharacter extends Component {
 	protected ImageView winnerImg;
 	private boolean isTraded;
 	private boolean isFightTraded;
+	private boolean canChangeGoodPoint;
 
 	public MainCharacter(String name, String description) {
 		super(name);
@@ -78,6 +80,7 @@ public abstract class MainCharacter extends Component {
 		this.num_Sword = 0;
 		this.isTraded = false;
 		this.isFightTraded = false;
+		this.canChangeGoodPoint = true;
 	}
 
 	public void countWeaponCard() {
@@ -160,18 +163,19 @@ public abstract class MainCharacter extends Component {
 	}
 
 	public void startNewTurn() {
+		canChangeGoodPoint = true;
 		totalIncome();
 		gainIncome();
 		restMinion();
 		updateMinionLeft();
 	}
-	
+
 	public void updateMinionLeft() {
 		int count = 0;
 		Minion minion = null;
 		for (int i = 0; i < Minion.MAX_MINION; i++) {
 			minion = GameSetUp.thisTurn.getMyEntity().get(i);
-			if(minion.getOnLocation() == null) {
+			if (minion.getOnLocation() == null) {
 				count++;
 			}
 		}
@@ -180,7 +184,7 @@ public abstract class MainCharacter extends Component {
 
 	public void buyMinion() throws UnSpawnableTileException, ExceedToBuyMinionException, ExceedMinionInTileException,
 			OutOfMinionException {
-		
+
 		if (isOutOfMinion()) {
 			throw new OutOfMinionException();
 		}
@@ -194,7 +198,7 @@ public abstract class MainCharacter extends Component {
 			throw new UnSpawnableTileException();
 		}
 		money -= Minion.COST;
-		GameController.spawnMinion( GameSetUp.selectedTile);
+		GameController.spawnMinion(GameSetUp.selectedTile);
 		AudioUpdate.playCharacterSelectBGM(null, GameSetUp.thisTurn.bgm, GameSetUp.thisTurn.selectBGM);
 		updateMinionLeft();
 		GameSetUp.canBuyMinion = false;
@@ -245,6 +249,24 @@ public abstract class MainCharacter extends Component {
 		}
 	}
 
+	public void addGoodPoint() throws OutOfActionException {
+		if (!canChangeGoodPoint) {
+			throw new OutOfActionException();
+		}
+		setGoodPoint(getGoodPoint() + 1);
+		canChangeGoodPoint = false;
+		AudioLoader.addGoodPointEffect.play();
+	}
+
+	public void reduceGoodPoint() throws OutOfActionException {
+		if (!canChangeGoodPoint) {
+			throw new OutOfActionException();
+		}
+		setGoodPoint(getGoodPoint() - 1);
+		canChangeGoodPoint = false;
+		AudioLoader.reduceGoodPointEffect.play();
+	}
+
 	private int findMyMinionIndex(Minion minion) {
 		for (int i = 0; i < minion.getMyMinion().size(); i++) {
 			if (minion.getMyMinion().get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
@@ -253,18 +275,18 @@ public abstract class MainCharacter extends Component {
 		}
 		return -1;
 	}
-	
+
 	private boolean isOutOfMinion() {
 		Minion minion = null;
 		for (int i = 0; i < Minion.MAX_MINION; i++) {
 			minion = GameSetUp.thisTurn.getMyEntity().get(i);
-			if(minion.getOnLocation() == null) {
+			if (minion.getOnLocation() == null) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	public abstract int checkIsWin();
 	// ----------------------getter/setter---------------------
 
@@ -423,14 +445,12 @@ public abstract class MainCharacter extends Component {
 	public ImageView getWinnerImg() {
 		return winnerImg;
 	}
-	
+
 	public int getMinionLeft() {
 		return minionLeft;
 	}
-	
 
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
 
 	public boolean isFightTraded() {
 		return isFightTraded;
@@ -443,9 +463,9 @@ public abstract class MainCharacter extends Component {
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 
 	public String toString() {
-		return "Name: " + getName() + "\n" + "Description: "
-				+ getDesciption() + "\n" + "GoodPoint: " + getGoodPoint() + "\n" + "Weapond on hand: " + getWeaponHand()
-				+ "\n" + "Money: " + getMoney() + "\n" + "Minion" + getMyEntity() + "\n";
+		return "Name: " + getName() + "\n" + "Description: " + getDesciption() + "\n" + "GoodPoint: " + getGoodPoint()
+				+ "\n" + "Weapond on hand: " + getWeaponHand() + "\n" + "Money: " + getMoney() + "\n" + "Minion"
+				+ getMyEntity() + "\n";
 	}
 
 ////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////

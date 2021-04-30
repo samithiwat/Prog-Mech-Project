@@ -9,6 +9,7 @@ import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
 import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
+import exception.OutOfActionException;
 import exception.OutOfMinionException;
 import gui.MainIsland;
 import gui.MapOverview;
@@ -24,6 +25,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
 import logic.GameSetUp;
 import update.FightOverlayUpdate;
 import update.GameSettingUpdate;
@@ -42,7 +44,9 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 	private MenuItem trade;
 	private MenuItem fight;
 	private MenuItem councilFight;
-
+	private MenuItem addGoodPoint;
+	private MenuItem reduceGoodPoint;
+	
 	public PlayerActionMenu() {
 		buyMinion = new MenuItem("Buy Minion");
 		buyMinion.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/GoldIngot.png").toString()));
@@ -70,23 +74,23 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							try {
 								GameSetUp.thisTurn.buyMinion();
 //								MainIsland.overlayInteractMode("");
-								MainIsland.setShowMessage("Hello master!", COLOR_INFO, COLOR_STROKE_INFO,
+								PlayerPanelUpdate.setShowMessage("Hello master!", COLOR_INFO, COLOR_STROKE_INFO,
 										120, 1, 3000);
 							} catch (OutOfMinionException e) {
 								EFFECT_ERROR.play();
-								MainIsland.setShowMessage("I don't have any minion left!", COLOR_ERROR, 120,
+								PlayerPanelUpdate.setShowMessage("I don't have any minion left!", COLOR_ERROR, 120,
 										3000);
 							} catch (UnSpawnableTileException e) {
 								EFFECT_ERROR.play();
-								MainIsland.setShowMessage("I can't spawn in this tile!", COLOR_ERROR, 120,
+								PlayerPanelUpdate.setShowMessage("I can't spawn in this tile!", COLOR_ERROR, 120,
 										3000);
 							} catch (ExceedToBuyMinionException e) {
 								EFFECT_ERROR.play();
-								MainIsland.setShowMessage("I must wait next turn to spawn next minion!",
+								PlayerPanelUpdate.setShowMessage("I must wait next turn to spawn next minion!",
 										COLOR_ERROR, 90, 3000);
 							} catch (ExceedMinionInTileException e) {
 								EFFECT_ERROR.play();
-								MainIsland.setShowMessage("This tile has reach the maximum of minion!",
+								PlayerPanelUpdate.setShowMessage("This tile has reach the maximum of minion!",
 										Color.web("E04B4B"), 90, 3000);
 							}
 							GameSetUp.selectedTile = null;
@@ -112,7 +116,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 					GameSetUp.thisTurn.buyLand();
 				} catch (FailToBuyLandException e) {
 					EFFECT_ERROR.play();
-					MainIsland.setShowMessage(
+					PlayerPanelUpdate.setShowMessage(
 							"This " + GameSetUp.selectedTile.getLocationType().getName() + " is already occupied!",
 							Color.web("E04B4B"), 90, 3000);
 				}
@@ -142,13 +146,13 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								GameSetUp.thisTurn.combineMinion();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.selectedIcon.clear();
-								MainIsland.setShowMessage("I can feel the power!!!", COLOR_INFO,
+								PlayerPanelUpdate.setShowMessage("I can feel the power!!!", COLOR_INFO,
 										COLOR_STROKE_INFO, 120, 1, 3000);
 							} catch (InvalidOwnershipException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
 								GameSetUp.selectedTile.triggerOverlay();
-								MainIsland.setShowMessage("I don't like this guys!", COLOR_ERROR, 120, 3000);
+								PlayerPanelUpdate.setShowMessage("I don't like this guys!", COLOR_ERROR, 120, 3000);
 							}
 							break;
 						}
@@ -180,19 +184,19 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								GameSetUp.thisTurn.splitMinion();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.selectedIcon.clear();
-								MainIsland.setShowMessage("Splited!", COLOR_INFO, COLOR_STROKE_INFO, 150,
+								PlayerPanelUpdate.setShowMessage("Splited!", COLOR_INFO, COLOR_STROKE_INFO, 150,
 										1, 3000);
 							} catch (ExceedMinionInTileException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
 								GameSetUp.selectedTile.triggerOverlay();
-								MainIsland.setShowMessage("Too much minion in this tile!", COLOR_ERROR, 90,
+								PlayerPanelUpdate.setShowMessage("Too much minion in this tile!", COLOR_ERROR, 90,
 										3000);
 							} catch (InvalidOwnershipException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
 								GameSetUp.selectedTile.triggerOverlay();
-								MainIsland.setShowMessage("You're not my master!", COLOR_ERROR, 90, 3000);
+								PlayerPanelUpdate.setShowMessage("You're not my master!", COLOR_ERROR, 90, 3000);
 							}
 							break;
 						}
@@ -213,6 +217,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 //		setId("player-action-menu-style");
 
 		trade = new MenuItem("Trade");
+		trade.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/GoldIngot.png").toString()));
 		trade.setVisible(false);
 		trade.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -250,7 +255,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 				GameSetUp.selectedTile.triggerOverlay();
 				GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
 				PlayerPanelUpdate.setShowMessage("Choose your own minion and the opponent.", Color.WHITE, 70, 3000);
-				MainIsland.setShowMessage("Choose your own minion and the opponent.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+				PlayerPanelUpdate.setShowMessage("Choose your own minion and the opponent.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 						70, 1, 3000);
 				Thread selectMinion = new Thread(() -> {
 
@@ -267,7 +272,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
 								MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
 							}
-							MainIsland.setShowMessage("You are being challenged, find someone to help!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							PlayerPanelUpdate.setShowMessage("You are being challenged, find someone to help!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 									120, 1, 3000);
 							while (true) {
 								System.out.print("");
@@ -283,7 +288,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
 								MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
 							}
-							MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							PlayerPanelUpdate.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 									120, 1, 3000);
 
 							break;
@@ -307,7 +312,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 				GameSetUp.selectedTile.triggerOverlay();
 				GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
 				PlayerPanelUpdate.setShowMessage("Choose your own minion.", Color.WHITE, 70, 3000);
-				MainIsland.setShowMessage("Choose your own minion.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+				PlayerPanelUpdate.setShowMessage("Choose your own minion.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 						70, 1, 3000);
 				Thread selectMinion = new Thread(() -> {
 
@@ -315,7 +320,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 						System.out.print("");
 						if (GameSetUp.selectedIcon.size() >= 1) {
 							if(!GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy().equals(GameSetUp.thisTurn)) {
-								MainIsland.setShowMessage("You can not do that.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+								PlayerPanelUpdate.setShowMessage("You can not do that.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 										120, 1, 3000);
 								PlayerPanelUpdate.setShowMessage("You can not do that.", Color.WHITE, 120, 3000);
 								break;
@@ -337,7 +342,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
 								MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
 							}
-							MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+							PlayerPanelUpdate.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 									120, 1, 3000);
 							PlayerPanelUpdate.setShowMessage("Let's fight!!!", Color.WHITE, 120, 3000);
 							
@@ -350,8 +355,46 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 				selectMinion.start();
 			}
 		});
+		
+		addGoodPoint = new MenuItem("Add good point");
+		addGoodPoint.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/GoodPointIcon.png").toString()));
+		addGoodPoint.setVisible(false);
+		addGoodPoint.setOnAction(new EventHandler<ActionEvent>() {
 
-		getItems().addAll(buyMinion, buyLand, combine, split, trade, fight, councilFight, cancle);
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					GameSetUp.selectedCharacter.addGoodPoint();
+					PlayerPanelUpdate.updatePlayerList();
+				} catch (OutOfActionException e) {
+					EFFECT_ERROR.play();
+					PlayerPanelUpdate.setShowMessage("I must wait for next turn!", COLOR_ERROR, 120,
+							3000);
+				}
+			}
+		});
+		
+		reduceGoodPoint = new MenuItem("Reduce good point");
+		reduceGoodPoint.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/ReduceGoodIcon.png").toString()));
+		reduceGoodPoint.setVisible(false);
+		reduceGoodPoint.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					GameSetUp.selectedCharacter.reduceGoodPoint();
+					PlayerPanelUpdate.updatePlayerList();
+				} catch (OutOfActionException e) {
+					EFFECT_ERROR.play();
+					PlayerPanelUpdate.setShowMessage("I must wait for next turn!", COLOR_ERROR, 120,
+							3000);
+				}
+			}
+			
+		});
+		
+
+		getItems().addAll(buyMinion, buyLand, combine, split, trade,addGoodPoint,reduceGoodPoint, fight, councilFight, cancle);
 	}
 
 	@Override
@@ -392,6 +435,14 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 
 	public MenuItem getCouncilFight() {
 		return councilFight;
+	}
+
+	public MenuItem getAddGoodPoint() {
+		return addGoodPoint;
+	}
+
+	public MenuItem getReduceGoodPoint() {
+		return reduceGoodPoint;
 	}
 	
 

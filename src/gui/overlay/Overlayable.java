@@ -1,12 +1,13 @@
 package gui.overlay;
 
+import component.Constant;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 
-public interface Overlayable {
+public interface Overlayable extends Constant{
 	
 	String FONT_NAME = "Bai Jamjuree";
 	

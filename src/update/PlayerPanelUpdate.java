@@ -171,6 +171,9 @@ public class PlayerPanelUpdate {
 		PlayerPanel.getHandsIcon().setVisible(false);
 		PlayerPanel.getStatusPane().setVisible(false);
 		PlayerPanel.getTurnBar().setVisible(false);
+		for(int i=0;i<allActivedLawPanes.size();i++) {
+			allActivedLawPanes.get(i).setVisible(false);
+		}
 	}
 
 	public static void openPanel() {
@@ -180,6 +183,9 @@ public class PlayerPanelUpdate {
 		PlayerPanel.getHandsIcon().setVisible(true);
 		PlayerPanel.getStatusPane().setVisible(true);
 		PlayerPanel.getTurnBar().setVisible(true);
+		for(int i=0;i<allActivedLawPanes.size();i++) {
+			allActivedLawPanes.get(i).setVisible(false);
+		}
 	}
 
 //---------------------------------------- Update HandOverlay -----------------------------------------
@@ -221,22 +227,24 @@ public class PlayerPanelUpdate {
 	public static void updatePlayerList() {
 		for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
 			PlayerList1 playerList1 = MapOverview.allPlayerList1.get(i);
-			for (int j = 0; j < (int) (playerList1.getAllText().size() / 3); j++) {
+			for (int j = 0; j < (int) (playerList1.getAllText().size() / 4); j++) {
 				MainCharacter character = GameSetUp.gameCharacter.get(j);
-				int k = j * 3;
+				int k = j * 4;
 				playerList1.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
 				playerList1.getAllText().get(k + 1).setText(character.getMyEntity().size() + "");
 				playerList1.getAllText().get(k + 2).setText(character.getArea() + "");
+				playerList1.getAllText().get(k + 3).setText(character.getGoodPoint() + "");
 			}
 		}
 		for (int i = 0; i < MapOverview.allPlayerList2.size(); i++) {
 			PlayerList2 playerList2 = MapOverview.allPlayerList2.get(i);
-			for (int j = 0; j < (int) (playerList2.getAllText().size() / 3); j++) {
+			for (int j = 0; j < (int) (playerList2.getAllText().size() / 4); j++) {
 				MainCharacter character = GameSetUp.gameCharacter.get(j + 3);
-				int k = j * 3;
+				int k = j * 4;
 				playerList2.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
 				playerList2.getAllText().get(k + 1).setText(character.getMyEntity().size() + "");
 				playerList2.getAllText().get(k + 2).setText(character.getArea() + "");
+				playerList2.getAllText().get(k + 3).setText(character.getGoodPoint() + "");
 			}
 		}
 	}
