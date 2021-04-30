@@ -16,6 +16,7 @@ import exception.InvalidOwnershipException;
 import exception.OutOfActionException;
 import exception.OutOfMinionException;
 import gui.entity.HexagonPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -50,7 +51,7 @@ public abstract class MainCharacter extends Component {
 	private int num_Bow;
 	private int num_Shield;
 	private int num_Gun;
-	private ImageView pfp;
+	private Image pfp;
 	protected ImageView winnerImg;
 	private boolean isTraded;
 	private boolean isFightTraded;
@@ -418,11 +419,11 @@ public abstract class MainCharacter extends Component {
 		return selectBGM;
 	}
 
-	public ImageView getPfp() {
+	public Image getPfp() {
 		return pfp;
 	}
 
-	public void setPfp(ImageView pfp) {
+	public void setPfp(Image pfp) {
 		this.pfp = pfp;
 	}
 

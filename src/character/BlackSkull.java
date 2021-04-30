@@ -1,5 +1,6 @@
 package character;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
@@ -20,7 +21,7 @@ public class BlackSkull extends MainCharacter {
 		this.selectBGM = AudioLoader.blackSkullSelectBGM;
 		this.color = Color.web("0x183F21");
 		this.setImg_path("img/character/BlackSkull.png");
-		this.setPfp(new ImageView(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.setPfp(new Image(ClassLoader.getSystemResource(IMG_PATH).toString()));
 		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/BlackSkullWinner.png").toString());
 		this.objectiveInfo1 = "Has anyone stand on";
 		this.objectiveInfo2 = "Secret Base.";
