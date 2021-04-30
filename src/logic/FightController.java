@@ -19,22 +19,29 @@ import update.PlayerPanelUpdate;
 public class FightController {
 	public static ArrayList<WeaponCard> challenged_slot = new ArrayList<WeaponCard>();
 	public static ArrayList<WeaponCard> challenger_slot = new ArrayList<WeaponCard>();
+	public static boolean challenger_ult = false;
+	public static boolean challenged_ult = false;
 	
 	
 	public static void Fight(Minion challenger , Minion challenged) {
 		//Each player choose their weapon card to add in these slots.
 		Thread temp = new Thread(() -> {
+			try {
+				Thread.sleep(5000);				
+			}catch(Exception e){
+				System.out.println("error");
+			}
 			if(GameSetUp.isChallenging) {
 				if(challenger_slot.size() >= 1) {
 					try {
-						Thread.sleep(500);				
+						Thread.sleep(1000);				
 					}catch(Exception e){
 						System.out.println("error");
 					}
 					challenged_slot.add(GameSetUp.weaponDeck.drawCard());
 					GameSetUp.isFightOverlayOffersUpdate = true;
 					try {
-						Thread.sleep(500);				
+						Thread.sleep(1000);				
 					}catch(Exception e){
 						System.out.println("error");
 					}
@@ -94,20 +101,36 @@ public class FightController {
 					}
 				}
 				try {
-					Thread.sleep(500);				
+					Thread.sleep(1000);				
 				}catch(Exception e){
 					System.out.println("error");
 				}
 			}
+			if(challenger.getPossessedBy().getName().equals("Ms.ThousandYear")) {
+				challenger_atkPoint += 1;
+			}
+			if(challenged.getPossessedBy().getName().equals("Ms.Collector")) {
+				challenger_atkPoint -= 1;
+			}
+			if(challenger_ult) {
+				challenger_atkPoint += 999;
+				challenger_isShield = false;
+			}
 			for(int j = 0 ; j < MapOverview.allFightOverlay.size() ; j++) {
 				TextTitle t = MapOverview.allFightOverlay.get(j).getChallenger_outcome();
 				if(challenger.getPossessedBy().getName().equals("Ms.ThousandYear")) {
-					challenger_atkPoint += 1;
 					t.setText(t.getText() + " + 1" );
 				}
 				if(challenged.getPossessedBy().getName().equals("Ms.Collector")) {
-					challenger_atkPoint -= 1;
 					t.setText(t.getText() + " + -1" );
+				}
+				if(challenger_ult) {
+					if(challenger_slot.size() == 0) {
+						t.setText(t.getText() + "999" );						
+					}
+					else {
+						t.setText(t.getText() + " + 999" );						
+					}
 				}
 				if(challenger_isShield) {
 					t.setText(t.getText() + " = " + "DEF");
@@ -144,14 +167,25 @@ public class FightController {
 					}
 				}
 				try {
-					Thread.sleep(500);				
+					Thread.sleep(1000);				
 				}catch(Exception e){
 					System.out.println("error");
 				}
 			}
-			
+			if(challenged_ult) {
+				challenged_atkPoint += 999;
+				challenged_isShield = false;
+			}
 			for(int j = 0 ; j < MapOverview.allFightOverlay.size() ; j++) {
 				TextTitle t = MapOverview.allFightOverlay.get(j).getChallenged_outcome();
+				if(challenged_ult) {
+					if(challenged_slot.size() == 0) {
+						t.setText(t.getText() + "999" );						
+					}
+					else {
+						t.setText(t.getText() + " + 999" );						
+					}
+				}
 				if(challenged_isShield) {
 					t.setText(t.getText() + " = " + "DEF");
 				}
@@ -165,7 +199,7 @@ public class FightController {
 				System.out.println("error");
 			}
 			if(GameSetUp.isChallenging == false) {
-				if(challenged_isShield || challenger_isShield) {
+				if(!(challenged_ult||challenger_ult) && (challenged_isShield || challenger_isShield)) {
 //				MainIsland.setShowMessage("Shield", Color.WHITE, 120, 2000);
 					PlayerPanelUpdate.setShowMessage("Shield", Color.WHITE, 120, 2000);
 				}
@@ -209,6 +243,8 @@ public class FightController {
 					PlayerPanelUpdate.setShowMessage("Defeat", Color.WHITE, 120, 2000);
 				}
 			}
+			challenged_ult = false;
+			challenger_ult = false;
 			GameSetUp.isChallenging = false;
 		});
 		temp.start();

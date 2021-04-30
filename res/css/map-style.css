@@ -152,3 +152,6 @@
   -fx-background-color: rgba(120, 120, 120, 0.9);
 }
 
+#overlay-bg {
+  -fx-fill: rgba(57, 62, 70, 0.8);
+}

@@ -1,6 +1,8 @@
 package update;
 
 import character.MainCharacter;
+import character.Teewada;
+import character.Teewadee;
 import component.entity.Minion;
 import component.weaponCard.WeaponCard;
 import gui.MapOverview;
@@ -32,14 +34,29 @@ public class FightOverlayUpdate {
 		for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
 			FightOverlay overlay = MapOverview.allFightOverlay.get(i);
 			if (challenged != null) {
-				overlay.getchallenged_img().setImage(
-						new Image(ClassLoader.getSystemResource(challenged.getPossessedBy().getImg_path()).toString()));
+				overlay.getchallenged_img().setImage(challenged.getPossessedBy().getPfp());
 			} else {
 				overlay.getchallenged_img()
 						.setImage(new Image(ClassLoader.getSystemResource("img/card/CouncilCard ").toString()));
 			}
 			overlay.getchallenger_img().setImage(
-					new Image(ClassLoader.getSystemResource(challenger.getPossessedBy().getImg_path()).toString()));
+					challenger.getPossessedBy().getPfp());
+			if(challenged.getPossessedBy().getName().equals("Sir Tewada")) {
+				overlay.getChallenged_ult().setImage(Teewada.ultSkill);
+				overlay.getChallenged_ult().setVisible(Teewada.warCry);
+			}
+			else if(challenged.getPossessedBy().getName().equals("Sir Tewadee")){
+				overlay.getChallenged_ult().setImage(Teewadee.ultSkill);
+				overlay.getChallenged_ult().setVisible(Teewadee.warCry);
+			}
+			if(challenger.getPossessedBy().getName().equals("Sir Tewada")) {
+				overlay.getChallenger_ult().setImage(Teewada.ultSkill);
+				overlay.getChallenger_ult().setVisible(Teewada.warCry);
+			}
+			else if(challenger.getPossessedBy().getName().equals("Sir Tewadee")){
+				overlay.getChallenger_ult().setImage(Teewadee.ultSkill);
+				overlay.getChallenger_ult().setVisible(Teewadee.warCry);
+			}
 		}
 	}
 

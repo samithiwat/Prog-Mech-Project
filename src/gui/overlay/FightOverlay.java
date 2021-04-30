@@ -3,6 +3,8 @@ package gui.overlay;
 import java.util.ArrayList;
 
 import character.MainCharacter;
+import character.Teewada;
+import character.Teewadee;
 import component.weaponCard.Axe;
 import component.weaponCard.Bow;
 import component.weaponCard.Gun;
@@ -16,9 +18,11 @@ import gui.entity.MenuButton;
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
+import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +37,7 @@ import javafx.scene.text.FontWeight;
 import logic.FightController;
 import logic.GameSetUp;
 import logic.TradeController;
+import sprites.AnimationSprites;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
 
@@ -49,20 +54,23 @@ public class FightOverlay extends Overlay {
 
 	private ImageView challenger_img;
 	private ImageView challenged_img;
-	
+
+	private ImageView challenger_ult;
+	private ImageView challenged_ult;
+
 	private MenuButton challenged_accept;
 	private MenuButton challenger_accept;
-	private MenuIcon challenged_page1_right ;
-	private MenuIcon challenged_page2_right ;
-	private MenuIcon challenged_page2_left ;
-	private MenuIcon challenged_page3_left ;
-	private MenuIcon challenger_page1_right ;
-	private MenuIcon challenger_page2_right ;
-	private MenuIcon challenger_page2_left ;
-	private MenuIcon challenger_page3_left ;
+	private MenuIcon challenged_page1_right;
+	private MenuIcon challenged_page2_right;
+	private MenuIcon challenged_page2_left;
+	private MenuIcon challenged_page3_left;
+	private MenuIcon challenger_page1_right;
+	private MenuIcon challenger_page2_right;
+	private MenuIcon challenger_page2_left;
+	private MenuIcon challenger_page3_left;
 	private TextTitle challenger_outcome;
 	private TextTitle challenged_outcome;
-	
+
 	private GridPane challenged_offer1;
 	private GridPane challenger_offer1;
 	private GridPane challenged_offer2;
@@ -94,18 +102,16 @@ public class FightOverlay extends Overlay {
 		challenger_img.setFitWidth(224);
 		challenger_img.setX(112);
 		challenger_img.setY(37);
-		
+
 		VBox challenger_outcome_box = new VBox();
 		challenger_outcome_box.setLayoutX(464);
 		challenger_outcome_box.setLayoutY(703);
 		challenger_outcome_box.setPrefHeight(31);
 		challenger_outcome_box.setPrefWidth(472);
-		challenger_outcome_box.setPadding(new Insets(5,45,5,45));
+		challenger_outcome_box.setPadding(new Insets(5, 45, 5, 45));
 		challenger_outcome_box.setStyle("-fx-background-color: #C4C4C4;");
-		challenger_outcome = new TextTitle("",Color.WHITE, FontWeight.BOLD, 20, 0, 0);
+		challenger_outcome = new TextTitle("", Color.WHITE, FontWeight.BOLD, 20, 0, 0);
 		challenger_outcome_box.getChildren().add(challenger_outcome);
-		
-		
 
 		// ------------challenger_challenger_inv-------------------
 		challenger_weaponCard = new ArrayList<InvCard>();
@@ -114,6 +120,33 @@ public class FightOverlay extends Overlay {
 		challenger_weaponCard.add(new InvCard(new Shield(), 12));
 		challenger_weaponCard.add(new InvCard(new Bow(), 13));
 		challenger_weaponCard.add(new InvCard(new Gun(), 14));
+
+		challenger_ult = new ImageView(ClassLoader.getSystemResource("img/sprites/SirTeewadaUlt.png").toString());
+		AnimationSprites challenger_ultAnimation = new AnimationSprites(challenger_ult, 1000, 0, 0, 100, 112, 0, 50, 0,
+				4);
+		challenger_ult.setViewport(new Rectangle2D(0, 0, 100, 112));
+		challenger_ultAnimation.setCycleCount(Animation.INDEFINITE);
+
+		challenger_ult.setOnMouseEntered((MouseEvent event) -> {
+			challenger_ultAnimation.playFromStart();
+		});
+		
+		challenger_ult.setOnMouseExited((MouseEvent event) -> {
+			challenger_ultAnimation.pause();
+		});
+		
+		challenger_ult.setOnMouseClicked((MouseEvent event) -> {
+			FightController.challenger_ult = true;
+			if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewada")) {
+				Teewada.warCry = false;
+			}
+			else if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
+				Teewadee.warCry = false;
+			}
+			challenger_ult.setVisible(false);
+
+		});
+		challenger_ult.setVisible(false);
 
 		GridPane challenger_inv = new GridPane();
 		challenger_inv.setPrefWidth(363);
@@ -130,6 +163,7 @@ public class FightOverlay extends Overlay {
 		challenger_inv.add(challenger_weaponCard.get(2), 2, 0);
 		challenger_inv.add(challenger_weaponCard.get(3), 0, 1);
 		challenger_inv.add(challenger_weaponCard.get(4), 1, 1);
+		challenger_inv.add(challenger_ult, 2, 1);
 
 //-----------------------------------------challenged side(Right side)----------------------------------------------
 		challenged_img = new ImageView(ClassLoader.getSystemResource(GameSetUp.thisTurn.getImg_path()).toString());
@@ -138,15 +172,14 @@ public class FightOverlay extends Overlay {
 		challenged_img.setX(1060);
 		challenged_img.setY(37);
 
-		
 		VBox challenged_outcome_box = new VBox();
 		challenged_outcome_box.setLayoutX(464);
 		challenged_outcome_box.setLayoutY(159);
 		challenged_outcome_box.setPrefHeight(31);
 		challenged_outcome_box.setPrefWidth(472);
-		challenged_outcome_box.setPadding(new Insets(5,45,5,45));
+		challenged_outcome_box.setPadding(new Insets(5, 45, 5, 45));
 		challenged_outcome_box.setStyle("-fx-background-color: #C4C4C4;");
-		challenged_outcome = new TextTitle("",Color.WHITE, FontWeight.BOLD, 20, 0, 0);
+		challenged_outcome = new TextTitle("", Color.WHITE, FontWeight.BOLD, 20, 0, 0);
 		challenged_outcome_box.getChildren().add(challenged_outcome);
 		// ------------challenged_inv-------------------
 
@@ -156,6 +189,33 @@ public class FightOverlay extends Overlay {
 		challenged_weaponCard.add(new InvCard(new Shield(), 17));
 		challenged_weaponCard.add(new InvCard(new Bow(), 18));
 		challenged_weaponCard.add(new InvCard(new Gun(), 19));
+
+		challenged_ult = new ImageView(ClassLoader.getSystemResource("img/sprites/SirTeewadaUlt.png").toString());
+		AnimationSprites challenged_ultAnimation = new AnimationSprites(challenged_ult, 1000, 0, 0, 100, 112, 0, 50, 0,
+				4);
+		challenged_ult.setViewport(new Rectangle2D(0, 0, 100, 112));
+		challenged_ultAnimation.setCycleCount(Animation.INDEFINITE);
+
+		challenged_ult.setOnMouseEntered((MouseEvent event) -> {
+			challenged_ultAnimation.playFromStart();
+		});
+		
+		challenged_ult.setOnMouseExited((MouseEvent evnet)->{
+			challenged_ultAnimation.pause();
+		});
+
+		challenged_ult.setOnMouseClicked((MouseEvent event) -> {
+			FightController.challenged_ult = true;
+			if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewada")) {
+				Teewada.warCry = false;
+			}
+			else if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
+				Teewadee.warCry = false;
+			}
+			challenged_ult.setVisible(false);
+
+		});
+		challenged_ult.setVisible(false);
 
 		GridPane challenged_inv = new GridPane();
 		challenged_inv.setPrefWidth(363);
@@ -172,6 +232,7 @@ public class FightOverlay extends Overlay {
 		challenged_inv.add(challenged_weaponCard.get(2), 2, 0);
 		challenged_inv.add(challenged_weaponCard.get(3), 0, 1);
 		challenged_inv.add(challenged_weaponCard.get(4), 1, 1);
+		challenged_inv.add(challenged_ult, 2, 1);
 
 //----------------------------------------------------Overview--------------------------------------------
 		// -------------------------------challenged_offer1-------------------------------
@@ -187,11 +248,11 @@ public class FightOverlay extends Overlay {
 
 		challenged_page1_right = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenged_page1_right.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenged_offer2.setVisible(true);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenged_offer2.setVisible(true);
 			}
 		});
-		
+
 		// -------------------------------challenged_offer2-------------------------------
 		challenged_offer2 = new GridPane();
 		challenged_offer2.setVisible(false);
@@ -203,23 +264,21 @@ public class FightOverlay extends Overlay {
 		challenged_offer2.setLayoutX(464);
 		challenged_offer2.setLayoutY(210);
 		challenged_offer2.setStyle("-fx-background-color: #C4C4C4;");
-		
 
 		challenged_page2_left = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenged_page2_left.setRotate(180);
 		challenged_page2_left.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenged_offer2.setVisible(false);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenged_offer2.setVisible(false);
 			}
 		});
 
 		challenged_page2_right = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenged_page2_right.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenged_offer3.setVisible(true);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenged_offer3.setVisible(true);
 			}
 		});
-		
 
 		// -------------------------------challenged_offer3-------------------------------
 		challenged_offer3 = new GridPane();
@@ -235,12 +294,10 @@ public class FightOverlay extends Overlay {
 		challenged_page3_left = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenged_page3_left.setRotate(180);
 		challenged_page3_left.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenged_offer3.setVisible(false);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenged_offer3.setVisible(false);
 			}
 		});
-		
-		
 
 		challenged_accept = new MenuButton("Accept", 20, 150, 45, Color.BLACK, 786, 400);
 		challenger_accept = new MenuButton("Accept", 20, 150, 45, Color.BLACK, 464, 446);
@@ -292,14 +349,13 @@ public class FightOverlay extends Overlay {
 		challenger_offer1.setLayoutX(464);
 		challenger_offer1.setLayoutY(510);
 		challenger_offer1.setStyle("-fx-background-color: #C4C4C4;");
-		
+
 		challenger_page1_right = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenger_page1_right.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenger_offer2.setVisible(true);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenger_offer2.setVisible(true);
 			}
 		});
-		
 
 		// -------------------------------challenger_offer2-------------------------------
 		challenger_offer2 = new GridPane();
@@ -312,18 +368,18 @@ public class FightOverlay extends Overlay {
 		challenger_offer2.setLayoutX(464);
 		challenger_offer2.setLayoutY(510);
 		challenger_offer2.setStyle("-fx-background-color: #C4C4C4;");
-		
+
 		challenger_page2_right = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenger_page2_right.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenger_offer3.setVisible(true);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenger_offer3.setVisible(true);
 			}
 		});
 		challenger_page2_left = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenger_page2_left.setRotate(180);
 		challenger_page2_left.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenger_offer2.setVisible(false);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenger_offer2.setVisible(false);
 			}
 		});
 
@@ -338,12 +394,12 @@ public class FightOverlay extends Overlay {
 		challenger_offer3.setLayoutX(464);
 		challenger_offer3.setLayoutY(510);
 		challenger_offer3.setStyle("-fx-background-color: #C4C4C4;");
-		
+
 		challenger_page3_left = new MenuIcon("img/icon/Arrow2.png", 0, 0);
 		challenger_page3_left.setRotate(180);
 		challenger_page3_left.setOnMouseClicked((MouseEvent event) -> {
-			for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
-				MapOverview.allFightOverlay.get(i).challenger_offer3.setVisible(false);				
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).challenger_offer3.setVisible(false);
 			}
 		});
 
@@ -387,7 +443,8 @@ public class FightOverlay extends Overlay {
 
 		root.getChildren().addAll(bg, fight, fightIcon, challenger_img, challenger_inv, challenged_img, challenged_inv,
 				challenger_offer1, challenger_offer2, challenger_offer3, challenged_offer1, challenged_offer2,
-				challenged_offer3, challenged_outcome_box, challenger_outcome_box, challenger_accept, challenged_accept);
+				challenged_offer3, challenged_outcome_box, challenger_outcome_box, challenger_accept,
+				challenged_accept);
 
 	}
 
@@ -395,24 +452,24 @@ public class FightOverlay extends Overlay {
 		MainIsland.setShowMessage("Start!", Color.WHITE, 120, 3000);
 		PlayerPanelUpdate.setShowMessage("Start!", Color.WHITE, 120, 3000);
 		Thread temp = new Thread(() -> {
-			FightController.Fight(FightOverlayUpdate.challenger, FightOverlayUpdate.challenged);			
+			FightController.Fight(FightOverlayUpdate.challenger, FightOverlayUpdate.challenged);
 			challenged_IsAccepted = false;
 			challenger_IsAccepted = false;
 			challenged_accept.setStyle("-fx-background-color : #C4C4C4;");
 			challenger_accept.setStyle("-fx-background-color : #C4C4C4;");
 			challenged_outcome.setText("");
 			challenger_outcome.setText("");
-			for(int i = 0 ; i < FightController.challenged_slot.size() ; i++) {
+			for (int i = 0; i < FightController.challenged_slot.size(); i++) {
 				GameSetUp.removedDeck.addToRemovedDeck(FightController.challenged_slot.get(i));
 			}
-			for(int i = 0 ; i < FightController.challenger_slot.size() ; i++) {
+			for (int i = 0; i < FightController.challenger_slot.size(); i++) {
 				GameSetUp.removedDeck.addToRemovedDeck(FightController.challenger_slot.get(i));
 			}
 			FightController.challenged_slot.clear();
 			FightController.challenger_slot.clear();
 		});
 		temp.start();
-		
+
 		GameSetUp.selectedIcon.clear();
 	}
 
@@ -496,10 +553,21 @@ public class FightOverlay extends Overlay {
 	public TextTitle getChallenged_outcome() {
 		return challenged_outcome;
 	}
-	
-	
-	
-	
-	
+
+	public ImageView getChallenger_ult() {
+		return challenger_ult;
+	}
+
+	public void setChallenger_ult(ImageView challenger_ult) {
+		this.challenger_ult = challenger_ult;
+	}
+
+	public ImageView getChallenged_ult() {
+		return challenged_ult;
+	}
+
+	public void setChallenged_ult(ImageView challenged_ult) {
+		this.challenged_ult = challenged_ult;
+	}
 
 }

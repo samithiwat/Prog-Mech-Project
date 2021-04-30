@@ -302,7 +302,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 									MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
 								}
 								MainIsland.setShowMessage("You are being challenged, find someone to help!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-										120, 1, 3000);
+										70, 1, 3000);
 								while (true) {
 									System.out.print("");
 									if (GameSetUp.isFightTradeMode == false) {
