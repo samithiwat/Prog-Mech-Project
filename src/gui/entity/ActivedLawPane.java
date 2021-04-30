@@ -37,7 +37,7 @@ public class ActivedLawPane extends StackPane implements Updateable {
 	public void update() {
 		activedLawPane.getChildren().clear();
 		setVisible(false);
-//		if (GameSetUp.thisTurn.equals(GameSetUp.theGovernment)) {
+		if (GameSetUp.thisTurn.equals(GameSetUp.theGovernment)) {
 
 			for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
 				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
@@ -51,7 +51,7 @@ public class ActivedLawPane extends StackPane implements Updateable {
 
 			}
 
-//		}
+		}
 	}
 
 }
