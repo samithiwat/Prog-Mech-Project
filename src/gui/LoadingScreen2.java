@@ -2,6 +2,8 @@ package gui;
 
 import javafx.animation.Animation;
 import javafx.animation.Transition;
+import javafx.application.Preloader;
+import javafx.application.Preloader.StateChangeNotification.Type;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -11,13 +13,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.SceneController;
 import sprites.AnimationSprites;
+import sprites.AnimationTimerSprites;
 
 
-public class LoadingScreen2 implements Showable {
+public class LoadingScreen2 implements Sceneable {
 
+	private Stage stage;
+	
 	private Scene scene;
 
 	public LoadingScreen2() {
@@ -38,17 +44,22 @@ public class LoadingScreen2 implements Showable {
 
 			@Override
 			protected void interpolate(double frac) {
+
 				final int length = loading.length();
 				final int n = Math.round(length * (float) frac);
 				text.setText(loading.substring(0, n));
+				
+				//System.out.println(frac);
 			}
 
 		};
 		animation.setAutoReverse(true);
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();
-
-		ImageView treeFilling = new ImageView(ClassLoader.getSystemResource("img/TreeFilling.png").toString());
+		
+		System.out.println("loading...");
+		
+		ImageView treeFilling = new ImageView(ClassLoader.getSystemResource("img/sprites/TreeFilling.png").toString());
 		treeFilling.setViewport(new Rectangle2D(0, 0, 140, 140));
 		treeFilling.setX(950);
 		treeFilling.setY(670);

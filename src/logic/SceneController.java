@@ -1,10 +1,20 @@
 package logic;
 
+import java.util.Random;
+
+import gui.LoadingScreen1;
+import gui.LoadingScreen2;
+import gui.MainIsland;
 import gui.MainMenu;
+import gui.MapOverview;
+import gui.PrisonIsland;
 import gui.StartMenu;
+import gui.entity.PlayerPanel;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import update.AudioUpdate;
 import update.CloseGame;
 import input.Input_StartMenu;
 
@@ -18,7 +28,15 @@ public class SceneController {
 	private static long lastTimeTrigger;
 	private static int count;
 	private static AnimationTimer animationTimer;
-
+	
+	private static Stage loadingStage;
+	
+	private static Scene gameSettingMenu;
+	private static Scene mapOverView;
+	private static Scene mainIsland;
+	private static Scene prisonIsland;
+	private static Scene Ocean;
+	
 	public SceneController() throws Exception {
 		mainStage.setScene((new StartMenu()).getScene());
 	}
@@ -51,7 +69,7 @@ public class SceneController {
 			public void handle(long now) {
 				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
 				if (now - lastTimeTrigger >= 2000000000 || Input_StartMenu.isSkip ) {
-					System.out.println(count);
+					//System.out.println(count);
 					if(Input_StartMenu.isSkip) {
 						System.out.println("Skipped" + count);
 					}
@@ -60,7 +78,7 @@ public class SceneController {
 						mainStage.setScene(StartMenu.getScene());
 					}
 					count++;
-					Input_StartMenu.isSkip = false;
+					//Input_StartMenu.isSkip = false;
 					lastTimeTrigger = now;
 				}
 				if (count == 7) {
@@ -72,4 +90,88 @@ public class SceneController {
 		};
 		animationTimer.start();
 	}
+	
+	public static void createGameScene() {
+		
+		SceneController.mapOverView= (new MapOverview()).getScene();
+		PlayerPanel dummy = new PlayerPanel();
+		
+//		SceneController.Ocean = (new Ocean()).getScene();
+		SceneController.prisonIsland = (new PrisonIsland()).getScene();
+		SceneController.mainIsland= (new MainIsland()).getScene();
+	}
+	
+	public static void loadingScreen() {
+		Random rand = new Random();
+		int sceneNum = rand.nextInt(2);
+
+//		int sceneNum = 1;
+		
+		switch(sceneNum) {
+		case 0 :
+			setScene((new LoadingScreen1()).getScene());
+			break;
+		case 1 :
+			setScene((new LoadingScreen2()).getScene());
+		}
+	}
+	
+// -------------------------------------------------- Change Scene Method ---------------------------------------------------------------
+	
+	public static void goToMapOverview() {
+		MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
+		setScene(SceneController.getMapOverView());	
+	}
+	
+	public static void goToMainIsland() {
+
+		MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
+		MainIsland.getSceneRoot().getChildren().set(4, PlayerPanel.getTurnBar());
+		MainIsland.getSceneRoot().getChildren().set(5, PlayerPanel.getHandsIcon());
+		MainIsland.getSceneRoot().getChildren().set(6, PlayerPanel.getEndTurn());
+		MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
+		MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
+
+		setScene(SceneController.getMainIsland());
+	}
+	
+	public static void goToPrisonIsland() {
+		PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
+		setScene(SceneController.getPrisonIsland());
+	}
+	
+// --------------------------------------------------- Getter and Setter ----------------------------------------------------------------
+	
+	public static Scene getGameSettingMenu() {
+		return gameSettingMenu;
+	}
+
+	public static void setGameSettingMenu(Scene gameSettingMenu) {
+		SceneController.gameSettingMenu = gameSettingMenu;
+	}
+
+	public static Scene getMapOverView() {
+		return mapOverView;
+	}
+
+	public static Scene getMainIsland() {
+		return mainIsland;
+	}
+
+	public static Scene getPrisonIsland() {
+		return prisonIsland;
+	}
+
+	public static Scene getOcean() {
+		return Ocean;
+	}
+
+	public static Stage getLoadingStage() {
+		return loadingStage;
+	}
+
+	public static void setLoadingStage(Stage loadingStage) {
+		SceneController.loadingStage = loadingStage;
+	}
+	
 }

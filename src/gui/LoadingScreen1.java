@@ -15,13 +15,13 @@ import logic.SceneController;
 import sprites.AnimationSprites;
 
 
-public class LoadingScreen1 implements Showable {
+public class LoadingScreen1 implements Sceneable {
 	private Scene scene;
 
 	public LoadingScreen1() {
 		AnchorPane root = new AnchorPane();
 
-		ImageView coconutRolling = new ImageView(ClassLoader.getSystemResource("img/CoconutRolling.png").toString());
+		ImageView coconutRolling = new ImageView(ClassLoader.getSystemResource("img/sprites/CoconutRolling.png").toString());
 		coconutRolling.setX(1000);
 		coconutRolling.setY(720);
 		AnimationSprites coconutAnimation = new AnimationSprites(coconutRolling, 1500, 0, 0, 100, 100, 0, 50, 0, 14);
@@ -50,6 +50,7 @@ public class LoadingScreen1 implements Showable {
 			}
 
 		};
+		
 		animation.setAutoReverse(true);
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();

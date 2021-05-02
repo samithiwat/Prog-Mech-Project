@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -27,10 +28,11 @@ public class StartMenu{
 	private static long lastTimeTrigger = -1;
 	private static Scene currentScene;
 	private static AnimationTimer animationTimer;
+	private static AudioClip menuThemeSong;
 
 	public StartMenu() throws Exception {
 		
-		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/ChulaIcon.png").toString());
+		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/ChulaIcon.png").toString());
 		logo.setFitWidth(600);
 		logo.setFitHeight(230);
 
@@ -39,6 +41,7 @@ public class StartMenu{
 		root.getChildren().add(logo);
 
 		currentScene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		currentScene.setCursor(Cursor.DISAPPEAR);
 	}
 
 	public static Scene getScene() {
@@ -56,22 +59,26 @@ public class StartMenu{
 		switch (count) {
 		case 0:
 			setCurrentScene(CUEngineerIcon());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		case 1:
 			setCurrentScene(JavaIcon());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		case 2 :
 			setCurrentScene(WelcomeText());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		case 3 :
 			setCurrentScene(StartBG());
+			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		}
 	}
 
 
 	public static Scene CUEngineerIcon() {
-		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/ChulaEngineerLogo.png").toString());
+		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/ChulaEngineerLogo.png").toString());
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
@@ -79,7 +86,7 @@ public class StartMenu{
 	}
 	
 	public static Scene JavaIcon() {
-		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/javaIcon.png").toString());
+		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/javaIcon.png").toString());
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
@@ -116,11 +123,11 @@ public class StartMenu{
 	}
 	
 	public static Scene StartBG() {
-
-		AudioClip menuThemeSong = AudioLoader.menuThemeSong;
+		
+		menuThemeSong = AudioLoader.menuThemeSong;
 		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
 		menuThemeSong.play();
-		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/StartBg.png").toString());
+		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/background/StartBg.png").toString());
 		
 		AnchorPane root = new AnchorPane();
 		
@@ -158,16 +165,20 @@ public class StartMenu{
 		
 		animationTimer.start();
 		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
-		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/mouseCursor.png").toString()))));
+		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/icon/mouseCursor.png").toString()))));
 		scene.setOnKeyPressed(key ->{
 			if(key.getCode() != KeyCode.ALT) {
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
 				SceneController.setScene((new TransitionScreen().getScene()));
+				SceneController.setGameSettingMenu((new GameLobbyMenu()).getScene());
 			}
 			
 		});
 		return scene;
 	}
 	
+	public static AudioClip getMenuThemeSong() {
+		return menuThemeSong;
+	}
 }

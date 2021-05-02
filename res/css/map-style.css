@@ -1,0 +1,157 @@
+.menu-item {
+  -fx-background-color: #b26e59;
+  -fx-padding: 1em 1em 1em 1em;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
+.menu-item:disabled {
+  -fx-background-color: #7f8a8f;
+  -fx-padding: 1em 1em 1em 1em;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
+.menu-item:hover {
+  -fx-background-color: #393e46;
+  -fx-padding: 1em 1em 1em 1em;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
+.menu-item .label {
+  -fx-font-size: 30 pt;
+  -fx-font-family: tahoma;
+  -fx-text-fill: #fefde8;
+}
+
+#player-action-menu-style {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 3px;
+}
+
+#circle-button-release-style {
+  -fx-background-color: #ffd3c0;
+}
+
+#circle-button-text-style {
+  -fx-text-fill: #ef7b41;
+}
+
+#circle-button-hold-style {
+  -fx-background-color: #393e46;
+}
+
+#status-bar {
+  -fx-background-color: #393e46;
+  -fx-border-color: #222222;
+  -fx-border-width: 3;
+}
+
+#button-pane {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #fefde8;
+  -fx-border-width: 5;
+}
+
+#turn-character-icon {
+  -fx-background-color: #f9da9e;
+}
+
+#turnbar-release-style {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #fae5cb;
+  -fx-border-width: 5;
+}
+
+#turnbar-hold-style {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #393e46;
+  -fx-border-width: 5;
+}
+
+#end-turn-button-release-style {
+  -fx-background-color: #b26e59;
+  -fx-text-fill: #fefde8;
+}
+
+#end-turn-button-hold-style {
+  -fx-background-color: #393e46;
+  -fx-text-fill: #fefde8;
+}
+
+#grid-release-style {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #000000;
+  -fx-border-width: 1;
+}
+
+#grid-hold-style {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #472209;
+  -fx-border-width: 5;
+}
+
+#grid-highlight-style {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #472209;
+  -fx-border-width: 10;
+}
+
+#grid-center {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: #000000;
+  -fx-border-width: 20;
+}
+
+#grid-disable {
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-color: rgba(0, 0, 0, 0);
+  -fx-border-width: 0;
+}
+
+#character-icon {
+  -fx-background-color: #fefde8;
+}
+
+#tile-overlay {
+  -fx-fill: rgba(0, 0, 0, 0);
+}
+
+#turn-root {
+  -fx-background-color: #fefde8;
+}
+
+#law-overlay-bg {
+  -fx-background-color: #b26e59;
+  -fx-border-color: #fae5cb;
+  -fx-border-width: 10;
+}
+
+#current-law-overlay-info-root {
+  -fx-background-color: #fefde8;
+  -fx-border-color: #c45663;
+  -fx-border-width: 10;
+}
+
+#law-card-unselected-style {
+  -fx-opacity: 1;
+}
+
+#law-card-selected-style {
+  -fx-opacity: 0.5;
+}
+
+#button-hold-style {
+  -fx-text-fill: rgb(77, 77, 77);
+  -fx-background-color: rgba(185, 185, 185, 0.9);
+}
+
+#button-release-style {
+  -fx-background-color: rgba(120, 120, 120, 0.9);
+}
+
+#overlay-bg {
+  -fx-fill: rgba(57, 62, 70, 0.8);
+}

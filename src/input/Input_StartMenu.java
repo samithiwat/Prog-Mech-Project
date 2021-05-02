@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
 public class Input_StartMenu{
-	public static boolean isSkip = false;
+	public static boolean isSkip = true;
 	
 	public static void input(Scene scene) {
 		scene.setOnKeyPressed(key -> {

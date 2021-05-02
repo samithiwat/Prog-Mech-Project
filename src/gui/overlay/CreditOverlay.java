@@ -1,10 +1,11 @@
 package gui.overlay;
 
-import gui.enity.MenuIcon;
-import gui.enity.TextTitle;
+import gui.entity.MenuIcon;
+import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -21,20 +22,19 @@ public class CreditOverlay extends Overlay {
 	protected static final int WIDTH = 1400;
 
 	public CreditOverlay() {
-		super((new AnchorPane()),WIDTH,HEIGHT,75,-800);
+		super((new Pane()),WIDTH,HEIGHT,75,-800);
 
-		setId("mainmenu-overlay");
 		prefHeight(HEIGHT);
 		prefWidth(WIDTH);
 		
 		Rectangle mainBG = new Rectangle(WIDTH, HEIGHT);
-		mainBG.setFill(Color.rgb(57, 62, 70));
+		mainBG.setId("overlay-bg");
 		Rectangle bg1 = new Rectangle(1200, 600);
-		bg1.setFill(Color.rgb(20, 20, 20));
+		bg1.setFill(Color.web("0x393E46"));
 		bg1.setX(100);
 		bg1.setY(100);
 
-		MenuIcon closeIcon = new MenuIcon("img/Cross.png",1300,50);
+		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png",1300,50);
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -49,9 +49,9 @@ public class CreditOverlay extends Overlay {
 
 		TextTitle by = new TextTitle("By",Color.WHITE,FontWeight.BOLD,50,0,0);
 
-		TextTitle name1 = new TextTitle("Viritpol Limpawittayakul",Color.WHITE,FontWeight.BOLD,50,0,0);
+		TextTitle name1 = new TextTitle("Viritpol Limpawittayakul",Color.WHITE,FontWeight.MEDIUM,50,0,0);
 
-		TextTitle name2 = new TextTitle("Samithiwat Boonchai",Color.WHITE,FontWeight.BOLD,50,0,0);
+		TextTitle name2 = new TextTitle("Samithiwat Boonchai",Color.WHITE,FontWeight.MEDIUM,50,0,0);
 
 		
 		VBox textBox = new VBox(title,by,name1,name2);
@@ -62,4 +62,4 @@ public class CreditOverlay extends Overlay {
 
 		root.getChildren().addAll(mainBG, bg1, textBox, closeIcon);
 	}
-}
+} 
