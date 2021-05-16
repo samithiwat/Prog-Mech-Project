@@ -277,8 +277,6 @@ public class TradeOverlay extends Overlay {
 		for(int i = 0 ; i < MapOverview.allTradeOverlay.size() ; i++) {
 			MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
 		}
-		MainIsland.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
-		PlayerPanelUpdate.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
 		traded_IsAccepted = false;
 		trader_IsAccepted = false;
 		traded_accept.setStyle("-fx-background-color : #C4C4C4;");

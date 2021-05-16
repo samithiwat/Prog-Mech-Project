@@ -206,10 +206,10 @@ public class FightOverlay extends Overlay {
 
 		challenged_ult.setOnMouseClicked((MouseEvent event) -> {
 			FightController.challenged_ult = true;
-			if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewada")) {
+			if(FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewada")) {
 				Teewada.warCry = false;
 			}
-			else if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
+			else if(FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewadee")) {
 				Teewadee.warCry = false;
 			}
 			challenged_ult.setVisible(false);

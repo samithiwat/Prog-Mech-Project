@@ -303,6 +303,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 	public void triggerOverlay() {
 		overlay.triggerOverlay(0, 825, 1000);
+		GameSetUp.selectedIcon.clear();
 	}
 
 	@Override
