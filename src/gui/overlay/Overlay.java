@@ -36,7 +36,7 @@ public class Overlay extends SubScene implements Overlayable {
 		this.root = root;
 	}
 
-	public void triggerOverlay(int dx, int dy, int delay) {
+	public boolean triggerOverlay(int dx, int dy, int delay) {
 
 //		//FOR DEBIG ONLY
 //		System.out.println(this);
@@ -64,12 +64,15 @@ public class Overlay extends SubScene implements Overlayable {
 //		//END OF DEBUG
 
 		TranslateTransition tt = new TranslateTransition(Duration.millis(delay));
+		boolean key;
 		tt.setNode(this);
 		if (!isVisible()) {
 			tt.setToX(dx);
 			tt.setToY(dy);
 			setVisible(true);
+			key = true;
 		} else {
+			key = false;
 			tt.setToX(-dx);
 			tt.setToY(-dy);
 
@@ -94,6 +97,7 @@ public class Overlay extends SubScene implements Overlayable {
 
 		}
 		tt.play();
+		return key;
 	}
 
 	public void setESCKey() {

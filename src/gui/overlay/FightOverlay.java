@@ -31,9 +31,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
+import logic.AudioLoader;
 import logic.FightController;
 import logic.GameSetUp;
 import logic.TradeController;
@@ -129,6 +131,8 @@ public class FightOverlay extends Overlay {
 
 		challenger_ult.setOnMouseEntered((MouseEvent event) -> {
 			challenger_ultAnimation.playFromStart();
+			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
+			effect.play();
 		});
 		
 		challenger_ult.setOnMouseExited((MouseEvent event) -> {
@@ -198,6 +202,8 @@ public class FightOverlay extends Overlay {
 
 		challenged_ult.setOnMouseEntered((MouseEvent event) -> {
 			challenged_ultAnimation.playFromStart();
+			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
+			effect.play();
 		});
 		
 		challenged_ult.setOnMouseExited((MouseEvent evnet)->{
@@ -408,6 +414,7 @@ public class FightOverlay extends Overlay {
 		challenger_accept.setOnMouseClicked((MouseEvent event) -> {
 			if (!challenger_IsAccepted) {
 				challenger_IsAccepted = true;
+				System.out.println(FightOverlayUpdate.challenger.getPossessedBy().getName()+"\n"+FightOverlayUpdate.challenged.getPossessedBy().getName());
 				setId("button-hold-style");
 				challenger_accept.setStyle("-fx-background-color: #279F2B;");
 			} else {
@@ -467,6 +474,8 @@ public class FightOverlay extends Overlay {
 			}
 			FightController.challenged_slot.clear();
 			FightController.challenger_slot.clear();
+			FightOverlayUpdate.challenger = null;
+			FightOverlayUpdate.challenged = null;
 		});
 		temp.start();
 

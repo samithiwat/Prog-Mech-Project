@@ -6,6 +6,7 @@ import java.util.Collections;
 import character.MainCharacter;
 import component.weaponCard.WeaponCard;
 import gui.MainIsland;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
@@ -28,6 +29,8 @@ public class TradeController {
 			traded.getWeaponHand().addAll(trader_WeaponSlot);
 			trader.setMoney(trader.getMoney() + traded_money - trader_money);
 			traded.setMoney(traded.getMoney() - traded_money + trader_money);
+			AudioClip effect = AudioLoader.successfulEffect;
+			effect.play();
 			MainIsland.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
 			PlayerPanelUpdate.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
 		}
