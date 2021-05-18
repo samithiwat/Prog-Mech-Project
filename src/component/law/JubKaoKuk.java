@@ -1,6 +1,5 @@
 package component.law;
 
-import component.location.Prison;
 import exception.ExceedMinionInTileException;
 import exception.OutOfActionException;
 import gui.MainIsland;
@@ -9,8 +8,6 @@ import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
 public class JubKaoKuk extends InteractLawCard {
-
-	public static final String IMG_PATH = "img/card/law/Capture.png";
 
 	public JubKaoKuk() {
 		super("Capture!",

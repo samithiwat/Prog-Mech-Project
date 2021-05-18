@@ -125,7 +125,6 @@ public class MapOverview implements Sceneable {
 		tradeOverlay = new TradeOverlay();
 		allTradeOverlay = new ArrayList<TradeOverlay>();
 		allTradeOverlay.add(tradeOverlay);
-		
 
 		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
 
@@ -136,7 +135,7 @@ public class MapOverview implements Sceneable {
 		messageRoot.setVisible(false);
 
 		PlayerPanel playerPanel = new PlayerPanel();
-		
+
 		ActivedLawPane activedLawPane = new ActivedLawPane();
 		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
 
@@ -175,20 +174,13 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				
+
 				AudioUpdate.change(bgm, null);
 
 				SceneController.goToMainIsland();
 
 			}
 		});
-
-//		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/MapOverview.png").toString());
-//		ImageView bgMap = new ImageView(ClassLoader.getSystemResource("img/background/Map.png").toString());
-//		bg.setFitHeight(800);
-//		bg.setFitWidth(1200);
-//		bgMap.setFitHeight(880);
-//		bgMap.setPreserveRatio(true);
 
 		turnChangeScreenRoot = new StackPane(turnChangeScreen);
 		turnChangeScreenRoot.setPrefWidth(SceneController.getFullscreenWidth());
@@ -197,37 +189,18 @@ public class MapOverview implements Sceneable {
 		turnChangeScreenRoot.setVisible(false);
 
 		root = new Pane();
-		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, oceanTile,activedLawPane, oceanOverlay, handOverlay,
-				playerList1, playerList2, currentLaw, government, objectiveOverlay, tradeOverlay, selectWeaponOverlay,
-				messageRoot, turnChangeScreenRoot);
-//		root.getChildren().addAll(bg,createHexAt(529,91.69));
-//		root.getChildren().add(createHexAt(529, 91.69+68.98));
-//		root.getChildren().add(createHexAt(583.25,57.2));
-//		for(int i = 0 ; i < 10 ; i++) {
-//			for(int j = 0 ; j < 11 ; j++) {
-//				if(j%2 == 0 && i != 9)
-//				{
-////					System.out.println(j/2);
-////					root.getChildren().add(createHexAt(532+(j/2)*(38.44+68.98),87+i*70));
-//					root.getChildren().add(new HexagonalButton(532+(j/2)*(38.44+68.98),87+i*70,i,j));
-//				}
-//				else if(j%2 == 1) {
-////					root.getChildren().add(createHexAt(586+((j-1)/2)*(38.44+68.98),52.2+i*70));
-//					root.getChildren().add(new HexagonalButton(585.8+((j-1)/2)*(38.44+68.98),51.9+i*70,i,j));
-//				}
-//			}
-//		}
+		root.getChildren().addAll(bg, playerPanel, prisonIsland, mainIsland, oceanTile, activedLawPane, oceanOverlay,
+				handOverlay, playerList1, playerList2, currentLaw, government, objectiveOverlay, tradeOverlay,
+				selectWeaponOverlay, messageRoot, turnChangeScreenRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
 		this.scene.setOnKeyPressed(key -> {
-			//////////////// FOR DEBUG ONLY //////////////////////
 			if (key.getCode() == KeyCode.ESCAPE) {
 				System.exit(0);
 			}
-			//////////////// END OF DEBUG /////////////////////////
 		});
 
 	}
@@ -285,50 +258,51 @@ public class MapOverview implements Sceneable {
 		});
 		t.start();
 	}
-	
-	// ------------------------------------------------- Update Prison Overlay  ------------------------------------------------------------
-	
-			public static void updateOverlay() {
-				oceanOverlay.getMinionPane().getChildren().clear();
-				
-				ArrayList<Minion> minions = Ocean.banishedMinion;
-				for (int i = 0; i < minions.size(); i++) {
-					addMinionToPane(minions.get(i), oceanOverlay.getMinionPane(), i);
 
-				}
-				
-				oceanOverlay.getMinionPane().setPardonMode();
-			}
-			
-	// ---------------------------------------------------- Private Method -----------------------------------------------------------------
-			
-			private static void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
+	// ------------------------------------------------- Update Prison Overlay
+	// ------------------------------------------------------------
 
-				MenuIcon minionIcon = null;
+	public static void updateOverlay() {
+		oceanOverlay.getMinionPane().getChildren().clear();
 
-				if (minion.getPossessedBy() instanceof RedFox) {
-					minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 0, 0, minion);
-				}
-				if (minion.getPossessedBy() instanceof Collector) {
-					minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 0, 0, minion);
-				}
-				if (minion.getPossessedBy() instanceof BlackSkull) {
-					minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 0, 0, minion);
-				}
-				if (minion.getPossessedBy() instanceof ThousandYear) {
-					minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 0, 0, minion);
-				}
-				if (minion.getPossessedBy() instanceof Teewada) {
-					minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, minion);
-				}
-				if (minion.getPossessedBy() instanceof Teewadee) {
-					minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, minion);
-				}
+		ArrayList<Minion> minions = Ocean.banishedMinion;
+		for (int i = 0; i < minions.size(); i++) {
+			addMinionToPane(minions.get(i), oceanOverlay.getMinionPane(), i);
 
-				minionPane.setMinionAtPos(minionIcon, index);
+		}
 
-			}
+		oceanOverlay.getMinionPane().setPardonMode();
+	}
 
+	// ---------------------------------------------------- Private Method
+	// -----------------------------------------------------------------
+
+	private static void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
+
+		MenuIcon minionIcon = null;
+
+		if (minion.getPossessedBy() instanceof RedFox) {
+			minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof Collector) {
+			minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof BlackSkull) {
+			minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof ThousandYear) {
+			minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof Teewada) {
+			minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof Teewadee) {
+			minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, minion);
+		}
+
+		minionPane.setMinionAtPos(minionIcon, index);
+
+	}
 
 // -------------------------------------------- Getter and Setter --------------------------------------------------
 
@@ -359,7 +333,7 @@ public class MapOverview implements Sceneable {
 	public static MenuIcon getPrisonIsland() {
 		return prisonIsland;
 	}
-	
+
 	public static MenuIcon getOceanTile() {
 		return oceanTile;
 	}
@@ -387,6 +361,5 @@ public class MapOverview implements Sceneable {
 	public static TileOverlay getOceanOverlay() {
 		return oceanOverlay;
 	}
-
 
 }

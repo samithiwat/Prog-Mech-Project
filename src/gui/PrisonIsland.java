@@ -49,15 +49,15 @@ import update.PlayerPanelUpdate;
 public class PrisonIsland implements Sceneable {
 
 	private static AudioClip bgm = AudioLoader.beachBGM;
-	
+
 	private Scene scene;
 	private PlayerPanel playerPanel;
-	
+
 	private static Pane root;
-	
+
 	private static StackPane messageRoot;
 	private static TextTitle message;
-	
+
 	private static TileOverlay overlay;
 
 	public PrisonIsland() {
@@ -70,10 +70,10 @@ public class PrisonIsland implements Sceneable {
 				ClassLoader.getSystemResource("img/background/PrisonIslandBackground.png").toString());
 
 // ----------------------------------------------------- Prison Overlay ------------------------------------------------------------------
-		
+
 		int[] posXList = { 147, 384, 641, 869, 1040, 1164 };
 		int[] posYList = { 518, 418, 401, 449, 550, 398 };
-		
+
 		overlay = new TileOverlay("img/background/jailBackground.png", posXList, posYList);
 
 // --------------------------------------------------------- Prison ----------------------------------------------------------------------
@@ -86,16 +86,16 @@ public class PrisonIsland implements Sceneable {
 				updateOverlay();
 				overlay.triggerOverlay(0, 825, 1000);
 			}
-			
+
 		});
 
 // ------------------------------------------------------ Player Panel -------------------------------------------------------------------
 
 		playerPanel = new PlayerPanel();
-		
+
 		ActivedLawPane activedLawPane = new ActivedLawPane();
 		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
-		
+
 		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
 
 		messageRoot = new StackPane(message);
@@ -103,7 +103,7 @@ public class PrisonIsland implements Sceneable {
 		messageRoot.setPrefHeight(SceneController.getFullscreenHeight());
 		messageRoot.setAlignment(Pos.CENTER);
 		messageRoot.setVisible(false);
-		
+
 		HandOverlay handOverlay = new HandOverlay();
 		MapOverview.allHandOverlay.add(handOverlay);
 
@@ -121,30 +121,30 @@ public class PrisonIsland implements Sceneable {
 
 		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
 		MapOverview.allSelectWeapon.add(selectWeaponOverlay);
-		
+
 		ObjectiveOverlay objectiveOverlay = new ObjectiveOverlay();
 		MapOverview.allObjectiveOverlay.add(objectiveOverlay);
-		
+
 		TradeOverlay tradeOverlay = new TradeOverlay();
 		MapOverview.allTradeOverlay.add(tradeOverlay);
 
 		FightOverlay fightOverlay = new FightOverlay();
 		MapOverview.allFightOverlay.add(fightOverlay);
-		
+
 // ------------------------------------------------------ Add Component ------------------------------------------------------------------
 
-		root.getChildren().addAll(bg, playerPanel ,prison,activedLawPane, overlay);
-		root.getChildren().addAll( handOverlay,
-				playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
-		scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
+		root.getChildren().addAll(bg, playerPanel, prison, activedLawPane, overlay);
+		root.getChildren().addAll(handOverlay, playerList1, playerList2, currentLaw, government, objectiveOverlay,
+				tradeOverlay, selectWeaponOverlay, fightOverlay, messageRoot);
+		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
-		
+
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if(event.getCode().equals(KeyCode.ESCAPE)) {
+				if (event.getCode().equals(KeyCode.ESCAPE)) {
 					AudioUpdate.change(bgm, MapOverview.getBgm());
 					MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 					SceneController.setScene(SceneController.getMapOverView());
@@ -152,106 +152,106 @@ public class PrisonIsland implements Sceneable {
 			}
 		});
 	}
-	
+
 // ----------------------------------------------- Show Message ------------------------------------------------------------
-	
+
 	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
-				int duration) {
-			messageRoot.setVisible(true);
-			getMessage().setFontBold(size);
-			getMessage().setFill(color);
-			getMessage().setStroke(strokeColor);
-			getMessage().setStrokeWidth(strokeWidth);
-			getMessage().setText(message);
+			int duration) {
+		messageRoot.setVisible(true);
+		getMessage().setFontBold(size);
+		getMessage().setFill(color);
+		getMessage().setStroke(strokeColor);
+		getMessage().setStrokeWidth(strokeWidth);
+		getMessage().setText(message);
 
-			Thread t = new Thread(() -> {
-				try {
-					Thread.sleep(duration);
-				} catch (InterruptedException e) {
+		Thread t = new Thread(() -> {
+			try {
+				Thread.sleep(duration);
+			} catch (InterruptedException e) {
 
+			}
+
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					messageRoot.setVisible(false);
 				}
-
-				Platform.runLater(new Runnable() {
-
-					@Override
-					public void run() {
-						messageRoot.setVisible(false);
-					}
-				});
 			});
-			t.start();
-		}
+		});
+		t.start();
+	}
 
-		public static void setShowMessage(String message, Color color, int size, int duration) {
-			messageRoot.setVisible(true);
-			getMessage().setFontBold(size);
-			getMessage().setFill(color);
-			getMessage().setStroke(Color.TRANSPARENT);
-			getMessage().setText(message);
+	public static void setShowMessage(String message, Color color, int size, int duration) {
+		messageRoot.setVisible(true);
+		getMessage().setFontBold(size);
+		getMessage().setFill(color);
+		getMessage().setStroke(Color.TRANSPARENT);
+		getMessage().setText(message);
 
-			Thread t = new Thread(() -> {
-				try {
-					Thread.sleep(duration);
-				} catch (InterruptedException e) {
+		Thread t = new Thread(() -> {
+			try {
+				Thread.sleep(duration);
+			} catch (InterruptedException e) {
 
+			}
+
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					messageRoot.setVisible(false);
 				}
-
-				Platform.runLater(new Runnable() {
-
-					@Override
-					public void run() {
-						messageRoot.setVisible(false);
-					}
-				});
 			});
-			t.start();
-		}
-		
+		});
+		t.start();
+	}
+
 // ------------------------------------------------- Update Prison Overlay  ------------------------------------------------------------
-		
-		public static void updateOverlay() {
-			overlay.getMinionPane().getChildren().clear();
-			
-			ArrayList<Minion> minions = Prison.minionInPrison;
-			for (int i = 0; i < minions.size(); i++) {
-				addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
 
-			}
-			
-			overlay.getMinionPane().setRansomMode();
+	public static void updateOverlay() {
+		overlay.getMinionPane().getChildren().clear();
+
+		ArrayList<Minion> minions = Prison.minionInPrison;
+		for (int i = 0; i < minions.size(); i++) {
+			addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
+
 		}
-		
+
+		overlay.getMinionPane().setRansomMode();
+	}
+
 // ---------------------------------------------------- Private Method -----------------------------------------------------------------
-		
-		private static void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
 
-			MenuIcon minionIcon = null;
+	private static void addMinionToPane(Minion minion, MinionPane minionPane, int index) {
 
-			if (minion.getPossessedBy() instanceof RedFox) {
-				minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 0, 0, minion);
-			}
-			if (minion.getPossessedBy() instanceof Collector) {
-				minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 0, 0, minion);
-			}
-			if (minion.getPossessedBy() instanceof BlackSkull) {
-				minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 0, 0, minion);
-			}
-			if (minion.getPossessedBy() instanceof ThousandYear) {
-				minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 0, 0, minion);
-			}
-			if (minion.getPossessedBy() instanceof Teewada) {
-				minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, minion);
-			}
-			if (minion.getPossessedBy() instanceof Teewadee) {
-				minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, minion);
-			}
+		MenuIcon minionIcon = null;
 
-			minionPane.setMinionAtPos(minionIcon, index);
-
+		if (minion.getPossessedBy() instanceof RedFox) {
+			minionIcon = new MinionIcon("img/character/FoxMinionIdle.png", 0, 0, minion);
 		}
+		if (minion.getPossessedBy() instanceof Collector) {
+			minionIcon = new MinionIcon("img/character/LadyCollectorMinionIdle.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof BlackSkull) {
+			minionIcon = new MinionIcon("img/character/BlackSkullMinionWalking.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof ThousandYear) {
+			minionIcon = new MinionIcon("img/character/SirThousandMinionIdle.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof Teewada) {
+			minionIcon = new MinionIcon("img/character/SirTewadaMinionIdle.png", 0, 0, minion);
+		}
+		if (minion.getPossessedBy() instanceof Teewadee) {
+			minionIcon = new MinionIcon("img/character/SirTewadeeMinionIdle.png", 0, 0, minion);
+		}
+
+		minionPane.setMinionAtPos(minionIcon, index);
+
+	}
 
 // --------------------------------------------------- Getter and Setter ---------------------------------------------------------------
-		
+
 	@Override
 	public Scene getScene() {
 		return scene;
@@ -260,7 +260,7 @@ public class PrisonIsland implements Sceneable {
 	public static AudioClip getBgm() {
 		return bgm;
 	}
-	
+
 	public static Pane getSceneRoot() {
 		return root;
 	}
@@ -276,6 +276,5 @@ public class PrisonIsland implements Sceneable {
 	public static TileOverlay getOverlay() {
 		return overlay;
 	}
-	
-	
+
 }

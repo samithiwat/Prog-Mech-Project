@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import logic.AudioLoader;
 
-public interface Sceneable extends Constant{
-	
-	public Scene getScene();  
+public interface Sceneable extends Constant {
+
+	public Scene getScene();
 }

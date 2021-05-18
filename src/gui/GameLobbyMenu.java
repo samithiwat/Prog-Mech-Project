@@ -99,7 +99,7 @@ public class GameLobbyMenu implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 
-				EFFECT_MOUSE_CLICK.play();				
+				EFFECT_MOUSE_CLICK.play();
 				setUp = new Thread(new Runnable() {
 
 					@Override
@@ -110,33 +110,6 @@ public class GameLobbyMenu implements Sceneable {
 
 				setUp.start();
 				SceneController.loadingScreen();
-
-				
-//				try {
-//
-//					setUp.join();
-//
-//				} catch (InterruptedException e) {
-//
-//				}
-				
-//				SceneController.setScene(SceneController.getMainIsland());
-
-
-				// ----------------------- Create GameController's Thread Run Parallel
-				// -------------------------
-
-//				Thread controller = new Thread(new Runnable() {
-//
-//					@Override
-//					public void run() {
-//						
-//						
-//						GameController gameController = new GameController();
-//					}
-//				});
-//
-//				controller.start();
 			}
 
 		});

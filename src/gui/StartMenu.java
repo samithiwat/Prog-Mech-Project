@@ -21,7 +21,7 @@ import javafx.util.Duration;
 import logic.AudioLoader;
 import logic.SceneController;
 
-public class StartMenu{
+public class StartMenu {
 
 	private static boolean isVisible = true;
 	private static int count;
@@ -31,7 +31,7 @@ public class StartMenu{
 	private static AudioClip menuThemeSong;
 
 	public StartMenu() throws Exception {
-		
+
 		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/ChulaIcon.png").toString());
 		logo.setFitWidth(600);
 		logo.setFitHeight(230);
@@ -45,17 +45,14 @@ public class StartMenu{
 	}
 
 	public static Scene getScene() {
-		//System.out.println("get Scene");
 		return currentScene;
 	}
-	
-	
+
 	public static void setCurrentScene(Scene scene) {
 		currentScene = scene;
 	}
 
 	public static void setCreditScene(int count) {
-		//System.out.println("Switch case :" + count);
 		switch (count) {
 		case 0:
 			setCurrentScene(CUEngineerIcon());
@@ -65,17 +62,16 @@ public class StartMenu{
 			setCurrentScene(JavaIcon());
 			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
-		case 2 :
+		case 2:
 			setCurrentScene(WelcomeText());
 			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
-		case 3 :
+		case 3:
 			setCurrentScene(StartBG());
 			currentScene.setCursor(Cursor.DISAPPEAR);
 			break;
 		}
 	}
-
 
 	public static Scene CUEngineerIcon() {
 		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/ChulaEngineerLogo.png").toString());
@@ -84,7 +80,7 @@ public class StartMenu{
 		root.getChildren().add(logo);
 		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 	}
-	
+
 	public static Scene JavaIcon() {
 		ImageView logo = new ImageView(ClassLoader.getSystemResource("img/icon/javaIcon.png").toString());
 		StackPane root = new StackPane();
@@ -92,92 +88,87 @@ public class StartMenu{
 		root.getChildren().add(logo);
 		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 	}
-	
+
 	public static Scene WelcomeText() {
 		AudioClip effect = AudioLoader.keyBoardTypingEffect;
 		effect.play();
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
-		
+
 		final String content = "Welcome to Coconut Island.";
 		Text welcome = new Text("");
-		welcome.setFont(Font.font("Bai Jamjuree",FontWeight.MEDIUM,100));
-		
-		 final Animation animation = new Transition() {
-		     {
-		         setCycleDuration(Duration.millis(3000));
-		     }
-		 
-		     protected void interpolate(double frac) {
-		         final int length = content.length();
-		         final int n = Math.round(length * (float) frac);
-		         welcome.setText(content.substring(0, n));
-		     }
-		 
-		 };
-		 
-		 animation.play();
-		
+		welcome.setFont(Font.font("Bai Jamjuree", FontWeight.MEDIUM, 100));
+
+		final Animation animation = new Transition() {
+			{
+				setCycleDuration(Duration.millis(3000));
+			}
+
+			protected void interpolate(double frac) {
+				final int length = content.length();
+				final int n = Math.round(length * (float) frac);
+				welcome.setText(content.substring(0, n));
+			}
+
+		};
+
+		animation.play();
+
 		root.getChildren().add(welcome);
-		return new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
+		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 	}
-	
+
 	public static Scene StartBG() {
-		
+
 		menuThemeSong = AudioLoader.menuThemeSong;
 		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
 		menuThemeSong.play();
 		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/background/StartBg.png").toString());
-		
+
 		AnchorPane root = new AnchorPane();
-		
-		
-		Text text = new Text(380,750,"Press any key to continue");
-		text.setFont(Font.font("Bai Jamjuree",FontWeight.BOLD,72));
+
+		Text text = new Text(380, 750, "Press any key to continue");
+		text.setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, 72));
 		text.setFill(Color.WHITE);
-		root.getChildren().addAll(BG,text);
-		
-		
+		root.getChildren().addAll(BG, text);
+
 		animationTimer = new AnimationTimer() {
 
 			@Override
 			public void handle(long now) {
 				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
-				if(now - lastTimeTrigger >= 700000000) {
-					//System.out.println(count);
-					count ++;
-					if(count%2 == 0) {
-						//System.out.println("visible");
+				if (now - lastTimeTrigger >= 700000000) {
+					count++;
+					if (count % 2 == 0) {
 						isVisible = true;
 						text.setVisible(isVisible);
-					}
-					else {
-						//System.out.println("unvisible");
+					} else {
 						isVisible = false;
 						text.setVisible(isVisible);
 					}
 					lastTimeTrigger = now;
 				}
-				
+
 			}
-			
+
 		};
-		
+
 		animationTimer.start();
-		Scene scene = new Scene(root,SceneController.getFullscreenWidth(),SceneController.getFullscreenHeight());
-		scene.setCursor(new ImageCursor((new Image(ClassLoader.getSystemResource("img/icon/mouseCursor.png").toString()))));
-		scene.setOnKeyPressed(key ->{
-			if(key.getCode() != KeyCode.ALT) {
+		Scene scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene.setCursor(
+				new ImageCursor((new Image(ClassLoader.getSystemResource("img/icon/mouseCursor.png").toString()))));
+		scene.setOnKeyPressed(key -> {
+			if (key.getCode() != KeyCode.ALT) {
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
 				SceneController.setScene((new TransitionScreen().getScene()));
 				SceneController.setGameSettingMenu((new GameLobbyMenu()).getScene());
 			}
-			
+
 		});
 		return scene;
 	}
-	
+
 	public static AudioClip getMenuThemeSong() {
 		return menuThemeSong;
 	}

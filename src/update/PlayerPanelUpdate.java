@@ -173,7 +173,7 @@ public class PlayerPanelUpdate {
 		PlayerPanel.getHandsIcon().setVisible(false);
 		PlayerPanel.getStatusPane().setVisible(false);
 		PlayerPanel.getTurnBar().setVisible(false);
-		for(int i=0;i<allActivedLawPanes.size();i++) {
+		for (int i = 0; i < allActivedLawPanes.size(); i++) {
 			allActivedLawPanes.get(i).setVisible(false);
 		}
 	}
@@ -185,7 +185,7 @@ public class PlayerPanelUpdate {
 		PlayerPanel.getHandsIcon().setVisible(true);
 		PlayerPanel.getStatusPane().setVisible(true);
 		PlayerPanel.getTurnBar().setVisible(true);
-		for(int i=0;i<allActivedLawPanes.size();i++) {
+		for (int i = 0; i < allActivedLawPanes.size(); i++) {
 			allActivedLawPanes.get(i).setVisible(false);
 		}
 	}

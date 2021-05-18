@@ -1,7 +1,6 @@
 package gui.overlay;
 
 import component.law.LawCard;
-import component.law.LawSlot;
 import gui.entity.MenuIcon;
 import gui.entity.StatusPane;
 import gui.entity.TextTitle;
@@ -17,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
-import update.CharacterSelectUpdate;
 
 public class CurrentLaw extends Overlay {
 

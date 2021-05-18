@@ -30,17 +30,18 @@ public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
 		TextTitle ladyCollector = new TextTitle("Lady Collector", Color.WHITE, FontWeight.BOLD, 40, 565, 660);
 		TextTitle blackSkull = new TextTitle("Black Skull", Color.WHITE, FontWeight.BOLD, 40, 1048, 660);
 
-		CharacterCard mrFoxCard = new CharacterCard(0, "img/character/MrRedFox.png", AudioLoader.mrFoxSelectBGM, 80, 150);
+		CharacterCard mrFoxCard = new CharacterCard(0, "img/character/MrRedFox.png", AudioLoader.mrFoxSelectBGM, 80,
+				150);
 
-		CharacterCard ladyCollectorCard = new CharacterCard(1, "img/character/LadyCollector.png", AudioLoader.ladySelectBGM,
-				525, 150);
-		CharacterCard BlackSkullCard = new CharacterCard(2, "img/character/BlackSkull.png", AudioLoader.blackSkullSelectBGM,
-				970, 150);
-		
+		CharacterCard ladyCollectorCard = new CharacterCard(1, "img/character/LadyCollector.png",
+				AudioLoader.ladySelectBGM, 525, 150);
+		CharacterCard BlackSkullCard = new CharacterCard(2, "img/character/BlackSkull.png",
+				AudioLoader.blackSkullSelectBGM, 970, 150);
+
 		CharacterSelectUpdate.getOverlayTexts().add(mrFox);
 		CharacterSelectUpdate.getOverlayTexts().add(ladyCollector);
 		CharacterSelectUpdate.getOverlayTexts().add(blackSkull);
-		
+
 		CharacterSelectUpdate.getCc().add(mrFoxCard);
 		CharacterSelectUpdate.getCc().add(ladyCollectorCard);
 		CharacterSelectUpdate.getCc().add(BlackSkullCard);

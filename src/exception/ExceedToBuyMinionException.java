@@ -1,9 +1,9 @@
 package exception;
 
-public class ExceedToBuyMinionException extends Exception{
+public class ExceedToBuyMinionException extends Exception {
 
-	public ExceedToBuyMinionException(){
+	public ExceedToBuyMinionException() {
 		super("You can buy only one minion per turn!");
 	}
-	
+
 }

@@ -422,23 +422,6 @@ public class LawCardIcon extends Pane implements Clickable {
 	}
 
 	private void removeLaw() {
-//		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
-//			LawCardIcon lawCard = GameSetUp.lawSlot.getSlot(i);
-//			try {
-//				if (lawCard.getLaw() != null) {
-//					if (lawCard.getLaw().equals(law)) {
-//						unSelectedAll(this);
-//						GameSetUp.lawSlot.setSlot(i, new LawCardIcon(null));
-//						updateActiveLaw();
-//						break;
-//					}
-//				}
-//			} catch (Exception e) {
-//				continue;
-//			}
-//		}
-
-
 		unSelectedAll(this);
 		GameSetUp.lawSlot.setSlot(row, new LawCardIcon(null));
 		updateActiveLaw();
@@ -571,8 +554,6 @@ public class LawCardIcon extends Pane implements Clickable {
 		return img;
 	}
 
-/////////////////////////////////////////////// DEBUG /////////////////////////////////////////////////////////
-
 	public String toString() {
 		if (law != null) {
 			return "-------------------------------" + "\n" + "Law : " + law.getName() + "\n" + "select : " + isSelected
@@ -580,6 +561,4 @@ public class LawCardIcon extends Pane implements Clickable {
 		}
 		return "-------------------------------" + "\n" + "Law : null\n" + "---------------------------------";
 	}
-
-//////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////
 }

@@ -52,9 +52,9 @@ public class CharacterInfo extends Overlay {
 				CharacterSelectUpdate.closeUpdate();
 				Thread t = new Thread(() -> {
 					try {
-						
+
 						Thread.sleep(1000);
-						
+
 					} catch (InterruptedException e) {
 
 					}

@@ -1,10 +1,6 @@
 package gui.entity;
 
-import java.util.ArrayList;
-
-import character.Dummy_Government;
 import character.MainCharacter;
-import component.entity.Minion;
 import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
@@ -14,24 +10,16 @@ import exception.OutOfActionException;
 import exception.OutOfMinionException;
 import gui.MainIsland;
 import gui.MapOverview;
-import gui.overlay.TileOverlay;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import logic.AudioLoader;
-import logic.GameLaw;
 import logic.GameSetUp;
 import update.FightOverlayUpdate;
 import update.GameSettingUpdate;
-import update.HexTileUpdate;
 import update.PlayerPanelUpdate;
 import update.TradeOverlayUpdate;
 
@@ -48,7 +36,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 	private MenuItem councilFight;
 	private MenuItem addGoodPoint;
 	private MenuItem reduceGoodPoint;
-	
+
 	public PlayerActionMenu() {
 		buyMinion = new MenuItem("Buy Minion");
 		buyMinion.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/GoldIngot.png").toString()));
@@ -75,17 +63,15 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							MainIsland.overlayInteractMode("");
 							try {
 								GameSetUp.thisTurn.buyMinion();
-//								MainIsland.overlayInteractMode("");
-								PlayerPanelUpdate.setShowMessage("Hello master!", COLOR_INFO, COLOR_STROKE_INFO,
-										120, 1, 3000);
+								PlayerPanelUpdate.setShowMessage("Hello master!", COLOR_INFO, COLOR_STROKE_INFO, 120, 1,
+										3000);
 							} catch (OutOfMinionException e) {
 								EFFECT_ERROR.play();
 								PlayerPanelUpdate.setShowMessage("I don't have any minion left!", COLOR_ERROR, 120,
 										3000);
 							} catch (UnSpawnableTileException e) {
 								EFFECT_ERROR.play();
-								PlayerPanelUpdate.setShowMessage("I can't spawn in this tile!", COLOR_ERROR, 120,
-										3000);
+								PlayerPanelUpdate.setShowMessage("I can't spawn in this tile!", COLOR_ERROR, 120, 3000);
 							} catch (ExceedToBuyMinionException e) {
 								EFFECT_ERROR.play();
 								PlayerPanelUpdate.setShowMessage("I must wait next turn to spawn next minion!",
@@ -186,8 +172,8 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								GameSetUp.thisTurn.splitMinion();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.selectedIcon.clear();
-								PlayerPanelUpdate.setShowMessage("Splited!", COLOR_INFO, COLOR_STROKE_INFO, 150,
-										1, 3000);
+								PlayerPanelUpdate.setShowMessage("Splited!", COLOR_INFO, COLOR_STROKE_INFO, 150, 1,
+										3000);
 							} catch (ExceedMinionInTileException e) {
 								EFFECT_ERROR.play();
 								GameSetUp.selectedIcon.clear();
@@ -202,8 +188,8 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							}
 							break;
 						}
-						if(GameSetUp.isCancel) {
-							GameSetUp.isCancel=false;
+						if (GameSetUp.isCancel) {
+							GameSetUp.isCancel = false;
 							break;
 						}
 
@@ -216,8 +202,6 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 		MenuItem cancle = new MenuItem("Cancle");
 		cancle.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/CancleIcon.png").toString()));
 
-//		setId("player-action-menu-style");
-
 		trade = new MenuItem("Trade");
 		trade.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/GoldIngot.png").toString()));
 		trade.setVisible(false);
@@ -227,24 +211,21 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				boolean key = true;
-				if(!GameSetUp.isFightTradeMode) {
+				if (!GameSetUp.isFightTradeMode) {
 					TradeOverlayUpdate.trader = GameSetUp.thisTurn;
 				}
 				TradeOverlayUpdate.traded = GameSetUp.selectedCharacter;
-				if(GameSetUp.gameLaw.taxTrade) {
-					if(TradeOverlayUpdate.trader.getMoney() < 1*MainCharacter.M) {
+				if (GameSetUp.gameLaw.taxTrade) {
+					if (TradeOverlayUpdate.trader.getMoney() < 1 * MainCharacter.M) {
 						key = false;
-					}
-					else {
-						TradeOverlayUpdate.trader.setMoney(TradeOverlayUpdate.trader.getMoney()-1*MainCharacter.M);
+					} else {
+						TradeOverlayUpdate.trader.setMoney(TradeOverlayUpdate.trader.getMoney() - 1 * MainCharacter.M);
 					}
 				}
-				if(!key) {
+				if (!key) {
 					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
-					MainIsland.setShowMessage("Too poor!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-							100, 1, 3000);
-				}
-				else {
+					MainIsland.setShowMessage("Too poor!", Color.web("0xFEFDE8"), Color.web("0x89949B"), 100, 1, 3000);
+				} else {
 					TradeOverlayUpdate.pfpUpdate();
 					TradeOverlayUpdate.invUpdate();
 					TradeOverlayUpdate.traderofferUpdate();
@@ -270,31 +251,28 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				boolean key = true;
-				if(GameSetUp.gameLaw.taxFighting) {
-					if(GameSetUp.thisTurn.getMoney() < 1*MainCharacter.M) {
+				if (GameSetUp.gameLaw.taxFighting) {
+					if (GameSetUp.thisTurn.getMoney() < 1 * MainCharacter.M) {
 						key = false;
-					}
-					else {
+					} else {
 						key = true;
-						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney()-1*MainCharacter.M);
+						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - 1 * MainCharacter.M);
 					}
 				}
-				if(!key) {
+				if (!key) {
 					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
-					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-							100, 1, 3000);
-				}
-				else {
+					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"), 100, 1, 3000);
+				} else {
 					GameSetUp.selectedTile.updateMinionPane("");
 					GameSetUp.selectedTile.triggerOverlay();
 					GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
 					PlayerPanelUpdate.setShowMessage("Choose your own minion and the opponent.", Color.WHITE, 70, 2000);
-					MainIsland.setShowMessage("Choose your own minion and the opponent.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-							70, 1, 2000);
+					MainIsland.setShowMessage("Choose your own minion and the opponent.", Color.web("0xFEFDE8"),
+							Color.web("0x89949B"), 70, 1, 2000);
 					Thread selectMinion = new Thread(() -> {
 						while (true) {
 							System.out.print("");
-							if(GameSetUp.selectedTile == null) {
+							if (GameSetUp.selectedTile == null) {
 								break;
 							}
 							if (GameSetUp.selectedIcon.size() >= 2) {
@@ -302,12 +280,12 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.isFightTradeMode = true;
 								TradeOverlayUpdate.trader = FightOverlayUpdate.challenged.getPossessedBy();
-								MainIsland.setShowMessage("You are being challenged, find someone to help!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-										50, 1, 4000);
+								MainIsland.setShowMessage("You are being challenged, find someone to help!",
+										Color.web("0xFEFDE8"), Color.web("0x89949B"), 50, 1, 4000);
 								try {
 									Thread.sleep(4000);
-								}catch(Exception e) {
-									
+								} catch (Exception e) {
+
 								}
 								for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 									GameSetUp.gameCharacter.get(i).setFightTraded(false);
@@ -325,23 +303,23 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								FightOverlayUpdate.invUpdate();
 								GameSetUp.isFightOverlayOffersUpdate = true;
 								FightOverlayUpdate.acceptUpdate();
-								
+
 								for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
 									MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
 								}
-								MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-										120, 1, 3000);
-								
+								MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"),
+										Color.web("0x89949B"), 120, 1, 3000);
+
 								break;
 							}
 						}
-						
+
 					});
 					selectMinion.start();
 				}
 			}
 		});
-		
+
 		icon = new ImageView(ClassLoader.getSystemResource("img/icon/FightIcon.png").toString());
 		icon.setFitHeight(25);
 		icon.setFitWidth(25);
@@ -354,21 +332,18 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				boolean key = true;
-				if(GameSetUp.gameLaw.taxFighting) {
-					if(GameSetUp.thisTurn.getMoney() < 1*MainCharacter.M) {
+				if (GameSetUp.gameLaw.taxFighting) {
+					if (GameSetUp.thisTurn.getMoney() < 1 * MainCharacter.M) {
 						key = false;
-					}
-					else {
+					} else {
 						key = true;
-						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney()-1*MainCharacter.M);
+						GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - 1 * MainCharacter.M);
 					}
 				}
-				if(!key) {
+				if (!key) {
 					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
-					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-							100, 1, 3000);
-				}
-				else {
+					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"), 100, 1, 3000);
+				} else {
 					GameSetUp.selectedTile.updateMinionPane("");
 					GameSetUp.selectedTile.triggerOverlay();
 					GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
@@ -376,50 +351,48 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 					MainIsland.setShowMessage("Choose your own minion.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
 							100, 1, 3000);
 					Thread selectMinion = new Thread(() -> {
-						
+
 						while (true) {
 							System.out.print("");
 							if (GameSetUp.selectedIcon.size() >= 1) {
-								if(!GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy().equals(GameSetUp.thisTurn)) {
-									MainIsland.setShowMessage("You can not do that.", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-											120, 1, 3000);
+								if (!GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy()
+										.equals(GameSetUp.thisTurn)) {
+									MainIsland.setShowMessage("You can not do that.", Color.web("0xFEFDE8"),
+											Color.web("0x89949B"), 120, 1, 3000);
 									PlayerPanelUpdate.setShowMessage("You can not do that.", Color.WHITE, 120, 3000);
-//									GameSetUp.selectedIcon.clear();
 									GameSetUp.selectedTile.triggerOverlay();
 									break;
 								}
 								GameSetUp.isChallenging = true;
 								FightOverlayUpdate.challenger = GameSetUp.selectedIcon.get(0).getMinion();
 								GameSetUp.selectedTile.triggerOverlay();
-								if(GameSetUp.theGovernment.getName().equals("Council")) {
-									FightOverlayUpdate.challenged = GameSetUp.theGovernment.getMyEntity().get(0); 
-								}
-								else {
+								if (GameSetUp.theGovernment.getName().equals("Council")) {
+									FightOverlayUpdate.challenged = GameSetUp.theGovernment.getMyEntity().get(0);
+								} else {
 									FightOverlayUpdate.challenged = GameSetUp.theGovenment_minion;
 								}
 								FightOverlayUpdate.pfpUpdate();
 								FightOverlayUpdate.invUpdate();
 								GameSetUp.isFightOverlayOffersUpdate = true;
 								FightOverlayUpdate.acceptUpdate();
-								
+
 								for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
 									MapOverview.allFightOverlay.get(i).triggerOverlay(0, 825, 1000);
 								}
-								MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
-										120, 1, 3000);
+								MainIsland.setShowMessage("Let's fight!!!", Color.web("0xFEFDE8"),
+										Color.web("0x89949B"), 120, 1, 3000);
 								PlayerPanelUpdate.setShowMessage("Let's fight!!!", Color.WHITE, 120, 3000);
-								
-								
+
 								break;
 							}
 						}
-						
+
 					});
 					selectMinion.start();
 				}
 			}
 		});
-		
+
 		addGoodPoint = new MenuItem("Add good point");
 		addGoodPoint.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/GoodPointIcon.png").toString()));
 		addGoodPoint.setVisible(false);
@@ -432,14 +405,14 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 					PlayerPanelUpdate.updatePlayerList();
 				} catch (OutOfActionException e) {
 					EFFECT_ERROR.play();
-					PlayerPanelUpdate.setShowMessage("I must wait for next turn!", COLOR_ERROR, 120,
-							3000);
+					PlayerPanelUpdate.setShowMessage("I must wait for next turn!", COLOR_ERROR, 120, 3000);
 				}
 			}
 		});
-		
+
 		reduceGoodPoint = new MenuItem("Reduce good point");
-		reduceGoodPoint.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/ReduceGoodIcon.png").toString()));
+		reduceGoodPoint
+				.setGraphic(new ImageView(ClassLoader.getSystemResource("img/icon/ReduceGoodIcon.png").toString()));
 		reduceGoodPoint.setVisible(false);
 		reduceGoodPoint.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -450,15 +423,14 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 					PlayerPanelUpdate.updatePlayerList();
 				} catch (OutOfActionException e) {
 					EFFECT_ERROR.play();
-					PlayerPanelUpdate.setShowMessage("I must wait for next turn!", COLOR_ERROR, 120,
-							3000);
+					PlayerPanelUpdate.setShowMessage("I must wait for next turn!", COLOR_ERROR, 120, 3000);
 				}
 			}
-			
-		});
-		
 
-		getItems().addAll(buyMinion, buyLand, combine, split, trade,addGoodPoint,reduceGoodPoint, fight, councilFight, cancle);
+		});
+
+		getItems().addAll(buyMinion, buyLand, combine, split, trade, addGoodPoint, reduceGoodPoint, fight, councilFight,
+				cancle);
 	}
 
 	@Override
@@ -508,6 +480,5 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 	public MenuItem getReduceGoodPoint() {
 		return reduceGoodPoint;
 	}
-	
 
 }

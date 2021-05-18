@@ -1,13 +1,8 @@
 package update;
 
-import gui.MapOverview;
-import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
-import javafx.util.Duration;
-import logic.AudioLoader;
-import logic.GameSetUp;
 
-public class AudioUpdate{
+public class AudioUpdate {
 
 	private static Thread playSelectBGM;
 

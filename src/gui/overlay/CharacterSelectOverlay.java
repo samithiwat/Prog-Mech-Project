@@ -4,7 +4,6 @@ import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,9 +14,9 @@ public abstract class CharacterSelectOverlay extends Overlay {
 
 	private static final int WIDTH = 1400;
 	private static final int HEIGHT = 800;
-	
+
 	public CharacterSelectOverlay() {
-		super((new Pane()), WIDTH, HEIGHT, 75 , -850);
+		super((new Pane()), WIDTH, HEIGHT, 75, -850);
 		// setId("overlay");
 		setCursor(CURSOR_NORMAL);
 
@@ -44,7 +43,8 @@ public abstract class CharacterSelectOverlay extends Overlay {
 // -------------------------------------------- Overlay Text ---------------------------------------------------------------------
 
 		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
-		TextTitle info = new TextTitle("Right Click for more information", Color.WHITE, FontWeight.MEDIUM, 48, 356, 750);
+		TextTitle info = new TextTitle("Right Click for more information", Color.WHITE, FontWeight.MEDIUM, 48, 356,
+				750);
 
 		root.getChildren().addAll(bg, info, title, closeIcon);
 	}
