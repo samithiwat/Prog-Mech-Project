@@ -9,9 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class MenuButton extends Button implements Clickable{
+public class MenuButton extends Button implements Clickable {
 
-	public MenuButton(String content,int contentSize,int width,int height,Color textColor,int x,int y) {
+	public MenuButton(String content, int contentSize, int width, int height, Color textColor, int x, int y) {
 		setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
 		setLayoutX(x);
 		setLayoutY(y);
@@ -32,9 +32,8 @@ public class MenuButton extends Button implements Clickable{
 			public void handle(MouseEvent event) {
 				setCursor(MOUSE_NORMAL);
 				setId("button-release-style");
-				//System.out.println(getStyle());
 			}
-			
+
 		});
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
@@ -44,17 +43,16 @@ public class MenuButton extends Button implements Clickable{
 				EFFECT_MOUSE_ENTER.play();
 				setId("button-hold-style");
 			}
-			
+
 		});
 	}
 
 	public void setFontRegular(int size) {
-		//System.out.println(getClass().getClassLoader().getResource(FONT_PATH_REGULAR));
-		setFont(Font.font("Bai Jamjuree",FontWeight.NORMAL,size));
+		setFont(Font.font("Bai Jamjuree", FontWeight.NORMAL, size));
 	}
-	
+
 	public void setFontBold(int size) {
-		setFont(Font.font("Bai Jamjuree",FontWeight.BOLD,size));
+		setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, size));
 	}
 
 	@Override

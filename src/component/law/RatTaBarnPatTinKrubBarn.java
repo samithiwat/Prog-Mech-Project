@@ -6,8 +6,6 @@ import update.PlayerPanelUpdate;
 
 public class RatTaBarnPatTinKrubBarn extends InteractLawCard {
 
-	public static final String IMG_PATH = "img/card/law/Pardon.png";
-
 	public RatTaBarnPatTinKrubBarn() {
 		super("Pardon", "Each turn the government can return a banished rat back to the owner.");
 		this.img_path = "img/card/law/Pardon.png";

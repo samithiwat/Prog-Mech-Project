@@ -14,7 +14,7 @@ public class GameSetting extends AnchorPane {
 
 	private final int BOX_WIDTH = 200;
 	private final int BOX_HEIGHT = 25;
-	
+
 	private static ArrayList<TextTitle> texts;
 
 	public GameSetting() {
@@ -45,21 +45,22 @@ public class GameSetting extends AnchorPane {
 		Rectangle maxPlayerBox2 = new Rectangle(BOX_WIDTH, BOX_HEIGHT);
 		maxPlayerBox2.setId("box");
 		MenuIcon maxPlayerButton1 = new MenuIcon("img/icon/triangleButton.png", 28, 387);
-		
+
 		maxPlayerButton1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				GameSettingUpdate.maxPlayerUpdate(false);
 			}
-		
+
 		});
-		
+
 		MenuIcon maxPlayerButton2 = new MenuIcon("img/icon/triangleButton.png", 202, 387);
 		maxPlayerButton2.setRotate(180);
 		maxPlayerBox2.setX(25);
 		maxPlayerBox2.setY(385);
-		TextTitle maxPlayerNum = new TextTitle(""+GameSettingUpdate.getNPlayer(), Color.WHITE, FontWeight.BOLD, 14, 119, 402);
+		TextTitle maxPlayerNum = new TextTitle("" + GameSettingUpdate.getNPlayer(), Color.WHITE, FontWeight.BOLD, 14,
+				119, 402);
 
 		maxPlayerButton2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -68,11 +69,11 @@ public class GameSetting extends AnchorPane {
 				GameSettingUpdate.maxPlayerUpdate(true);
 			}
 		});
-		
+
 		texts = new ArrayList<TextTitle>();
 		texts.add(maxPlayerNum);
 		texts.add(mapName);
-		
+
 		getChildren().addAll(mapBox1, mapBox2, map, mapButton1, maxPlayerBox1, maxPlayerBox2, mapButton2, maxPlayer,
 				maxPlayerButton1, maxPlayerButton2, mapName, maxPlayerNum);
 
@@ -81,5 +82,5 @@ public class GameSetting extends AnchorPane {
 	public static ArrayList<TextTitle> getTexts() {
 		return texts;
 	}
-	
+
 }

@@ -20,29 +20,29 @@ public class MapGrid extends Pane {
 	private static boolean isEnable = true;
 	private static ArrayList<ArrayList<HexagonPane>> grids = new ArrayList<ArrayList<HexagonPane>>();
 	private static ArrayList<ArrayList<GridPane>> minionIconPanes = new ArrayList<ArrayList<GridPane>>();
-	
+
 	public static HexagonPane councilTile;
 
 	public MapGrid() {
 		for (int i = 0; i < N_ROW; i++) {
-			
+
 			ArrayList<HexagonPane> column = new ArrayList<HexagonPane>();
 			ArrayList<GridPane> iconColumn = new ArrayList<GridPane>();
-			
+
 			for (int j = 0; j < N_COLUMN; j++) {
 				double dx = j * (HEXAGON_DISSTANCE_X + HEXAGON_WIDTH);
 				double dy = i * HEXAGON_HEIGHT;
 				if (j == 5) {
 					HexagonPane hexagonPaneOdd = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT, HEXAGON_INIT_X_ODD + dx,
-							HEXAGON_INIT_Y_ODD + dy, i, j*2);
+							HEXAGON_INIT_Y_ODD + dy, i, j * 2);
 					column.add(hexagonPaneOdd);
 					iconColumn.add(hexagonPaneOdd.getMinionIconPane());
 					getChildren().add(hexagonPaneOdd);
 				} else {
 					HexagonPane hexagonPaneOdd = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT, HEXAGON_INIT_X_ODD + dx,
-							HEXAGON_INIT_Y_ODD + dy, i, j*2);
+							HEXAGON_INIT_Y_ODD + dy, i, j * 2);
 					HexagonPane hexagonPaneEven = new HexagonPane(HEXAGON_WIDTH, HEXAGON_HEIGHT,
-							HEXAGON_INIT_X_EVEN + dx, HEXAGON_INIT_Y_EVEN + dy, i, j*2+1);
+							HEXAGON_INIT_X_EVEN + dx, HEXAGON_INIT_Y_EVEN + dy, i, j * 2 + 1);
 					column.add(hexagonPaneOdd);
 					iconColumn.add(hexagonPaneOdd.getMinionIconPane());
 					column.add(hexagonPaneEven);

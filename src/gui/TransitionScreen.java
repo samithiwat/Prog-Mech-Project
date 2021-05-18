@@ -1,9 +1,7 @@
 package gui;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -34,17 +32,16 @@ public class TransitionScreen implements Sceneable {
 		AnimationSprites coconutBigger = new AnimationSprites(coconut, 1100, 0, 0, 900, 900, 0, 150, 0, 13);
 		coconutBigger.play();
 
-		Thread t = new Thread(()->{
-			
+		Thread t = new Thread(() -> {
+
 			try {
 				Thread.sleep(975);
+			} catch (InterruptedException e) {
+
 			}
-			catch(InterruptedException e) {
-				
-			}
-			
+
 			Platform.runLater(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					ImageView coconutRollingOut = new ImageView(
@@ -52,28 +49,26 @@ public class TransitionScreen implements Sceneable {
 					coconutRollingOut.setViewport(new Rectangle2D(0, 0, 1150, 900));
 					coconutRollingOut.setX(330);
 					coconutRollingOut.setY(0);
-					AnimationSprites coconutRollingAnimation = new AnimationSprites(coconutRollingOut, 2000, 0, 0, 1210, 900, 0, 90, 0, 23);
+					AnimationSprites coconutRollingAnimation = new AnimationSprites(coconutRollingOut, 2000, 0, 0, 1210,
+							900, 0, 90, 0, 23);
 					coconutRollingAnimation.play();
 					root.getChildren().add(coconutRollingOut);
-					
-					Thread t = new Thread(()->{
+
+					Thread t = new Thread(() -> {
 						try {
-							//System.out.println("Sleep2");
 							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+
 						}
-						catch(InterruptedException e) {
-							
-						}
-						
+
 						Platform.runLater(new Runnable() {
-							
+
 							@Override
 							public void run() {
-								//System.out.println("Change Scene");
 								SceneController.setScene((new MainMenu()).getScene());
 							}
 						});
-						
+
 					});
 					t.start();
 				}
@@ -82,7 +77,6 @@ public class TransitionScreen implements Sceneable {
 		t.start();
 		root.getChildren().addAll(bg, coconut);
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
-		//scene.setCursor(Cursor.DISAPPEAR);
 	}
 
 	@Override

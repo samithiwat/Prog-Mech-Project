@@ -9,31 +9,30 @@ public class TileOverlayUpdate {
 	private static TileOverlay overlay;
 
 // ---------------------------------------- Disable Minion Pane When Click Exit Icon -------------------------------------------------
-	
+
 	public static void closeUpdate() {
-		Thread t = new Thread(()->{
-			
+		Thread t = new Thread(() -> {
+
 			overlay.getMinionPane().setDisable(true);
 			GameSetUp.selectedTile = null;
-			
+
 			try {
 				Thread.sleep(TileOverlay.getOverlayDelay());
+			} catch (InterruptedException e) {
+
 			}
-			catch(InterruptedException e) {
-				
-			}
-			
+
 			Platform.runLater(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					overlay.getMinionPane().setDisable(false);
 				}
 			});
-			
+
 		});
 		t.start();
-		
+
 		overlay.triggerOverlay(TileOverlay.getOverlayDx(), TileOverlay.getOverlayDy(), TileOverlay.getOverlayDelay());
 	}
 

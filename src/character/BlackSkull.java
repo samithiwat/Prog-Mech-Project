@@ -8,9 +8,6 @@ import logic.GameSetUp;
 
 public class BlackSkull extends MainCharacter {
 	
-	public static final String IMG_PATH = "img/character/BlackSkull.png";
-	public static final String IMG_PATH_MINION_IDLE = "img/character/BlackSkullMinionWalking.png";
-	
 	public static boolean prisonOutBreakSkill = true;
 	private static int nWinCount;
 	private static boolean isWin = false;
@@ -21,7 +18,7 @@ public class BlackSkull extends MainCharacter {
 		this.selectBGM = AudioLoader.blackSkullSelectBGM;
 		this.color = Color.web("0x183F21");
 		this.setImg_path("img/character/BlackSkull.png");
-		this.setPfp(new Image(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/BlackSkull.png").toString()));
 		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/BlackSkullWinner.png").toString());
 		this.objectiveInfo1 = "Has anyone stand on";
 		this.objectiveInfo2 = "Secret Base.";

@@ -16,8 +16,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
-import javafx.scene.effect.Glow;
-import javafx.scene.effect.SepiaTone;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -115,8 +113,6 @@ public class MinionIcon extends MenuIcon {
 												Color.web("0x89949B"), 120, 1, 1000);
 
 										if (minion.getMoveLeft() <= 0) {
-//											MainIsland.setShowMessage("I can't move anymore", Color.web("0xFEFDE8"),
-//													Color.web("0x89949B"), 120, 1, 1000);
 											break;
 										}
 
@@ -131,8 +127,7 @@ public class MinionIcon extends MenuIcon {
 										break;
 									} catch (WaterTileException e) {
 										EFFECT_ERROR.play();
-										PlayerPanelUpdate.setShowMessage("Bruhh I hate water!", COLOR_ERROR, 120,
-												3000);
+										PlayerPanelUpdate.setShowMessage("Bruhh I hate water!", COLOR_ERROR, 120, 3000);
 										break;
 									} catch (TooFarException e) {
 										EFFECT_ERROR.play();
@@ -142,13 +137,15 @@ public class MinionIcon extends MenuIcon {
 										EFFECT_ERROR.play();
 										PlayerPanelUpdate.setShowMessage("I need some rest!", COLOR_ERROR, 120, 3000);
 										break;
-									}catch(LackOfMoneyException e) {
+									} catch (LackOfMoneyException e) {
 										EFFECT_ERROR.play();
-										PlayerPanelUpdate.setShowMessage("I don't have enough money for tax fee.", COLOR_ERROR, 100, 3000);
+										PlayerPanelUpdate.setShowMessage("I don't have enough money for tax fee.",
+												COLOR_ERROR, 100, 3000);
 										break;
-									}catch(SupportArmyException e) {
+									} catch (SupportArmyException e) {
 										EFFECT_ERROR.play();
-										PlayerPanelUpdate.setShowMessage("We can;t leave our army.", COLOR_ERROR, 120, 3000);
+										PlayerPanelUpdate.setShowMessage("We can;t leave our army.", COLOR_ERROR, 120,
+												3000);
 										break;
 									}
 
@@ -247,7 +244,7 @@ public class MinionIcon extends MenuIcon {
 				Tooltip message = new Tooltip(
 						"Do you want to ransom this minion for $" + (Prison.PLEDGE / MainCharacter.M) + "M\n"
 								+ "click agian to confirm \n" + "or click another minion to cancel.");
-				message.setFont(Font.font(FONT_NAME,20));
+				message.setFont(Font.font(FONT_NAME, 20));
 				message.show(minionIcon, event.getScreenX() + 20, event.getScreenY() + 20);
 				PrisonIsland.getOverlay().getMinionPane().setOneMinionSelectMode();
 				Thread confirm = new Thread(() -> {
@@ -270,7 +267,6 @@ public class MinionIcon extends MenuIcon {
 								minionIcon.setEffect(null);
 								message.hide();
 								PrisonIsland.getOverlay().getMinionPane().setRansomMode();
-//								PrisonIsland.getOverlay().triggerOverlay(0, 825, 1000);
 								GameSetUp.selectedIcon.clear();
 								break;
 							}
@@ -282,13 +278,13 @@ public class MinionIcon extends MenuIcon {
 
 		});
 	}
-	
+
 	public void pardonMode() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(GameSetUp.thisTurn == GameSetUp.theGovernment) {
+				if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
 					if (event.getButton().equals(MouseButton.PRIMARY)) {
 						GameSetUp.selectedIcon.add(minionIcon);
 					}

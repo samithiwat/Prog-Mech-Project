@@ -36,14 +36,6 @@ public class GameController {
 // ------------------------	Wait Player Choose Spawn Location ---------------------------------
 			while (true) {
 				System.out.print("");
-///////////////////////////////////////////////////////////// DEBUG /////////////////////////////////////////////////////////////////////
-				
-//				if(true) {
-//					GameSetUp.theGovernment = GameSetUp.gameCharacter.get(0);
-//					break;
-//				}
-				
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.thisTurn instanceof ThousandYear) {
 
@@ -77,20 +69,20 @@ public class GameController {
 // --------------------------------------- After Player Choose Spawn Location -----------------------------------
 
 ///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
-		
+
 			spawnMinion(GameSetUp.selectedTile);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			
+
 			GameSetUp.isReset = true;
 			GameSetUp.selectedTile = null;
 		}
 
 ///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
-		
+
 		GameSetUp.isCountDown = true;
 		GameSetUp.countDownDuration = 3;
-		
+
 		while (true) {
 			System.out.print("");
 			if (!GameSetUp.isCountDown) {
@@ -99,7 +91,7 @@ public class GameController {
 		}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
 		GameSetUp.isReset = true;
@@ -171,11 +163,11 @@ public class GameController {
 		Minion minion = null;
 		for (int i = 0; i < Minion.MAX_MINION; i++) {
 			minion = GameSetUp.thisTurn.getMyEntity().get(i);
-			if(minion.getOnLocation() == null) {
+			if (minion.getOnLocation() == null) {
 				break;
 			}
 		}
-		if(minion!=null) {
+		if (minion != null) {
 			minion.setOnLocation(tile.getLocationType());
 			minion.setPosX(tile.getColumn());
 			minion.setPosY(tile.getRow());

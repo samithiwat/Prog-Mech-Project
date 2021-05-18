@@ -90,7 +90,7 @@ public class GameSetUp {
 	public static boolean isFightTradeMode = false;
 	public static boolean isChallenge = false;
 	public static boolean isChallenging = false;
-	
+
 	public GameSetUp() {
 		thisTurn = gameCharacter.get(0);
 //----------------------------------Weapon Set Up---------------------------------------------------
@@ -104,12 +104,12 @@ public class GameSetUp {
 //----------------------------------Add Law Card----------------------------------------------------
 		lawDeck.setUpLawDeck();
 //----------------------------------Map Initialize------------------------------------------------------
-		
+
 		prison = new Prison();
 		ocean = new Ocean();
 		setUpMap();
 		SceneController.createGameScene();
-		setUpMapWithHexPane();	
+		setUpMapWithHexPane();
 
 // -------------------------------------------------- Set Up Select Minion Spawn Mode -------------------------------------------------
 
@@ -160,9 +160,9 @@ public class GameSetUp {
 	}
 
 	private void setUpMapWithHexPane() {
-		
-		int count =0;
-		
+
+		int count = 0;
+
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
@@ -173,7 +173,7 @@ public class GameSetUp {
 
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 //				System.out.println(overlay);;
-				System.out.println(Math.round(++count)+"%");
+				System.out.println(Math.round(++count) + "%");
 
 //////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 			}
@@ -426,7 +426,6 @@ public class GameSetUp {
 
 	private void setTileSpawnable(HexagonPane tile, int row, int column) {
 
-
 		if (tile.getLocationType() instanceof Village) {
 
 			if (column % 2 != 0) {
@@ -574,10 +573,10 @@ public class GameSetUp {
 						animationCount++;
 					}
 
-					if(GameSetUp.isShowLandInfo) {
+					if (GameSetUp.isShowLandInfo) {
 						HexTileUpdate.showLandInfo();
 					}
-					
+
 					if (GameSetUp.isHighlightPlain) {
 						PlayerPanelUpdate.highlightPlainTile();
 					}
@@ -649,8 +648,8 @@ public class GameSetUp {
 						t.start();
 						GameSetUp.isTurnChange = false;
 					}
-					
-					if(isFightOverlayOffersUpdate) {
+
+					if (isFightOverlayOffersUpdate) {
 						FightOverlayUpdate.challengedofferUpdate();
 						FightOverlayUpdate.challengerofferUpdate();
 						isFightOverlayOffersUpdate = false;

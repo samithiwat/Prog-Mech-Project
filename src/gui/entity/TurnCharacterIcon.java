@@ -21,25 +21,25 @@ public class TurnCharacterIcon extends AnchorPane {
 
 	public TurnCharacterIcon(ImageView img, double imgInitX, double imgInitY) {
 		super();
-		
+
 // ----------------------------------------- Set Up Portraits Image ------------------------------------------------
-		
+
 		this.img = img;
 		img.setViewport(new Rectangle2D(imgInitX, imgInitY, 200, 200));
 		img.setFitHeight(60);
 		img.setFitWidth(60);
-		
+
 // ----------------------------------------- Set Up Portraits ------------------------------------------------
-		
+
 		StackPane portraits = new StackPane();
 		portraits.setAlignment(Pos.BOTTOM_CENTER);
 		portraits.setPrefWidth(70);
 		portraits.setPrefHeight(70);
-		portraits.setClip(new Circle(35,35,35));
+		portraits.setClip(new Circle(35, 35, 35));
 		portraits.getChildren().add(img);
-		
+
 		portraits.setId("turn-character-icon");
-		
+
 // ----------------------------------------- Set Up Crown  ------------------------------------------------
 		crown = new ImageView(ClassLoader.getSystemResource("img/icon/Crown.png").toString());
 		crown.setX(19);
@@ -47,25 +47,23 @@ public class TurnCharacterIcon extends AnchorPane {
 		crown.setVisible(false);
 
 // ----------------------------------------- Add Components to Pane ------------------------------------------------
-		
-		getChildren().addAll(portraits,crown);
+
+		getChildren().addAll(portraits, crown);
 	}
-	
+
 	public void setPlayerTurn(boolean isPlayerTurn) {
-		if(isPlayerTurn) {
+		if (isPlayerTurn) {
 			crown.setVisible(true);
-		}
-		else {
+		} else {
 			crown.setVisible(false);
 		}
 	}
-	
-	
-	public void setPortraits(String img_path,double imgInitX, double imgInitY) {
+
+	public void setPortraits(String img_path, double imgInitX, double imgInitY) {
 		img.setImage(new Image(ClassLoader.getSystemResource(img_path).toString()));
 		img.setViewport(new Rectangle2D(imgInitX, imgInitY, 200, 200));
 		img.setFitHeight(60);
 		img.setFitHeight(60);
 	}
-	
+
 }

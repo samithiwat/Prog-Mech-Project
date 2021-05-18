@@ -10,10 +10,7 @@ import logic.AudioLoader;
 import sprites.AnimationSprites;
 
 public class Teewadee extends MainCharacter {
-	
-	public static final String IMG_PATH = "img/character/SirTewadee.png";
-	public static final String IMG_PATH_MINION_IDLE = "img/character/SirTewadeeMinionIdle.png";
-	
+
 	public static boolean warCry = true;
 	public static Image ultSkill;
 
@@ -22,7 +19,7 @@ public class Teewadee extends MainCharacter {
 		this.selectBGM = AudioLoader.sirTewadeeSelectBGM;
 		this.color = Color.web("0xF75959");
 		this.setImg_path("img/character/SirTewadee.png");
-		this.setPfp(new Image(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/SirTewadee.png").toString()));
 		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/SirTewadeeWinner.png").toString());
 		this.objectiveInfo1 = "Has total";
 		this.objectiveInfo2 = "exiled government in the ocean.";
