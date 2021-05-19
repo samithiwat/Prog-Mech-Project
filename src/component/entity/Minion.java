@@ -97,7 +97,7 @@ public class Minion extends Component implements moveable {
 			if(GameSetUp.thisTurn.getMoney() < MainCharacter.M) {
 				throw new LackOfMoneyException();
 			}
-			GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - PaSeeKarnKreunTee.FEE);
+			GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - MainCharacter.M);
 		}
 		else if(GameSetUp.gameLaw.supportArmy) {
 			if(onLocation instanceof SecretBase) {
