@@ -1,6 +1,7 @@
 package logic;
 
 import character.MainCharacter;
+import character.Teewada;
 import character.ThousandYear;
 import component.entity.Minion;
 import component.location.Ocean;
@@ -8,6 +9,7 @@ import component.location.Plain;
 import component.location.Prison;
 import gui.MainIsland;
 import gui.entity.HexagonPane;
+import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
 import update.AudioUpdate;
 import update.GameSettingUpdate;
@@ -111,7 +113,6 @@ public class GameController {
 					// remove/add lawcard
 					Prison.canCapture = true;
 					Ocean.canPardon = true;
-					GameSetUp.governmentPoint++;
 				}
 				// what you do in a turn
 
@@ -120,6 +121,7 @@ public class GameController {
 				System.out
 						.println("------------------------------- Current Turn --------------------------------------\n"
 								+ GameSetUp.thisTurn);
+				System.out.println("Government : "+GameSetUp.theGovernment);
 
 ////////////////////////////////////////////////////////////////END OF DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 
@@ -143,7 +145,9 @@ public class GameController {
 				if (GameSetUp.isGameEnd) {
 					break;
 				}
-
+				if(GameSetUp.sirTewada != null) {
+					GameSetUp.sirTewada.checkIsWin();					
+				}
 				GameSetUp.lawSlot.activateAllSlot();
 				GameSetUp.isEndTurn = false;
 				GameSetUp.canBuyMinion = true;
@@ -151,10 +155,20 @@ public class GameController {
 				MainIslandUpdate.setCenter();
 				// AudioUpdate.changeTurn(GameSetUp.thisTurn,);
 			}
-			GameSetUp.turn++;
+//			GameSetUp.turn++;
+			GameSetUp.cycle++;
 			GameSetUp.gameLaw.activateEachCycle();
 		}
 		System.out.println("END!!!");
+//		checkWin();
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				SceneController.endScene(getWinner());				
+			}
+		});
+		
 	}
 
 //----------------------spawn minion-----------------	
@@ -177,4 +191,18 @@ public class GameController {
 
 	}
 
+//	private void checkWin() {
+//		for(MainCharacter player : GameSetUp.gameCharacter) {
+//			player.checkIsWin();
+//		}
+//	}
+	
+	private MainCharacter getWinner() {
+		for(MainCharacter player : GameSetUp.gameCharacter) {
+			if(player.isWin()) {
+				return player;
+			}
+		}
+		return null;
+	}
 }

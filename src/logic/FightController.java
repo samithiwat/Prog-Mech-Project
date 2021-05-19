@@ -2,7 +2,9 @@ package logic;
 
 import java.util.ArrayList;
 
+import character.Collector;
 import character.MainCharacter;
+import character.Teewadee;
 import component.entity.Minion;
 import component.location.Council;
 import component.location.Location;
@@ -217,9 +219,11 @@ public class FightController {
 				}else {
 					PlayerPanelUpdate.setShowMessage("Draw", Color.WHITE, 120, 2000);				
 				}
-				
+				if(GameSetUp.ladyCollector!=null) {
+					GameSetUp.ladyCollector.checkIsWin();					
+				}
 			}
-			else if(GameSetUp.isChallenging == true && GameSetUp.theGovernment.getName().equals("Council")){
+			else if(GameSetUp.isChallenging == true && GameSetUp.theGovernment.getName().equals("Council")) {
 				if(challenger_atkPoint > challenged_atkPoint) {
 					Council council = (Council)MapGrid.councilTile.getLocationType();
 					challenger.getOnLocation().removeFromLocation(challenger);
@@ -235,7 +239,7 @@ public class FightController {
 					PlayerPanelUpdate.setShowMessage("Defeat", Color.WHITE, 120, 2000);
 				}
 			}
-			else if(GameSetUp.isChallenging == true ) {
+			else if(GameSetUp.isChallenging == true) {
 				if(challenger_atkPoint > challenged_atkPoint) {
 					Council council = (Council)MapGrid.councilTile.getLocationType();
 					challenger.getOnLocation().removeFromLocation(challenger);
@@ -243,6 +247,9 @@ public class FightController {
 					council.getMinionOnLocation().remove(0);
 					council.addMinionToLocation(challenger);
 					council.changeTheGovernment(challenger.getPossessedBy());
+					if(GameSetUp.sirTeewadee!=null) {
+						GameSetUp.sirTeewadee.checkIsWin();						
+					}
 					AudioClip effect = AudioLoader.winEffect;
 					effect.play();
 					PlayerPanelUpdate.setShowMessage("Victory!", Color.WHITE, 120, 2000);

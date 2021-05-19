@@ -32,4 +32,5 @@ public interface Constant {
 	Color COLOR_ERROR = Color.web("E04B4B");
 	Color COLOR_INFO = Color.web("0xFEFDE8");
 	Color COLOR_STROKE_INFO = Color.web("0x89949B");
+	Color COLOR_ENDSCENE_PLAYER_LIST = Color.web("0x302A2A");
 }

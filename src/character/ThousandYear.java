@@ -25,10 +25,8 @@ public class ThousandYear extends MainCharacter {
 
 	public int checkIsWin() {
 		if (Prison.minionInPrison.size() >= nWinCount) {
-			this.setWin(true);
-		} else {
-//			GameSetUp.theGovernment.checkIsWin();
-			this.setWin(false);
+			GameSetUp.isGameEnd = true;
+			setWin(true);
 		}
 		return Prison.minionInPrison.size();
 	}

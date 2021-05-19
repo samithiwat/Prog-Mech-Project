@@ -56,7 +56,7 @@ public class TradeOverlayUpdate {
 				card_img.setFitHeight(145);
 				card_img.setFitWidth(97);
 				card_img.setOnMouseClicked((MouseEvent event) -> {
-					// key > 4
+					//key > 4
 					traded.getWeaponHand().add(card);
 					TradeController.traded_WeaponSlot.remove(card);
 					tradedofferUpdate();

@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
+import logic.GameSetUp;
 import sprites.AnimationSprites;
 
 public class Teewadee extends MainCharacter {
@@ -26,14 +27,13 @@ public class Teewadee extends MainCharacter {
 		this.skill = "Power of goodness (can use only one time)";
 		this.nWinCount = 6;
 		ultSkill = new Image(ClassLoader.getSystemResource("img/sprites/SirTeewadeeUlt.png").toString());
-		
+
 	}
 
 	public int checkIsWin() {
 		if (Ocean.banishedMinion.size() >= nWinCount) {
-			this.setWin(true);
-		} else {
-			this.setWin(false);
+			setWin(true);
+			GameSetUp.isGameEnd = true;
 		}
 		return Ocean.banishedMinion.size();
 	}
