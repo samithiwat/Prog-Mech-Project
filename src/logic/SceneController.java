@@ -124,10 +124,13 @@ public class SceneController {
 	}
 	
 	public static void endScene(MainCharacter winner) {
-		endScene = (new EndScene(winner)).getScene();
 		if(winner instanceof Teewada || winner instanceof ThousandYear) {
-			EndScene.setCoWinner(GameSetUp.theGovernment);
+			if(GameSetUp.theGovernment != winner) {
+				System.out.println("winner : " + winner);
+				EndScene.setCoWinner(GameSetUp.theGovernment);				
+			}
 		}
+		endScene = (new EndScene(winner)).getScene();
 		setScene(SceneController.getEndScene());
 	}
 	

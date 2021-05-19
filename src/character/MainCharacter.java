@@ -152,7 +152,7 @@ public abstract class MainCharacter extends Component {
 		for (int i = 0; i < this.possessedArea.size(); i++) {
 			if(this.possessedArea.get(i) instanceof BuyableLocation) {
 				BuyableLocation location = (BuyableLocation) this.possessedArea.get(i);
-				sum += location.getIncome();				
+				sum += location.getIncome();			
 			}
 		}
 		this.income = sum;

@@ -101,7 +101,7 @@ public class GameController {
 		}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+		GameSetUp.thisTurn = GameSetUp.gameCharacter.get(0);
 		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
 		GameSetUp.isReset = true;
@@ -166,9 +166,9 @@ public class GameController {
 //			GameSetUp.turn++;
 			GameSetUp.cycle++;
 			GameSetUp.gameLaw.activateEachCycle();
+			
 		}
 		System.out.println("END!!!");
-//		checkWin();
 		Platform.runLater(new Runnable() {
 			
 			@Override

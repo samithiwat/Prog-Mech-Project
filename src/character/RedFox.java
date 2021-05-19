@@ -1,5 +1,7 @@
 package character;
 
+import component.weaponCard.Axe;
+import component.weaponCard.Gun;
 import gui.entity.GameSetting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +27,7 @@ public class RedFox extends MainCharacter {
 		this.objectiveInfo2 = "Mine.";
 		this.skill = "Get extra money when start game";
 		this.nWinCount = 3;
+		
 	}
 	public int checkIsWin() {
 		int count = 0;

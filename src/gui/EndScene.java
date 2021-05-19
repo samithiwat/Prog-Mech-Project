@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import character.Collector;
 import character.MainCharacter;
 import component.entity.Minion;
 import component.location.Prison;
@@ -50,8 +51,11 @@ public class EndScene implements Sceneable {
 
 		root = new HBox();
 		root.setPadding(new Insets(50, 40, 0, 40));
+		if (winner instanceof Collector) {
+			root.setPadding(new Insets(50, 40, 0, 0));
+		}
 		root.setSpacing(20);
-		root.setAlignment(Pos.CENTER);
+		root.setAlignment(Pos.CENTER_LEFT);
 
 		ImageView winnerPortraits = winner.getWinnerImg();
 
@@ -135,8 +139,8 @@ public class EndScene implements Sceneable {
 				if (player != null) {
 					if (!player.getName().equals(winner.getName())) {
 						boolean isLoser = false;
-						for (MainCharacter maxMoneyPlayer : loserList) {
-							if (player.equals(maxMoneyPlayer)) {
+						for (MainCharacter maxMoneyPlayer : maxMoneyPlayers) {
+							if (player.getName().equals(maxMoneyPlayer.getName())) {
 								isLoser = true;
 								loserList.add(player);
 								break;
@@ -173,22 +177,32 @@ public class EndScene implements Sceneable {
 			break;
 
 		case "Sir Thousand Year":
-			for (int i = 0; i < players.size(); i++) {
-				MainCharacter player = players.get(i);
+			for (MainCharacter player : players) {
 				if (player != null) {
 					if (!player.getName().equals(winner.getName())) {
 						ArrayList<Minion> minions = player.getMyEntity();
 						boolean isPrisoner = false;
-						for (int j = 0; j < minions.size(); j++) {
-							Minion minion = minions.get(i);
+						for (Minion minion : minions) {
 							if (minion.getOnLocation() instanceof Prison) {
+								if(coWinner !=null) {
+									if(player.getName().equals(coWinner.getName())) {
+										coWinner = null;
+									}									
+								}
 								isPrisoner = true;
 								loserList.add(player);
 								break;
 							}
 						}
 						if (!isPrisoner) {
-							winnerList.add(player);
+							if(coWinner!=null) {
+								if(!player.getName().equals(coWinner.getName())) {
+									winnerList.add(player);								
+								}								
+							}
+							else {
+								winnerList.add(player);
+							}
 						}
 					}
 				}
@@ -197,43 +211,56 @@ public class EndScene implements Sceneable {
 		case "Sir Tewada":
 			ArrayList<MainCharacter> maxAtkPlayers = new ArrayList<MainCharacter>();
 			maxAtkPlayers.add(players.get(0));
-			int maxAtkWeapon = players.get(0).getWeaponHand().get(0).getAttack_max();
+			int maxTotalAtk = 0;
 			for (MainCharacter player : players) {
 				if (player != null) {
 					if (!player.getName().equals(winner.getName())) {
-						boolean hasMaxAtkWeapon = false;
-						for (WeaponCard weapon : player.getWeaponHand()) {
-							if (weapon.getAttack_max() > maxAtkWeapon) {
-								maxAtkPlayers.clear();
-								hasMaxAtkWeapon = true;
-								maxAtkWeapon = weapon.getAttack_max();
-							} else if (weapon.getAttack_max() == maxAtkWeapon) {
-								hasMaxAtkWeapon = true;
-							}
+						int totalAtk = calTotalAtk(player);
+//						int totalAtk = 0;
+//						for (WeaponCard weapon : player.getWeaponHand()) {
+//							totalAtk += weapon.getAttack_max();
+//						}
+						if(totalAtk > maxTotalAtk) {
+							maxTotalAtk = totalAtk;
+							maxAtkPlayers.clear();
+							maxAtkPlayers.add(player);
 						}
-						if (hasMaxAtkWeapon) {
+						if(totalAtk == maxTotalAtk) {
 							maxAtkPlayers.add(player);
 						}
 					}
 				}
 			}
+			
 			for (MainCharacter player : players) {
 				if (player != null) {
 					if (!player.getName().equals(winner.getName())) {
 						boolean isLoser = false;
-						for (MainCharacter maxAtkPlayer : loserList) {
+						for (MainCharacter maxAtkPlayer : maxAtkPlayers) {
 							if (player.equals(maxAtkPlayer)) {
 								isLoser = true;
+								if(coWinner!=null) {
+									if(player.getName().equals(coWinner.getName())) {
+										coWinner = null;
+									}								
+								}
 								loserList.add(player);
 								break;
 							}
 						}
 						if (!isLoser) {
-							winnerList.add(player);
+							if(coWinner!=null) {
+								if(!player.getName().equals(coWinner.getName())) {
+									winnerList.add(player);
+								}								
+							}else {
+								winnerList.add(player);								
+							}
 						}
 					}
 				}
 			}
+			sortByTotalAtk();
 			break;
 		case "Sir Tewadee":
 			ArrayList<MainCharacter> maxWeaponOnHandPlayers = new ArrayList<MainCharacter>();
@@ -259,7 +286,7 @@ public class EndScene implements Sceneable {
 				if (player != null) {
 					if (!player.getName().equals(winner.getName())) {
 						boolean isLoser = false;
-						for (MainCharacter maxWeaponPlayer : loserList) {
+						for (MainCharacter maxWeaponPlayer : maxWeaponOnHandPlayers) {
 							if (player.equals(maxWeaponPlayer)) {
 								isLoser = true;
 								loserList.add(player);
@@ -272,12 +299,13 @@ public class EndScene implements Sceneable {
 					}
 				}
 			}
+			sortByNCard();
 			break;
 		}
 	}
 
 	private void sortByMoney() {
-		
+
 		for (int i = 1; i < winnerList.size(); i++) {
 			MainCharacter currentCharacter = winnerList.get(i);
 			double current = winnerList.get(i).getMoney();
@@ -302,7 +330,41 @@ public class EndScene implements Sceneable {
 			winnerList.set(j + 1, currentCharacter);
 		}
 	}
-
+	
+	private void sortByTotalAtk() {
+		for (int i = 1; i < winnerList.size(); i++) {
+			MainCharacter currentCharacter = winnerList.get(i);
+			double current = calTotalAtk(winnerList.get(i));
+			int j = i - 1;
+			while (j >= 0 && current < calTotalAtk(winnerList.get(j))) {
+				winnerList.set(j + 1, winnerList.get(j));
+				j--;
+			}
+			winnerList.set(j + 1, currentCharacter);
+		}
+	}
+	
+	private void sortByNCard() {
+		for (int i = 1; i < winnerList.size(); i++) {
+			MainCharacter currentCharacter = winnerList.get(i);
+			double current = winnerList.get(i).getWeaponHand().size();
+			int j = i - 1;
+			while (j >= 0 && current < winnerList.get(j).getWeaponHand().size()) {
+				winnerList.set(j + 1, winnerList.get(j));
+				j--;
+			}
+			winnerList.set(j + 1, currentCharacter);
+		}
+	}
+	
+	private int calTotalAtk(MainCharacter player) {
+		int totalAtk = 0;
+		for (WeaponCard weapon : player.getWeaponHand()) {
+			totalAtk += weapon.getAttack_max();
+		}			
+		return totalAtk;
+	}
+	
 	private void setUpDescriptionPane() {
 		TextTitle quote = new TextTitle("", Color.WHITE, FontWeight.BOLD, 64);
 		TextTitle loserCondition = new TextTitle("", COLOR_ENDSCENE_PLAYER_LIST, FontWeight.BOLD, 36);
@@ -343,18 +405,10 @@ public class EndScene implements Sceneable {
 
 	private void setUpPlayerListPane() {
 
-///////////////////////////////////////////////// DEBUG //////////////////////////////////////////////////////////////
-
-		System.out.println(coWinner); 
-		System.out.println(winnerList);
-		System.out.println(loserList);
-
-///////////////////////////////////////////// END OF DEBUG //////////////////////////////////////////////////////////
-
 		if (coWinner != null) {
 			HBox playerInfo = new HBox();
 			playerInfo.setAlignment(Pos.CENTER_LEFT);
-			playerInfo.setPadding(new Insets(0, 0, 0, 200));
+			playerInfo.setPadding(new Insets(0, 0, 0, 215));
 			playerInfo.setSpacing(100);
 			playerInfo.setMinWidth(150);
 
@@ -367,7 +421,7 @@ public class EndScene implements Sceneable {
 		for (MainCharacter winner : winnerList) {
 			HBox playerInfo = new HBox();
 			playerInfo.setAlignment(Pos.CENTER_LEFT);
-			playerInfo.setPadding(new Insets(0, 0, 0, 200));
+			playerInfo.setPadding(new Insets(0, 0, 0, 215));
 			playerInfo.setSpacing(100);
 			playerInfo.setMinWidth(150);
 
@@ -380,7 +434,7 @@ public class EndScene implements Sceneable {
 		for (MainCharacter loser : loserList) {
 			HBox playerInfo = new HBox();
 			playerInfo.setAlignment(Pos.CENTER_LEFT);
-			playerInfo.setPadding(new Insets(0, 0, 0, 200));
+			playerInfo.setPadding(new Insets(0, 0, 0, 215));
 			playerInfo.setSpacing(100);
 			playerInfo.setMinWidth(150);
 
