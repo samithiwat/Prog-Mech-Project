@@ -1,12 +1,11 @@
 package character;
 
-import java.util.ArrayList;
-
 import component.entity.Minion;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
+import logic.GameSetUp;
 
 public class Collector extends MainCharacter {
 	
@@ -29,9 +28,9 @@ public class Collector extends MainCharacter {
 	public int checkIsWin() {
 		boolean[] key = { true, true, true, true, true };
 		int count = 0;
-		for (int i = 0; i < this.getMyEntity().size(); i++) {
-			for (int j = 0; j < this.getMyEntity().get(i).getMyMinion().size(); j++) {
-				Minion minion = this.getMyEntity().get(i).getMyMinion().get(j);
+		for (int i = 0; i < getMyEntity().size(); i++) {
+			for (int j = 0; j < getMyEntity().get(i).getMyMinion().size(); j++) {
+				Minion minion = getMyEntity().get(i).getMyMinion().get(j);
 				if (minion.getPossessedBy() instanceof RedFox && key[0]) {
 					key[0] = false;
 					count++;
@@ -51,9 +50,8 @@ public class Collector extends MainCharacter {
 			}
 		}
 		if (count >= nWinCount) {
-			this.setWin(true);
-		} else {
-			this.setWin(false);
+			setWin(true);
+			GameSetUp.isGameEnd = true;
 		}
 		return count;
 	}

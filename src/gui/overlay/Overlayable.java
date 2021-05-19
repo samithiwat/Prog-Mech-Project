@@ -20,7 +20,7 @@ public interface Overlayable extends Constant{
 	
 	Color BG_COLOR = Color.web("0x393E46",0.85);
 
-	public void triggerOverlay(int dx,int dy,int delay);
+	public boolean triggerOverlay(int dx,int dy,int delay);
 	
 }
  

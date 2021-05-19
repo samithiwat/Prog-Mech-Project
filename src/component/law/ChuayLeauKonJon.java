@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import logic.GameSetUp;
+import update.GameSettingUpdate;
 
 public class ChuayLeauKonJon extends LawCard {
 	
@@ -18,7 +19,7 @@ public class ChuayLeauKonJon extends LawCard {
 	public void activateEffectCard() {
 		double max = Integer.MIN_VALUE;
 		double min = Integer.MAX_VALUE;
-		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
+		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 			max = Math.max(max, GameSetUp.gameCharacter.get(i).getMoney());
 			min = Math.min(min, GameSetUp.gameCharacter.get(i).getMoney());
 		}

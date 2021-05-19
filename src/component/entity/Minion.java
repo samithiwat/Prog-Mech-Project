@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.BlackSkull;
 import character.MainCharacter;
+import character.ThousandYear;
 import component.Component;
 import component.law.PaSeeKarnKreunTee;
 import component.location.Location;
@@ -75,6 +76,7 @@ public class Minion extends Component implements moveable {
 			throws WaterTileException, OutOfActionException, InvalidOwnershipException, TooFarException, LackOfMoneyException, SupportArmyException {
 
 		HexagonPane tile = GameSetUp.selectedTile;
+		
 
 		if (this.possessedBy != GameSetUp.thisTurn) {
 			throw new InvalidOwnershipException();
@@ -106,7 +108,9 @@ public class Minion extends Component implements moveable {
 		this.onLocation.addMinionToLocation(this);
 
 		this.moveLeft -= 1;
-		BlackSkull.checkWin();
+		if(GameSetUp.blackSkull != null) {
+			GameSetUp.blackSkull.checkIsWin();			
+		}
 	}
 // -------------------------------------------------- Jail Method -------------------------------------------------------
 
@@ -126,7 +130,9 @@ public class Minion extends Component implements moveable {
 		onLocation = GameSetUp.prison;
 		Prison.addToPrison(this);
 		this.prisonerNumber = Prison.minionInPrison.size() - 1;
-
+		if(GameSetUp.sirThousand!= null) {
+			GameSetUp.sirThousand.checkIsWin();			
+		}
 	}
 
 	public void ransom() throws LackOfMoneyException {

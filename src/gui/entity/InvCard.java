@@ -36,15 +36,15 @@ public class InvCard extends ImageView implements Clickable {
 		} else if (key >= 5 && key < 10) {
 			character = TradeOverlayUpdate.traded;
 		}
-		if (key >= 10 && key < 15 && GameSetUp.selectedIcon.size() > 0) {
+		if (key >= 10 && key < 15 && FightOverlayUpdate.challenger != null) {
 			character = FightOverlayUpdate.challenger.getPossessedBy();
 		} else if (key >= 15 && GameSetUp.selectedIcon.size() > 0) {
 //			System.out.println("findcard");
 			character = FightOverlayUpdate.challenged.getPossessedBy();
 		}
-//		System.out.println(character.getName());
 		this.index = -1;
 		if (character != null) {
+//			System.out.println(character.getName());
 			for (int i = 0; i < character.getWeaponHand().size(); i++) {
 				if (character.getWeaponHand().get(i).getName().equals(card.getName())) {
 					this.index = i;

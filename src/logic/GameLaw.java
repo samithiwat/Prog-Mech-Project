@@ -8,6 +8,7 @@ import component.law.LongTodeKonShua;
 import component.law.PaSeeMeung;
 import component.location.Mine;
 import component.weaponCard.WeaponCard;
+import update.GameSettingUpdate;
 
 public class GameLaw {
 	public boolean taxPerTile;
@@ -80,7 +81,7 @@ public class GameLaw {
 			}
 
 		}
-		
+		System.out.println("Tax :"+tax);
 		character.setMoney(character.getMoney()-tax*MainCharacter.M);
 		GameSetUp.theGovernment.setMoney(GameSetUp.theGovernment.getMoney() + tax*MainCharacter.M);
 	}
@@ -88,14 +89,14 @@ public class GameLaw {
 	public void activateEachCycle() {
 		if(this.setMoneyToAverage) {
 			double sum = 0;
-			for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
+			for(int i = 0 ; i < GameSettingUpdate.getNPlayer() ; i++) {
 				sum += GameSetUp.gameCharacter.get(i).getMoney();
 			}
 			double averageSum = 1*MainCharacter.M;
-			while(averageSum*GameSetUp.gameCharacter.size() < sum) {
+			while(averageSum*GameSettingUpdate.getNPlayer()  < sum) {
 				averageSum += 500000;
 			}
-			for(int i = 0 ; i < GameSetUp.gameCharacter.size() ; i++) {
+			for(int i = 0 ; i < GameSettingUpdate.getNPlayer()  ; i++) {
 				GameSetUp.gameCharacter.get(i).setMoney(averageSum);
 			}
 			GameSetUp.theGovernment.setMoney(averageSum+Math.max(0,sum-averageSum*GameSetUp.gameCharacter.size()));

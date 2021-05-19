@@ -2,7 +2,9 @@ package update;
 
 import java.util.ArrayList;
 
+import character.Dummy_Government;
 import character.MainCharacter;
+import component.location.Council;
 import component.location.Plain;
 import gui.MainIsland;
 import gui.MapOverview;
@@ -21,7 +23,9 @@ import gui.overlay.PlayerList1;
 import gui.overlay.PlayerList2;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
 import logic.GameController;
 import logic.GameSetUp;
 
@@ -81,8 +85,8 @@ public class PlayerPanelUpdate {
 	}
 
 	public static void updateGovernmentPoint() {
-		if (GameSetUp.theGovernment != null) {
-			PlayerPanel.getGovernmentPoint().updatePoint(GameSetUp.governmentPoint, GameSetUp.theGovernment.getColor());
+		if (!(GameSetUp.theGovernment instanceof Dummy_Government)) {
+			PlayerPanel.getGovernmentPoint().updatePoint(Council.howLong(), GameSetUp.theGovernment.getColor());
 		} else {
 			PlayerPanel.getGovernmentPoint().updatePoint(7, Color.WHITE);
 		}
@@ -211,6 +215,8 @@ public class PlayerPanelUpdate {
 						GameSetUp.thisTurn.addCardtoHand(GameSetUp.weaponDeck.drawCard());
 						MainIsland.setShowMessage("You bought a card!", Color.WHITE, 120, 2000);
 						setShowMessage("You bought a card!", Color.WHITE, 120, 2000);
+						AudioClip effect = AudioLoader.successfulEffect;
+						effect.play();
 						GameSetUp.isDraw = false;
 						updateHandOverlay();
 					}

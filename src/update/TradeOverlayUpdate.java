@@ -59,7 +59,7 @@ public class TradeOverlayUpdate {
 				card_img.setFitWidth(97);
 				card_img.setOnMouseClicked((MouseEvent event) -> {
 					//key > 4
-					traded.getWeaponOnHand().add(card);
+					traded.getWeaponHand().add(card);
 					TradeController.traded_WeaponSlot.remove(card);
 					tradedofferUpdate();
 				});
@@ -80,7 +80,7 @@ public class TradeOverlayUpdate {
 				card_img.setFitWidth(97);
 				card_img.setOnMouseClicked((MouseEvent event) -> {
 					//key > 4
-					trader.getWeaponOnHand().add(card);
+					trader.getWeaponHand().add(card);
 					TradeController.trader_WeaponSlot.remove(card);
 					traderofferUpdate();
 				});

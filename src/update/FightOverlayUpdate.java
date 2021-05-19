@@ -120,7 +120,7 @@ public class FightOverlayUpdate {
 							}
 						}
 					}
-					challenged.getPossessedBy().getWeaponOnHand().add(card);
+					challenged.getPossessedBy().getWeaponHand().add(card);
 					FightController.challenged_slot.remove(card);
 					challengedofferUpdate();
 				});
@@ -173,7 +173,7 @@ public class FightOverlayUpdate {
 							}
 						}
 					}
-					challenger.getPossessedBy().getWeaponOnHand().add(card);
+					challenger.getPossessedBy().getWeaponHand().add(card);
 					FightController.challenger_slot.remove(card);
 					challengerofferUpdate();
 				});

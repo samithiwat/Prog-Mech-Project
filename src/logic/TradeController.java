@@ -5,7 +5,11 @@ import java.util.Collections;
 
 import character.MainCharacter;
 import component.weaponCard.WeaponCard;
+import gui.MainIsland;
+import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import update.FightOverlayUpdate;
+import update.PlayerPanelUpdate;
 
 // this class can be deleted.
 public class TradeController {
@@ -15,10 +19,21 @@ public class TradeController {
 	public static int traded_money = 0;
 
 	public static void trade(MainCharacter trader, MainCharacter traded) {
-		trader.getWeaponHand().addAll(traded_WeaponSlot);
-		traded.getWeaponHand().addAll(trader_WeaponSlot);
-		trader.setMoney(trader.getMoney() + traded_money - trader_money);
-		traded.setMoney(traded.getMoney() - traded_money + trader_money);
+		if(traded_money > traded.getMoney() || trader_money > trader.getMoney()) {
+			PlayerPanelUpdate.setShowMessage("Money is not enough!", Color.WHITE, 100, 3000);
+			MainIsland.setShowMessage("Money is not enough!", Color.web("0xFEFDE8"), Color.web("0x89949B"),
+					100, 1, 3000);
+		}
+		else {
+			trader.getWeaponHand().addAll(traded_WeaponSlot);
+			traded.getWeaponHand().addAll(trader_WeaponSlot);
+			trader.setMoney(trader.getMoney() + traded_money - trader_money);
+			traded.setMoney(traded.getMoney() - traded_money + trader_money);
+			AudioClip effect = AudioLoader.successfulEffect;
+			effect.play();
+			MainIsland.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
+			PlayerPanelUpdate.setShowMessage("Trade success!", Color.WHITE, 120, 3000);
+		}
 		if(GameSetUp.isFightTradeMode) {
 			FightOverlayUpdate.invUpdate();			
 		}
@@ -28,7 +43,7 @@ public class TradeController {
 		traded_money = 0;
 		GameSetUp.isFightTradeMode = false;
 		traded.setFightTraded(true);
-		traded.setTraded(true);
+		traded.setTraded(true);	
 	}
 
 }

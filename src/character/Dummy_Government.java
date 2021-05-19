@@ -25,7 +25,6 @@ public class Dummy_Government extends MainCharacter {
 		FightController.challenged_slot.add(GameSetUp.weaponDeck.drawCard());
 	}
 	
-	@Override
 	public int checkIsWin() {
 		// TODO Auto-generated method stub
 		return 0;

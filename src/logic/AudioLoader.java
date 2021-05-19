@@ -30,6 +30,7 @@ public class AudioLoader {
 	public static AudioClip beachBGM = new AudioClip(ClassLoader.getSystemResource("audio/BeachSoundEffect.mp3").toString());
 	public static AudioClip addGoodPointEffect = new AudioClip(ClassLoader.getSystemResource("audio/AddGoodPointEffect.mp3").toString()); 
 	public static AudioClip reduceGoodPointEffect = new AudioClip(ClassLoader.getSystemResource("audio/ReduceGoodPointEffect.mp3").toString()); 
+	public static AudioClip successfulEffect = new AudioClip(ClassLoader.getSystemResource("audio/SuccessEffect.mp3").toString()); 
 	
 	public static void setBGMVolume(double volume) {
 		menuThemeSong.setVolume(volume);

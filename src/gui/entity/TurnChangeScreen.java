@@ -25,14 +25,14 @@ public class TurnChangeScreen extends VBox {
 		setAlignment(Pos.CENTER);
 		setSpacing(70);
 		
-		turn = new TextTitle("Turn " + GameSetUp.turn, Color.web("0x393E46"), FontWeight.BOLD, 96);
+		turn = new TextTitle("Turn " + GameSetUp.cycle, Color.web("0x393E46"), FontWeight.BOLD, 96);
 
 		StackPane turnRoot = new StackPane(turn);
 		turnRoot.setBackground(new Background(new BackgroundFill(Color.web("0xfefde8"), null, null)));
 		turnRoot.setAlignment(Pos.CENTER);
 		//turnRoot.setLayoutY(483);
 
-		name = new TextTitle("" + GameSetUp.turn, Color.web("0x393E46"), FontWeight.BOLD, 144, 0, 365);
+		name = new TextTitle("" + GameSetUp.cycle, Color.web("0x393E46"), FontWeight.BOLD, 144, 0, 365);
 		name.setStrokeWidth(5);
 
 		getChildren().addAll(name,turnRoot);
@@ -41,7 +41,7 @@ public class TurnChangeScreen extends VBox {
 
 	public void update() {
 		
-		turn.setText("Turn " + GameSetUp.turn);
+		turn.setText("Turn " + GameSetUp.cycle);
 		name.setText(GameSetUp.thisTurn.getName());
 		name.setFill(GameSetUp.thisTurn.getColor());
 		if (GameSetUp.thisTurn instanceof Teewada) {
