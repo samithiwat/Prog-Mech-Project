@@ -2,9 +2,9 @@ package component.law;
 
 import logic.GameSetUp;
 
-public class TaoTeumTookKon extends LawCard {
+public class Equality extends LawCard {
 
-	public TaoTeumTookKon() {
+	public Equality() {
 		super("TaoTeumTookKon",
 				"At the start of the turn, set every player's money to average sum of everyone's money. "
 						+ "If the average money is below 1,000,000 coconuts, all players' money are set to 1,000,000 coconuts instead.");

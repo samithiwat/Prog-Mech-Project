@@ -6,7 +6,8 @@ import character.BlackSkull;
 import character.MainCharacter;
 import character.ThousandYear;
 import component.Component;
-import component.law.PaSeeKarnKreunTee;
+import component.law.MoveTax;
+import component.location.BuyableLocation;
 import component.location.Location;
 import component.location.Ocean;
 import component.location.Prison;
@@ -103,9 +104,17 @@ public class Minion extends Component implements moveable {
 		this.setPosX(this.getPosX() + x);
 		this.setPosY(this.getPosY() + y);
 		this.onLocation.removeFromLocation(this);
+		if(this.onLocation instanceof BuyableLocation && ((BuyableLocation) this.onLocation).getOwner().getName().equals(this.possessedBy.getName())) {
+			this.getPossessedBy().getPossessedArea().remove(this.onLocation);
+		}
+		if(this.onLocation.getName().equals("SecretBase")) {
+			this.getPossessedBy().getPossessedArea().remove(this.onLocation);
+		}
 		setOnLocation(GameSetUp.map[this.getPosY()][this.getPosX()]);
 		this.onLocation.addMinionToLocation(this);
-
+		if(this.onLocation.getName().equals("SecretBase")) {
+			this.getPossessedBy().getPossessedArea().add(this.onLocation);
+		}
 		this.moveLeft -= 1;
 		if(GameSetUp.blackSkull != null) {
 			GameSetUp.blackSkull.checkIsWin();			

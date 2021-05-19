@@ -2,9 +2,9 @@ package component.law;
 
 import logic.GameSetUp;
 
-public class PaSeeTorSuu extends LawCard {
+public class FightTax extends LawCard {
 
-	public PaSeeTorSuu() {
+	public FightTax() {
 		super("PaSeeTorSuu", "The challenger requires to pay the government 1,000,000 coconuts to fight");
 		this.img_path = "img/card/law/FightTax.png";
 	}

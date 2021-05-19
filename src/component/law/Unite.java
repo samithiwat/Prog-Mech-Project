@@ -2,9 +2,9 @@ package component.law;
 
 import logic.GameSetUp;
 
-public class SaMakeeProngDong extends LawCard {
+public class Unite extends LawCard {
 
-	public SaMakeeProngDong() {
+	public Unite() {
 		super("SaMakeeProngDong", "Give 5,000,000 coconuts to player who doesn't have any weapon card in hand");
 		this.img_path = "img/card/law/Unite.png";
 	}

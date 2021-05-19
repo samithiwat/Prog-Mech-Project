@@ -4,9 +4,9 @@ import exception.OutOfActionException;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
-public class RatTaBarnPatTinKrubBarn extends InteractLawCard {
+public class Pardon extends InteractLawCard {
 
-	public RatTaBarnPatTinKrubBarn() {
+	public Pardon() {
 		super("Pardon", "Each turn the government can return a banished rat back to the owner.");
 		this.img_path = "img/card/law/Pardon.png";
 		this.icon_img_path = "img/icon/PardonIcon.png";

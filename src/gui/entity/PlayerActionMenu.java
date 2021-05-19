@@ -299,6 +299,9 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 										break;
 									}
 								}
+								for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
+									GameSetUp.gameCharacter.get(i).setFightTraded(false);
+								}
 								FightOverlayUpdate.pfpUpdate();
 								FightOverlayUpdate.invUpdate();
 								GameSetUp.isFightOverlayOffersUpdate = true;
