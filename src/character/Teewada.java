@@ -1,6 +1,7 @@
 package character;
 
 import component.location.Council;
+import component.weaponCard.Axe;
 import javafx.animation.Animation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +28,6 @@ public class Teewada extends MainCharacter {
 		this.skill = "Power of goodness (can use only one time)";
 		this.nWinCount = 7;
 		ultSkill = new Image(ClassLoader.getSystemResource("img/sprites/SirTeewadaUlt.png").toString());
-		
 	}
 
 	public int checkIsWin() {

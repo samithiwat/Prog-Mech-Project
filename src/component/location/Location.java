@@ -31,8 +31,9 @@ public class Location extends Component {
 	}
 
 	public void removeFromLocation(Minion minion) {
-		for (int i = 0; i < this.minionOnLocation.size(); i++) {
-			if (this.minionOnLocation.get(i) == minion) {
+		int n = this.minionOnLocation.size();
+		for(int i = 0 ; i < n ; i++) {
+			if(this.minionOnLocation.get(i) == minion) {
 				this.minionOnLocation.remove(i);
 			}
 		}

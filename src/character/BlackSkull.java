@@ -1,5 +1,7 @@
 package character;
 
+import component.weaponCard.Axe;
+import component.weaponCard.Gun;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -23,6 +25,7 @@ public class BlackSkull extends MainCharacter {
 		this.objectiveInfo2 = "Secret Base.";
 		this.skill = "Prison break (can use only one time)";
 		this.nWinCount = 4;
+		
 	}
 
 //	public static int checkWin() {

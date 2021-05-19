@@ -1,6 +1,8 @@
 package character;
 
 import component.entity.Minion;
+import component.weaponCard.Axe;
+import component.weaponCard.Gun;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;

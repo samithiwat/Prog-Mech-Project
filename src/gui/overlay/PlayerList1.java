@@ -176,10 +176,9 @@ public class PlayerList1 extends Overlay {
 							&& character.isFightTraded() == false) {
 						playerActionMenu.getTrade().setVisible(true);
 					}
-					if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
-
-						if (character.getGoodPoint() <= 5) {
-							if (character != GameSetUp.theGovernment) {
+					if(GameSetUp.thisTurn == GameSetUp.theGovernment) {
+						if(character.getGoodPoint() < 5 ) {
+							if(character != GameSetUp.theGovernment) {
 								playerActionMenu.getAddGoodPoint().setVisible(true);
 							}
 						}

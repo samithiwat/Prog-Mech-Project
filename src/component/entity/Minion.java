@@ -11,6 +11,7 @@ import component.location.BuyableLocation;
 import component.location.Location;
 import component.location.Ocean;
 import component.location.Prison;
+import component.location.SecretBase;
 import component.location.Water;
 import exception.OutOfActionException;
 import exception.SupportArmyException;
@@ -96,9 +97,12 @@ public class Minion extends Component implements moveable {
 			if(GameSetUp.thisTurn.getMoney() < MainCharacter.M) {
 				throw new LackOfMoneyException();
 			}
+			GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - PaSeeKarnKreunTee.FEE);
 		}
 		else if(GameSetUp.gameLaw.supportArmy) {
-			throw new SupportArmyException();
+			if(onLocation instanceof SecretBase) {
+				throw new SupportArmyException();				
+			}
 		}
 		
 		this.setPosX(this.getPosX() + x);
