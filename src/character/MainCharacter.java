@@ -215,7 +215,9 @@ public abstract class MainCharacter extends Component {
 			location.setOwner(GameSetUp.thisTurn);
 			addPossessedLocation(GameSetUp.selectedTile.getLocationType());
 			AudioLoader.buySoundEffect.play();
-			GameSetUp.thisTurn.checkIsWin();
+			if(GameSetUp.redFox!=null) {
+				GameSetUp.redFox.checkIsWin();				
+			}
 		} else {
 			throw new FailToBuyLandException();
 		}
@@ -337,10 +339,6 @@ public abstract class MainCharacter extends Component {
 		this.weaponOnHand = weaponOnHand;
 	}
 
-	public ArrayList<WeaponCard> getWeaponOnHand() {
-		return weaponOnHand;
-	}
-
 	public void setWeaponOnHand(ArrayList<WeaponCard> weaponOnHand) {
 		this.weaponOnHand = weaponOnHand;
 	}
@@ -394,7 +392,7 @@ public abstract class MainCharacter extends Component {
 	}
 
 	public boolean isWin() {
-		return isWin;
+		return this.isWin;
 	}
 
 	public int getLossPerTurn() {
@@ -466,9 +464,12 @@ public abstract class MainCharacter extends Component {
 ////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 
 	public String toString() {
-		return "Name: " + getName() + "\n" + "Description: " + getDesciption() + "\n" + "GoodPoint: " + getGoodPoint()
-				+ "\n" + "Weapond on hand: " + getWeaponHand() + "\n" + "Money: " + getMoney() + "\n" + "Minion"
-				+ getMyEntity() + "\n";
+		return "Name: "+getName()+"\n"
+				+"Money: "+getMoney()+"\n"
+				+"GoodPoint: "+getGoodPoint()+"\n";
+//		return "Name: " + getName() + "\n" + "Description: " + getDesciption() + "\n" + "GoodPoint: " + getGoodPoint()
+//				+ "\n" + "Weapond on hand: " + getWeaponHand() + "\n" + "Money: " + getMoney() + "\n" + "Minion"
+//				+ getMyEntity() + "\n";
 	}
 
 ////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////

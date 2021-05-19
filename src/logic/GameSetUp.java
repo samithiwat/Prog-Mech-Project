@@ -2,8 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
-import character.Dummy_Government;
-import character.MainCharacter;
+import character.*;
 import component.entity.Minion;
 import component.law.LawDeck;
 import component.law.LawSlot;
@@ -62,9 +61,8 @@ public class GameSetUp {
 	public static LawDeck lawDeck = new LawDeck();
 	public static ArrayList<SecretBase> allsecretBases = new ArrayList<SecretBase>();
 	private static final int DUPLICATE = 5;
-	public static int turn = 1;
-	public static int cycle = 0;
-	public static int governmentPoint = 0;
+//	public static int turn = 1;
+	public static int cycle = 1;
 	public static int countDownDuration = 0;
 	public static boolean canBuyMinion = true;
 	public static boolean isGameEnd = false;
@@ -91,8 +89,19 @@ public class GameSetUp {
 	public static boolean isChallenge = false;
 	public static boolean isChallenging = false;
 	
+	public static RedFox redFox;
+	public static Collector ladyCollector;
+	public static BlackSkull blackSkull;
+	public static ThousandYear sirThousand;
+	public static Teewada sirTewada;
+	public static Teewadee sirTeewadee;
+	
 	public GameSetUp() {
+// -------------------------------- Character Set Up -----------------------------------------------
+		
+		setUpCharacter();
 		thisTurn = gameCharacter.get(0);
+		
 //----------------------------------Weapon Set Up---------------------------------------------------
 		for (int i = 0; i < DUPLICATE; i++) {
 			weaponDeck.addCard(new Axe());
@@ -668,6 +677,30 @@ public class GameSetUp {
 		};
 
 		animationTimer.start();
+	}
+	
+	private void setUpCharacter() {
+		for(MainCharacter player : gameCharacter) {
+			if(player instanceof RedFox) {
+				redFox = (RedFox) player;
+			}
+			else if(player instanceof Collector) {
+				ladyCollector = (Collector) player;
+			}
+			else if(player instanceof BlackSkull) {
+				blackSkull = (BlackSkull) player;
+			}
+			else if(player instanceof ThousandYear) {
+				sirThousand = (ThousandYear) player;
+			}
+			else if(player instanceof Teewada) {
+				sirTewada = (Teewada) player;
+			}
+			else if(player instanceof Teewadee) {
+				sirTeewadee = (Teewadee) player;
+			}
+			
+		}
 	}
 
 }

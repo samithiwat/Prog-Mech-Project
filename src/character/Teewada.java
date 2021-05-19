@@ -36,11 +36,9 @@ public class Teewada extends MainCharacter {
 	public int checkIsWin() {
 		int howLong = Council.howLong();
 		if (howLong >= nWinCount) {
-			this.setWin(true);
+			setWin(true);
+			GameSetUp.isGameEnd = true;
 //			GameSetUp.theGovernment.setWin(true);
-		} else {
-			this.setWin(false);
-//			GameSetUp.theGovernment.checkIsWin();
 		}
 		return howLong;
 	}

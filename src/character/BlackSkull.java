@@ -12,8 +12,7 @@ public class BlackSkull extends MainCharacter {
 	public static final String IMG_PATH_MINION_IDLE = "img/character/BlackSkullMinionWalking.png";
 	
 	public static boolean prisonOutBreakSkill = true;
-	private static int nWinCount;
-	private static boolean isWin = false;
+	private static boolean isWin;
 
 	public BlackSkull() {
 		super("Black Skull", "");
@@ -29,20 +28,20 @@ public class BlackSkull extends MainCharacter {
 		this.nWinCount = 4;
 	}
 
-	public static int checkWin() {
-		int count = 0;
-		for (int i = 0; i < GameSetUp.allsecretBases.size(); i++) {
-			if (GameSetUp.allsecretBases.get(i).getPossessedBy() != null) {
-				count++;
-			}
-		}
-		if (count >= nWinCount) {
-			GameSetUp.isGameEnd = true;
+//	public static int checkWin() {
+//		int count = 0;
+//		for (int i = 0; i < GameSetUp.allsecretBases.size(); i++) {
+//			if (GameSetUp.allsecretBases.get(i).getPossessedBy() != null) {
+//				count++;
+//			}
+//		}
+//		if (count >= nWinCount) {
+//			GameSetUp.isGameEnd = true;
 //			setIsWin(true);
-		}
-		return count;
-	}
-
+//		}
+//		return count;
+//	}
+	
 	public static void setIsWin(boolean isWin) {
 		BlackSkull.isWin = isWin;
 	}
@@ -54,10 +53,9 @@ public class BlackSkull extends MainCharacter {
 				count++;
 			}
 		}
-		if (count >= 4) {
+		if (count >= nWinCount) {
+			GameSetUp.isGameEnd = true;
 			setWin(true);
-		} else {
-			setWin(false);
 		}
 		return count;
 	}

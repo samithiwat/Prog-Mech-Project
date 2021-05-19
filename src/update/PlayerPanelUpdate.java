@@ -2,7 +2,9 @@ package update;
 
 import java.util.ArrayList;
 
+import character.Dummy_Government;
 import character.MainCharacter;
+import component.location.Council;
 import component.location.Plain;
 import gui.MainIsland;
 import gui.MapOverview;
@@ -83,8 +85,8 @@ public class PlayerPanelUpdate {
 	}
 
 	public static void updateGovernmentPoint() {
-		if (GameSetUp.theGovernment != null) {
-			PlayerPanel.getGovernmentPoint().updatePoint(GameSetUp.governmentPoint, GameSetUp.theGovernment.getColor());
+		if (!(GameSetUp.theGovernment instanceof Dummy_Government)) {
+			PlayerPanel.getGovernmentPoint().updatePoint(Council.howLong(), GameSetUp.theGovernment.getColor());
 		} else {
 			PlayerPanel.getGovernmentPoint().updatePoint(7, Color.WHITE);
 		}
