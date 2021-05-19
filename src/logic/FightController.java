@@ -14,6 +14,7 @@ import gui.MapOverview;
 import gui.entity.MapGrid;
 import gui.entity.TextTitle;
 import gui.overlay.FightOverlay;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
@@ -202,20 +203,20 @@ public class FightController {
 			}
 			if(GameSetUp.isChallenging == false) {
 				if(!(challenged_ult||challenger_ult) && (challenged_isShield || challenger_isShield)) {
-//				MainIsland.setShowMessage("Shield", Color.WHITE, 120, 2000);
 					PlayerPanelUpdate.setShowMessage("Shield", Color.WHITE, 120, 2000);
 				}
 				else if(challenger_atkPoint > challenged_atkPoint) {
 					challenger.addMinion(challenged);
-//				MainIsland.setShowMessage("You win", Color.WHITE, 120, 2000);
+					AudioClip effect = AudioLoader.winEffect;
+					effect.play();
 					PlayerPanelUpdate.setShowMessage("You win", Color.WHITE, 120, 2000);
 				}
 				else if(challenger_atkPoint < challenged_atkPoint) {
 					challenged.addMinion(challenger);
-//				MainIsland.setShowMessage("You lose", Color.WHITE, 120, 2000);
+					AudioClip effect = AudioLoader.loseEffect;
+					effect.play();
 					PlayerPanelUpdate.setShowMessage("You lose", Color.WHITE, 120, 2000);
 				}else {
-//				MainIsland.setShowMessage("Draw", Color.WHITE, 120, 2000);
 					PlayerPanelUpdate.setShowMessage("Draw", Color.WHITE, 120, 2000);				
 				}
 				if(GameSetUp.ladyCollector!=null) {
@@ -228,9 +229,13 @@ public class FightController {
 					challenger.getOnLocation().removeFromLocation(challenger);
 					council.addMinionToLocation(challenger);
 					council.changeTheGovernment(challenger.getPossessedBy());
+					AudioClip effect = AudioLoader.winEffect;
+					effect.play();
 					PlayerPanelUpdate.setShowMessage("Victory!", Color.WHITE, 120, 2000);
 				}
 				else {
+					AudioClip effect = AudioLoader.loseEffect;
+					effect.play();
 					PlayerPanelUpdate.setShowMessage("Defeat", Color.WHITE, 120, 2000);
 				}
 			}
@@ -245,9 +250,13 @@ public class FightController {
 					if(GameSetUp.sirTeewadee!=null) {
 						GameSetUp.sirTeewadee.checkIsWin();						
 					}
+					AudioClip effect = AudioLoader.winEffect;
+					effect.play();
 					PlayerPanelUpdate.setShowMessage("Victory!", Color.WHITE, 120, 2000);
 				}
 				else {
+					AudioClip effect = AudioLoader.loseEffect;
+					effect.play();
 					PlayerPanelUpdate.setShowMessage("Defeat", Color.WHITE, 120, 2000);
 				}
 			}

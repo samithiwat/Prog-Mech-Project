@@ -7,27 +7,21 @@ import component.entity.Minion;
 public class Ocean extends Location {
 	public static ArrayList<Minion> banishedMinion;
 	public static boolean canPardon = true;
+
 	public Ocean() {
-		super("Island","Get isolated",0,0);
+		super("Island", "Get isolated", 0, 0);
 		banishedMinion = new ArrayList<Minion>();
-		
-		/////////////////////// DEBUG ////////////////////////
-		
-		
-		//////////////////// END OF DEBUG ////////////////////
 	}
-	 
+
 	public static void addToOcean(Minion minion) {
 		banishedMinion.add(minion);
-		while(minion.getMyMinion().size() > 0) {
+		while (minion.getMyMinion().size() > 0) {
 			minion.getMyMinion().get(0).getPossessedBy();
 		}
 	}
-	
+
 	public static void removeFromOcean(Minion minion) {
 		minion.returnThisToOwner();
 	}
-	
-	//----------------------getter/setter--------------------------
-	
+
 }

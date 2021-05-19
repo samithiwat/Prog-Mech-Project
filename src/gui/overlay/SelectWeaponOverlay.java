@@ -11,7 +11,6 @@ import gui.entity.LawCardIcon;
 import gui.entity.MenuIcon;
 import gui.entity.StatusPane;
 import gui.entity.TextTitle;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -92,11 +91,7 @@ public class SelectWeaponOverlay extends Overlay {
 	}
 
 	public void updateWeaponList(int mode) {
-//		try {
-//			weaponList.getChildren().clear();			
-//		}catch(Exception e) {
-//			
-//		}
+
 		ObservableList<Node> allWeapon = weaponList.getChildren();
 		for (int i = allWeapon.size() - 1; i >= 0; i--) {
 			allWeapon.remove(i);
@@ -137,8 +132,6 @@ public class SelectWeaponOverlay extends Overlay {
 	public HBox getWeaponList() {
 		return weaponList;
 	}
-
-//////////////////////////////////////////////// DEBUG //////////////////////////////////////////////////////////////
 	@Override
 	public String toString() {
 		return "----------------- Select Weapon ---------------\n" 
@@ -146,6 +139,4 @@ public class SelectWeaponOverlay extends Overlay {
 				 + this.weaponList.getChildren()
 				+ "\n" + "----------------------------------------------";
 	}
-
-//////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////
 }

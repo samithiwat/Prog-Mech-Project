@@ -8,13 +8,10 @@ import component.weaponCard.Bow;
 import component.weaponCard.Gun;
 import component.weaponCard.Shield;
 import component.weaponCard.Sword;
-import gui.MainIsland;
 import gui.MapOverview;
 import gui.entity.Clickable;
 import gui.entity.InvCard;
 import gui.entity.MenuButton;
-import gui.entity.MenuIcon;
-import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,9 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
@@ -44,7 +39,7 @@ public class TradeOverlay extends Overlay {
 
 	public static boolean trader_IsAccepted;
 	public static boolean traded_IsAccepted;
-	
+
 	private MenuButton traded_accept;
 	private MenuButton trader_accept;
 	private TextField traded_money;
@@ -73,8 +68,7 @@ public class TradeOverlay extends Overlay {
 
 //-----------------------------------------Trader side(Left side)----------------------------------------------
 
-		trader_img = new ImageView(
-				ClassLoader.getSystemResource(GameSetUp.thisTurn.getImg_path()).toString());
+		trader_img = new ImageView(ClassLoader.getSystemResource(GameSetUp.thisTurn.getImg_path()).toString());
 		trader_img.setFitHeight(280);
 		trader_img.setFitWidth(224);
 		trader_img.setX(112);
@@ -87,7 +81,6 @@ public class TradeOverlay extends Overlay {
 		trader_weaponCard.add(new InvCard(new Shield(), 2));
 		trader_weaponCard.add(new InvCard(new Bow(), 3));
 		trader_weaponCard.add(new InvCard(new Gun(), 4));
-		
 
 		trader_money = new TextField("0");
 		trader_money.setPrefHeight(62);
@@ -113,8 +106,7 @@ public class TradeOverlay extends Overlay {
 		trader_inv.add(trader_money, 2, 1);
 
 //-----------------------------------------Traded side(Right side)----------------------------------------------
-		traded_img = new ImageView(
-				ClassLoader.getSystemResource(GameSetUp.thisTurn.getImg_path()).toString());
+		traded_img = new ImageView(ClassLoader.getSystemResource(GameSetUp.thisTurn.getImg_path()).toString());
 		traded_img.setFitHeight(280);
 		traded_img.setFitWidth(224);
 		traded_img.setX(1060);
@@ -163,12 +155,12 @@ public class TradeOverlay extends Overlay {
 		traded_offer.setLayoutX(464);
 		traded_offer.setLayoutY(210);
 		traded_offer.setStyle("-fx-background-color: #C4C4C4;");
-		
+
 		traded_offer_money = new TextTitle("", Color.WHITE, FontWeight.BOLD, 30);
 		traded_offer_money.textProperty().bind(traded_money.textProperty());
 
 		traded_offer.add(traded_offer_money, 2, 0);
-		
+
 		traded_accept = new MenuButton("Accept", 20, 150, 45, Color.BLACK, 786, 400);
 		trader_accept = new MenuButton("Accept", 20, 150, 45, Color.BLACK, 464, 446);
 
@@ -182,7 +174,7 @@ public class TradeOverlay extends Overlay {
 				traded_IsAccepted = false;
 				traded_accept.setStyle("-fx-background-color : #C4C4C4;");
 			}
-			if(trader_IsAccepted && traded_IsAccepted) {
+			if (trader_IsAccepted && traded_IsAccepted) {
 				trade();
 			}
 		});
@@ -238,7 +230,7 @@ public class TradeOverlay extends Overlay {
 				trader_IsAccepted = false;
 				trader_accept.setStyle("-fx-background-color : #C4C4C4;");
 			}
-			if(trader_IsAccepted && traded_IsAccepted) {
+			if (trader_IsAccepted && traded_IsAccepted) {
 				trade();
 			}
 		});
@@ -269,12 +261,12 @@ public class TradeOverlay extends Overlay {
 				traded_offer, trader_accept, traded_accept);
 
 	}
-	
+
 	public void trade() {
-		TradeController.traded_money = (int)(MainCharacter.M*Float.parseFloat(traded_money.getText()));
-		TradeController.trader_money = (int)(MainCharacter.M*Float.parseFloat(trader_money.getText()));
+		TradeController.traded_money = (int) (MainCharacter.M * Float.parseFloat(traded_money.getText()));
+		TradeController.trader_money = (int) (MainCharacter.M * Float.parseFloat(trader_money.getText()));
 		TradeController.trade(TradeOverlayUpdate.trader, TradeOverlayUpdate.traded);
-		for(int i = 0 ; i < MapOverview.allTradeOverlay.size() ; i++) {
+		for (int i = 0; i < MapOverview.allTradeOverlay.size(); i++) {
 			MapOverview.allTradeOverlay.get(i).triggerOverlay(0, 825, 1000);
 		}
 		traded_IsAccepted = false;
@@ -284,10 +276,11 @@ public class TradeOverlay extends Overlay {
 		trader_money.setText("0");
 		traded_money.setText("0");
 		PlayerPanelUpdate.updateStatusPane();
-		PlayerPanelUpdate.updatePlayerList();;
+		PlayerPanelUpdate.updatePlayerList();
+		;
 	}
 
-	//-------------------------getter/setter----------------------------
+	// -------------------------getter/setter----------------------------
 	public MenuButton getTraded_accept() {
 		return traded_accept;
 	}
@@ -320,12 +313,4 @@ public class TradeOverlay extends Overlay {
 		return traded_img;
 	}
 
-
-	
-	
-	
-	
-	
-	
-	
 }

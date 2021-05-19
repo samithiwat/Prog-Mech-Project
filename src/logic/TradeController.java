@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
 
-// this class can be deleted.
 public class TradeController {
 	public static ArrayList<WeaponCard> trader_WeaponSlot = new ArrayList<WeaponCard>();
 	public static ArrayList<WeaponCard> traded_WeaponSlot = new ArrayList<WeaponCard>();

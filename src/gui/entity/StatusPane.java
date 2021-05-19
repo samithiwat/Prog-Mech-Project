@@ -1,7 +1,5 @@
 package gui.entity;
 
-import java.util.ArrayList;
-
 import character.MainCharacter;
 import gui.MapOverview;
 import gui.overlay.CurrentLaw;
@@ -12,8 +10,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -22,9 +18,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.AudioLoader;
-import logic.GameController;
 import logic.GameSetUp;
-import update.HexTileUpdate;
 import update.PlayerPanelUpdate;
 
 public class StatusPane extends GridPane implements Clickable {
@@ -101,7 +95,7 @@ public class StatusPane extends GridPane implements Clickable {
 		});
 
 		CircleButton characterInfo = new CircleButton("!", 36, Color.web("0xFECEB8"), 50, 50, 25, 0, 0);
-		
+
 		characterInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -123,8 +117,6 @@ public class StatusPane extends GridPane implements Clickable {
 			}
 
 		});
-
-		// buttonPane.getChildren().addAll(finance, characterInfo, toggleGrid);
 
 		buttonPane.getChildren().addAll(finance, currentLaw, landInfo, characterInfo, toggleGrid);
 

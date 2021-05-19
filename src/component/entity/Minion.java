@@ -45,7 +45,6 @@ public class Minion extends Component implements moveable {
 	public void addMinion(Minion minion) {
 		this.myMinion.add(minion);
 		addGroupMinion(minion);
-//		minion.possessedBy.removeFromMyEntity(minion);
 		minion.getOnLocation().removeFromLocation(minion);
 	}
 
@@ -93,7 +92,7 @@ public class Minion extends Component implements moveable {
 			throw new TooFarException();
 		}
 		else if(GameSetUp.gameLaw.taxPerTile){
-			if(GameSetUp.thisTurn.getMoney() < PaSeeKarnKreunTee.FEE) {
+			if(GameSetUp.thisTurn.getMoney() < MainCharacter.M) {
 				throw new LackOfMoneyException();
 			}
 		}

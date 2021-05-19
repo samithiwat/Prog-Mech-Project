@@ -17,7 +17,7 @@ public class ActivedLawIcon extends VBox implements Clickable {
 	private ImageView icon;
 	private TextTitle name;
 	private LawCard law;
-	
+
 	private boolean isInteractable = true;
 
 	public ActivedLawIcon(LawCard law) {
@@ -33,7 +33,7 @@ public class ActivedLawIcon extends VBox implements Clickable {
 		if (law instanceof Interactable) {
 
 			InteractLawCard interactLaw = (InteractLawCard) law;
-			
+
 			icon = new ImageView(ClassLoader.getSystemResource(interactLaw.getIcon_img_path()).toString());
 			name = new TextTitle(interactLaw.getName(), Color.WHITE, FontWeight.BOLD, 36);
 
@@ -94,5 +94,5 @@ public class ActivedLawIcon extends VBox implements Clickable {
 	public boolean isInteractable() {
 		return this.isInteractable;
 	}
-	
+
 }

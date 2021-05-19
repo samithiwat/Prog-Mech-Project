@@ -14,7 +14,7 @@ import logic.AudioLoader;
 import update.CharacterSelectUpdate;
 
 public class CharacterCard extends StackPane {
-	
+
 	private AudioClip effect;
 	private final int WIDTH_BG1 = 350;
 	private final int HEIGHT_BG1 = 450;
@@ -28,7 +28,7 @@ public class CharacterCard extends StackPane {
 
 	public CharacterCard(int id, String img_path, AudioClip effect, int x, int y) {
 		super();
-		
+
 		setCardId(id);
 		setId("character-card");
 		setAlignment(Pos.CENTER);
@@ -38,30 +38,30 @@ public class CharacterCard extends StackPane {
 		setLayoutY(y);
 
 // ------------------------------------------------- Set Scene Background -------------------------------------------------------------------
-		
+
 		bg = new Rectangle(WIDTH_BG2, HEIGHT_BG2);
 		bg.setId("character-card-bg");
 
 // ------------------------------------------------- Load Portraits -----------------------------------------------------------
-		
+
 		ImageView portraits = new ImageView(ClassLoader.getSystemResource(img_path).toString());
 		this.effect = effect;
 
 // ------------------------------------------------- Set SELECTED Text --------------------------------------------------------
-		
+
 		selectedText = new TextTitle("SELECTED", Color.web("0x393E46"), FontWeight.BOLD, 52, 41, 262);
 		selectedText.setVisible(false);
 
 		getChildren().addAll(bg, portraits, selectedText);
 		interact();
 	}
-	
+
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
 	public String toString() {
 		return "id : " + this.id;
 	}
-	
+
 	public boolean isSelected() {
 		return isSelected;
 	}
@@ -69,7 +69,7 @@ public class CharacterCard extends StackPane {
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
 	}
-	
+
 	public AudioClip getSoundEffect() {
 		return this.effect;
 	}
@@ -93,7 +93,7 @@ public class CharacterCard extends StackPane {
 	public void setSelectedText(TextTitle selectedText) {
 		this.selectedText = selectedText;
 	}
-	
+
 // -------------------------------------------------- Set Reaction to Client's Interaction ------------------------------------------------------
 
 	public void interact() {
@@ -118,15 +118,14 @@ public class CharacterCard extends StackPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(event.getButton().equals(MouseButton.SECONDARY)) {
+				if (event.getButton().equals(MouseButton.SECONDARY)) {
 					CharacterSelectUpdate.rightClickUpdate(getCardId());
-				}
-				else {
+				} else {
 					AudioClip effect = AudioLoader.clickEffect;
 					effect.play();
 					CharacterSelectUpdate.selectCharacterUpdate(getCardId());
 				}
-				
+
 			}
 		});
 	}

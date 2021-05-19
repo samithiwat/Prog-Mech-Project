@@ -6,7 +6,6 @@ import logic.GameSetUp;
 public class BanArWut extends LawCard {
 	public static LawCard instance;
 	private WeaponCard bannedWeapon;
-	public static final String IMG_PATH = "img/card/law/BanWeapon.png";
 	
 	public BanArWut() {
 		super("BanArWut","Players can't use the weapon that is in the ban list");

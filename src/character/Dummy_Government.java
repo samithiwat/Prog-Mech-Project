@@ -15,8 +15,8 @@ public class Dummy_Government extends MainCharacter {
 	public Dummy_Government() {
 		super("Council", "");
 		this.color = Color.web("0x183F21");
-		this.setImg_path(IMG_PATH);
-		this.setPfp(new Image(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.setImg_path("img/card/CouncilCard.png");
+		this.setPfp(new Image(ClassLoader.getSystemResource("img/card/CouncilCard.png").toString()));
 		this.getMyEntity().add(new Minion(this));
 	}
 

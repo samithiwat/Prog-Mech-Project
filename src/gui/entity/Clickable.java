@@ -7,9 +7,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import logic.AudioLoader;
 
-public interface Clickable extends Constant{
-	
+public interface Clickable extends Constant {
+
 	public void interact();
 
-	public void triggerDisable(); 
+	public void triggerDisable();
 }

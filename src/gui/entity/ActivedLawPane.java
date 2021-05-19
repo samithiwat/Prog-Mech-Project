@@ -13,7 +13,7 @@ public class ActivedLawPane extends StackPane implements Updateable {
 
 	private HBox activedLawPane;
 	private static final double HEIGHT = 200;
-	
+
 	public ActivedLawPane() {
 
 // --------------------------------------------------------- Set Up ----------------------------------------------------------------------
@@ -27,7 +27,7 @@ public class ActivedLawPane extends StackPane implements Updateable {
 
 		activedLawPane = new HBox();
 		activedLawPane.setSpacing(50);
-		
+
 // -------------------------------------------------------- Add Component ----------------------------------------------------------------
 
 		getChildren().addAll(activedLawPane);
@@ -41,8 +41,8 @@ public class ActivedLawPane extends StackPane implements Updateable {
 
 			for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
 				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
-				if(law instanceof Interactable) {
-					
+				if (law instanceof Interactable) {
+
 					ActivedLawIcon activedLaw = new ActivedLawIcon(law);
 					activedLawPane.getChildren().add(activedLaw);
 					setVisible(true);

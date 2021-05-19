@@ -1,9 +1,6 @@
 package gui;
 
-import java.util.ArrayList;
-
 import gui.entity.ActivedLawPane;
-import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.MenuIcon;
 import gui.entity.PlayerPanel;
@@ -117,23 +114,24 @@ public class MainIsland implements Sceneable {
 
 		SelectWeaponOverlay selectWeaponOverlay = new SelectWeaponOverlay();
 		MapOverview.allSelectWeapon.add(selectWeaponOverlay);
-		
+
 		ObjectiveOverlay objectiveOverlay = new ObjectiveOverlay();
 		MapOverview.allObjectiveOverlay.add(objectiveOverlay);
-		
+
 		TradeOverlay tradeOverlay = new TradeOverlay();
 		MapOverview.allTradeOverlay.add(tradeOverlay);
 
 		FightOverlay fightOverlay = new FightOverlay();
 		MapOverview.allFightOverlay.add(fightOverlay);
-		
+
 // ----------------------------------------------------- Add Scene's Component --------------------------------------------------------
-		
+
 		ActivedLawPane activedLawPane = new ActivedLawPane();
 		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
-		
-		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint,activedLawPane, handOverlay,
-			playerList1, playerList2, currentLaw, government,objectiveOverlay,tradeOverlay,selectWeaponOverlay, fightOverlay, messageRoot);
+
+		root.getChildren().addAll(statusPane, turnBar, handsIcon, endTurn, governmentPoint, goodnessPoint,
+				activedLawPane, handOverlay, playerList1, playerList2, currentLaw, government, objectiveOverlay,
+				tradeOverlay, selectWeaponOverlay, fightOverlay, messageRoot);
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(MOUSE_NORMAL);

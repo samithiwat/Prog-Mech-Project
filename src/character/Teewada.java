@@ -12,9 +12,6 @@ import sprites.AnimationSprites;
 
 public class Teewada extends MainCharacter {
 	
-	public static final String IMG_PATH = "img/character/SirTewada.png";
-	public static final String IMG_PATH_MINION_IDLE = "img/character/SirTewadaMinionIdle.png";
-	
 	public static boolean warCry = true;
 	public static Image ultSkill;
 
@@ -23,7 +20,7 @@ public class Teewada extends MainCharacter {
 		this.selectBGM = AudioLoader.sirTewadaSelectBGM;
 		this.color = Color.web("0xFEF67A");
 		this.setImg_path("img/character/SirTewada.png");
-		this.setPfp(new Image(ClassLoader.getSystemResource(IMG_PATH).toString()));
+		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/SirTewada.png").toString()));
 		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/SirTewadaWinner.png").toString());
 		this.objectiveInfo1 = "Has government";
 		this.objectiveInfo2 = "times in a row.";

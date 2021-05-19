@@ -35,7 +35,7 @@ public abstract class MainCharacter extends Component {
 	private double money;
 	private int income;
 	protected int nWinCount;
-	private String desciption;
+	private String description;
 	protected String objectiveInfo1;
 	protected String objectiveInfo2;
 	protected String skill;
@@ -59,7 +59,7 @@ public abstract class MainCharacter extends Component {
 
 	public MainCharacter(String name, String description) {
 		super(name);
-		this.desciption = description;
+		this.description = description;
 		this.money = 7 * M;
 		this.weaponOnHand = new ArrayList<WeaponCard>();
 		this.myEntity = new ArrayList<Minion>();
@@ -363,12 +363,12 @@ public abstract class MainCharacter extends Component {
 		this.goodPoint = goodPoint;
 	}
 
-	public String getDesciption() {
-		return desciption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesciption(String desciption) {
-		this.desciption = desciption;
+	public void setDescription(String desciption) {
+		this.description = desciption;
 	}
 
 	public void setMyEntity(ArrayList<Minion> myEntity) {
@@ -451,8 +451,6 @@ public abstract class MainCharacter extends Component {
 		return minionLeft;
 	}
 
-////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
 	public boolean isFightTraded() {
 		return isFightTraded;
 	}
@@ -460,8 +458,6 @@ public abstract class MainCharacter extends Component {
 	public void setFightTraded(boolean isFightTraded) {
 		this.isFightTraded = isFightTraded;
 	}
-
-////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 
 	public String toString() {
 		return "Name: "+getName()+"\n"
@@ -471,7 +467,5 @@ public abstract class MainCharacter extends Component {
 //				+ "\n" + "Weapond on hand: " + getWeaponHand() + "\n" + "Money: " + getMoney() + "\n" + "Minion"
 //				+ getMyEntity() + "\n";
 	}
-
-////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////
 
 }
