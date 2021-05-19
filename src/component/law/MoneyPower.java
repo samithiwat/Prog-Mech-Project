@@ -2,11 +2,11 @@ package component.law;
 
 import logic.GameSetUp;
 
-public class PaLangYernTra extends LawCard {
+public class MoneyPower extends LawCard {
 
-	public PaLangYernTra() {
+	public MoneyPower() {
 		super("PaLangYernTra", "When a fight happen, richer's attack get increased by 1 point.");
-		this.img_path = "img/card/law/WeaponTax.png";
+		this.img_path = "img/card/law/MoneyPower.png";
 	}
 
 	public void activateEffectCard() {

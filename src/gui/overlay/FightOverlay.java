@@ -311,7 +311,12 @@ public class FightOverlay extends Overlay {
 				challenged_accept.setStyle("-fx-background-color : #C4C4C4;");
 			}
 			if (challenger_IsAccepted && challenged_IsAccepted) {
-				fight();
+				Thread t = new Thread(() -> {
+					fight();					
+				});
+				t.start();
+				challenged_accept.setDisable(true);
+				challenger_accept.setDisable(true);
 			}
 		});
 		challenged_accept.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -415,7 +420,12 @@ public class FightOverlay extends Overlay {
 				challenger_accept.setStyle("-fx-background-color : #C4C4C4;");
 			}
 			if (challenger_IsAccepted && challenged_IsAccepted) {
-				fight();
+				Thread t = new Thread(() -> {
+					fight();					
+				});
+				t.start();
+				challenged_accept.setDisable(true);
+				challenger_accept.setDisable(true);
 			}
 		});
 		challenger_accept.setOnMouseExited(new EventHandler<MouseEvent>() {

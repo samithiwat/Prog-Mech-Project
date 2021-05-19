@@ -2,9 +2,9 @@ package component.law;
 
 import logic.GameSetUp;
 
-public class LongTodeKonShua extends LawCard {
+public class PunishBadGuy extends LawCard {
 
-	public LongTodeKonShua() {
+	public PunishBadGuy() {
 		super("LongTodeKonShua", "Player who doesn't have GoodPoint has to pay the government 1,000,000 coconuts");
 		this.img_path = "img/card/law/PunishBadGuy.png";
 	}

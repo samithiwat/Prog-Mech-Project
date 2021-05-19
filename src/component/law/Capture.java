@@ -7,9 +7,9 @@ import javafx.scene.paint.Color;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
-public class JubKaoKuk extends InteractLawCard {
+public class Capture extends InteractLawCard {
 
-	public JubKaoKuk() {
+	public Capture() {
 		super("Capture!",
 				"The government can arrest one random minion from the map.(If there is no sub-minion, the government "
 						+ "can arrest the header");

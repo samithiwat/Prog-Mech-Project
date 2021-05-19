@@ -158,6 +158,7 @@ public class PlayerList1 extends Overlay {
 					GameSetUp.selectedCharacter = character;
 					if (GameSetUp.isFightTradeMode) {
 						TradeOverlayUpdate.traded = character;
+						System.out.println("2");
 					}
 					playerActionMenu.getBuyLand().setVisible(false);
 					playerActionMenu.getCombine().setVisible(false);
@@ -169,6 +170,7 @@ public class PlayerList1 extends Overlay {
 					if (GameSetUp.thisTurn == character || character.isTraded()
 							|| TradeOverlayUpdate.trader == character) {
 						playerActionMenu.getTrade().setVisible(false);
+						System.out.println("1");
 					}
 					if (GameSetUp.isFightTradeMode == true && TradeOverlayUpdate.trader != character
 							&& character.isFightTraded() == false) {

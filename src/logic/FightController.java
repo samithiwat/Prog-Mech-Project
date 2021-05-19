@@ -18,6 +18,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
+import update.TradeOverlayUpdate;
 
 public class FightController {
 	public static ArrayList<WeaponCard> challenged_slot = new ArrayList<WeaponCard>();
@@ -262,7 +263,10 @@ public class FightController {
 			}
 			challenged_ult = false;
 			challenger_ult = false;
+			TradeOverlayUpdate.traded = null;
+			TradeOverlayUpdate.trader = null;
 			GameSetUp.isChallenging = false;
+			GameSetUp.selectedIcon.clear();
 		});
 		temp.start();
 		try {
@@ -272,6 +276,8 @@ public class FightController {
 		}
 		for(int i = 0 ; i < MapOverview.allFightOverlay.size() ; i++) {
 			FightOverlay overlay = MapOverview.allFightOverlay.get(i);
+			overlay.getchallenged_accept().setDisable(false);
+			overlay.getchallenger_accept().setDisable(false);
 			overlay.triggerOverlay(0, 825, 1000);
 			overlay.getChallenged_outcome().setText("");
 			overlay.getChallenger_outcome().setText("");

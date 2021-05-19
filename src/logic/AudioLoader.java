@@ -56,8 +56,8 @@ public class AudioLoader {
 			ClassLoader.getSystemResource("audio/ReduceGoodPointEffect.mp3").toString());
 	public static AudioClip successfulEffect = new AudioClip(
 			ClassLoader.getSystemResource("audio/SuccessEffect.mp3").toString());
-	public static AudioClip winEffect = new AudioClip(ClassLoader.getSystemResource("audio/WinSound.wav").toString());
-	public static AudioClip loseEffect = new AudioClip(ClassLoader.getSystemResource("audio/LoseSound.wav").toString());
+	public static AudioClip winEffect = new AudioClip(ClassLoader.getSystemResource("audio/WinEffect.mp3").toString());
+	public static AudioClip loseEffect = new AudioClip(ClassLoader.getSystemResource("audio/LoseEffect.mp3").toString());
 
 	public static void setBGMVolume(double volume) {
 		menuThemeSong.setVolume(volume);

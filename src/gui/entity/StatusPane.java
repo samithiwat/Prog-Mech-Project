@@ -49,10 +49,9 @@ public class StatusPane extends GridPane implements Clickable {
 		CircleButton finance = new CircleButton("img/icon/GoldIngot.png", 50, 50, 25, 0, 0);
 		Tooltip totalIncometooltip = new Tooltip();
 		totalIncometooltip.setFont(Font.font("Bai Jamjuree", 20)); // set font here
-		totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.getIncome() / MainCharacter.M + "M\nLoss : "
-				+ GameSetUp.thisTurn.getLossPerTurn());
 		finance.setOnMouseClicked((MouseEvent event) -> {
 			if (finance.isClicked() == false) {
+				totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.totalIncome() +"M");
 				totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY() + 10);
 				setId("circle-button-hold-style");
 				finance.setClicked(true);

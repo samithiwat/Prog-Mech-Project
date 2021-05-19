@@ -18,7 +18,7 @@ public class Location extends Component {
 	public Location(String name, String description, int income, int cost) {
 		super(name);
 		this.description = description;
-		this.incomePerRound = income * MainCharacter.M;
+		this.incomePerRound = income;
 		this.possessedBy = null;
 		this.cost = cost * MainCharacter.M;
 		this.minionOnLocation = new ArrayList<Minion>();
@@ -77,6 +77,15 @@ public class Location extends Component {
 
 	public ArrayList<Minion> getMinionOnLocation() {
 		return minionOnLocation;
+	}
+	
+
+	public double getIncomePerRound() {
+		return incomePerRound;
+	}
+
+	public void setIncomePerRound(double incomePerRound) {
+		this.incomePerRound = incomePerRound;
 	}
 
 	public String toString() {

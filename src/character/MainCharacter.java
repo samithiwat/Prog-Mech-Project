@@ -43,7 +43,6 @@ public abstract class MainCharacter extends Component {
 	protected Color color;
 	protected AudioClip bgm;
 	protected AudioClip selectBGM;
-	private int lossPerTurn;
 	private int minionLeft;
 	private boolean isWin;
 	private int num_Axe;
@@ -73,7 +72,6 @@ public abstract class MainCharacter extends Component {
 		this.goodPoint = 0;
 		this.isWin = false;
 		this.income = 0;
-		this.lossPerTurn = 0;
 		this.num_Axe = 0;
 		this.num_Bow = 0;
 		this.num_Gun = 0;
@@ -144,17 +142,14 @@ public abstract class MainCharacter extends Component {
 	}
 
 	private void gainIncome() {
-		this.setMoney(this.getMoney() + this.income);
+		this.setMoney(this.getMoney() + this.income*MainCharacter.M);
 	}
 
-	private int totalIncome() {
+	public int totalIncome() {
 		int sum = 0;
 		for (int i = 0; i < this.possessedArea.size(); i++) {
-			if(this.possessedArea.get(i) instanceof BuyableLocation) {
-				BuyableLocation location = (BuyableLocation) this.possessedArea.get(i);
-				sum += location.getIncome();				
+				sum += this.possessedArea.get(i).getIncomePerRound();
 			}
-		}
 		this.income = sum;
 		return sum;
 	}
@@ -393,14 +388,6 @@ public abstract class MainCharacter extends Component {
 
 	public boolean isWin() {
 		return this.isWin;
-	}
-
-	public int getLossPerTurn() {
-		return lossPerTurn;
-	}
-
-	public void setLossPerTurn(int lossPerTurn) {
-		this.lossPerTurn = lossPerTurn;
 	}
 
 	public AudioClip getBgm() {
