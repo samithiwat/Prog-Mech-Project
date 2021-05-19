@@ -3,9 +3,7 @@ package gui.overlay;
 import java.util.ArrayList;
 
 import character.MainCharacter;
-import gui.GameLobbyMenu;
 import gui.MapOverview;
-import gui.entity.Clickable;
 import gui.entity.MenuIcon;
 import gui.entity.PlayerActionMenu;
 import gui.entity.TextTitle;
@@ -13,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -21,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -54,8 +50,8 @@ public class PlayerList2 extends Overlay {
 		bg.setFill(BG_COLOR);
 		bg.setId("overlay-bg");
 
-		TextTitle title = new TextTitle("Player List",Color.WHITE,FontWeight.BOLD,72,512,110);
-		
+		TextTitle title = new TextTitle("Player List", Color.WHITE, FontWeight.BOLD, 72, 512, 110);
+
 		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1300, 50);
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -175,23 +171,21 @@ public class PlayerList2 extends Overlay {
 						playerActionMenu.getTrade().setVisible(true);
 					}
 					if(GameSetUp.thisTurn == GameSetUp.theGovernment) {
-						
 						if(character.getGoodPoint() < 5 ) {
 							if(character != GameSetUp.theGovernment) {
 								playerActionMenu.getAddGoodPoint().setVisible(true);
 							}
 						}
 					}
-					if(GameSetUp.thisTurn == GameSetUp.theGovernment) {
-						
-						if(character.getGoodPoint() > 0 ) {
-							if(character != GameSetUp.theGovernment) {
+					if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
+
+						if (character.getGoodPoint() > 0) {
+							if (character != GameSetUp.theGovernment) {
 								playerActionMenu.getReduceGoodPoint().setVisible(true);
 							}
 						}
 					}
 					playerActionMenu.show(instance, event.getSceneX(), event.getSceneY());
-					// no update yet, will write it later
 				}
 			});
 
@@ -202,9 +196,8 @@ public class PlayerList2 extends Overlay {
 
 			imgPane.getChildren().add(img);
 
-
 		}
-		root.getChildren().addAll(bg, title,playerStatusPane, imgPane, closeIcon, changePageIcon);
+		root.getChildren().addAll(bg, title, playerStatusPane, imgPane, closeIcon, changePageIcon);
 	}
 
 	// --------------------------------------------- Private Method
@@ -219,7 +212,7 @@ public class PlayerList2 extends Overlay {
 		imgRoot.setBackground(new Background(new BackgroundFill(Color.web("0xFEFDE8"), new CornerRadii(20), null)));
 		return imgRoot;
 	}
-	
+
 	// -------------------------------------------------------getter/setter-------------------------------------------------
 
 	public ArrayList<TextTitle> getAllText() {

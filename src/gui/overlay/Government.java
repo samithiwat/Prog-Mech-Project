@@ -1,6 +1,6 @@
 package gui.overlay;
 
-import component.law.BanArWut;
+import component.law.BanWeapon;
 import component.law.LawCard;
 import gui.entity.LawCardIcon;
 import gui.entity.LawCardSlot;
@@ -9,12 +9,8 @@ import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -97,8 +93,8 @@ public class Government extends Overlay {
 				LawCard law = GameSetUp.lawSlot.getSlot(i).getLaw();
 				LawCardIcon img;
 
-				if(law instanceof BanArWut) {
-					img = new LawCardIcon((BanArWut) law ,i);					
+				if(law instanceof BanWeapon) {
+					img = new LawCardIcon((BanWeapon) law ,i);					
 				}
 				else {
 					img	= new LawCardIcon(law,i);

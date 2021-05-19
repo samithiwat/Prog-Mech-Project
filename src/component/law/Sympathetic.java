@@ -6,11 +6,9 @@ import character.MainCharacter;
 import logic.GameSetUp;
 import update.GameSettingUpdate;
 
-public class ChuayLeauKonJon extends LawCard {
+public class Sympathetic extends LawCard {
 	
-	public static final String IMG_PATH = "img/card/law/SympatheticPoor.png";
-
-	public ChuayLeauKonJon() {
+	public Sympathetic() {
 		super("ChuayLeauKonJon", "The richest player has to pay the poorest player 2,000,000 coconuts. "
 				+ "If there are more than one poorest player, the richest player has to pay 1,000,000 coconuts to each player");
 		this.img_path = "img/card/law/SympatheticPoor.png";
@@ -25,7 +23,7 @@ public class ChuayLeauKonJon extends LawCard {
 		}
 		ArrayList<MainCharacter> richestPlayers = new ArrayList<MainCharacter>();
 		ArrayList<MainCharacter> poorestPlayers = new ArrayList<MainCharacter>();
-		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
+		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 			if (GameSetUp.gameCharacter.get(i).getMoney() == max) {
 				richestPlayers.add(GameSetUp.gameCharacter.get(i));
 			}

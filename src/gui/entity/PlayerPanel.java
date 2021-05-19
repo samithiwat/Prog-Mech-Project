@@ -41,15 +41,10 @@ public class PlayerPanel extends Pane implements Sceneable {
 		endTurn.setId("end-turn-button-release-style");
 		endTurnInteract();
 		
-//		handOverlay = new HandOverlay();
-//		MapOverview.allHandOverlay.add(handOverlay);
 		handsIcon = new MenuIcon("img/icon/HandsIcon.png", 42, 632);
 		handInteract();
 		
-//		playerList1 = new PlayerList1();
-//		MapOverview.allPlayerList1.add(playerList1);
 		turnBarInteract();
-		
 		
 		governmentPoint = new PointPane(7, 10, Color.web("0xFFFFFF"));
 		governmentPoint.setLayoutX(1287);
@@ -114,14 +109,12 @@ public class PlayerPanel extends Pane implements Sceneable {
 	
 	private void handInteract() {
 		handsIcon.setOnMouseClicked((MouseEvent event) -> {
-//			System.out.println("start");
 			AudioClip effect = AudioLoader.clickEffect;
 			effect.play();
 			PlayerPanelUpdate.updateHandOverlay();
 			for(int i = 0 ; i < MapOverview.allHandOverlay.size() ; i++) {
 				MapOverview.allHandOverlay.get(i).triggerOverlay(0,825,1000);
 			}
-//			System.out.println("end");
 		});
 	}
 	

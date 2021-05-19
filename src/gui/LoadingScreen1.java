@@ -14,14 +14,14 @@ import javafx.util.Duration;
 import logic.SceneController;
 import sprites.AnimationSprites;
 
-
 public class LoadingScreen1 implements Sceneable {
 	private Scene scene;
 
 	public LoadingScreen1() {
 		AnchorPane root = new AnchorPane();
 
-		ImageView coconutRolling = new ImageView(ClassLoader.getSystemResource("img/sprites/CoconutRolling.png").toString());
+		ImageView coconutRolling = new ImageView(
+				ClassLoader.getSystemResource("img/sprites/CoconutRolling.png").toString());
 		coconutRolling.setX(1000);
 		coconutRolling.setY(720);
 		AnimationSprites coconutAnimation = new AnimationSprites(coconutRolling, 1500, 0, 0, 100, 100, 0, 50, 0, 14);
@@ -45,12 +45,11 @@ public class LoadingScreen1 implements Sceneable {
 			protected void interpolate(double frac) {
 				final int length = loading.length();
 				final int n = Math.round(length * (float) frac);
-//				System.out.println("n :"+n);
 				text.setText(loading.substring(0, n));
 			}
 
 		};
-		
+
 		animation.setAutoReverse(true);
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();

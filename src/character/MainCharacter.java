@@ -35,7 +35,7 @@ public abstract class MainCharacter extends Component {
 	private double money;
 	private int income;
 	protected int nWinCount;
-	private String desciption;
+	private String description;
 	protected String objectiveInfo1;
 	protected String objectiveInfo2;
 	protected String skill;
@@ -43,7 +43,6 @@ public abstract class MainCharacter extends Component {
 	protected Color color;
 	protected AudioClip bgm;
 	protected AudioClip selectBGM;
-	private int lossPerTurn;
 	private int minionLeft;
 	private boolean isWin;
 	private int num_Axe;
@@ -59,7 +58,7 @@ public abstract class MainCharacter extends Component {
 
 	public MainCharacter(String name, String description) {
 		super(name);
-		this.desciption = description;
+		this.description = description;
 		this.money = 7 * M;
 		this.weaponOnHand = new ArrayList<WeaponCard>();
 		this.myEntity = new ArrayList<Minion>();
@@ -73,7 +72,6 @@ public abstract class MainCharacter extends Component {
 		this.goodPoint = 0;
 		this.isWin = false;
 		this.income = 0;
-		this.lossPerTurn = 0;
 		this.num_Axe = 0;
 		this.num_Bow = 0;
 		this.num_Gun = 0;
@@ -144,17 +142,14 @@ public abstract class MainCharacter extends Component {
 	}
 
 	private void gainIncome() {
-		this.setMoney(this.getMoney() + this.income);
+		this.setMoney(this.getMoney() + this.income*MainCharacter.M);
 	}
 
-	private int totalIncome() {
+	public int totalIncome() {
 		int sum = 0;
 		for (int i = 0; i < this.possessedArea.size(); i++) {
-			if(this.possessedArea.get(i) instanceof BuyableLocation) {
-				BuyableLocation location = (BuyableLocation) this.possessedArea.get(i);
-				sum += location.getIncome();			
+				sum += this.possessedArea.get(i).getIncomePerRound();
 			}
-		}
 		this.income = sum;
 		return sum;
 	}
@@ -363,12 +358,12 @@ public abstract class MainCharacter extends Component {
 		this.goodPoint = goodPoint;
 	}
 
-	public String getDesciption() {
-		return desciption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesciption(String desciption) {
-		this.desciption = desciption;
+	public void setDescription(String desciption) {
+		this.description = desciption;
 	}
 
 	public void setMyEntity(ArrayList<Minion> myEntity) {
@@ -393,14 +388,6 @@ public abstract class MainCharacter extends Component {
 
 	public boolean isWin() {
 		return this.isWin;
-	}
-
-	public int getLossPerTurn() {
-		return lossPerTurn;
-	}
-
-	public void setLossPerTurn(int lossPerTurn) {
-		this.lossPerTurn = lossPerTurn;
 	}
 
 	public AudioClip getBgm() {
@@ -451,8 +438,6 @@ public abstract class MainCharacter extends Component {
 		return minionLeft;
 	}
 
-////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-
 	public boolean isFightTraded() {
 		return isFightTraded;
 	}
@@ -460,8 +445,6 @@ public abstract class MainCharacter extends Component {
 	public void setFightTraded(boolean isFightTraded) {
 		this.isFightTraded = isFightTraded;
 	}
-
-////////////////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 
 	public String toString() {
 		return "Name: "+getName()+"\n"
@@ -471,7 +454,5 @@ public abstract class MainCharacter extends Component {
 //				+ "\n" + "Weapond on hand: " + getWeaponHand() + "\n" + "Money: " + getMoney() + "\n" + "Minion"
 //				+ getMyEntity() + "\n";
 	}
-
-////////////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////
 
 }

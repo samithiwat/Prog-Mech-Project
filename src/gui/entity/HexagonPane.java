@@ -39,9 +39,9 @@ import update.PlayerPanelUpdate;
 
 public class HexagonPane extends Pane implements Clickable {
 
-	public static final int[] tileSurroundCouncil = { 1, 5, 2, 6, 2, 7, 3, 7, 4, 7, 5, 6, 5, 5, 5, 4, 4, 3, 3, 3, 2, 3, 2,
-			4 };
-	
+	public static final int[] tileSurroundCouncil = { 1, 5, 2, 6, 2, 7, 3, 7, 4, 7, 5, 6, 5, 5, 5, 4, 4, 3, 3, 3, 2, 3,
+			2, 4 };
+
 	private static final int MAX_MINION = 6;
 	private static final int N_COLUMN = 3;
 	private final double INIT_X;
@@ -75,7 +75,6 @@ public class HexagonPane extends Pane implements Clickable {
 		this.INIT_Y = y;
 		moveable = false;
 
-//		double[] points = { 53, 0.5, 197, 0.5, 250, 125.5, 197, 250.5, 53, 250.5, 0, 125.5 };
 		double[] points = { 50, 0, 150, 0, 200, 100, 150, 200, 50, 200, 0, 100 };
 
 		Polygon poly = new Polygon(points);
@@ -144,7 +143,7 @@ public class HexagonPane extends Pane implements Clickable {
 				if (GameSetUp.selectedTile != null) {
 
 					boolean canBuyLand = false;
-					
+
 					if (GameSetUp.selectedTile.getLocationType() instanceof Buyable) {
 
 						BuyableLocation location = (BuyableLocation) GameSetUp.selectedTile.getLocationType();
@@ -156,7 +155,7 @@ public class HexagonPane extends Pane implements Clickable {
 							for (int i = 0; i < minions.size(); i++) {
 
 								if (minions.get(i).getPossessedBy().equals(GameSetUp.thisTurn)) {
-									
+
 									GameSetUp.selectedTile.getPlayerActionMenu().getBuyLand().setDisable(false);
 									canBuyLand = true;
 									break;
@@ -210,9 +209,10 @@ public class HexagonPane extends Pane implements Clickable {
 					} else if (!canFight) {
 						GameSetUp.selectedTile.getPlayerActionMenu().getFight().setVisible(false);
 					}
-					
-					for(int i = 0 ; i < 12 ; i++) {
-						if(tileSurroundCouncil[2*i] == row && tileSurroundCouncil[2*i+1] == column && GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() > 0) {
+
+					for (int i = 0; i < 12; i++) {
+						if (tileSurroundCouncil[2 * i] == row && tileSurroundCouncil[2 * i + 1] == column
+								&& GameSetUp.selectedTile.getLocationType().getMinionOnLocation().size() > 0) {
 							GameSetUp.selectedTile.getPlayerActionMenu().getCouncilFight().setVisible(true);
 							break;
 						}
@@ -302,10 +302,10 @@ public class HexagonPane extends Pane implements Clickable {
 	}
 
 	public void triggerOverlay() {
-		if(!overlay.triggerOverlay(0, 825, 1000)) {
-			GameSetUp.selectedIcon.clear();
-		}
+		overlay.triggerOverlay(0, 825, 1000);
+		GameSetUp.selectedIcon.clear();
 		
+
 	}
 
 	@Override
@@ -398,14 +398,14 @@ public class HexagonPane extends Pane implements Clickable {
 	public void updateMinionPane(String mode) {
 
 		overlay.getMinionPane().getChildren().clear();
-	
+
 		ArrayList<Minion> minions = locationType.getMinionOnLocation();
 		for (int i = 0; i < minions.size(); i++) {
 			addMinionToPane(minions.get(i), overlay.getMinionPane(), i);
 
 		}
-	
-		switch(mode) {
+
+		switch (mode) {
 		case "OneMinion":
 			overlay.getMinionPane().setOneMinionSelectMode();
 			break;
@@ -556,11 +556,7 @@ public class HexagonPane extends Pane implements Clickable {
 		return landInfoRoot;
 	}
 
-///////////////////////////////////////////////////// FOR DEBUG ONLY //////////////////////////////////////////////////////////////////////
-
 	public String toString() {
 		return locationType + "\n" + "Row : " + row + ", Column : " + column + "\n";
 	}
-
-////////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////////////////
 }

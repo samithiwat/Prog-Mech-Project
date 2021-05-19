@@ -1,6 +1,5 @@
 package component.law;
 
-import component.location.Prison;
 import exception.ExceedMinionInTileException;
 import exception.OutOfActionException;
 import gui.MainIsland;
@@ -8,11 +7,9 @@ import javafx.scene.paint.Color;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
-public class JubKaoKuk extends InteractLawCard {
+public class Capture extends InteractLawCard {
 
-	public static final String IMG_PATH = "img/card/law/Capture.png";
-
-	public JubKaoKuk() {
+	public Capture() {
 		super("Capture!",
 				"The government can arrest one random minion from the map.(If there is no sub-minion, the government "
 						+ "can arrest the header");

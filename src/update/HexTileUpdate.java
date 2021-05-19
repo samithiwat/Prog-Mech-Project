@@ -19,7 +19,7 @@ public class HexTileUpdate {
 	private static HexagonPane hexTile;
 
 // ---------------------------------------------------- Update Tile's Interact Type ----------------------------------------------------------
-	
+
 	public static void setDataInteract() {
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
@@ -28,13 +28,15 @@ public class HexTileUpdate {
 			}
 		}
 	}
-	
+
 	public static void setChallengerInteract() {
-		for(int i = 0 ; i < 6 ; i++) {
-			MapGrid.getGrids().get(HexagonPane.tileSurroundCouncil[2*i]).get(HexagonPane.tileSurroundCouncil[2*i+1]).dataInteract();;
+		for (int i = 0; i < 6; i++) {
+			MapGrid.getGrids().get(HexagonPane.tileSurroundCouncil[2 * i])
+					.get(HexagonPane.tileSurroundCouncil[2 * i + 1]).dataInteract();
+			;
 		}
 	}
-	
+
 	public static void setOverlayInteract(String mode) {
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
@@ -43,10 +45,9 @@ public class HexTileUpdate {
 			}
 		}
 	}
-	
-	
+
 // ---------------------------------------------------- Update Minion Icon in Hex Tile -----------------------------------------------------------
-	
+
 	public static void updateMinionIcon() {
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
@@ -56,14 +57,15 @@ public class HexTileUpdate {
 			}
 		}
 	}
-	
+
 // ----------------------------------------------------- Show Land Info ----------------------------------------------------------------
-	
+
 	public static void showLandInfo() {
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
-				column.get(j).showLandInfo();;
+				column.get(j).showLandInfo();
+				;
 			}
 		}
 	}
@@ -78,5 +80,4 @@ public class HexTileUpdate {
 		HexTileUpdate.hexTile = hexTile;
 	}
 
-	
 }

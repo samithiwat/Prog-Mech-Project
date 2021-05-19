@@ -1,7 +1,5 @@
 package gui.entity;
 
-import java.util.ArrayList;
-
 import character.MainCharacter;
 import gui.MapOverview;
 import gui.overlay.CurrentLaw;
@@ -12,8 +10,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -22,9 +18,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.AudioLoader;
-import logic.GameController;
 import logic.GameSetUp;
-import update.HexTileUpdate;
 import update.PlayerPanelUpdate;
 
 public class StatusPane extends GridPane implements Clickable {
@@ -55,10 +49,9 @@ public class StatusPane extends GridPane implements Clickable {
 		CircleButton finance = new CircleButton("img/icon/GoldIngot.png", 50, 50, 25, 0, 0);
 		Tooltip totalIncometooltip = new Tooltip();
 		totalIncometooltip.setFont(Font.font("Bai Jamjuree", 20)); // set font here
-		totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.getIncome() / MainCharacter.M + "M\nLoss : "
-				+ GameSetUp.thisTurn.getLossPerTurn());
 		finance.setOnMouseClicked((MouseEvent event) -> {
 			if (finance.isClicked() == false) {
+				totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.totalIncome() +"M");
 				totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY() + 10);
 				setId("circle-button-hold-style");
 				finance.setClicked(true);
@@ -101,7 +94,7 @@ public class StatusPane extends GridPane implements Clickable {
 		});
 
 		CircleButton characterInfo = new CircleButton("!", 36, Color.web("0xFECEB8"), 50, 50, 25, 0, 0);
-		
+
 		characterInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -123,8 +116,6 @@ public class StatusPane extends GridPane implements Clickable {
 			}
 
 		});
-
-		// buttonPane.getChildren().addAll(finance, characterInfo, toggleGrid);
 
 		buttonPane.getChildren().addAll(finance, currentLaw, landInfo, characterInfo, toggleGrid);
 

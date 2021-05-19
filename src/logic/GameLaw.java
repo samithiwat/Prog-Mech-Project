@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import character.MainCharacter;
 import component.law.LawCard;
-import component.law.LongTodeKonShua;
-import component.law.PaSeeMeung;
+import component.law.PunishBadGuy;
+import component.law.MineTax;
 import component.location.Mine;
 import component.weaponCard.WeaponCard;
 import update.GameSettingUpdate;

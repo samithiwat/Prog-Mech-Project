@@ -1,0 +1,16 @@
+package component.law;
+
+import logic.GameSetUp;
+
+public class PunishBadGuy extends LawCard {
+
+	public PunishBadGuy() {
+		super("LongTodeKonShua", "Player who doesn't have GoodPoint has to pay the government 1,000,000 coconuts");
+		this.img_path = "img/card/law/PunishBadGuy.png";
+	}
+
+	public void activateEffectCard() {
+		GameSetUp.gameLaw.taxNoGoodPoint = true;
+	}
+
+}

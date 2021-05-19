@@ -37,32 +37,6 @@ public class Overlay extends SubScene implements Overlayable {
 	}
 
 	public boolean triggerOverlay(int dx, int dy, int delay) {
-
-//		//FOR DEBIG ONLY
-//		System.out.println(this);
-//		System.out.println(styleProperty());
-//		System.out.println(rootProperty());
-//		System.out.println(fillProperty());
-//		System.out.println(root.getChildren());
-//		System.out.println(userAgentStylesheetProperty());
-//		System.out.println("visible : " + isVisible());
-//		System.out.println("x : "+getLayoutX()+" , y : "+getLayoutY());
-//		//System.out.println("Style : "+getCssMetaData());
-//		ArrayList<String> log = new ArrayList<String>();
-//		for(CssMetaData<? extends Styleable, ?> data : getCssMetaData()) {
-//			for(String splitedData : data.toString().split("CSSProperty"))
-//			{
-//				log.add(splitedData);
-//				log.add("\n");
-//			}
-//		}
-//		try {
-//			FileController.write("C:\\Computer Programing\\Java\\ProjectRes\\ProjectLog\\log6.txt", log);
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		//END OF DEBUG
-
 		TranslateTransition tt = new TranslateTransition(Duration.millis(delay));
 		boolean key;
 		tt.setNode(this);
@@ -113,13 +87,9 @@ public class Overlay extends SubScene implements Overlayable {
 		});
 	}
 
-//////////////////////////////////////////////////// FOR DEBUG ONLY ///////////////////////////////////////////////////////////
-
 	public String toString() {
 		return "-------------------- Overlay ---------------------" + "\n" + "x : " + getLayoutX() + ", y : "
 				+ getLayoutY() + "\n" + "Class : " + getClass() + "\n"
 				+ "---------------------------------------------------";
 	}
-
-//////////////////////////////////////////////////// END OF DEBUG ///////////////////////////////////////////////////////////
 }

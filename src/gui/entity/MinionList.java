@@ -21,11 +21,11 @@ public class MinionList extends Tooltip {
 
 	public void update() {
 		minionList.getChildren().clear();
-		
+
 		Circle thisMinion = new Circle(RADIUS);
 		thisMinion.setFill(minion.getPossessedBy().getColor());
 		minionList.getChildren().add(thisMinion);
-		
+
 		for (int i = 0; i < minion.getMyMinion().size(); i++) {
 			Circle symbol = new Circle(RADIUS);
 			symbol.setFill(minion.getMyMinion().get(i).getPossessedBy().getColor());

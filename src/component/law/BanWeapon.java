@@ -3,17 +3,16 @@ package component.law;
 import component.weaponCard.WeaponCard;
 import logic.GameSetUp;
 
-public class BanArWut extends LawCard {
+public class BanWeapon extends LawCard {
 	public static LawCard instance;
 	private WeaponCard bannedWeapon;
-	public static final String IMG_PATH = "img/card/law/BanWeapon.png";
 	
-	public BanArWut() {
+	public BanWeapon() {
 		super("BanArWut","Players can't use the weapon that is in the ban list");
 		this.img_path = "img/card/law/BanWeapon.png";
 	}
 	
-	public BanArWut(WeaponCard weapon) {
+	public BanWeapon(WeaponCard weapon) {
 		super("BanArWut","Players can't use the weapon that is in the ban list");
 		this.img_path = "img/card/law/BanWeapon.png";
 		this.bannedWeapon = weapon;
@@ -40,7 +39,7 @@ public class BanArWut extends LawCard {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BanArWut other = (BanArWut) obj;
+		BanWeapon other = (BanWeapon) obj;
 		if (bannedWeapon == null) {
 			if (other.bannedWeapon != null)
 				return false;

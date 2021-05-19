@@ -13,14 +13,12 @@ import javafx.scene.layout.VBox;
 
 public class SelectMapScenes {
 	private Scene scene;
+
 	public SelectMapScenes() {
-// -------------------------------------------- Entity--------------------------------------------------------------	
-//		ImageView prisonIslandEmpty = new ImageView(ClassLoader.getSystemResource("img/entity/PrisonIslandEmpty.png").toString());
-//		ImageView bigIslandEmpty = new ImageView(ClassLoader.getSystemResource("img/entity/BigIslandEmpty.png").toString());	
 //--------------------------------------------BG-------------------------------------------------------
 		ImageView bg = new ImageView(ClassLoader.getSystemResource("img/background/MapBackGround.png").toString());
-		MenuIcon smallIsland = new MenuIcon("img/icon/PrisonIslandEmpty.png",221,214);
-		MenuIcon bigIsland = new MenuIcon("img/icon/BigIslandEmpty.png",1100,817);
+		MenuIcon smallIsland = new MenuIcon("img/icon/PrisonIslandEmpty.png", 221, 214);
+		MenuIcon bigIsland = new MenuIcon("img/icon/BigIslandEmpty.png", 1100, 817);
 		AnchorPane mapPane = new AnchorPane();
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(22));
@@ -29,15 +27,15 @@ public class SelectMapScenes {
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.add(bigIsland, 0, 0);
 		hbox.getChildren().add(gridPane);
-		
 
-		mapPane.getChildren().addAll(bg,hbox);
+		mapPane.getChildren().addAll(bg, hbox);
 		this.scene = new Scene(mapPane);
 		this.scene.setOnKeyPressed(key -> {
 			System.exit(0);
 		});
-		
+
 	}
+
 	public Scene getScene() {
 		return this.scene;
 	}

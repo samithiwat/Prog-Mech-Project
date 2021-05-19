@@ -39,21 +39,18 @@ public class FightOverlayUpdate {
 				overlay.getchallenged_img()
 						.setImage(new Image(ClassLoader.getSystemResource("img/card/CouncilCard ").toString()));
 			}
-			overlay.getchallenger_img().setImage(
-					challenger.getPossessedBy().getPfp());
-			if(challenged.getPossessedBy().getName().equals("Sir Tewada")) {
+			overlay.getchallenger_img().setImage(challenger.getPossessedBy().getPfp());
+			if (challenged.getPossessedBy().getName().equals("Sir Tewada")) {
 				overlay.getChallenged_ult().setImage(Teewada.ultSkill);
 				overlay.getChallenged_ult().setVisible(Teewada.warCry);
-			}
-			else if(challenged.getPossessedBy().getName().equals("Sir Tewadee")){
+			} else if (challenged.getPossessedBy().getName().equals("Sir Tewadee")) {
 				overlay.getChallenged_ult().setImage(Teewadee.ultSkill);
 				overlay.getChallenged_ult().setVisible(Teewadee.warCry);
 			}
-			if(challenger.getPossessedBy().getName().equals("Sir Tewada")) {
+			if (challenger.getPossessedBy().getName().equals("Sir Tewada")) {
 				overlay.getChallenger_ult().setImage(Teewada.ultSkill);
 				overlay.getChallenger_ult().setVisible(Teewada.warCry);
-			}
-			else if(challenger.getPossessedBy().getName().equals("Sir Tewadee")){
+			} else if (challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
 				overlay.getChallenger_ult().setImage(Teewadee.ultSkill);
 				overlay.getChallenger_ult().setVisible(Teewadee.warCry);
 			}
@@ -81,7 +78,6 @@ public class FightOverlayUpdate {
 			}
 			for (int j = 0; j < overlay.challenged_weaponCard.size(); j++) {
 				InvCard card = overlay.challenged_weaponCard.get(j);
-//				System.out.println(card.findCard(card.getKey()));
 				if (card.findCard(card.getKey()) == -1
 						|| FightController.challenged_slot.size() >= challenged.getMyMinion().size() + 1) {
 					card.setVisible(false);
@@ -97,7 +93,6 @@ public class FightOverlayUpdate {
 				}
 			}
 		}
-//		System.out.println("challenger minion : "+challenger.getMyMinion().size());
 	}
 
 	public static void challengedofferUpdate() {

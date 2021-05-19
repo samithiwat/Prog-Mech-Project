@@ -2,7 +2,6 @@ package gui.overlay;
 
 import java.util.ArrayList;
 
-import character.MainCharacter;
 import character.Teewada;
 import character.Teewadee;
 import component.weaponCard.Axe;
@@ -16,20 +15,16 @@ import gui.entity.Clickable;
 import gui.entity.InvCard;
 import gui.entity.MenuButton;
 import gui.entity.MenuIcon;
-import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -38,7 +33,6 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.FightController;
 import logic.GameSetUp;
-import logic.TradeController;
 import sprites.AnimationSprites;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
@@ -134,17 +128,16 @@ public class FightOverlay extends Overlay {
 			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
 			effect.play();
 		});
-		
+
 		challenger_ult.setOnMouseExited((MouseEvent event) -> {
 			challenger_ultAnimation.pause();
 		});
-		
+
 		challenger_ult.setOnMouseClicked((MouseEvent event) -> {
 			FightController.challenger_ult = true;
-			if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewada")) {
+			if (FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewada")) {
 				Teewada.warCry = false;
-			}
-			else if(FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
+			} else if (FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
 				Teewadee.warCry = false;
 			}
 			challenger_ult.setVisible(false);
@@ -205,17 +198,16 @@ public class FightOverlay extends Overlay {
 			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
 			effect.play();
 		});
-		
-		challenged_ult.setOnMouseExited((MouseEvent evnet)->{
+
+		challenged_ult.setOnMouseExited((MouseEvent evnet) -> {
 			challenged_ultAnimation.pause();
 		});
 
 		challenged_ult.setOnMouseClicked((MouseEvent event) -> {
 			FightController.challenged_ult = true;
-			if(FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewada")) {
+			if (FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewada")) {
 				Teewada.warCry = false;
-			}
-			else if(FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewadee")) {
+			} else if (FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewadee")) {
 				Teewadee.warCry = false;
 			}
 			challenged_ult.setVisible(false);
@@ -319,7 +311,12 @@ public class FightOverlay extends Overlay {
 				challenged_accept.setStyle("-fx-background-color : #C4C4C4;");
 			}
 			if (challenger_IsAccepted && challenged_IsAccepted) {
-				fight();
+				Thread t = new Thread(() -> {
+					fight();					
+				});
+				t.start();
+				challenged_accept.setDisable(true);
+				challenger_accept.setDisable(true);
 			}
 		});
 		challenged_accept.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -414,7 +411,8 @@ public class FightOverlay extends Overlay {
 		challenger_accept.setOnMouseClicked((MouseEvent event) -> {
 			if (!challenger_IsAccepted) {
 				challenger_IsAccepted = true;
-				System.out.println(FightOverlayUpdate.challenger.getPossessedBy().getName()+"\n"+FightOverlayUpdate.challenged.getPossessedBy().getName());
+				System.out.println(FightOverlayUpdate.challenger.getPossessedBy().getName() + "\n"
+						+ FightOverlayUpdate.challenged.getPossessedBy().getName());
 				setId("button-hold-style");
 				challenger_accept.setStyle("-fx-background-color: #279F2B;");
 			} else {
@@ -422,7 +420,12 @@ public class FightOverlay extends Overlay {
 				challenger_accept.setStyle("-fx-background-color : #C4C4C4;");
 			}
 			if (challenger_IsAccepted && challenged_IsAccepted) {
-				fight();
+				Thread t = new Thread(() -> {
+					fight();					
+				});
+				t.start();
+				challenged_accept.setDisable(true);
+				challenger_accept.setDisable(true);
 			}
 		});
 		challenger_accept.setOnMouseExited(new EventHandler<MouseEvent>() {

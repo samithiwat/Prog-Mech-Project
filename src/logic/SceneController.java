@@ -22,28 +22,25 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import update.AudioUpdate;
 import update.CloseGame;
-import input.Input_StartMenu;
 
 public class SceneController {
 
 	private static Stage mainStage = new Stage();
 	private final static int FULLSCREEN_WIDTH = 1540;
-//	private final static int FULLSCREEN_WIDTH = 1400;
 	private final static int FULLSCREEN_HEIGHT = 880;
-//	private final static int FULLSCREEN_HEIGHT = 800;
 	private static long lastTimeTrigger;
 	private static int count;
 	private static AnimationTimer animationTimer;
-	
+
 	private static Stage loadingStage;
-	
+
 	private static Scene endScene;
 	private static Scene gameSettingMenu;
 	private static Scene mapOverView;
 	private static Scene mainIsland;
 	private static Scene prisonIsland;
 	private static Scene Ocean;
-	
+
 	public SceneController() throws Exception {
 		mainStage.setScene((new StartMenu()).getScene());
 	}
@@ -59,7 +56,7 @@ public class SceneController {
 	public static Stage getStage() {
 		return mainStage;
 	}
-	
+
 	public static void setScene(Scene scene) {
 		mainStage.setScene(scene);
 	}
@@ -67,7 +64,7 @@ public class SceneController {
 	public static Scene getScene() {
 		return mainStage.getScene();
 	}
-	
+
 	public static void startCredit() {
 		lastTimeTrigger = -1;
 		animationTimer = new AnimationTimer() {
@@ -75,9 +72,8 @@ public class SceneController {
 			@Override
 			public void handle(long now) {
 				lastTimeTrigger = (lastTimeTrigger < 0 ? now : lastTimeTrigger);
-				if (now - lastTimeTrigger >= 2000000000 || Input_StartMenu.isSkip ) {
-					//System.out.println(count);
-					if(Input_StartMenu.isSkip) {
+				if (now - lastTimeTrigger >= 2000000000 || true) {
+					if (true) {
 						System.out.println("Skipped" + count);
 					}
 					if (count % 2 == 0) {
@@ -85,7 +81,6 @@ public class SceneController {
 						mainStage.setScene(StartMenu.getScene());
 					}
 					count++;
-					//Input_StartMenu.isSkip = false;
 					lastTimeTrigger = now;
 				}
 				if (count == 7) {
@@ -97,32 +92,28 @@ public class SceneController {
 		};
 		animationTimer.start();
 	}
-	
+
 	public static void createGameScene() {
-		
-		SceneController.mapOverView= (new MapOverview()).getScene();
+
+		SceneController.mapOverView = (new MapOverview()).getScene();
 		PlayerPanel dummy = new PlayerPanel();
-		
-//		SceneController.Ocean = (new Ocean()).getScene();
+
 		SceneController.prisonIsland = (new PrisonIsland()).getScene();
-		SceneController.mainIsland= (new MainIsland()).getScene();
+		SceneController.mainIsland = (new MainIsland()).getScene();
 	}
-	
+
 	public static void loadingScreen() {
 		Random rand = new Random();
 		int sceneNum = rand.nextInt(2);
 
-//		int sceneNum = 1;
-		
-		switch(sceneNum) {
-		case 0 :
+		switch (sceneNum) {
+		case 0:
 			setScene((new LoadingScreen1()).getScene());
 			break;
-		case 1 :
+		case 1:
 			setScene((new LoadingScreen2()).getScene());
 		}
 	}
-	
 	public static void endScene(MainCharacter winner) {
 		if(winner instanceof Teewada || winner instanceof ThousandYear) {
 			if(GameSetUp.theGovernment != winner) {
@@ -133,14 +124,14 @@ public class SceneController {
 		endScene = (new EndScene(winner)).getScene();
 		setScene(SceneController.getEndScene());
 	}
-	
+
 // -------------------------------------------------- Change Scene Method ---------------------------------------------------------------
-	
+
 	public static void goToMapOverview() {
 		MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-		setScene(SceneController.getMapOverView());	
+		setScene(SceneController.getMapOverView());
 	}
-	
+
 	public static void goToMainIsland() {
 
 		MainIsland.getSceneRoot().getChildren().set(3, PlayerPanel.getStatusPane());
@@ -152,15 +143,14 @@ public class SceneController {
 
 		setScene(SceneController.getMainIsland());
 	}
-	
+
 	public static void goToPrisonIsland() {
 		PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
 		setScene(SceneController.getPrisonIsland());
 	}
 
-	
 // --------------------------------------------------- Getter and Setter ----------------------------------------------------------------
-	
+
 	public static Scene getGameSettingMenu() {
 		return gameSettingMenu;
 	}
@@ -192,7 +182,7 @@ public class SceneController {
 	public static void setLoadingStage(Stage loadingStage) {
 		SceneController.loadingStage = loadingStage;
 	}
-	
+  
 	public static Scene getEndScene() {
 		return endScene;
 	}

@@ -1,9 +1,6 @@
 package gui.entity;
 
-import java.util.ArrayList;
-
 import character.*;
-import gui.overlay.PlayerList1;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -92,7 +89,6 @@ public class TurnBar extends StackPane implements Clickable {
 			public void handle(MouseEvent event) {
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
-//				playerList1.triggerOverlay(0,825,1000);
 			}
 		});
 		

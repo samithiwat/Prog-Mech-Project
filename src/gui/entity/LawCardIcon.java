@@ -2,7 +2,7 @@ package gui.entity;
 
 import java.util.ArrayList;
 
-import component.law.BanArWut;
+import component.law.BanWeapon;
 import component.law.LawCard;
 import component.law.PaSeeArWut;
 import component.weaponCard.WeaponCard;
@@ -67,8 +67,8 @@ public class LawCardIcon extends Pane implements Clickable {
 		interact();
 		dragAndDropInteract();
 
-		if (law instanceof BanArWut) {
-			WeaponCard weapon = ((BanArWut) law).getBannedWeapon();
+		if (law instanceof BanWeapon) {
+			WeaponCard weapon = ((BanWeapon) law).getBannedWeapon();
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getBan_img_path()).toString());
 				setInfo("Ban " + weapon.getName());
@@ -123,8 +123,8 @@ public class LawCardIcon extends Pane implements Clickable {
 		interact();
 		dragAndDropInteract();
 
-		if (law instanceof BanArWut) {
-			WeaponCard weapon = ((BanArWut) law).getBannedWeapon();
+		if (law instanceof BanWeapon) {
+			WeaponCard weapon = ((BanWeapon) law).getBannedWeapon();
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getBan_img_path()).toString());
 				setInfo("Ban " + weapon.getName());
@@ -200,7 +200,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if (!(law instanceof BanArWut) && !(law instanceof PaSeeArWut)) {
+				if (!(law instanceof BanWeapon) && !(law instanceof PaSeeArWut)) {
 					Dragboard db = img.startDragAndDrop(TransferMode.MOVE);
 					ClipboardContent content = new ClipboardContent();
 					content.putString(
@@ -286,10 +286,10 @@ public class LawCardIcon extends Pane implements Clickable {
 					addLaw();
 
 					ArrayList<WeaponCard> weaponList;
-					if (law instanceof BanArWut) {
+					if (law instanceof BanWeapon) {
 						weaponList = GameSetUp.lawSlot.getBannedWeapon();
-						weaponList.add(((BanArWut) law).getBannedWeapon());
-						unSelectedAll(new LawCardIcon(new BanArWut()));
+						weaponList.add(((BanWeapon) law).getBannedWeapon());
+						unSelectedAll(new LawCardIcon(new BanWeapon()));
 					}
 					if (law instanceof PaSeeArWut) {
 						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
@@ -306,9 +306,9 @@ public class LawCardIcon extends Pane implements Clickable {
 				} catch (DuplicateLawException e) {
 
 					ArrayList<WeaponCard> weaponList;
-					if (law instanceof BanArWut) {
+					if (law instanceof BanWeapon) {
 						weaponList = GameSetUp.lawSlot.getBannedWeapon();
-						weaponList.remove(((BanArWut) law).getBannedWeapon());
+						weaponList.remove(((BanWeapon) law).getBannedWeapon());
 					}
 					if (law instanceof PaSeeArWut) {
 						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
@@ -422,23 +422,6 @@ public class LawCardIcon extends Pane implements Clickable {
 	}
 
 	private void removeLaw() {
-//		for (int i = 0; i < GameSetUp.lawSlot.nSlot(); i++) {
-//			LawCardIcon lawCard = GameSetUp.lawSlot.getSlot(i);
-//			try {
-//				if (lawCard.getLaw() != null) {
-//					if (lawCard.getLaw().equals(law)) {
-//						unSelectedAll(this);
-//						GameSetUp.lawSlot.setSlot(i, new LawCardIcon(null));
-//						updateActiveLaw();
-//						break;
-//					}
-//				}
-//			} catch (Exception e) {
-//				continue;
-//			}
-//		}
-
-
 		unSelectedAll(this);
 		GameSetUp.lawSlot.setSlot(row, new LawCardIcon(null));
 		updateActiveLaw();
@@ -571,8 +554,6 @@ public class LawCardIcon extends Pane implements Clickable {
 		return img;
 	}
 
-/////////////////////////////////////////////// DEBUG /////////////////////////////////////////////////////////
-
 	public String toString() {
 		if (law != null) {
 			return "-------------------------------" + "\n" + "Law : " + law.getName() + "\n" + "select : " + isSelected
@@ -580,6 +561,4 @@ public class LawCardIcon extends Pane implements Clickable {
 		}
 		return "-------------------------------" + "\n" + "Law : null\n" + "---------------------------------";
 	}
-
-//////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////
 }

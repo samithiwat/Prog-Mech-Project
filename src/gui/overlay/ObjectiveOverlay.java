@@ -57,31 +57,32 @@ public class ObjectiveOverlay extends Overlay {
 
 		TextTitle skillTitle = new TextTitle("Skill", Color.WHITE, FontWeight.BOLD, 48);
 		skill = new TextTitle("", Color.WHITE, FontWeight.MEDIUM, 48);
-		
+
 // ------------------------------------------ Close Icon -------------------------------------------------------
 
-				MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
+		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1311, 45);
 
-				closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-					@Override
-					public void handle(MouseEvent event) {
-						EFFECT_MOUSE_CLICK.play();
-						StatusPane.triggerObjective();
-					}
-				});
+			@Override
+			public void handle(MouseEvent event) {
+				EFFECT_MOUSE_CLICK.play();
+				StatusPane.triggerObjective();
+			}
+		});
 
 // ----------------------------------------------- Add Overlay's Component ---------------------------------------------
 
 		textRow.getChildren().addAll(objectiveTitle, objective, skillTitle, skill);
 
-		root.getChildren().addAll(bg,textRoot,closeIcon      );
+		root.getChildren().addAll(bg, textRoot, closeIcon);
 	}
-	
+
 	public void updateInfo() {
 		MainCharacter character = GameSetUp.thisTurn;
 		textRoot.setBackground(new Background(new BackgroundFill(GameSetUp.thisTurn.getColor(), null, null)));
-		objective.setText(character.getObjectiveInfo1() +" "+(character.getnWinCount()-character.checkIsWin())+" "+character.getObjectiveInfo2());
+		objective.setText(character.getObjectiveInfo1() + " " + (character.getnWinCount() - character.checkIsWin())
+				+ " " + character.getObjectiveInfo2());
 		skill.setText(character.getSkill());
 	}
 

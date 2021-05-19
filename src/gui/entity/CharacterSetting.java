@@ -65,21 +65,21 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 		portraits.setX(65);
 		portraits.setY(45);
 		portraits.setFitWidth(90);
-		portraits.setFitHeight(105);	
+		portraits.setFitHeight(105);
 		portraits.setVisible(false);
-		
+
 // --------------------------------------------------- Character Setting Text -----------------------------------------------------------		
 
 		TextTitle empty = new TextTitle("Empty", Color.rgb(57, 62, 70), FontWeight.BOLD, 24, 73, 90);
 		TextTitle name = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 24, 0, 0);
 
 // --------------------------------------------------- Character Setting Button ---------------------------------------------------------
-		
+
 		MenuButton remove = new MenuButton("Remove", 14, 100, 40, Color.web("0x393E46"), 0, 180);
 		remove.setFontBold(14);
 		remove.setId("button-disable-style");
 		remove.setDisable(true);
-		
+
 		remove.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -92,7 +92,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 
 		MenuButton ready = new MenuButton("Ready", 14, 100, 40, Color.web("0x393E46"), 120, 180);
 		ready.setFontBold(14);
-		
+
 		ready.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -102,11 +102,11 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 				CharacterSelectUpdate.readyUpdate();
 			}
 		});
-		
+
 		MenuButton unready = new MenuButton("Unready", 14, 100, 40, Color.web("0x393E46"), 120, 180);
 		unready.setFontBold(14);
 		unready.setVisible(false);
-		
+
 		unready.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -123,7 +123,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 		buttons.add(ready);
 		buttons.add(unready);
 		buttons.add(remove);
-		
+
 		bg = new ArrayList<Rectangle>();
 		bg.add(bg1);
 		bg.add(bg2);
@@ -182,7 +182,7 @@ public class CharacterSetting extends AnchorPane implements Sceneable {
 			}
 		});
 	}
-	
+
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 
 	public int getCBoxId() {

@@ -25,7 +25,7 @@ public class CircleButton extends StackPane implements Clickable {
 		label = new Label(content);
 		label.setId("circle-button-text-style");
 		label.setFont(Font.font("Bai Jamjuree", FontWeight.BOLD, 36));
-		
+
 		isClicked = false;
 
 		setLayoutX(x);
@@ -50,7 +50,7 @@ public class CircleButton extends StackPane implements Clickable {
 		label = null;
 
 		ImageView img = new ImageView(ClassLoader.getSystemResource(img_path).toString());
-		
+
 		setLayoutX(x);
 		setLayoutY(y);
 
@@ -65,18 +65,13 @@ public class CircleButton extends StackPane implements Clickable {
 		interact();
 	}
 
-//	public void setButtonImage(Image img) {
-//		setBackground(new Background(new BackgroundImage(img, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-//				BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-//	}
-
 	public void interact() {
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(isClicked == false) {
-					setId("circle-button-hold-style");					
+				if (isClicked == false) {
+					setId("circle-button-hold-style");
 				}
 				EFFECT_MOUSE_ENTER.play();
 				setCursor(MOUSE_SELECT);
@@ -87,10 +82,10 @@ public class CircleButton extends StackPane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if(isClicked == false) {
+				if (isClicked == false) {
 					setId("circle-button-release-style");
 				}
-				setCursor(MOUSE_NORMAL);					
+				setCursor(MOUSE_NORMAL);
 			}
 		});
 
@@ -101,7 +96,7 @@ public class CircleButton extends StackPane implements Clickable {
 		setDisable(!isDisable());
 	}
 
-	//-------setter/getter---------
+	// -------setter/getter---------
 
 	public boolean isClicked() {
 		return isClicked;
@@ -110,5 +105,5 @@ public class CircleButton extends StackPane implements Clickable {
 	public void setClicked(boolean isClicked) {
 		this.isClicked = isClicked;
 	}
-	
+
 }
