@@ -632,7 +632,7 @@ public class GameSetUp {
 						MapOverview.getOceanTile().setEffect(blur);
 						SceneController.getMapOverView().getRoot().setDisable(true);
 
-						PlayerPanelUpdate.closePanel();
+						PlayerPanelUpdate.setPanelVisible(false);
 						Thread t = new Thread(() -> {
 							try {
 								Thread.sleep(3000);
@@ -649,7 +649,7 @@ public class GameSetUp {
 									MapOverview.getPrisonIsland().setEffect(null);
 									MapOverview.getOceanTile().setEffect(null);
 									MapOverview.getTurnChangeScreenRoot().setVisible(false);
-									PlayerPanelUpdate.openPanel();
+									PlayerPanelUpdate.setPanelVisible(true);
 									SceneController.getMapOverView().getRoot().setDisable(false);
 								}
 

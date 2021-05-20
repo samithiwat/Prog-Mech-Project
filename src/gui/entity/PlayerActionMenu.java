@@ -46,21 +46,27 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 			@Override
 			public void handle(ActionEvent event) {
 
-				MainIsland.dataInteractMode();
+				MainIsland.dataInteractMode("Select spawn location of your minion. (ESC to cancle)",false,false);
 				MainIsland.getInfoRoot().setAlignment(Pos.BOTTOM_CENTER);
 				MainIsland.getInfo().setFontBold(48);
 				MainIsland.getInfo().setFill(Color.web("0x393E46"));
-				MainIsland.getInfo().setText("Select spawn location of your minion");
 				GameSetUp.isHighlightSpawnable = true;
 				GameSetUp.selectedTile = null;
 
 				Thread confirmBuy = new Thread(() -> {
 					while (true) {
 						System.out.print("");
+						if(GameSetUp.isCancel) {
+							GameSetUp.isReset = true;
+							GameSetUp.isHighlightSpawnable = false;
+							MainIsland.overlayInteractMode("", true,true);
+							GameSetUp.isCancel = false;
+							break;
+						}
 						if (GameSetUp.selectedTile != null) {
 							GameSetUp.isReset = true;
 							GameSetUp.isHighlightSpawnable = false;
-							MainIsland.overlayInteractMode("");
+							MainIsland.overlayInteractMode("",true,true);
 							try {
 								GameSetUp.thisTurn.buyMinion();
 								PlayerPanelUpdate.setShowMessage("Hello master!", COLOR_INFO, COLOR_STROKE_INFO, 120, 1,

@@ -92,7 +92,7 @@ public class MinionIcon extends MenuIcon {
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.getButton().equals(MouseButton.PRIMARY)) {
-					MainIsland.dataInteractMode();
+					MainIsland.dataInteractMode("Select tile that you want move. (ESC to cancle)", false,false);
 					MainIsland.getInfoRoot().setVisible(false);
 					GameSetUp.initialTile = GameSetUp.selectedTile;
 					GameSetUp.initialTile.triggerOverlay();
@@ -101,6 +101,11 @@ public class MinionIcon extends MenuIcon {
 					Thread confirmMove = new Thread(() -> {
 						while (true) {
 							System.out.print("");
+							if(GameSetUp.isCancel) {
+								MainIsland.overlayInteractMode("", true,true);
+								GameSetUp.isCancel = false;
+								break;
+							}
 							if (GameSetUp.selectedTile != null) {
 								if (GameSetUp.initialTile == GameSetUp.selectedTile) {
 									break;
@@ -152,7 +157,7 @@ public class MinionIcon extends MenuIcon {
 								}
 							}
 						}
-						MainIsland.overlayInteractMode("");
+						MainIsland.overlayInteractMode("", true,true);
 						GameSetUp.initialTile.unhighlight();
 						GameSetUp.selectedTile.unhighlight();
 						GameSetUp.selectedTile = null;

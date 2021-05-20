@@ -273,7 +273,7 @@ public class HexagonPane extends Pane implements Clickable {
 			if (location.getOwner() != null) {
 
 				landInfo.setText("Name : " + locationType.getName() + "\n" + "Owner : " + location.getOwner().getName()
-						+ "\n" + "Income : $" + (((Incomeable) locationType).getIncome() / MainCharacter.M) + " M");
+						+ "\n" + "Income : $" + (((Incomeable) locationType).getIncome()) + " M");
 
 				landInfoRoot
 						.setBackground(new Background(new BackgroundFill(location.getOwner().getColor(), null, null)));
@@ -285,7 +285,7 @@ public class HexagonPane extends Pane implements Clickable {
 
 			else {
 				landInfo.setText("Name : " + locationType.getName() + "\n" + "Owner : NONE\n" + "Income : $"
-						+ (((Incomeable) locationType).getIncome() / MainCharacter.M) + " M");
+						+ (((Incomeable) locationType).getIncome()) + " M");
 				landInfoRoot.setVisible(true);
 				setId("grid-highlight-style");
 			}
@@ -295,7 +295,7 @@ public class HexagonPane extends Pane implements Clickable {
 		if (locationType instanceof SecretBase) {
 
 			landInfo.setText("Name : " + locationType.getName() + "\n" + "Income : $"
-					+ (((Incomeable) locationType).getIncome() / MainCharacter.M) + " M");
+					+ (((Incomeable) locationType).getIncome()) + " M");
 			landInfoRoot.setBackground(new Background(new BackgroundFill(Color.web("0x3F9466"), null, null)));
 			landInfoRoot.setOpacity(0.8);
 			landInfoRoot.setVisible(true);
