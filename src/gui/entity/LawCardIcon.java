@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import component.law.BanWeapon;
 import component.law.LawCard;
-import component.law.PaSeeArWut;
+import component.law.WeaponTax;
 import component.weaponCard.WeaponCard;
 import exception.DuplicateLawException;
 import exception.FullSlotException;
@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.GameSetUp;
+import logic.Util;
 import update.PlayerPanelUpdate;
 
 public class LawCardIcon extends Pane implements Clickable {
@@ -53,7 +54,7 @@ public class LawCardIcon extends Pane implements Clickable {
 		if (law != null) {
 			img = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
 			info = new Tooltip();
-			setInfo();
+			info.setText(Util.formatDescription(law.getEffectCard(), LINE_LENGTH));
 		} else {
 			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
 			info = new Tooltip("Empty");
@@ -71,7 +72,8 @@ public class LawCardIcon extends Pane implements Clickable {
 			WeaponCard weapon = ((BanWeapon) law).getBannedWeapon();
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getBan_img_path()).toString());
-				setInfo("Ban " + weapon.getName());
+				info.setText(Util.formatDescription("Ban " + weapon.getName(), LINE_LENGTH));
+//				setInfo("Ban " + weapon.getName());
 				img.setFitWidth(SELECT_WEAPON_WIDTH);
 				img.setFitHeight(SELECT_WEAPON_HEIGHT);
 				selectWeaponInteract();
@@ -85,11 +87,12 @@ public class LawCardIcon extends Pane implements Clickable {
 				}
 			}
 		}
-		if (law instanceof PaSeeArWut) {
-			WeaponCard weapon = ((PaSeeArWut) law).getListWeapon();
+		if (law instanceof WeaponTax) {
+			WeaponCard weapon = ((WeaponTax) law).getListWeapon();
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getTax_img_path()).toString());
-				setInfo("Get tax from " + weapon.getName());
+				info.setText(Util.formatDescription("Get tax from " + weapon.getName(), LINE_LENGTH));
+//				setInfo("Get tax from " + weapon.getName());
 				img.setFitWidth(SELECT_WEAPON_WIDTH);
 				img.setFitHeight(SELECT_WEAPON_HEIGHT);
 				selectWeaponInteract();
@@ -114,7 +117,8 @@ public class LawCardIcon extends Pane implements Clickable {
 		if (law != null) {
 			img = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
 			info = new Tooltip();
-			setInfo();
+			info.setText(Util.formatDescription(law.getEffectCard(), LINE_LENGTH));
+			//setInfo();
 		} else {
 			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
 			info = new Tooltip("Empty");
@@ -127,16 +131,18 @@ public class LawCardIcon extends Pane implements Clickable {
 			WeaponCard weapon = ((BanWeapon) law).getBannedWeapon();
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getBan_img_path()).toString());
-				setInfo("Ban " + weapon.getName());
+				info.setText("Ban " + weapon.getName());
+//				setInfo("Ban " + weapon.getName());
 				selectWeaponInteract();
 			}
 
 		}
-		if (law instanceof PaSeeArWut) {
-			WeaponCard weapon = ((PaSeeArWut) law).getListWeapon();
+		if (law instanceof WeaponTax) {
+			WeaponCard weapon = ((WeaponTax) law).getListWeapon();
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getTax_img_path()).toString());
-				setInfo("Get tax from " + weapon.getName());
+				info.setText("Get tax from " + weapon.getName());
+//				setInfo("Get tax from " + weapon.getName());
 				selectWeaponInteract();
 			}
 		}
@@ -200,7 +206,7 @@ public class LawCardIcon extends Pane implements Clickable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if (!(law instanceof BanWeapon) && !(law instanceof PaSeeArWut)) {
+				if (!(law instanceof BanWeapon) && !(law instanceof WeaponTax)) {
 					Dragboard db = img.startDragAndDrop(TransferMode.MOVE);
 					ClipboardContent content = new ClipboardContent();
 					content.putString(
@@ -291,10 +297,10 @@ public class LawCardIcon extends Pane implements Clickable {
 						weaponList.add(((BanWeapon) law).getBannedWeapon());
 						unSelectedAll(new LawCardIcon(new BanWeapon()));
 					}
-					if (law instanceof PaSeeArWut) {
+					if (law instanceof WeaponTax) {
 						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
-						weaponList.add(((PaSeeArWut) law).getListWeapon());
-						unSelectedAll(new LawCardIcon(new PaSeeArWut()));
+						weaponList.add(((WeaponTax) law).getListWeapon());
+						unSelectedAll(new LawCardIcon(new WeaponTax()));
 					}
 
 					StatusPane.triggerSelectWeapon();
@@ -310,9 +316,9 @@ public class LawCardIcon extends Pane implements Clickable {
 						weaponList = GameSetUp.lawSlot.getBannedWeapon();
 						weaponList.remove(((BanWeapon) law).getBannedWeapon());
 					}
-					if (law instanceof PaSeeArWut) {
+					if (law instanceof WeaponTax) {
 						weaponList = GameSetUp.lawSlot.getTaxedWeapon();
-						weaponList.remove(((PaSeeArWut) law).getListWeapon());
+						weaponList.remove(((WeaponTax) law).getListWeapon());
 					}
 
 					removeLaw();
@@ -328,54 +334,54 @@ public class LawCardIcon extends Pane implements Clickable {
 
 // -------------------------------------------- Private Method ------------------------------------------------
 
-	private void setInfo() {
-		String description = law.getEffectCard();
-		String[] word = description.split(" ");
-
-		String[] temp = new String[0];
-		String[] infoWord = new String[0];
-
-		for (int i = 0; i < word.length; i++) {
-			temp = addString(temp, word[i]);
-
-			if (String.join(" ", temp).length() > LINE_LENGTH) {
-				popString(temp);
-				temp = addString(temp, "\n");
-				infoWord = addString(infoWord, String.join(" ", temp));
-				temp = new String[0];
-			}
-		}
-
-		if (temp.length > 0) {
-			infoWord = addString(infoWord, String.join(" ", temp));
-		}
-
-		info.setText(String.join("", infoWord));
-	}
-
-	public void setInfo(String description) {
-		String[] word = description.split(" ");
-
-		String[] temp = new String[0];
-		String[] infoWord = new String[0];
-
-		for (int i = 0; i < word.length; i++) {
-			temp = addString(temp, word[i]);
-
-			if (String.join(" ", temp).length() > LINE_LENGTH) {
-				popString(temp);
-				temp = addString(temp, "\n");
-				infoWord = addString(infoWord, String.join(" ", temp));
-				temp = new String[0];
-			}
-		}
-
-		if (temp.length > 0) {
-			infoWord = addString(infoWord, String.join(" ", temp));
-		}
-
-		info.setText(String.join("", infoWord));
-	}
+//	private void setInfo() {
+//		String description = law.getEffectCard();
+//		String[] word = description.split(" ");
+//
+//		String[] temp = new String[0];
+//		String[] infoWord = new String[0];
+//
+//		for (int i = 0; i < word.length; i++) {
+//			temp = addString(temp, word[i]);
+//
+//			if (String.join(" ", temp).length() > LINE_LENGTH) {
+//				popString(temp);
+//				temp = addString(temp, "\n");
+//				infoWord = addString(infoWord, String.join(" ", temp));
+//				temp = new String[0];
+//			}
+//		}
+//
+//		if (temp.length > 0) {
+//			infoWord = addString(infoWord, String.join(" ", temp));
+//		}
+//
+//		info.setText(String.join("", infoWord));
+//	}
+//
+//	public void setInfo(String description) {
+//		String[] word = description.split(" ");
+//
+//		String[] temp = new String[0];
+//		String[] infoWord = new String[0];
+//
+//		for (int i = 0; i < word.length; i++) {
+//			temp = addString(temp, word[i]);
+//
+//			if (String.join(" ", temp).length() > LINE_LENGTH) {
+//				popString(temp);
+//				temp = addString(temp, "\n");
+//				infoWord = addString(infoWord, String.join(" ", temp));
+//				temp = new String[0];
+//			}
+//		}
+//
+//		if (temp.length > 0) {
+//			infoWord = addString(infoWord, String.join(" ", temp));
+//		}
+//
+//		info.setText(String.join("", infoWord));
+//	}
 
 	private void addLaw() throws FullSlotException, DuplicateLawException {
 

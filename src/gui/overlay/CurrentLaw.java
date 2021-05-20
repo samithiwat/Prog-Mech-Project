@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
+import logic.Util;
 
 public class CurrentLaw extends Overlay {
 
@@ -27,6 +28,7 @@ public class CurrentLaw extends Overlay {
 	private static final int HEIGHT_INFO_ROOT = 200;
 	private static final int IMG_WIDTH = 170;
 	private static final int IMG_HEIGHT = 250;
+	private static final int LINE_LENGTH = 38;
 
 	private GridPane currentLawSlot;
 
@@ -99,7 +101,8 @@ public class CurrentLaw extends Overlay {
 				img.setFitHeight(IMG_HEIGHT);
 				currentLawSlot.add(img, 0, i);
 
-				TextTitle info = new TextTitle(law.getEffectCard(), Color.web("0x393E46"), FontWeight.BOLD, 36);
+//				TextTitle info = new TextTitle(law.getEffectCard(), Color.web("0x393E46"), FontWeight.BOLD, 36);
+				TextTitle info = new TextTitle(Util.formatDescription(law.getEffectCard(), LINE_LENGTH), Color.web("0x393E46"), FontWeight.BOLD, 36);
 				StackPane infoRoot = new StackPane(info);
 				infoRoot.setAlignment(Pos.CENTER);
 				infoRoot.setPrefHeight(HEIGHT_INFO_ROOT);
@@ -125,4 +128,5 @@ public class CurrentLaw extends Overlay {
 
 		}
 	}
+	
 }

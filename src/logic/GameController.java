@@ -1,7 +1,6 @@
 package logic;
 
 import character.MainCharacter;
-import character.Teewada;
 import character.ThousandYear;
 import component.entity.Minion;
 import component.location.Ocean;
@@ -11,7 +10,6 @@ import gui.MainIsland;
 import gui.entity.HexagonPane;
 import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
-import update.AudioUpdate;
 import update.GameSettingUpdate;
 import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
@@ -38,6 +36,16 @@ public class GameController {
 // ------------------------	Wait Player Choose Spawn Location ---------------------------------
 			while (true) {
 				System.out.print("");
+				
+/////////////////////////////////////////////////// DEBUG ///////////////////////////////////////////////////////////////////				
+
+				if(true) {
+					GameSetUp.theGovernment = GameSetUp.gameCharacter.get(0);
+					break;
+				}
+				
+//////////////////////////////////////////////// END OF DEBUG //////////////////////////////////////////////////////////////
+				
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.thisTurn instanceof ThousandYear) {
 
@@ -72,7 +80,7 @@ public class GameController {
 
 ///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
 
-			spawnMinion(GameSetUp.selectedTile);
+//			spawnMinion(GameSetUp.selectedTile);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -82,15 +90,15 @@ public class GameController {
 
 ///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
 
-		GameSetUp.isCountDown = true;
-		GameSetUp.countDownDuration = 3;
-
-		while (true) {
-			System.out.print("");
-			if (!GameSetUp.isCountDown) {
-				break;
-			}
-		}
+//		GameSetUp.isCountDown = true;
+//		GameSetUp.countDownDuration = 3;
+//
+//		while (true) {
+//			System.out.print("");
+//			if (!GameSetUp.isCountDown) {
+//				break;
+//			}
+//		}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		GameSetUp.thisTurn = GameSetUp.gameCharacter.get(0);
