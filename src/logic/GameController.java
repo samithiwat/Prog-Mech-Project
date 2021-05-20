@@ -36,7 +36,6 @@ public class GameController {
 // ------------------------	Wait Player Choose Spawn Location ---------------------------------
 			while (true) {
 				System.out.print("");
-				
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.thisTurn instanceof ThousandYear) {
 

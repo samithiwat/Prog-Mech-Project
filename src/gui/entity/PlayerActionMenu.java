@@ -296,6 +296,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 									GameSetUp.gameCharacter.get(i).setFightTraded(false);
 								}
+								PlayerPanelUpdate.updatePlayerList();
 								for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
 									MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
 								}
@@ -365,7 +366,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 							System.out.print("");
 							if (GameSetUp.selectedIcon.size() >= 1) {
 								if (!GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy()
-										.equals(GameSetUp.thisTurn)) {
+										.equals(GameSetUp.thisTurn) || GameSetUp.selectedIcon.get(0).getMinion().getPossessedBy().equals(GameSetUp.theGovernment)) {
 									MainIsland.setShowMessage("You can not do that.", Color.web("0xFEFDE8"),
 											Color.web("0x89949B"), 120, 1, 3000);
 									PlayerPanelUpdate.setShowMessage("You can not do that.", Color.WHITE, 120, 3000);

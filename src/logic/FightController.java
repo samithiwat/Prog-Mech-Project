@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import character.MainCharacter;
 import component.entity.Minion;
 import component.location.Council;
+import component.location.Incomeable;
 import component.weaponCard.WeaponCard;
 import gui.MapOverview;
 import gui.entity.MapGrid;
@@ -12,6 +13,7 @@ import gui.entity.TextTitle;
 import gui.overlay.FightOverlay;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
 import update.TradeOverlayUpdate;
 
@@ -205,12 +207,18 @@ public class FightController {
 					challenger.addMinion(challenged);
 					AudioClip effect = AudioLoader.winEffect;
 					effect.play();
+					if(challenged.getOnLocation().getName().equals("SecretBase")) {
+						challenged.getPossessedBy().getPossessedArea().remove(challenged.getOnLocation());
+					}
 					PlayerPanelUpdate.setShowMessage("You win", Color.WHITE, 120, 2000);
 				}
 				else if(challenger_atkPoint < challenged_atkPoint) {
 					challenged.addMinion(challenger);
 					AudioClip effect = AudioLoader.loseEffect;
 					effect.play();
+					if(challenger.getOnLocation().getName().equals("SecretBase")) {
+						challenger.getPossessedBy().getPossessedArea().remove(challenger.getOnLocation());
+					}
 					PlayerPanelUpdate.setShowMessage("You lose", Color.WHITE, 120, 2000);
 				}else {
 					PlayerPanelUpdate.setShowMessage("Draw", Color.WHITE, 120, 2000);				
@@ -262,6 +270,10 @@ public class FightController {
 			TradeOverlayUpdate.trader = null;
 			GameSetUp.isChallenging = false;
 			GameSetUp.selectedIcon.clear();
+			challenged_slot.clear();
+			challenger_slot.clear();
+			FightOverlayUpdate.challenger = null;
+			FightOverlayUpdate.challenged = null;
 		});
 		temp.start();
 		try {
