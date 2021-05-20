@@ -99,6 +99,12 @@ public class PlayerPanelUpdate {
 			allActivedLawPanes.get(i).update();
 		}
 	}
+	
+	public static void setVisibleActivedLawPane(boolean isVisible) {
+		for (int i = 0; i < allActivedLawPanes.size(); i++) {
+			allActivedLawPanes.get(i).setVisible(isVisible);
+		}
+	}
 
 // ---------------------------------------------------------- Toggle Grid -------------------------------------------------------------
 
@@ -168,27 +174,15 @@ public class PlayerPanelUpdate {
 
 // ------------------------------------------- Toggle Player Panel Mode ---------------------------------------------	
 
-	public static void closePanel() {
-		PlayerPanel.getEndTurn().setVisible(false);
-		PlayerPanel.getGoodnessPoint().setVisible(false);
-		PlayerPanel.getGovernmentPoint().setVisible(false);
-		PlayerPanel.getHandsIcon().setVisible(false);
-		PlayerPanel.getStatusPane().setVisible(false);
-		PlayerPanel.getTurnBar().setVisible(false);
+	public static void setPanelVisible(boolean isVisible) {
+		PlayerPanel.getEndTurn().setVisible(isVisible);
+		PlayerPanel.getGoodnessPoint().setVisible(isVisible);
+		PlayerPanel.getGovernmentPoint().setVisible(isVisible);
+		PlayerPanel.getHandsIcon().setVisible(isVisible);
+		PlayerPanel.getStatusPane().setVisible(isVisible);
+		PlayerPanel.getTurnBar().setVisible(isVisible);
 		for (int i = 0; i < allActivedLawPanes.size(); i++) {
-			allActivedLawPanes.get(i).setVisible(false);
-		}
-	}
-
-	public static void openPanel() {
-		PlayerPanel.getEndTurn().setVisible(true);
-		PlayerPanel.getGoodnessPoint().setVisible(true);
-		PlayerPanel.getGovernmentPoint().setVisible(true);
-		PlayerPanel.getHandsIcon().setVisible(true);
-		PlayerPanel.getStatusPane().setVisible(true);
-		PlayerPanel.getTurnBar().setVisible(true);
-		for (int i = 0; i < allActivedLawPanes.size(); i++) {
-			allActivedLawPanes.get(i).setVisible(false);
+			allActivedLawPanes.get(i).setVisible(isVisible);
 		}
 	}
 

@@ -19,7 +19,7 @@ public class GameController {
 	public GameController() {
 //-------------------------- Choose start minion location-----------------------------------
 
-		MainIsland.dataInteractMode();
+		MainIsland.dataInteractMode("Select location to spawn your minion.",false,false);
 		GameSetUp.isHighlightSpawnable = true;
 
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
@@ -36,15 +36,6 @@ public class GameController {
 // ------------------------	Wait Player Choose Spawn Location ---------------------------------
 			while (true) {
 				System.out.print("");
-				
-/////////////////////////////////////////////////// DEBUG ///////////////////////////////////////////////////////////////////				
-
-				if(true) {
-					GameSetUp.theGovernment = GameSetUp.gameCharacter.get(0);
-					break;
-				}
-				
-//////////////////////////////////////////////// END OF DEBUG //////////////////////////////////////////////////////////////
 				
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.thisTurn instanceof ThousandYear) {
@@ -80,7 +71,7 @@ public class GameController {
 
 ///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
 
-//			spawnMinion(GameSetUp.selectedTile);
+			spawnMinion(GameSetUp.selectedTile);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -90,22 +81,22 @@ public class GameController {
 
 ///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
 
-//		GameSetUp.isCountDown = true;
-//		GameSetUp.countDownDuration = 3;
-//
-//		while (true) {
-//			System.out.print("");
-//			if (!GameSetUp.isCountDown) {
-//				break;
-//			}
-//		}
+		GameSetUp.isCountDown = true;
+		GameSetUp.countDownDuration = 3;
+
+		while (true) {
+			System.out.print("");
+			if (!GameSetUp.isCountDown) {
+				break;
+			}
+		}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		GameSetUp.thisTurn = GameSetUp.gameCharacter.get(0);
 		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
 		GameSetUp.isReset = true;
-		MainIsland.overlayInteractMode("");
+		MainIsland.overlayInteractMode("",true,true);
 		MainIslandUpdate.setCenter();
 
 //------------------------------------------------------------------------------------------

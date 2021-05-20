@@ -247,6 +247,11 @@ public class Minion extends Component implements moveable {
 	}
 
 	public void setOnLocation(Location onLocation) {
+		if(myMinion.size() > 0) {
+			for(Minion minion : myMinion) {
+				minion.setOnLocation(onLocation);
+			}
+		}
 		this.onLocation = onLocation;
 	}
 

@@ -42,7 +42,9 @@ public class LawSlot {
 		GameSetUp.gameLaw.setDefault();
 		for (int i = 0; i < this.slotCard.size(); i++) {
 			if (this.slotCard.get(i).getLaw() != null) {
-				this.slotCard.get(i).getLaw().activateEffectCard();
+				if(!(this.slotCard.get(i).getLaw() instanceof InteractLawCard)) {
+					this.slotCard.get(i).getLaw().activateEffectCard();					
+				}
 			}
 		}
 	}
