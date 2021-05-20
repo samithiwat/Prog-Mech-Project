@@ -97,9 +97,24 @@ public class PlayerPanel extends Pane implements Sceneable {
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_CLICK.play();
 				GameSetUp.isEndTurn = true;
+
+//////////////////////////////////////////////// DEBUG /////////////////////////////////////////////////////////
+				
+				System.out.println("end turn (PlayerPanel) : "+ endTurn.isVisible());
+			
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
 		});
 	}
+	
+//	public static void setVisibleAll(boolean isVisible) {
+//		endTurn.setVisible(isVisible);;
+//		governmentPoint.setVisible(isVisible);;
+//		goodnessPoint.setVisible(isVisible);;
+//		turnBar.setVisible(isVisible);;
+//		statusPane.setVisible(isVisible);;
+//		handsIcon.setVisible(isVisible);;
+//	}
 	
 	private void handInteract() {
 		handsIcon.setOnMouseClicked((MouseEvent event) -> {

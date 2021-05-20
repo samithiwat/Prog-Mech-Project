@@ -6,7 +6,7 @@ import component.law.Capture;
 import component.law.PunishBadGuy;
 import component.law.GoodPower;
 import component.law.MoneyPower;
-import component.law.PaSeeArWut;
+import component.law.WeaponTax;
 import component.law.MoveTax;
 import component.law.TradeTax;
 import component.law.MineTax;
@@ -99,7 +99,7 @@ public class LawCardSlot extends GridPane {
 		LawCardIcon sympatheticPoor = new LawCardIcon(new Sympathetic());
 		LawCardIcon tradeTax = new LawCardIcon(new TradeTax());
 		LawCardIcon unite = new LawCardIcon(new Unite());
-		LawCardIcon weaponTax = new LawCardIcon(new PaSeeArWut());
+		LawCardIcon weaponTax = new LawCardIcon(new WeaponTax());
 		weaponTax.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override

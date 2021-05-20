@@ -1,7 +1,7 @@
 package gui.overlay;
 
 import component.law.BanWeapon;
-import component.law.PaSeeArWut;
+import component.law.WeaponTax;
 import component.weaponCard.Axe;
 import component.weaponCard.Bow;
 import component.weaponCard.Gun;
@@ -116,11 +116,11 @@ public class SelectWeaponOverlay extends Overlay {
 
 		if (mode == 1) {
 
-			sword = new LawCardIcon(new PaSeeArWut(new Sword()));
-			axe = new LawCardIcon(new PaSeeArWut(new Axe()));
-			bow = new LawCardIcon(new PaSeeArWut(new Bow()));
-			gun = new LawCardIcon(new PaSeeArWut(new Gun()));
-			shield = new LawCardIcon(new PaSeeArWut(new Shield()));
+			sword = new LawCardIcon(new WeaponTax(new Sword()));
+			axe = new LawCardIcon(new WeaponTax(new Axe()));
+			bow = new LawCardIcon(new WeaponTax(new Bow()));
+			gun = new LawCardIcon(new WeaponTax(new Gun()));
+			shield = new LawCardIcon(new WeaponTax(new Shield()));
 
 			weaponList.getChildren().addAll(sword, axe, bow, gun, shield);
 

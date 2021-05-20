@@ -2,7 +2,7 @@ package logic;
 
 import javafx.scene.media.AudioClip;
 
-public class AudioLoader {
+public class AudioLoader { 
 	public static AudioClip lobbyThemeSong = new AudioClip(
 			ClassLoader.getSystemResource("audio/GameSettingMenuBGM.mp3").toString());
 	public static AudioClip menuThemeSong = new AudioClip(
@@ -58,6 +58,8 @@ public class AudioLoader {
 			ClassLoader.getSystemResource("audio/SuccessEffect.mp3").toString());
 	public static AudioClip winEffect = new AudioClip(ClassLoader.getSystemResource("audio/WinEffect.mp3").toString());
 	public static AudioClip loseEffect = new AudioClip(ClassLoader.getSystemResource("audio/LoseEffect.mp3").toString());
+	public static AudioClip ulti1Effect = new AudioClip(ClassLoader.getSystemResource("audio/ulti1.mp3").toString());
+	public static AudioClip ulti2Effect = new AudioClip(ClassLoader.getSystemResource("audio/ulti2.mp3").toString());
 
 	public static void setBGMVolume(double volume) {
 		menuThemeSong.setVolume(volume);

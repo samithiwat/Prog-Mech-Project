@@ -175,28 +175,31 @@ public class MainIsland implements Sceneable {
 				SceneController.getFullscreenHeight()));
 	}
 
-	public static void dataInteractMode() {
-		turnBar.setVisible(false);
-		statusPane.setVisible(false);
-		endTurn.setVisible(false);
-		governmentPoint.setVisible(false);
-		goodnessPoint.setVisible(false);
-		handsIcon.setVisible(false);
+	public static void dataInteractMode(String text,boolean isControlPanelVisible,boolean isEnableESC) {
+		turnBar.setVisible(isControlPanelVisible);
+		statusPane.setVisible(isControlPanelVisible);
+		endTurn.setVisible(isControlPanelVisible);
+		governmentPoint.setVisible(isControlPanelVisible);
+		goodnessPoint.setVisible(isControlPanelVisible);
+		handsIcon.setVisible(isControlPanelVisible);
+		PlayerPanelUpdate.setPanelVisible(isControlPanelVisible);
 		infoRoot.setVisible(true);
+		info.setText(text);
 		HexTileUpdate.setDataInteract();
-		disableESC();
+		setESC(isEnableESC);
 	}
 
-	public static void overlayInteractMode(String mode) {
-		turnBar.setVisible(true);
-		statusPane.setVisible(true);
-		endTurn.setVisible(true);
-		governmentPoint.setVisible(true);
-		goodnessPoint.setVisible(true);
-		handsIcon.setVisible(true);
+	public static void overlayInteractMode(String mode, boolean isControlPanelVisible,boolean isEnableESC) {
+		turnBar.setVisible(isControlPanelVisible);
+		statusPane.setVisible(isControlPanelVisible);
+		endTurn.setVisible(isControlPanelVisible);
+		governmentPoint.setVisible(isControlPanelVisible);
+		goodnessPoint.setVisible(isControlPanelVisible);
+		handsIcon.setVisible(isControlPanelVisible);
+		PlayerPanelUpdate.setPanelVisible(isControlPanelVisible);
 		infoRoot.setVisible(false);
 		HexTileUpdate.setOverlayInteract(mode);
-		enableESC();
+		setESC(isEnableESC);
 	}
 
 	public static void setShowMessage(String message, Color color, Color strokeColor, int size, int strokeWidth,
@@ -250,6 +253,15 @@ public class MainIsland implements Sceneable {
 		});
 		t.start();
 	}
+	
+	public static void setESC(boolean isEnable) {
+		if(isEnable) {
+			enableESC();
+		}
+		else {
+			disableESC();
+		}
+	}
 
 	private static void disableESC() {
 
@@ -266,6 +278,9 @@ public class MainIsland implements Sceneable {
 			}
 			if (key.getCode() == KeyCode.S || key.getCode() == KeyCode.DOWN) {
 				MainIslandUpdate.moveDown();
+			}
+			if (key.getCode() == KeyCode.ESCAPE) {
+				GameSetUp.isCancel = true;
 			}
 
 		});
@@ -289,13 +304,12 @@ public class MainIsland implements Sceneable {
 			}
 
 			if (key.getCode() == KeyCode.ESCAPE) {
-//				MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-//				SceneController.setScene(SceneController.getMapOverView());
 				AudioUpdate.change(null, MapOverview.getBgm());
 				SceneController.goToMapOverview();
 			}
 		});
 	}
+	
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 

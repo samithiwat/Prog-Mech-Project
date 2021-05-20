@@ -35,6 +35,7 @@ public class Location extends Component {
 		for(int i = 0 ; i < n ; i++) {
 			if(this.minionOnLocation.get(i) == minion) {
 				this.minionOnLocation.remove(i);
+				break;
 			}
 		}
 		if (minion == this.possessedBy) {

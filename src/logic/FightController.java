@@ -2,21 +2,16 @@ package logic;
 
 import java.util.ArrayList;
 
-import character.Collector;
 import character.MainCharacter;
-import character.Teewadee;
 import component.entity.Minion;
 import component.location.Council;
-import component.location.Location;
 import component.weaponCard.WeaponCard;
-import gui.MainIsland;
 import gui.MapOverview;
 import gui.entity.MapGrid;
 import gui.entity.TextTitle;
 import gui.overlay.FightOverlay;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
 import update.TradeOverlayUpdate;
 

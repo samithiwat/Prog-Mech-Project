@@ -1,7 +1,6 @@
 package logic;
 
 import character.MainCharacter;
-import character.Teewada;
 import character.ThousandYear;
 import component.entity.Minion;
 import component.location.Ocean;
@@ -11,7 +10,6 @@ import gui.MainIsland;
 import gui.entity.HexagonPane;
 import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
-import update.AudioUpdate;
 import update.GameSettingUpdate;
 import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
@@ -21,7 +19,7 @@ public class GameController {
 	public GameController() {
 //-------------------------- Choose start minion location-----------------------------------
 
-		MainIsland.dataInteractMode();
+		MainIsland.dataInteractMode("Select location to spawn your minion.",false,false);
 		GameSetUp.isHighlightSpawnable = true;
 
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
@@ -38,6 +36,7 @@ public class GameController {
 // ------------------------	Wait Player Choose Spawn Location ---------------------------------
 			while (true) {
 				System.out.print("");
+				
 				if (GameSetUp.selectedTile != null) {
 					if (GameSetUp.thisTurn instanceof ThousandYear) {
 
@@ -97,7 +96,7 @@ public class GameController {
 		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
 		GameSetUp.isReset = true;
-		MainIsland.overlayInteractMode("");
+		MainIsland.overlayInteractMode("",true,true);
 		MainIslandUpdate.setCenter();
 
 //------------------------------------------------------------------------------------------
