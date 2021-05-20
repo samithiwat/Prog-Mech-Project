@@ -200,20 +200,24 @@ public class FightOverlay extends Overlay {
 		challenged_ultAnimation.setCycleCount(Animation.INDEFINITE);
 
 		challenged_ult.setOnMouseEntered((MouseEvent event) -> {
+			AudioUpdate.playCharacterSelectBGM(null, null, AudioLoader.sirTewadaSelectBGM);
 			challenged_ultAnimation.playFromStart();
 			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
 			effect.play();
 		});
 
 		challenged_ult.setOnMouseExited((MouseEvent evnet) -> {
+			AudioUpdate.getPlaySelectBGM().interrupt();
 			challenged_ultAnimation.pause();
 		});
 
 		challenged_ult.setOnMouseClicked((MouseEvent event) -> {
 			FightController.challenged_ult = true;
 			if (FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewada")) {
+				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti1Effect);
 				Teewada.warCry = false;
 			} else if (FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewadee")) {
+				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti2Effect);
 				Teewadee.warCry = false;
 			}
 			challenged_ult.setVisible(false);
