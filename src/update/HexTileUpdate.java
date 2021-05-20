@@ -2,19 +2,11 @@ package update;
 
 import java.util.ArrayList;
 
-import character.*;
-import component.entity.Minion;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
-import gui.entity.MenuIcon;
-import gui.entity.MinionPortraits;
-import gui.entity.MinionPane;
 import javafx.scene.layout.GridPane;
-import logic.GameSetUp;
 
 public class HexTileUpdate {
-
-	private static final int N_COLUMN = 3;
 
 	private static HexagonPane hexTile;
 

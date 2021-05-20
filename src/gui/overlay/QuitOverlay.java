@@ -28,7 +28,7 @@ public class QuitOverlay extends Overlay {
 
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
 		bg.setId("overlay-bg");
-		
+
 		VBox textBox = new VBox();
 		textBox.setAlignment(Pos.CENTER);
 

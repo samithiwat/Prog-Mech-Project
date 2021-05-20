@@ -2,13 +2,9 @@ package gui.entity;
 
 import gui.MapOverview;
 import gui.Sceneable;
-import gui.overlay.HandOverlay;
-import gui.overlay.PlayerList1;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -20,14 +16,14 @@ import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
 public class PlayerPanel extends Pane implements Sceneable {
-	
+
 	private static Button endTurn;
 	private static PointPane governmentPoint;
 	private static PointPane goodnessPoint;
 	private static TurnBar turnBar;
 	private static StatusPane statusPane;
 	private static MenuIcon handsIcon;
-	
+
 	public PlayerPanel() {
 
 // -------------------------------------- Add Components Pane ----------------------------------------------------------		
@@ -40,12 +36,12 @@ public class PlayerPanel extends Pane implements Sceneable {
 		endTurn = new Button("End Turn");
 		endTurn.setId("end-turn-button-release-style");
 		endTurnInteract();
-		
+
 		handsIcon = new MenuIcon("img/icon/HandsIcon.png", 42, 632);
 		handInteract();
-		
+
 		turnBarInteract();
-		
+
 		governmentPoint = new PointPane(7, 10, Color.web("0xFFFFFF"));
 		governmentPoint.setLayoutX(1287);
 		governmentPoint.setLayoutY(706);
@@ -97,36 +93,21 @@ public class PlayerPanel extends Pane implements Sceneable {
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_CLICK.play();
 				GameSetUp.isEndTurn = true;
-
-//////////////////////////////////////////////// DEBUG /////////////////////////////////////////////////////////
-				
-				System.out.println("end turn (PlayerPanel) : "+ endTurn.isVisible());
-			
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
 		});
 	}
-	
-//	public static void setVisibleAll(boolean isVisible) {
-//		endTurn.setVisible(isVisible);;
-//		governmentPoint.setVisible(isVisible);;
-//		goodnessPoint.setVisible(isVisible);;
-//		turnBar.setVisible(isVisible);;
-//		statusPane.setVisible(isVisible);;
-//		handsIcon.setVisible(isVisible);;
-//	}
-	
+
 	private void handInteract() {
 		handsIcon.setOnMouseClicked((MouseEvent event) -> {
 			AudioClip effect = AudioLoader.clickEffect;
 			effect.play();
 			PlayerPanelUpdate.updateHandOverlay();
-			for(int i = 0 ; i < MapOverview.allHandOverlay.size() ; i++) {
-				MapOverview.allHandOverlay.get(i).triggerOverlay(0,825,1000);
+			for (int i = 0; i < MapOverview.allHandOverlay.size(); i++) {
+				MapOverview.allHandOverlay.get(i).triggerOverlay(0, 825, 1000);
 			}
 		});
 	}
-	
+
 	private void turnBarInteract() {
 		turnBar.setOnMouseClicked((MouseEvent event) -> {
 			AudioClip effect = AudioLoader.clickEffect;
@@ -137,7 +118,6 @@ public class PlayerPanel extends Pane implements Sceneable {
 			}
 		});
 	}
-	
 
 	public static Button getEndTurn() {
 		return endTurn;
@@ -162,5 +142,5 @@ public class PlayerPanel extends Pane implements Sceneable {
 	public static MenuIcon getHandsIcon() {
 		return handsIcon;
 	}
-	
+
 }

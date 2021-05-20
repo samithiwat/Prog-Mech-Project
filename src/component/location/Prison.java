@@ -7,12 +7,11 @@ import component.entity.Minion;
 
 public class Prison extends Location {
 	public static final double PLEDGE = 7 * MainCharacter.M;
-	public static ArrayList<Minion> minionInPrison;
+	public static ArrayList<Minion> minionInPrison = new ArrayList<Minion>();
 	public static boolean canCapture = true;
 
 	public Prison() {
 		super("Prison", "Get arrested", 0, 0);
-		this.minionInPrison = new ArrayList<Minion>();
 	}
 
 	public static void removeMinion(int index) {

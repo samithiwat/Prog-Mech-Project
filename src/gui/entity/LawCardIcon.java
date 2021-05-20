@@ -73,7 +73,6 @@ public class LawCardIcon extends Pane implements Clickable {
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getBan_img_path()).toString());
 				info.setText(Util.formatDescription("Ban " + weapon.getName(), LINE_LENGTH));
-//				setInfo("Ban " + weapon.getName());
 				img.setFitWidth(SELECT_WEAPON_WIDTH);
 				img.setFitHeight(SELECT_WEAPON_HEIGHT);
 				selectWeaponInteract();
@@ -92,7 +91,6 @@ public class LawCardIcon extends Pane implements Clickable {
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getTax_img_path()).toString());
 				info.setText(Util.formatDescription("Get tax from " + weapon.getName(), LINE_LENGTH));
-//				setInfo("Get tax from " + weapon.getName());
 				img.setFitWidth(SELECT_WEAPON_WIDTH);
 				img.setFitHeight(SELECT_WEAPON_HEIGHT);
 				selectWeaponInteract();
@@ -118,7 +116,6 @@ public class LawCardIcon extends Pane implements Clickable {
 			img = new ImageView(ClassLoader.getSystemResource(law.getImg_path()).toString());
 			info = new Tooltip();
 			info.setText(Util.formatDescription(law.getEffectCard(), LINE_LENGTH));
-			//setInfo();
 		} else {
 			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
 			info = new Tooltip("Empty");
@@ -132,7 +129,6 @@ public class LawCardIcon extends Pane implements Clickable {
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getBan_img_path()).toString());
 				info.setText("Ban " + weapon.getName());
-//				setInfo("Ban " + weapon.getName());
 				selectWeaponInteract();
 			}
 
@@ -142,7 +138,6 @@ public class LawCardIcon extends Pane implements Clickable {
 			if (weapon != null) {
 				img = new ImageView(ClassLoader.getSystemResource(weapon.getTax_img_path()).toString());
 				info.setText("Get tax from " + weapon.getName());
-//				setInfo("Get tax from " + weapon.getName());
 				selectWeaponInteract();
 			}
 		}
@@ -332,57 +327,6 @@ public class LawCardIcon extends Pane implements Clickable {
 		setDisable(!isDisable());
 	}
 
-// -------------------------------------------- Private Method ------------------------------------------------
-
-//	private void setInfo() {
-//		String description = law.getEffectCard();
-//		String[] word = description.split(" ");
-//
-//		String[] temp = new String[0];
-//		String[] infoWord = new String[0];
-//
-//		for (int i = 0; i < word.length; i++) {
-//			temp = addString(temp, word[i]);
-//
-//			if (String.join(" ", temp).length() > LINE_LENGTH) {
-//				popString(temp);
-//				temp = addString(temp, "\n");
-//				infoWord = addString(infoWord, String.join(" ", temp));
-//				temp = new String[0];
-//			}
-//		}
-//
-//		if (temp.length > 0) {
-//			infoWord = addString(infoWord, String.join(" ", temp));
-//		}
-//
-//		info.setText(String.join("", infoWord));
-//	}
-//
-//	public void setInfo(String description) {
-//		String[] word = description.split(" ");
-//
-//		String[] temp = new String[0];
-//		String[] infoWord = new String[0];
-//
-//		for (int i = 0; i < word.length; i++) {
-//			temp = addString(temp, word[i]);
-//
-//			if (String.join(" ", temp).length() > LINE_LENGTH) {
-//				popString(temp);
-//				temp = addString(temp, "\n");
-//				infoWord = addString(infoWord, String.join(" ", temp));
-//				temp = new String[0];
-//			}
-//		}
-//
-//		if (temp.length > 0) {
-//			infoWord = addString(infoWord, String.join(" ", temp));
-//		}
-//
-//		info.setText(String.join("", infoWord));
-//	}
-
 	private void addLaw() throws FullSlotException, DuplicateLawException {
 
 		if (lawCardIcon.isSelected) {
@@ -470,37 +414,6 @@ public class LawCardIcon extends Pane implements Clickable {
 		}
 	}
 
-// ------------------------------------------------ Array Method -----------------------------------------------------------
-
-	private String[] addString(String[] oldArray, String data) {
-
-		int len = oldArray.length;
-
-		String[] newArray = new String[len + 1];
-
-		for (int i = 0; i < len; i++) {
-			newArray[i] = oldArray[i];
-		}
-
-		newArray[len] = data;
-
-		return newArray;
-	}
-
-	private String popString(String[] oldArray) {
-		int len = oldArray.length;
-
-		String lastString = oldArray[len - 1];
-
-		String[] newArray = new String[len - 1];
-		for (int i = 0; i < len - 1; i++) {
-			newArray[i] = oldArray[i];
-		}
-
-		oldArray = newArray;
-
-		return lastString;
-	}
 // -------------------------------------------------- Equal Method ---------------------------------------------------------
 
 	@Override
@@ -560,11 +473,4 @@ public class LawCardIcon extends Pane implements Clickable {
 		return img;
 	}
 
-	public String toString() {
-		if (law != null) {
-			return "-------------------------------" + "\n" + "Law : " + law.getName() + "\n" + "select : " + isSelected
-					+ "\n" + "Row : " + row + "\n" + "---------------------------------";
-		}
-		return "-------------------------------" + "\n" + "Law : null\n" + "---------------------------------";
-	}
 }

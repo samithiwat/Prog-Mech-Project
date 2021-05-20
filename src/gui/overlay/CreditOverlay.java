@@ -4,6 +4,7 @@ import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
@@ -11,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
-import javafx.scene.input.MouseEvent;
 
 public class CreditOverlay extends Overlay {
 

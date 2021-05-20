@@ -1,7 +1,7 @@
 package component.law;
 
-public abstract class InteractLawCard extends LawCard implements Interactable{
-	
+public abstract class InteractLawCard extends LawCard implements Interactable {
+
 	protected String icon_img_path;
 
 	public InteractLawCard(String name, String effectCard) {

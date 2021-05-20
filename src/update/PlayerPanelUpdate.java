@@ -13,20 +13,17 @@ import gui.entity.ActivedLawPane;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
 import gui.entity.PlayerPanel;
-import gui.entity.StatusBar;
 import gui.entity.StatusPane;
 import gui.entity.TextTitle;
 import gui.entity.TurnBar;
 import gui.entity.TurnCharacterIcon;
 import gui.overlay.HandOverlay;
-import gui.overlay.PlayerList1;
-import gui.overlay.PlayerList2;
+import gui.overlay.PlayerListPage1;
+import gui.overlay.PlayerListPage2;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
-import logic.GameController;
 import logic.GameSetUp;
 
 public class PlayerPanelUpdate {
@@ -226,7 +223,7 @@ public class PlayerPanelUpdate {
 
 	public static void updatePlayerList() {
 		for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
-			PlayerList1 playerList1 = MapOverview.allPlayerList1.get(i);
+			PlayerListPage1 playerList1 = MapOverview.allPlayerList1.get(i);
 			for (int j = 0; j < (int) (playerList1.getAllText().size() / 4); j++) {
 				MainCharacter character = GameSetUp.gameCharacter.get(j);
 				int k = j * 4;
@@ -237,7 +234,7 @@ public class PlayerPanelUpdate {
 			}
 		}
 		for (int i = 0; i < MapOverview.allPlayerList2.size(); i++) {
-			PlayerList2 playerList2 = MapOverview.allPlayerList2.get(i);
+			PlayerListPage2 playerList2 = MapOverview.allPlayerList2.get(i);
 			for (int j = 0; j < (int) (playerList2.getAllText().size() / 4); j++) {
 				MainCharacter character = GameSetUp.gameCharacter.get(j + 3);
 				int k = j * 4;

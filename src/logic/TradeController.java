@@ -1,7 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import character.MainCharacter;
 import component.weaponCard.WeaponCard;

@@ -132,11 +132,5 @@ public class SelectWeaponOverlay extends Overlay {
 	public HBox getWeaponList() {
 		return weaponList;
 	}
-	@Override
-	public String toString() {
-		return "----------------- Select Weapon ---------------\n" 
-				+ "Weapon List\n"
-				 + this.weaponList.getChildren()
-				+ "\n" + "----------------------------------------------";
-	}
+
 }

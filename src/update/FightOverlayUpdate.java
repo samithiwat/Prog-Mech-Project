@@ -8,13 +8,11 @@ import component.weaponCard.WeaponCard;
 import gui.MapOverview;
 import gui.entity.InvCard;
 import gui.overlay.FightOverlay;
-import gui.overlay.TradeOverlay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import logic.FightController;
 import logic.GameSetUp;
-import logic.TradeController;
 
 public class FightOverlayUpdate {
 	public static Minion challenger;

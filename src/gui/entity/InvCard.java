@@ -142,7 +142,6 @@ public class InvCard extends ImageView implements Clickable {
 
 	@Override
 	public void triggerDisable() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -3,12 +3,8 @@ package update;
 import java.util.ArrayList;
 
 import gui.MainIsland;
-import gui.MapOverview;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
-import gui.entity.PlayerPanel;
-import javafx.application.Platform;
-import javafx.scene.input.KeyCode;
 import logic.SceneController;
 
 public class MainIslandUpdate {
@@ -98,8 +94,6 @@ public class MainIslandUpdate {
 			now = System.currentTimeMillis();
 			setCurrent_speed(current_speed + ACCELERATE);
 		}
-
-		// System.out.println(current_speed);
 	}
 
 // ---------------------------------------------------------- Getter and Setter ------------------------------------------------

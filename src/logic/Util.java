@@ -1,7 +1,7 @@
 package logic;
 
 public class Util {
-	
+
 	public static String formatDescription(String description, int lineLength) {
 		String[] word = description.split(" ");
 
@@ -55,5 +55,5 @@ public class Util {
 
 		return lastString;
 	}
-	
+
 }

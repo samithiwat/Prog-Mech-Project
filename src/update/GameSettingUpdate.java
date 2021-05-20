@@ -6,7 +6,6 @@ import gui.GameLobbyMenu;
 import gui.entity.CharacterSetting;
 import gui.entity.GameSetting;
 import gui.entity.TextTitle;
-import logic.SceneController;
 
 public class GameSettingUpdate {
 	private static int nPlayer = 6;

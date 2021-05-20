@@ -2,22 +2,19 @@ package component.entity;
 
 import java.util.ArrayList;
 
-import character.BlackSkull;
 import character.MainCharacter;
-import character.ThousandYear;
 import component.Component;
-import component.law.MoveTax;
 import component.location.BuyableLocation;
 import component.location.Location;
 import component.location.Ocean;
 import component.location.Prison;
 import component.location.SecretBase;
 import component.location.Water;
-import exception.OutOfActionException;
-import exception.SupportArmyException;
 import exception.ExceedMinionInTileException;
 import exception.InvalidOwnershipException;
 import exception.LackOfMoneyException;
+import exception.OutOfActionException;
+import exception.SupportArmyException;
 import exception.TooFarException;
 import exception.WaterTileException;
 import gui.entity.HexagonPane;
@@ -73,11 +70,10 @@ public class Minion extends Component implements moveable {
 	}
 
 // overwrite
-	public void move(int x, int y)
-			throws WaterTileException, OutOfActionException, InvalidOwnershipException, TooFarException, LackOfMoneyException, SupportArmyException {
+	public void move(int x, int y) throws WaterTileException, OutOfActionException, InvalidOwnershipException,
+			TooFarException, LackOfMoneyException, SupportArmyException {
 
 		HexagonPane tile = GameSetUp.selectedTile;
-		
 
 		if (this.possessedBy != GameSetUp.thisTurn) {
 			throw new InvalidOwnershipException();
@@ -89,39 +85,37 @@ public class Minion extends Component implements moveable {
 
 		else if (tile.getLocationType() instanceof Water) {
 			throw new WaterTileException();
-		}
-		else if (!(tile.isMoveable())) {
+		} else if (!(tile.isMoveable())) {
 			throw new TooFarException();
-		}
-		else if(GameSetUp.gameLaw.taxPerTile){
-			if(GameSetUp.thisTurn.getMoney() < MainCharacter.M) {
+		} else if (GameSetUp.gameLaw.taxPerTile) {
+			if (GameSetUp.thisTurn.getMoney() < MainCharacter.M) {
 				throw new LackOfMoneyException();
 			}
 			GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - MainCharacter.M);
-		}
-		else if(GameSetUp.gameLaw.supportArmy) {
-			if(onLocation instanceof SecretBase) {
-				throw new SupportArmyException();				
+		} else if (GameSetUp.gameLaw.supportArmy) {
+			if (onLocation instanceof SecretBase) {
+				throw new SupportArmyException();
 			}
 		}
-		
+
 		this.setPosX(this.getPosX() + x);
 		this.setPosY(this.getPosY() + y);
 		this.onLocation.removeFromLocation(this);
-		if(this.onLocation instanceof BuyableLocation && ((BuyableLocation) this.onLocation).getOwner().getName().equals(this.possessedBy.getName())) {
+		if (this.onLocation instanceof BuyableLocation
+				&& ((BuyableLocation) this.onLocation).getOwner().getName().equals(this.possessedBy.getName())) {
 			this.getPossessedBy().getPossessedArea().remove(this.onLocation);
 		}
-		if(this.onLocation.getName().equals("SecretBase")) {
+		if (this.onLocation.getName().equals("SecretBase")) {
 			this.getPossessedBy().getPossessedArea().remove(this.onLocation);
 		}
 		setOnLocation(GameSetUp.map[this.getPosY()][this.getPosX()]);
 		this.onLocation.addMinionToLocation(this);
-		if(this.onLocation.getName().equals("SecretBase")) {
+		if (this.onLocation.getName().equals("SecretBase")) {
 			this.getPossessedBy().getPossessedArea().add(this.onLocation);
 		}
 		this.moveLeft -= 1;
-		if(GameSetUp.blackSkull != null) {
-			GameSetUp.blackSkull.checkIsWin();			
+		if (GameSetUp.blackSkull != null) {
+			GameSetUp.blackSkull.checkIsWin();
 		}
 	}
 // -------------------------------------------------- Jail Method -------------------------------------------------------
@@ -142,8 +136,8 @@ public class Minion extends Component implements moveable {
 		onLocation = GameSetUp.prison;
 		Prison.addToPrison(this);
 		this.prisonerNumber = Prison.minionInPrison.size() - 1;
-		if(GameSetUp.sirThousand!= null) {
-			GameSetUp.sirThousand.checkIsWin();			
+		if (GameSetUp.sirThousand != null) {
+			GameSetUp.sirThousand.checkIsWin();
 		}
 	}
 
@@ -166,38 +160,38 @@ public class Minion extends Component implements moveable {
 
 	private void updateMinionLeft() {
 		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
-			if(GameSetUp.gameCharacter.get(i)!=null) {	
+			if (GameSetUp.gameCharacter.get(i) != null) {
 				GameSetUp.gameCharacter.get(i).updateMinionLeft();
 			}
 		}
 	}
-	
+
 // ------------------------------------------------------ Pardon Method -------------------------------------------------------------
-	
+
 	public void exiled() throws OutOfActionException, ExceedMinionInTileException {
-		if(Ocean.banishedMinion.size()>=6) {
+		if (Ocean.banishedMinion.size() >= 6) {
 			throw new ExceedMinionInTileException();
 		}
-		
+
 		Ocean.canPardon = false;
 		onLocation.removeFromLocation(this);
 		onLocation = GameSetUp.ocean;
 		Ocean.addToOcean(this);
-		this.prisonerNumber = Ocean.banishedMinion.size() -1;
+		this.prisonerNumber = Ocean.banishedMinion.size() - 1;
 	}
-	
+
 	public void pardon() throws OutOfActionException {
-		
-		if(!Ocean.canPardon) {
+
+		if (!Ocean.canPardon) {
 			throw new OutOfActionException();
 		}
-		
+
 		Ocean.banishedMinion.remove(prisonerNumber);
 		returnToOwner();
 		prisonerNumber = -1;
 		onLocation = null;
 		updateMinionLeft();
-		
+
 	}
 
 	// ----------------------getter/setter--------------------------
@@ -246,29 +240,16 @@ public class Minion extends Component implements moveable {
 		return onLocation;
 	}
 
-    public void setOnLocation(Location onLocation) {
-        if(myMinion.size() > 0) {
-            for(Minion minion : myMinion) {
-                minion.setOnLocation(onLocation);
-            }
-        }
-        this.onLocation = onLocation;
-    }
+	public void setOnLocation(Location onLocation) {
+		if (myMinion.size() > 0) {
+			for (Minion minion : myMinion) {
+				minion.setOnLocation(onLocation);
+			}
+		}
+		this.onLocation = onLocation;
+	}
 
 	public static double getCost() {
 		return COST;
 	}
-
-/////////////////////////////////////////////////// DEBUG //////////////////////////////////////////////////////////////////////
-
-	public String toString() {
-		if (onLocation == null) {
-			return "MoveLeft : " + moveLeft + " onLocation : null\n";
-		}
-		return "MoveLeft : " + moveLeft + "\n";
-	}
-
-//////////////////////////////////////////////// END OF DEBUG /////////////////////////////////////////////////////////////////
-
 }
-// I'm not sure about this part :/

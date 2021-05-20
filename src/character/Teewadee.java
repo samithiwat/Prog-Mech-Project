@@ -1,15 +1,11 @@
 package character;
 
 import component.location.Ocean;
-import component.weaponCard.Gun;
-import javafx.animation.Animation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 import logic.GameSetUp;
-import sprites.AnimationSprites;
 
 public class Teewadee extends MainCharacter {
 

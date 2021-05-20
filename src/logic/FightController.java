@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import character.MainCharacter;
 import component.entity.Minion;
 import component.location.Council;
-import component.location.Incomeable;
 import component.weaponCard.WeaponCard;
 import gui.MapOverview;
 import gui.entity.MapGrid;

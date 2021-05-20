@@ -2,7 +2,7 @@ package logic;
 
 import javafx.scene.media.AudioClip;
 
-public class AudioLoader { 
+public class AudioLoader {
 	public static AudioClip lobbyThemeSong = new AudioClip(
 			ClassLoader.getSystemResource("audio/GameSettingMenuBGM.mp3").toString());
 	public static AudioClip menuThemeSong = new AudioClip(
@@ -20,10 +20,6 @@ public class AudioLoader {
 			ClassLoader.getSystemResource("audio/CombineEffect.mp3").toString());
 	public static AudioClip splitEffect = new AudioClip(
 			ClassLoader.getSystemResource("audio/SplitEffect.mp3").toString());
-	// public static AudioClip mouseEnterSound = new
-	// AudioClip(ClassLoader.getSystemResource("audio/beep2.mp3").toString());
-	// public static AudioClip mouseEnterSound = new
-	// AudioClip(ClassLoader.getSystemResource("audio/beep3.mp3").toString());
 	public static AudioClip transitionEffect = new AudioClip(
 			ClassLoader.getSystemResource("audio/TransitionEffect.mp3").toString());
 	public static AudioClip quitSound = new AudioClip(ClassLoader.getSystemResource("audio/QuitEffect.mp3").toString());
@@ -57,7 +53,8 @@ public class AudioLoader {
 	public static AudioClip successfulEffect = new AudioClip(
 			ClassLoader.getSystemResource("audio/SuccessEffect.mp3").toString());
 	public static AudioClip winEffect = new AudioClip(ClassLoader.getSystemResource("audio/WinEffect.mp3").toString());
-	public static AudioClip loseEffect = new AudioClip(ClassLoader.getSystemResource("audio/LoseEffect.mp3").toString());
+	public static AudioClip loseEffect = new AudioClip(
+			ClassLoader.getSystemResource("audio/LoseEffect.mp3").toString());
 	public static AudioClip ulti1Effect = new AudioClip(ClassLoader.getSystemResource("audio/ulti1.mp3").toString());
 	public static AudioClip ulti2Effect = new AudioClip(ClassLoader.getSystemResource("audio/ulti2.mp3").toString());
 

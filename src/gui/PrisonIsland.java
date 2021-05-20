@@ -21,8 +21,8 @@ import gui.overlay.FightOverlay;
 import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.ObjectiveOverlay;
-import gui.overlay.PlayerList1;
-import gui.overlay.PlayerList2;
+import gui.overlay.PlayerListPage1;
+import gui.overlay.PlayerListPage2;
 import gui.overlay.SelectWeaponOverlay;
 import gui.overlay.TileOverlay;
 import gui.overlay.TradeOverlay;
@@ -40,10 +40,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
-import logic.GameSetUp;
 import logic.SceneController;
 import update.AudioUpdate;
-import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
 
 public class PrisonIsland implements Sceneable {
@@ -107,10 +105,10 @@ public class PrisonIsland implements Sceneable {
 		HandOverlay handOverlay = new HandOverlay();
 		MapOverview.allHandOverlay.add(handOverlay);
 
-		PlayerList1 playerList1 = new PlayerList1();
+		PlayerListPage1 playerList1 = new PlayerListPage1();
 		MapOverview.allPlayerList1.add(playerList1);
 
-		PlayerList2 playerList2 = new PlayerList2();
+		PlayerListPage2 playerList2 = new PlayerListPage2();
 		MapOverview.allPlayerList2.add(playerList2);
 
 		CurrentLaw currentLaw = new CurrentLaw();

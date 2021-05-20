@@ -1,15 +1,9 @@
 package gui.entity;
 
 import javafx.event.EventHandler;
-import javafx.scene.ImageCursor;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.AudioClip;
-import logic.AudioLoader;
 
 public class MenuIcon extends ImageView implements Clickable {
 

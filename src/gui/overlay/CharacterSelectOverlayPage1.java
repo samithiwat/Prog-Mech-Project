@@ -11,9 +11,9 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import update.CharacterSelectUpdate;
 
-public class CharacterSelectOverlay1 extends CharacterSelectOverlay {
+public class CharacterSelectOverlayPage1 extends CharacterSelectOverlay {
 
-	public CharacterSelectOverlay1() {
+	public CharacterSelectOverlayPage1() {
 
 		MenuIcon changePageIcon = new MenuIcon("img/icon/Arrow.png", 1255, 700);
 		changePageIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {

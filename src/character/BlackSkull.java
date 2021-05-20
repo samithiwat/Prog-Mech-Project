@@ -1,7 +1,5 @@
 package character;
 
-import component.weaponCard.Axe;
-import component.weaponCard.Gun;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -9,9 +7,8 @@ import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class BlackSkull extends MainCharacter {
-	
+
 	public static boolean prisonOutBreakSkill = true;
-	private static boolean isWin;
 
 	public BlackSkull() {
 		super("Black Skull", "");
@@ -25,25 +22,7 @@ public class BlackSkull extends MainCharacter {
 		this.objectiveInfo2 = "Secret Base.";
 		this.skill = "Prison break (can use only one time)";
 		this.nWinCount = 4;
-		
-	}
 
-//	public static int checkWin() {
-//		int count = 0;
-//		for (int i = 0; i < GameSetUp.allsecretBases.size(); i++) {
-//			if (GameSetUp.allsecretBases.get(i).getPossessedBy() != null) {
-//				count++;
-//			}
-//		}
-//		if (count >= nWinCount) {
-//			GameSetUp.isGameEnd = true;
-//			setIsWin(true);
-//		}
-//		return count;
-//	}
-	
-	public static void setIsWin(boolean isWin) {
-		BlackSkull.isWin = isWin;
 	}
 
 	public int checkIsWin() {

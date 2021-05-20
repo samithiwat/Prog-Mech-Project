@@ -17,7 +17,6 @@ public abstract class CharacterSelectOverlay extends Overlay {
 
 	public CharacterSelectOverlay() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -850);
-		// setId("overlay");
 		setCursor(CURSOR_NORMAL);
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------	

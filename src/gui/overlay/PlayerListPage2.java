@@ -29,7 +29,7 @@ import logic.GameSetUp;
 import update.GameSettingUpdate;
 import update.TradeOverlayUpdate;
 
-public class PlayerList1 extends Overlay {
+public class PlayerListPage2 extends Overlay {
 
 	protected static final int HEIGHT = 800;
 	protected static final int WIDTH = 1400;
@@ -37,9 +37,9 @@ public class PlayerList1 extends Overlay {
 	protected static final int PORTRAITS_HEIGHT = 400;
 
 	private ArrayList<TextTitle> allText;
-	private PlayerList1 instance = this;
+	private PlayerListPage2 instance = this;
 
-	public PlayerList1() {
+	public PlayerListPage2() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -800);
 
 		setId("overlay");
@@ -52,20 +52,21 @@ public class PlayerList1 extends Overlay {
 
 		TextTitle title = new TextTitle("Player List", Color.WHITE, FontWeight.BOLD, 72, 512, 110);
 
-		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1300, 40);
+		MenuIcon closeIcon = new MenuIcon("img/icon/Cross.png", 1300, 50);
 		closeIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_CLICK.play();
 				for (int i = 0; i < MapOverview.allPlayerList1.size(); i++) {
-					MapOverview.allPlayerList1.get(i).triggerOverlay(0, 825, 1000);
+					MapOverview.allPlayerList2.get(i).triggerOverlay(0, 825, 1000);
 				}
 				GameSetUp.isFightTradeMode = false;
 			}
 		});
 
-		MenuIcon changePageIcon = new MenuIcon("img/icon/Arrow.png", 1258, 710);
+		MenuIcon changePageIcon = new MenuIcon("img/icon/Arrow.png", 30, 710);
+		changePageIcon.setRotate(180);
 		changePageIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -89,13 +90,8 @@ public class PlayerList1 extends Overlay {
 		playerStatusPane.setPadding(new Insets(0, 70, 0, 70));
 
 		allText = new ArrayList<TextTitle>();
-		int n = Math.min(3, GameSettingUpdate.getNPlayer());
-
-		if (GameSettingUpdate.getNPlayer() < 4) {
-			changePageIcon.setVisible(false);
-		}
-
-		for (int i = 0; i < n; i++) {
+		int n = GameSettingUpdate.getNPlayer();
+		for (int i = 3; i < n; i++) {
 			HBox moneyInfo = new HBox();
 			moneyInfo.setSpacing(30);
 			moneyInfo.setAlignment(Pos.CENTER);
@@ -158,7 +154,6 @@ public class PlayerList1 extends Overlay {
 					GameSetUp.selectedCharacter = character;
 					if (GameSetUp.isFightTradeMode) {
 						TradeOverlayUpdate.traded = character;
-						System.out.println("2");
 					}
 					playerActionMenu.getBuyLand().setVisible(false);
 					playerActionMenu.getCombine().setVisible(false);
@@ -170,15 +165,14 @@ public class PlayerList1 extends Overlay {
 					if (GameSetUp.thisTurn == character || character.isTraded()
 							|| TradeOverlayUpdate.trader == character) {
 						playerActionMenu.getTrade().setVisible(false);
-						System.out.println("1");
 					}
 					if (GameSetUp.isFightTradeMode == true && TradeOverlayUpdate.trader != character
 							&& character.isFightTraded() == false) {
 						playerActionMenu.getTrade().setVisible(true);
 					}
-					if(GameSetUp.thisTurn == GameSetUp.theGovernment) {
-						if(character.getGoodPoint() < 5 ) {
-							if(character != GameSetUp.theGovernment) {
+					if (GameSetUp.thisTurn == GameSetUp.theGovernment) {
+						if (character.getGoodPoint() < 5) {
+							if (character != GameSetUp.theGovernment) {
 								playerActionMenu.getAddGoodPoint().setVisible(true);
 							}
 						}
@@ -219,8 +213,7 @@ public class PlayerList1 extends Overlay {
 		return imgRoot;
 	}
 
-	// ---------------------------------------------- getter/setter
-	// -------------------------------------------------------
+	// -------------------------------------------------------getter/setter-------------------------------------------------
 
 	public ArrayList<TextTitle> getAllText() {
 		return allText;

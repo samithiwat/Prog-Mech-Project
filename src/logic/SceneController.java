@@ -2,7 +2,6 @@ package logic;
 
 import java.util.Random;
 
-import character.BlackSkull;
 import character.MainCharacter;
 import character.Teewada;
 import character.ThousandYear;
@@ -10,17 +9,13 @@ import gui.EndScene;
 import gui.LoadingScreen1;
 import gui.LoadingScreen2;
 import gui.MainIsland;
-import gui.MainMenu;
 import gui.MapOverview;
 import gui.PrisonIsland;
 import gui.StartMenu;
 import gui.entity.PlayerPanel;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import update.AudioUpdate;
 import update.CloseGame;
 
 public class SceneController {
@@ -114,11 +109,12 @@ public class SceneController {
 			setScene((new LoadingScreen2()).getScene());
 		}
 	}
+
 	public static void endScene(MainCharacter winner) {
-		if(winner instanceof Teewada || winner instanceof ThousandYear) {
-			if(GameSetUp.theGovernment != winner) {
+		if (winner instanceof Teewada || winner instanceof ThousandYear) {
+			if (GameSetUp.theGovernment != winner) {
 				System.out.println("winner : " + winner);
-				EndScene.setCoWinner(GameSetUp.theGovernment);				
+				EndScene.setCoWinner(GameSetUp.theGovernment);
 			}
 		}
 		endScene = (new EndScene(winner)).getScene();
@@ -182,9 +178,9 @@ public class SceneController {
 	public static void setLoadingStage(Stage loadingStage) {
 		SceneController.loadingStage = loadingStage;
 	}
-  
+
 	public static Scene getEndScene() {
 		return endScene;
 	}
-	
+
 }

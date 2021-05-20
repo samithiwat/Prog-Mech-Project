@@ -1,6 +1,12 @@
 package gui.entity;
 
-import character.*;
+import character.BlackSkull;
+import character.Collector;
+import character.MainCharacter;
+import character.RedFox;
+import character.Teewada;
+import character.Teewadee;
+import character.ThousandYear;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -43,7 +49,7 @@ public class TurnBar extends StackPane implements Clickable {
 		}
 
 // ----------------------------------------- Add Icon Pane to Bar ---------------------------------------------------
-		
+
 		getChildren().addAll(iconPane);
 		interact();
 	}
@@ -74,10 +80,8 @@ public class TurnBar extends StackPane implements Clickable {
 		if (character instanceof Teewadee) {
 			characterIcon = new TurnCharacterIcon(SIR_TEWADEE, 57, 19);
 		}
-		
-		
-		iconPane.getChildren().set(index, characterIcon);
 
+		iconPane.getChildren().set(index, characterIcon);
 
 	}
 
@@ -91,7 +95,7 @@ public class TurnBar extends StackPane implements Clickable {
 				effect.play();
 			}
 		});
-		
+
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -101,7 +105,7 @@ public class TurnBar extends StackPane implements Clickable {
 				setId("turnbar-hold-style");
 			}
 		});
-		
+
 		setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -110,7 +114,7 @@ public class TurnBar extends StackPane implements Clickable {
 				setId("turnbar-release-style");
 			}
 		});
-			
+
 	}
 
 	@Override

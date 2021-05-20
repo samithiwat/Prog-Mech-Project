@@ -1,7 +1,6 @@
 package gui;
 
 import gui.entity.MenuIcon;
-import gui.overlay.HandOverlay;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class SelectMapScenes {
 	private Scene scene;

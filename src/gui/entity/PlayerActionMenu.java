@@ -4,10 +4,10 @@ import character.MainCharacter;
 import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
 import exception.FailToBuyLandException;
-import exception.UnSpawnableTileException;
 import exception.InvalidOwnershipException;
 import exception.OutOfActionException;
 import exception.OutOfMinionException;
+import exception.UnSpawnableTileException;
 import gui.MainIsland;
 import gui.MapOverview;
 import javafx.event.ActionEvent;
@@ -24,8 +24,6 @@ import update.PlayerPanelUpdate;
 import update.TradeOverlayUpdate;
 
 public class PlayerActionMenu extends ContextMenu implements Clickable {
-
-	private static final int WIDTH = 300;
 
 	private MenuItem buyMinion;
 	private MenuItem buyLand;
@@ -215,7 +213,6 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				boolean key = true;
 				if (!GameSetUp.isFightTradeMode) {
 					TradeOverlayUpdate.trader = GameSetUp.thisTurn;
@@ -255,7 +252,6 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				boolean key = true;
 				if (GameSetUp.gameLaw.taxFighting) {
 					if (GameSetUp.thisTurn.getMoney() < 1 * MainCharacter.M) {
@@ -340,7 +336,6 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				boolean key = true;
 				if (GameSetUp.gameLaw.taxFighting) {
 					if (GameSetUp.thisTurn.getMoney() < 1 * MainCharacter.M) {

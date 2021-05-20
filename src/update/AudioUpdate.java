@@ -6,8 +6,6 @@ public class AudioUpdate {
 
 	private static Thread playSelectBGM;
 
-	private static int count = 0;
-
 	public static void change(AudioClip currentBGM, AudioClip nextBGM) {
 		if (currentBGM != null) {
 			currentBGM.stop();

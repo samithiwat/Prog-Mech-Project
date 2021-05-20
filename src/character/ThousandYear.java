@@ -8,7 +8,7 @@ import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class ThousandYear extends MainCharacter {
-	
+
 	public ThousandYear() {
 		super("Sir Thousand Year", "");
 		this.selectBGM = AudioLoader.sirThousandSelectBGM;
@@ -16,7 +16,8 @@ public class ThousandYear extends MainCharacter {
 		this.color = Color.web("0xCC698D");
 		this.setImg_path("img/character/SirThousandYear.png");
 		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/SirThousandYear.png").toString()));
-		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/SirThousandYearWinner.png").toString());
+		this.winnerImg = new ImageView(
+				ClassLoader.getSystemResource("img/character/SirThousandYearWinner.png").toString());
 		this.objectiveInfo1 = "Government arrest";
 		this.objectiveInfo2 = "Prisoner.";
 		this.skill = "Get extra attact while attacking";

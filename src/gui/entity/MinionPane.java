@@ -1,7 +1,6 @@
 package gui.entity;
 
 import javafx.scene.layout.Pane;
-import logic.GameSetUp;
 
 public class MinionPane extends Pane {
 

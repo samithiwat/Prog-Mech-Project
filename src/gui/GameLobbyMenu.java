@@ -5,39 +5,29 @@ import java.util.ArrayList;
 import gui.entity.CharacterSetting;
 import gui.entity.GameSetting;
 import gui.entity.MenuButton;
-import gui.entity.PlayerPanel;
 import gui.entity.TextTitle;
 import gui.overlay.CharacterInfo;
-import gui.overlay.CharacterSelectOverlay1;
-import gui.overlay.CharacterSelectOverlay2;
-import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
+import gui.overlay.CharacterSelectOverlayPage1;
+import gui.overlay.CharacterSelectOverlayPage2;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 import logic.AudioLoader;
-import logic.GameController;
 import logic.GameSetUp;
 import logic.SceneController;
-import update.AudioUpdate;
-import update.HexTileUpdate;
-import update.MainIslandUpdate;
-import update.PlayerPanelUpdate;
 
 public class GameLobbyMenu implements Sceneable {
 
 	private Scene scene;
-	private static CharacterSelectOverlay1 characterOverlay1;
-	private static CharacterSelectOverlay2 characterOverlay2;
+	private static CharacterSelectOverlayPage1 characterOverlay1;
+	private static CharacterSelectOverlayPage2 characterOverlay2;
 	private static CharacterInfo characterInfo;
 	private static AudioClip bgm;
 	private static MenuButton start;
@@ -47,9 +37,7 @@ public class GameLobbyMenu implements Sceneable {
 
 	public GameLobbyMenu() {
 
-//		StartMenu.getMenuThemeSong().stop();
 		bgm = AudioLoader.lobbyThemeSong;
-//		bgm.play();
 
 		AnchorPane root = new AnchorPane();
 
@@ -130,8 +118,8 @@ public class GameLobbyMenu implements Sceneable {
 
 // -------------------------------------------- Character Overlay ----------------------------------------------------------
 
-		characterOverlay1 = new CharacterSelectOverlay1();
-		characterOverlay2 = new CharacterSelectOverlay2();
+		characterOverlay1 = new CharacterSelectOverlayPage1();
+		characterOverlay2 = new CharacterSelectOverlayPage2();
 		characterInfo = new CharacterInfo();
 
 // -------------------------------------------- Add cBox to Array for Character Update ----------------------------------------------------------
@@ -175,11 +163,11 @@ public class GameLobbyMenu implements Sceneable {
 		return scene;
 	}
 
-	public static CharacterSelectOverlay1 getOverlay1() {
+	public static CharacterSelectOverlayPage1 getOverlay1() {
 		return characterOverlay1;
 	}
 
-	public static CharacterSelectOverlay2 getOverlay2() {
+	public static CharacterSelectOverlayPage2 getOverlay2() {
 		return characterOverlay2;
 	}
 

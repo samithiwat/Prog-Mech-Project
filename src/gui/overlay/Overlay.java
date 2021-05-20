@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.scene.SubScene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
@@ -79,17 +78,10 @@ public class Overlay extends SubScene implements Overlayable {
 
 			@Override
 			public void handle(KeyEvent event) {
-				System.out.println("Click");
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
 					triggerOverlay(0, 875, 1500);
 				}
 			}
 		});
-	}
-
-	public String toString() {
-		return "-------------------- Overlay ---------------------" + "\n" + "x : " + getLayoutX() + ", y : "
-				+ getLayoutY() + "\n" + "Class : " + getClass() + "\n"
-				+ "---------------------------------------------------";
 	}
 }

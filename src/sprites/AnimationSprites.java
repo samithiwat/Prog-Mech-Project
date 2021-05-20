@@ -18,9 +18,9 @@ public class AnimationSprites extends Transition {
 	private final int nPic; // number of character in picture
 
 	public AnimationSprites(ImageView img, int duration, int offsetX, int offsetY, int width, int height, int row,
-			int dw,int dh, int nPic) {
+			int dw, int dh, int nPic) {
 		this.img = img;
-		setCycleDuration(Duration.millis(duration)); 
+		setCycleDuration(Duration.millis(duration));
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.width = width;
@@ -34,12 +34,10 @@ public class AnimationSprites extends Transition {
 	@Override
 	protected void interpolate(double frac) {
 		final int n = Math.round(nPic * (float) frac);
-		//System.out.println("n :"+n);
 		final int x = ((width + dw) * n) + offsetX;
 		final int y = (((height + dh) * row)) + offsetY;
-		//System.out.println("x : "+x+" y : "+y);
 		img.setViewport(new Rectangle2D(x, y, width, height));
-		
+
 	}
 
 }

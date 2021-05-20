@@ -18,10 +18,8 @@ public class Capture extends InteractLawCard {
 	}
 
 	public void activateEffectCard() {
-		// arrest a minion to the prison
-		// code not finished
 
-		MainIsland.overlayInteractMode("OneMinion", false,false);
+		MainIsland.overlayInteractMode("OneMinion", false, false);
 		MainIsland.getMessage().setText("Select minion to capture. (ESC to cancle)");
 		MainIsland.getMessageRoot().setVisible(true);
 		PlayerPanelUpdate.setVisibleActivedLawPane(false);
@@ -33,7 +31,7 @@ public class Capture extends InteractLawCard {
 
 			while (true) {
 				System.out.print("");
-				if(GameSetUp.isCancel) {
+				if (GameSetUp.isCancel) {
 					GameSetUp.isCancel = false;
 					MainIsland.setESC(true);
 					MainIsland.getMessageRoot().setVisible(false);
@@ -41,7 +39,6 @@ public class Capture extends InteractLawCard {
 					break;
 				}
 				if (GameSetUp.selectedIcon.size() > 0) {
-					// put minion to jail.
 					try {
 						GameSetUp.selectedIcon.get(0).getMinion().jailed();
 						PlayerPanelUpdate.setShowMessage("Successfully put this crime to jail.", COLOR_INFO,

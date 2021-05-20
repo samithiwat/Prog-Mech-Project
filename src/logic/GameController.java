@@ -19,7 +19,7 @@ public class GameController {
 	public GameController() {
 //-------------------------- Choose start minion location-----------------------------------
 
-		MainIsland.dataInteractMode("Select location to spawn your minion.",false,false);
+		MainIsland.dataInteractMode("Select location to spawn your minion.", false, false);
 		GameSetUp.isHighlightSpawnable = true;
 
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
@@ -95,7 +95,7 @@ public class GameController {
 		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
 		GameSetUp.isReset = true;
-		MainIsland.overlayInteractMode("",true,true);
+		MainIsland.overlayInteractMode("", true, true);
 		MainIslandUpdate.setCenter();
 
 //------------------------------------------------------------------------------------------
@@ -119,7 +119,7 @@ public class GameController {
 				System.out
 						.println("------------------------------- Current Turn --------------------------------------\n"
 								+ GameSetUp.thisTurn);
-				System.out.println("Government : "+GameSetUp.theGovernment);
+				System.out.println("Government : " + GameSetUp.theGovernment);
 
 ////////////////////////////////////////////////////////////////END OF DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 
@@ -143,8 +143,8 @@ public class GameController {
 				if (GameSetUp.isGameEnd) {
 					break;
 				}
-				if(GameSetUp.sirTewada != null) {
-					GameSetUp.sirTewada.checkIsWin();					
+				if (GameSetUp.sirTewada != null) {
+					GameSetUp.sirTewada.checkIsWin();
 				}
 				GameSetUp.lawSlot.activateAllSlot();
 				GameSetUp.isEndTurn = false;
@@ -156,17 +156,17 @@ public class GameController {
 //			GameSetUp.turn++;
 			GameSetUp.cycle++;
 			GameSetUp.gameLaw.activateEachCycle();
-			
+
 		}
 		System.out.println("END!!!");
 		Platform.runLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				SceneController.endScene(getWinner());				
+				SceneController.endScene(getWinner());
 			}
 		});
-		
+
 	}
 
 //----------------------spawn minion-----------------	
@@ -194,10 +194,10 @@ public class GameController {
 //			player.checkIsWin();
 //		}
 //	}
-	
+
 	private MainCharacter getWinner() {
-		for(MainCharacter player : GameSetUp.gameCharacter) {
-			if(player.isWin()) {
+		for (MainCharacter player : GameSetUp.gameCharacter) {
+			if (player.isWin()) {
 				return player;
 			}
 		}

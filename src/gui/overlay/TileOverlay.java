@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
 import update.TileOverlayUpdate;
 
 public class TileOverlay extends Overlay {

@@ -21,8 +21,6 @@ public class WeaponTax extends LawCard {
 	}
 
 	public void activateEffectCard() {
-//		don't forget to add weapon in banned weapon
-//		parameter name -> GameController.gameLaw.bannedWeapon = bannedWeapon
 		GameSetUp.gameLaw.taxWeapon = true;
 	}
 

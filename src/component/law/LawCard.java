@@ -2,11 +2,13 @@ package component.law;
 
 import component.Component;
 
-public abstract class LawCard extends Component{
+public abstract class LawCard extends Component {
 	private String cardName;
 	private String effectCard;
 	protected String img_path;
+
 	public abstract void activateEffectCard();
+
 	public LawCard(String name, String effectCard) {
 		super(name);
 		this.cardName = name;
@@ -14,7 +16,7 @@ public abstract class LawCard extends Component{
 	}
 
 // ------------------------------------- Equal Method --------------------------------------
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -36,12 +38,12 @@ public abstract class LawCard extends Component{
 			return false;
 		return true;
 	}
-	
+
 // ----------------------------------- Getter and Setter -----------------------------------
-	
+
 	public String getImg_path() {
 		return img_path;
-	} 
+	}
 
 	public String getEffectCard() {
 		return this.effectCard;

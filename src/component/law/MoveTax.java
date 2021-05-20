@@ -1,6 +1,5 @@
 package component.law;
 
-import character.MainCharacter;
 import logic.GameSetUp;
 
 public class MoveTax extends LawCard {

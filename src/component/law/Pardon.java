@@ -2,7 +2,6 @@ package component.law;
 
 import exception.OutOfActionException;
 import gui.MainIsland;
-import gui.entity.PlayerPanel;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
@@ -15,7 +14,6 @@ public class Pardon extends InteractLawCard {
 	}
 
 	public void activateEffectCard() {
-		// haven't written banish zone
 		MainIsland.setESC(false);
 		MainIsland.getMessage().setText("Select minion to pardon. (ESC to cancle)");
 		MainIsland.getMessageRoot().setVisible(true);
@@ -25,7 +23,7 @@ public class Pardon extends InteractLawCard {
 		Thread selectMinion = new Thread(() -> {
 			while (true) {
 				System.out.print("");
-				if(GameSetUp.isCancel) {
+				if (GameSetUp.isCancel) {
 					GameSetUp.isCancel = false;
 					MainIsland.setESC(true);
 					MainIsland.getMessageRoot().setVisible(false);

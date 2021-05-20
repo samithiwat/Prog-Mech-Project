@@ -15,9 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
@@ -83,7 +81,6 @@ public class EndScene implements Sceneable {
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(MOUSE_NORMAL);
-//		scene.getStylesheets().add(ClassLoader.getSystemResource("css/lobby-style.css").toExternalForm());
 	}
 
 	@Override
@@ -184,10 +181,10 @@ public class EndScene implements Sceneable {
 						boolean isPrisoner = false;
 						for (Minion minion : minions) {
 							if (minion.getOnLocation() instanceof Prison) {
-								if(coWinner !=null) {
-									if(player.getName().equals(coWinner.getName())) {
+								if (coWinner != null) {
+									if (player.getName().equals(coWinner.getName())) {
 										coWinner = null;
-									}									
+									}
 								}
 								isPrisoner = true;
 								loserList.add(player);
@@ -195,12 +192,11 @@ public class EndScene implements Sceneable {
 							}
 						}
 						if (!isPrisoner) {
-							if(coWinner!=null) {
-								if(!player.getName().equals(coWinner.getName())) {
-									winnerList.add(player);								
-								}								
-							}
-							else {
+							if (coWinner != null) {
+								if (!player.getName().equals(coWinner.getName())) {
+									winnerList.add(player);
+								}
+							} else {
 								winnerList.add(player);
 							}
 						}
@@ -216,22 +212,18 @@ public class EndScene implements Sceneable {
 				if (player != null) {
 					if (!player.getName().equals(winner.getName())) {
 						int totalAtk = calTotalAtk(player);
-//						int totalAtk = 0;
-//						for (WeaponCard weapon : player.getWeaponHand()) {
-//							totalAtk += weapon.getAttack_max();
-//						}
-						if(totalAtk > maxTotalAtk) {
+						if (totalAtk > maxTotalAtk) {
 							maxTotalAtk = totalAtk;
 							maxAtkPlayers.clear();
 							maxAtkPlayers.add(player);
 						}
-						if(totalAtk == maxTotalAtk) {
+						if (totalAtk == maxTotalAtk) {
 							maxAtkPlayers.add(player);
 						}
 					}
 				}
 			}
-			
+
 			for (MainCharacter player : players) {
 				if (player != null) {
 					if (!player.getName().equals(winner.getName())) {
@@ -239,22 +231,22 @@ public class EndScene implements Sceneable {
 						for (MainCharacter maxAtkPlayer : maxAtkPlayers) {
 							if (player.equals(maxAtkPlayer)) {
 								isLoser = true;
-								if(coWinner!=null) {
-									if(player.getName().equals(coWinner.getName())) {
+								if (coWinner != null) {
+									if (player.getName().equals(coWinner.getName())) {
 										coWinner = null;
-									}								
+									}
 								}
 								loserList.add(player);
 								break;
 							}
 						}
 						if (!isLoser) {
-							if(coWinner!=null) {
-								if(!player.getName().equals(coWinner.getName())) {
+							if (coWinner != null) {
+								if (!player.getName().equals(coWinner.getName())) {
 									winnerList.add(player);
-								}								
-							}else {
-								winnerList.add(player);								
+								}
+							} else {
+								winnerList.add(player);
 							}
 						}
 					}
@@ -330,7 +322,7 @@ public class EndScene implements Sceneable {
 			winnerList.set(j + 1, currentCharacter);
 		}
 	}
-	
+
 	private void sortByTotalAtk() {
 		for (int i = 1; i < winnerList.size(); i++) {
 			MainCharacter currentCharacter = winnerList.get(i);
@@ -343,7 +335,7 @@ public class EndScene implements Sceneable {
 			winnerList.set(j + 1, currentCharacter);
 		}
 	}
-	
+
 	private void sortByNCard() {
 		for (int i = 1; i < winnerList.size(); i++) {
 			MainCharacter currentCharacter = winnerList.get(i);
@@ -356,15 +348,15 @@ public class EndScene implements Sceneable {
 			winnerList.set(j + 1, currentCharacter);
 		}
 	}
-	
+
 	private int calTotalAtk(MainCharacter player) {
 		int totalAtk = 0;
 		for (WeaponCard weapon : player.getWeaponHand()) {
 			totalAtk += weapon.getAttack_max();
-		}			
+		}
 		return totalAtk;
 	}
-	
+
 	private void setUpDescriptionPane() {
 		TextTitle quote = new TextTitle("", Color.WHITE, FontWeight.BOLD, 64);
 		TextTitle loserCondition = new TextTitle("", COLOR_ENDSCENE_PLAYER_LIST, FontWeight.BOLD, 36);

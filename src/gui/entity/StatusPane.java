@@ -1,6 +1,5 @@
 package gui.entity;
 
-import character.MainCharacter;
 import gui.MapOverview;
 import gui.overlay.CurrentLaw;
 import gui.overlay.Government;
@@ -51,7 +50,7 @@ public class StatusPane extends GridPane implements Clickable {
 		totalIncometooltip.setFont(Font.font("Bai Jamjuree", 20)); // set font here
 		finance.setOnMouseClicked((MouseEvent event) -> {
 			if (finance.isClicked() == false) {
-				totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.totalIncome() +"M");
+				totalIncometooltip.setText("Total Income : " + GameSetUp.thisTurn.totalIncome() + "M");
 				totalIncometooltip.show(finance, event.getScreenX(), event.getScreenY() + 10);
 				setId("circle-button-hold-style");
 				finance.setClicked(true);

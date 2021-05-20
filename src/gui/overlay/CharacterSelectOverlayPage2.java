@@ -11,9 +11,9 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import update.CharacterSelectUpdate;
 
-public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
+public class CharacterSelectOverlayPage2 extends CharacterSelectOverlay {
 
-	public CharacterSelectOverlay2() {
+	public CharacterSelectOverlayPage2() {
 
 		MenuIcon changePageIcon = new MenuIcon("img/icon/Arrow.png", 30, 700);
 		changePageIcon.setRotate(180);
@@ -26,7 +26,6 @@ public class CharacterSelectOverlay2 extends CharacterSelectOverlay {
 			}
 		});
 
-		TextTitle title = new TextTitle("Select Character", Color.WHITE, FontWeight.BOLD, 72, 402, 102);
 		TextTitle sirThousand = new TextTitle("Sir Thousand Year", Color.WHITE, FontWeight.BOLD, 40, 80, 660);
 		TextTitle sirTewada = new TextTitle("Sir Tewada", Color.WHITE, FontWeight.BOLD, 40, 596, 660);
 		TextTitle sirTewadee = new TextTitle("Sir Tewadee", Color.WHITE, FontWeight.BOLD, 40, 1034, 660);

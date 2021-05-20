@@ -1,15 +1,11 @@
 package character;
 
 import component.location.Council;
-import component.weaponCard.Axe;
-import javafx.animation.Animation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 import logic.GameSetUp;
-import sprites.AnimationSprites;
 
 public class Teewada extends MainCharacter {
 	
@@ -35,7 +31,6 @@ public class Teewada extends MainCharacter {
 		if (howLong >= nWinCount) {
 			setWin(true);
 			GameSetUp.isGameEnd = true;
-//			GameSetUp.theGovernment.setWin(true);
 		}
 		return howLong;
 	}

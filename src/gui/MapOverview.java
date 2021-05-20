@@ -10,7 +10,6 @@ import character.Teewadee;
 import character.ThousandYear;
 import component.entity.Minion;
 import component.location.Ocean;
-import component.location.Prison;
 import gui.entity.ActivedLawPane;
 import gui.entity.MenuIcon;
 import gui.entity.MinionIcon;
@@ -23,8 +22,8 @@ import gui.overlay.FightOverlay;
 import gui.overlay.Government;
 import gui.overlay.HandOverlay;
 import gui.overlay.ObjectiveOverlay;
-import gui.overlay.PlayerList1;
-import gui.overlay.PlayerList2;
+import gui.overlay.PlayerListPage1;
+import gui.overlay.PlayerListPage2;
 import gui.overlay.SelectWeaponOverlay;
 import gui.overlay.TileOverlay;
 import gui.overlay.TradeOverlay;
@@ -33,19 +32,12 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
@@ -58,8 +50,8 @@ public class MapOverview implements Sceneable {
 	private Scene scene;
 
 	private HandOverlay handOverlay;
-	private PlayerList1 playerList1;
-	private PlayerList2 playerList2;
+	private PlayerListPage1 playerList1;
+	private PlayerListPage2 playerList2;
 	private TradeOverlay tradeOverlay;
 	private FightOverlay fightOverlay;
 	private static MenuIcon mainIsland;
@@ -75,8 +67,8 @@ public class MapOverview implements Sceneable {
 	private static TextTitle message;
 
 	public static ArrayList<HandOverlay> allHandOverlay;
-	public static ArrayList<PlayerList1> allPlayerList1;
-	public static ArrayList<PlayerList2> allPlayerList2;
+	public static ArrayList<PlayerListPage1> allPlayerList1;
+	public static ArrayList<PlayerListPage2> allPlayerList2;
 	public static ArrayList<CurrentLaw> allCurrentLaw;
 	public static ArrayList<Government> allGovernment;
 	public static ArrayList<TradeOverlay> allTradeOverlay;
@@ -98,12 +90,12 @@ public class MapOverview implements Sceneable {
 		allHandOverlay = new ArrayList<HandOverlay>();
 		allHandOverlay.add(handOverlay);
 
-		playerList1 = new PlayerList1();
-		allPlayerList1 = new ArrayList<PlayerList1>();
+		playerList1 = new PlayerListPage1();
+		allPlayerList1 = new ArrayList<PlayerListPage1>();
 		allPlayerList1.add(playerList1);
 
-		playerList2 = new PlayerList2();
-		allPlayerList2 = new ArrayList<PlayerList2>();
+		playerList2 = new PlayerListPage2();
+		allPlayerList2 = new ArrayList<PlayerListPage2>();
 		allPlayerList2.add(playerList2);
 
 		CurrentLaw currentLaw = new CurrentLaw();

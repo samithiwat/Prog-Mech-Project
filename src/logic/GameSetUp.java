@@ -2,7 +2,14 @@ package logic;
 
 import java.util.ArrayList;
 
-import character.*;
+import character.BlackSkull;
+import character.Collector;
+import character.Dummy_Government;
+import character.MainCharacter;
+import character.RedFox;
+import character.Teewada;
+import character.Teewadee;
+import character.ThousandYear;
 import component.entity.Minion;
 import component.law.LawDeck;
 import component.law.LawSlot;
@@ -61,7 +68,6 @@ public class GameSetUp {
 	public static LawDeck lawDeck = new LawDeck();
 	public static ArrayList<SecretBase> allsecretBases = new ArrayList<SecretBase>();
 	private static final int DUPLICATE = 5;
-//	public static int turn = 1;
 	public static int cycle = 1;
 	public static int countDownDuration = 0;
 	public static boolean canBuyMinion = true;
@@ -171,8 +177,6 @@ public class GameSetUp {
 
 	private void setUpMapWithHexPane() {
 
-		int count = 0;
-
 		for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
@@ -180,12 +184,6 @@ public class GameSetUp {
 
 				TileOverlay overlay = createTileOverlay(i, j);
 				column.get(j).setOverlay(overlay);
-
-//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
-//				System.out.println(overlay);;
-				System.out.println(Math.round(++count) + "%");
-
-//////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////
 			}
 		}
 

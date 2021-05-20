@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import character.BlackSkull;
 import character.Collector;
-import character.MainCharacter;
 import character.RedFox;
 import character.Teewada;
 import character.Teewadee;
@@ -16,12 +15,9 @@ import component.location.Incomeable;
 import component.location.Location;
 import component.location.SecretBase;
 import component.location.Water;
-import gui.overlay.Overlay;
 import gui.overlay.TileOverlay;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -34,8 +30,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
-import update.HexTileUpdate;
-import update.PlayerPanelUpdate;
 
 public class HexagonPane extends Pane implements Clickable {
 
@@ -558,7 +552,4 @@ public class HexagonPane extends Pane implements Clickable {
 		return landInfoRoot;
 	}
 
-	public String toString() {
-		return locationType + "\n" + "Row : " + row + ", Column : " + column + "\n";
-	}
 }

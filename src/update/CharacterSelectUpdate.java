@@ -20,12 +20,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
-import logic.GameController;
 import logic.GameSetUp;
 
 public class CharacterSelectUpdate implements Updateable {
 
-	private static Thread t;
 	private static CharacterSetting cBox;
 	private static ImageView portraits;
 	private static ArrayList<CharacterCard> cc = new ArrayList<CharacterCard>();

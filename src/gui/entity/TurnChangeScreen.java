@@ -33,7 +33,7 @@ public class TurnChangeScreen extends VBox {
 	}
 
 	public void update() {
-		
+
 		turn.setText("Turn " + GameSetUp.cycle);
 
 		name.setText(GameSetUp.thisTurn.getName());

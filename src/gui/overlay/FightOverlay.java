@@ -9,7 +9,6 @@ import component.weaponCard.Bow;
 import component.weaponCard.Gun;
 import component.weaponCard.Shield;
 import component.weaponCard.Sword;
-import gui.GameLobbyMenu;
 import gui.MainIsland;
 import gui.MapOverview;
 import gui.entity.Clickable;
@@ -128,8 +127,6 @@ public class FightOverlay extends Overlay {
 		challenger_ult.setOnMouseEntered((MouseEvent event) -> {
 			challenger_ultAnimation.playFromStart();
 			AudioUpdate.playCharacterSelectBGM(null, null, AudioLoader.sirTewadaSelectBGM);
-//			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
-//			effect.play();
 		});
 
 		challenger_ult.setOnMouseExited((MouseEvent event) -> {
@@ -322,7 +319,7 @@ public class FightOverlay extends Overlay {
 			}
 			if (challenger_IsAccepted && challenged_IsAccepted) {
 				Thread t = new Thread(() -> {
-					fight();					
+					fight();
 				});
 				t.start();
 				challenged_accept.setDisable(true);
@@ -431,7 +428,7 @@ public class FightOverlay extends Overlay {
 			}
 			if (challenger_IsAccepted && challenged_IsAccepted) {
 				Thread t = new Thread(() -> {
-					fight();					
+					fight();
 				});
 				t.start();
 				challenged_accept.setDisable(true);
@@ -485,7 +482,7 @@ public class FightOverlay extends Overlay {
 			for (int i = 0; i < FightController.challenger_slot.size(); i++) {
 				GameSetUp.removedDeck.addToRemovedDeck(FightController.challenger_slot.get(i));
 			}
-			
+
 		});
 		temp.start();
 

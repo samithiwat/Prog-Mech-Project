@@ -1,8 +1,6 @@
 package character;
 
 import component.entity.Minion;
-import component.weaponCard.Axe;
-import component.weaponCard.Gun;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -10,14 +8,15 @@ import logic.AudioLoader;
 import logic.GameSetUp;
 
 public class Collector extends MainCharacter {
-	
+
 	public Collector() {
 		super("Lady Collector", "");
 		this.color = Color.web("0x03728C");
 		this.selectBGM = AudioLoader.ladySelectBGM;
 		this.setImg_path("img/character/LadyCollector.png");
 		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/LadyCollector.png").toString()));
-		this.winnerImg = new ImageView(ClassLoader.getSystemResource("img/character/LadyCollectorWinner.png").toString());
+		this.winnerImg = new ImageView(
+				ClassLoader.getSystemResource("img/character/LadyCollectorWinner.png").toString());
 		this.objectiveInfo1 = "Capture";
 		this.objectiveInfo2 = "Minion.";
 		this.skill = "Get extra attact while defencing";

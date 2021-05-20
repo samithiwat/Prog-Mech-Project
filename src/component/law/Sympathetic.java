@@ -7,7 +7,7 @@ import logic.GameSetUp;
 import update.GameSettingUpdate;
 
 public class Sympathetic extends LawCard {
-	
+
 	public Sympathetic() {
 		super("ChuayLeauKonJon", "The richest player has to pay the poorest player 2,000,000 coconuts. "
 				+ "If there are more than one poorest player, the richest player has to pay 1,000,000 coconuts to each player");
