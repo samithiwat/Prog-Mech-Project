@@ -9,6 +9,7 @@ import component.weaponCard.Bow;
 import component.weaponCard.Gun;
 import component.weaponCard.Shield;
 import component.weaponCard.Sword;
+import gui.GameLobbyMenu;
 import gui.MainIsland;
 import gui.MapOverview;
 import gui.entity.Clickable;
@@ -34,6 +35,7 @@ import logic.AudioLoader;
 import logic.FightController;
 import logic.GameSetUp;
 import sprites.AnimationSprites;
+import update.AudioUpdate;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
 
@@ -125,19 +127,23 @@ public class FightOverlay extends Overlay {
 
 		challenger_ult.setOnMouseEntered((MouseEvent event) -> {
 			challenger_ultAnimation.playFromStart();
-			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
-			effect.play();
+			AudioUpdate.playCharacterSelectBGM(null, null, AudioLoader.sirTewadaSelectBGM);
+//			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
+//			effect.play();
 		});
 
 		challenger_ult.setOnMouseExited((MouseEvent event) -> {
+			AudioUpdate.getPlaySelectBGM().interrupt();
 			challenger_ultAnimation.pause();
 		});
 
 		challenger_ult.setOnMouseClicked((MouseEvent event) -> {
 			FightController.challenger_ult = true;
 			if (FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewada")) {
+				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti1Effect);
 				Teewada.warCry = false;
 			} else if (FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
+				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti2Effect);
 				Teewadee.warCry = false;
 			}
 			challenger_ult.setVisible(false);
