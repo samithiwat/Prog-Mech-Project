@@ -49,7 +49,7 @@ public class BlackSkull extends MainCharacter {
 	public int checkIsWin() {
 		int count = 0;
 		for (int i = 0; i < GameSetUp.allsecretBases.size(); i++) {
-			if (GameSetUp.allsecretBases.get(i).getPossessedBy() != null) {
+			if (GameSetUp.allsecretBases.get(i).getMinionOnLocation().size() > 0) {
 				count++;
 			}
 		}

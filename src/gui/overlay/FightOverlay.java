@@ -475,10 +475,7 @@ public class FightOverlay extends Overlay {
 			for (int i = 0; i < FightController.challenger_slot.size(); i++) {
 				GameSetUp.removedDeck.addToRemovedDeck(FightController.challenger_slot.get(i));
 			}
-			FightController.challenged_slot.clear();
-			FightController.challenger_slot.clear();
-			FightOverlayUpdate.challenger = null;
-			FightOverlayUpdate.challenged = null;
+			
 		});
 		temp.start();
 

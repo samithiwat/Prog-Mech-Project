@@ -224,6 +224,9 @@ public abstract class MainCharacter extends Component {
 			GameSetUp.selectedIcon.get(0).getMinion().addMinion(GameSetUp.selectedIcon.get(1).getMinion());
 			GameSetUp.selectedTile.getLocationType().removeFromLocation(GameSetUp.selectedIcon.get(1).getMinion());
 			AudioLoader.combineEffect.play();
+			if(GameSetUp.selectedTile.getLocationType().getName().equals("SecretBase")) {
+				GameSetUp.thisTurn.getPossessedArea().remove(GameSetUp.selectedTile.getLocationType());
+			}
 		} else {
 			throw new InvalidOwnershipException();
 		}
@@ -244,6 +247,9 @@ public abstract class MainCharacter extends Component {
 				Minion splitedMinion = minion.getMyMinion().get(index);
 				minion.removeMinion(index);
 				GameSetUp.selectedTile.getLocationType().addMinionToLocation(splitedMinion);
+				if(GameSetUp.selectedTile.getLocationType().getName().equals("SecretBase")) {
+					GameSetUp.thisTurn.getPossessedArea().add(GameSetUp.selectedTile.getLocationType());
+				}
 				AudioLoader.splitEffect.play();
 			}
 		}

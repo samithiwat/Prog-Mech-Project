@@ -76,7 +76,7 @@ public class PlayerPanelUpdate {
 
 		moneyStatus.setText("$" + money + " M");
 		minionStatus.setText("" + character.getMinionLeft());
-		landStatus.setText("" + character.getPossessedArea().size());
+		landStatus.setText("" + character.getArea());
 
 	}
 
@@ -237,7 +237,7 @@ public class PlayerPanelUpdate {
 				MainCharacter character = GameSetUp.gameCharacter.get(j);
 				int k = j * 4;
 				playerList1.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
-				playerList1.getAllText().get(k + 1).setText(character.getMyEntity().size() + "");
+				playerList1.getAllText().get(k + 1).setText(character.getMinionLeft() + "");
 				playerList1.getAllText().get(k + 2).setText(character.getArea() + "");
 				playerList1.getAllText().get(k + 3).setText(character.getGoodPoint() + "");
 			}
@@ -248,7 +248,7 @@ public class PlayerPanelUpdate {
 				MainCharacter character = GameSetUp.gameCharacter.get(j + 3);
 				int k = j * 4;
 				playerList2.getAllText().get(k).setText(character.getMoney() / MainCharacter.M + "M");
-				playerList2.getAllText().get(k + 1).setText(character.getMyEntity().size() + "");
+				playerList2.getAllText().get(k + 1).setText(character.getMinionLeft() + "");
 				playerList2.getAllText().get(k + 2).setText(character.getArea() + "");
 				playerList2.getAllText().get(k + 3).setText(character.getGoodPoint() + "");
 			}
