@@ -6,8 +6,9 @@ import gui.entity.Clickable;
 import gui.entity.MenuButton;
 import gui.entity.MenuIcon;
 import gui.entity.TextTitle;
+import gui.overlay.ConfirmOverlay;
 import gui.overlay.CreditOverlay;
-import gui.overlay.QuitOverlay;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -18,13 +19,17 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
+import logic.GameSetUp;
 import logic.SceneController;
 import update.AudioUpdate;
+import update.CloseGame;
 
 public class MainMenu implements Sceneable {
 
 	private static Scene scene;
 	private static ArrayList<Clickable> components;
+	private ConfirmOverlay quitOverlay;
+	private ConfirmOverlay newGameConfirm;
 
 	public MainMenu() {
 
@@ -33,7 +38,8 @@ public class MainMenu implements Sceneable {
 // -------------------------------------------- Init Overlay --------------------------------------------------------------------
 
 		CreditOverlay creditOverlay = new CreditOverlay();
-		QuitOverlay quitOverlay = new QuitOverlay();
+		quitOverlay = new ConfirmOverlay();
+		setUpQuitOverlay();
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------	
 
@@ -66,21 +72,20 @@ public class MainMenu implements Sceneable {
 		buttonBar.setLayoutX(70);
 		buttonBar.setLayoutY(680);
 
-		MenuButton start = new MenuButton("Start", 64, 400, 150, Color.WHITE, 0, 0);
+		MenuButton continueButton = new MenuButton("Continue", 64, 400, 150, Color.WHITE, 0, 0);
 
-		start.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		continueButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				AudioClip effect = AudioLoader.clickEffect;
-				effect.play();
-				SceneController.resetGame();
-				SceneController.setScene(SceneController.getGameSettingMenu());
-				AudioUpdate.changeEnv(GameLobbyMenu.getBGM());
+				EFFECT_MOUSE_CLICK.play();
+				AudioUpdate.changeCharacter(GameSetUp.thisTurn.getBgm());
+				AudioUpdate.changeEnv(MapOverview.getBgm());
+				SceneController.goToMapOverview();
 			}
 		});
 
-		MenuButton load = new MenuButton("Load", 64, 400, 150, Color.WHITE, 0, 0);
+		MenuButton newGame = new MenuButton("New Game", 64, 400, 150, Color.WHITE, 0, 0);
 
 		MenuButton quit = new MenuButton("Quit", 64, 400, 150, Color.WHITE, 0, 0);
 
@@ -88,11 +93,10 @@ public class MainMenu implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				AudioClip effect = AudioLoader.clickEffect;
-				effect.play();
+				EFFECT_MOUSE_CLICK.play();
 				quitOverlay.triggerOverlay(0, 1000, 1000);
-				start.setDisable(true);
-				load.setDisable(true);
+				continueButton.setDisable(true);
+				newGame.setDisable(true);
 				quit.setDisable(true);
 				creditIcon.setDisable(true);
 				helpIcon.setDisable(true);
@@ -101,8 +105,28 @@ public class MainMenu implements Sceneable {
 
 		});
 
-		buttonBar.add(start, 0, 0);
-		buttonBar.add(load, 1, 0);
+		newGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (continueButton.isDisable()) {
+					EFFECT_MOUSE_CLICK.play();
+					SceneController.setScene(SceneController.getGameSettingMenu());
+					AudioUpdate.changeEnv(GameLobbyMenu.getBGM());
+				} else {
+					newGameConfirm.triggerOverlay(0, 1000, 1000);
+					continueButton.setDisable(true);
+					newGame.setDisable(true);
+					quit.setDisable(true);
+					creditIcon.setDisable(true);
+					helpIcon.setDisable(true);
+					settingIcon.setDisable(true);
+				}
+			}
+		});
+
+		buttonBar.add(continueButton, 0, 0);
+		buttonBar.add(newGame, 1, 0);
 		buttonBar.add(quit, 2, 0);
 
 // -------------------------------------------- Add Icon and Button for Close Game Update --------------------------------------------------------------------	
@@ -111,13 +135,22 @@ public class MainMenu implements Sceneable {
 		components.add(creditIcon);
 		components.add(helpIcon);
 		components.add(settingIcon);
-		components.add(start);
-		components.add(load);
+		components.add(continueButton);
+		components.add(newGame);
 		components.add(quit);
 
 // --------------------------------------------- Set Scene --------------------------------------------------------------------
 
 		root.getChildren().addAll(bg, buttonBar, title, creditIcon, helpIcon, settingIcon, creditOverlay, quitOverlay);
+
+		if (SceneController.getMapOverView() == null) {
+			continueButton.setDisable(true);
+			continueButton.setId("button-disable-style");
+		} else {
+			newGameConfirm = new ConfirmOverlay();
+			setUpNewGameConfirm();
+			root.getChildren().add(newGameConfirm);
+		}
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(MOUSE_NORMAL);
@@ -132,7 +165,109 @@ public class MainMenu implements Sceneable {
 	}
 
 	public Scene getScene() {
-		return this.scene;
+		return scene;
+	}
+
+	private void setUpQuitOverlay() {
+		quitOverlay.getTextLine1().setText("Do you want to leave?");
+		quitOverlay.getTextLine2().setText("We will miss you.");
+		quitOverlay.getYes().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.quitSound;
+				effect.play();
+				quitOverlay.getTextLine1().setText("We hope you will be back :)");
+				quitOverlay.getTextLine2().setText("");
+				quitOverlay.getYes().setDisable(true);
+				quitOverlay.getNo().setDisable(true);
+				Thread t = new Thread(() -> {
+					try {
+						Thread.sleep(1500);
+					} catch (InterruptedException e) {
+
+					}
+
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							CloseGame.setIsCloseGame(true);
+							CloseGame.update();
+						}
+					});
+				});
+				t.start();
+			}
+		});
+
+		quitOverlay.getNo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
+				quitOverlay.triggerOverlay(0, 1000, 1000);
+				Thread t = new Thread(() -> {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+
+					}
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							quitOverlay.setVisible(false);
+							CloseGame.backed();
+						}
+					});
+
+				});
+				t.start();
+			}
+		});
+	}
+
+	private void setUpNewGameConfirm() {
+		newGameConfirm.getTextLine1().setText("Do you sure to start new game?");
+		newGameConfirm.getTextLine2().setText("Your process will loss.");
+
+		newGameConfirm.getYes().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				EFFECT_MOUSE_CLICK.play();
+				SceneController.resetGame();
+				SceneController.setScene(SceneController.getGameSettingMenu());
+				AudioUpdate.changeEnv(GameLobbyMenu.getBGM());
+			}
+		});
+
+		newGameConfirm.getNo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				newGameConfirm.triggerOverlay(0, 1000, 1000);
+				Thread t = new Thread(() -> {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+
+					}
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							newGameConfirm.setVisible(false);
+							CloseGame.backed();
+						}
+					});
+
+				});
+				t.start();
+			}
+		});
 	}
 
 }

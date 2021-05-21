@@ -1,5 +1,6 @@
 package gui;
 
+import animation.AnimationSprites;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
@@ -13,7 +14,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import logic.SceneController;
-import sprites.AnimationSprites;
 
 public class LoadingScreen2 implements Sceneable {
 
@@ -48,8 +48,6 @@ public class LoadingScreen2 implements Sceneable {
 		animation.setAutoReverse(true);
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();
-
-		System.out.println("loading...");
 
 		ImageView treeFilling = new ImageView(ClassLoader.getSystemResource("img/sprites/TreeFilling.png").toString());
 		treeFilling.setViewport(new Rectangle2D(0, 0, 140, 140));

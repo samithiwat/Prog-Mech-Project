@@ -13,6 +13,7 @@ import gui.entity.TextTitle;
 import gui.overlay.FightOverlay;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import update.AudioUpdate;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;
 import update.TradeOverlayUpdate;
@@ -276,6 +277,10 @@ public class FightController {
 					PlayerPanelUpdate.setShowMessage("Defeat", Color.WHITE, 120, 2000);
 				}
 			}
+ 
+			if(!challenged_ult && !challenger_ult) {
+				AudioUpdate.changeCharacter(GameSetUp.thisTurn.getBgm());
+			}
 			challenged_ult = false;
 			challenger_ult = false;
 			TradeOverlayUpdate.traded = null;
@@ -301,6 +306,7 @@ public class FightController {
 			overlay.getChallenged_outcome().setText("");
 			overlay.getChallenger_outcome().setText("");
 		}
+
 
 	}
 	//-------------------------getter/setter-------------------------

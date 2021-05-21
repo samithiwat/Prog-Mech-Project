@@ -314,7 +314,7 @@ public class MainIsland implements Sceneable {
 
 	@Override
 	public Scene getScene() {
-		return this.scene;
+		return scene;
 	}
 
 	public static ImageView getBg() {

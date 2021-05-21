@@ -191,7 +191,8 @@ public class MapOverview implements Sceneable {
 
 		this.scene.setOnKeyPressed(key -> {
 			if (key.getCode() == KeyCode.ESCAPE) {
-				System.exit(0);
+				SceneController.goToPauseMenu();;
+//				System.exit(0);
 			}
 		});
 
@@ -308,10 +309,6 @@ public class MapOverview implements Sceneable {
 
 	public static Pane getSceneRoot() {
 		return root;
-	}
-
-	public void setSceneRoot(Pane root) {
-		this.root = root;
 	}
 
 	public static TurnChangeScreen getTurnChangeScreen() {

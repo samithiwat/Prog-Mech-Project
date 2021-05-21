@@ -2,6 +2,7 @@ package gui.overlay;
 
 import java.util.ArrayList;
 
+import animation.AnimationSprites;
 import character.Teewada;
 import character.Teewadee;
 import component.weaponCard.Axe;
@@ -26,14 +27,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.FightController;
 import logic.GameSetUp;
-import sprites.AnimationSprites;
 import update.AudioUpdate;
 import update.FightOverlayUpdate;
 import update.PlayerPanelUpdate;

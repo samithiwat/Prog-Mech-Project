@@ -66,7 +66,7 @@ public class GameLobbyMenu implements Sceneable {
 
 // ---------------------------------------------- Create Back to Main Menu Button --------------------------------------------	
 
-		MenuButton back = new MenuButton("Back to Main Menu", 20, 240, 40, Color.web("0x393E46"), 1102, 758);
+		MenuButton back = new MenuButton("Back to Main Menu", 20, 270, 50, Color.web("0x393E46"), 1102, 768);
 		back.setFontBold(20);
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -78,7 +78,7 @@ public class GameLobbyMenu implements Sceneable {
 			}
 		});
 
-		start = new MenuButton("Start", 20, 240, 40, Color.web("0x393E46"), 1102, 703);
+		start = new MenuButton("Start", 20, 270, 50, Color.web("0x393E46"), 1102, 703);
 		start.setFontBold(20);
 		start.setId("button-disable-style");
 		start.setDisable(true);
