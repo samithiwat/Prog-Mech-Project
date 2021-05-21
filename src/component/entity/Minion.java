@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import character.BlackSkull;
 import character.MainCharacter;
 import component.Component;
-import component.location.BuyableLocation;
 import component.location.Location;
 import component.location.Ocean;
 import component.location.Prison;

@@ -1,4 +1,4 @@
-package sprites;
+package animation;
 
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;

@@ -1,5 +1,6 @@
 package gui;
 
+import animation.AnimationSprites;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -10,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.AudioLoader;
 import logic.SceneController;
-import sprites.AnimationSprites;
 
 public class TransitionScreen implements Sceneable {
 

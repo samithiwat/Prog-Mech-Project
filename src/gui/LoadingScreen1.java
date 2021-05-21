@@ -1,5 +1,6 @@
 package gui;
 
+import animation.AnimationSprites;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.Scene;
@@ -12,7 +13,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import logic.SceneController;
-import sprites.AnimationSprites;
 
 public class LoadingScreen1 implements Sceneable {
 	private Scene scene;

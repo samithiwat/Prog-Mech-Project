@@ -9,6 +9,12 @@
   -fx-opacity: 0.85;
 }
 
+#button-disable-style {
+  -fx-text-fill: #97A3AA;
+  -fx-background-color: #787878;
+    -fx-opacity: 0.5;
+}
+
 #overlay {
   -fx-opacity: 0.9;
 }

@@ -23,6 +23,17 @@ public class MenuButton extends Button implements Clickable {
 		setPrefWidth(width);
 		interact();
 	}
+	
+	public MenuButton(String content, int contentSize, int width, int height, Color textColor) {
+		setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+		setTextFill(textColor);
+		setId("button-release-style");
+		setText(content);
+		setFontRegular(contentSize);
+		setPrefHeight(height);
+		setPrefWidth(width);
+		interact();
+	}
 
 	@Override
 	public void interact() {

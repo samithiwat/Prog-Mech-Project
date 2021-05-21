@@ -8,8 +8,6 @@ import component.entity.Minion;
 import component.location.Prison;
 import component.location.SecretBase;
 import component.weaponCard.WeaponCard;
-import gui.entity.HexagonPane;
-import gui.entity.MapGrid;
 import gui.entity.TextTitle;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,7 +25,6 @@ import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 import logic.SceneController;
 import update.AudioUpdate;
-import update.CharacterSelectUpdate;
 
 public class EndScene implements Sceneable {
 
@@ -95,8 +92,8 @@ public class EndScene implements Sceneable {
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ESCAPE) {
 					AudioUpdate.changeEnv(StartMenu.getMenuThemeSong());
-					SceneController.setScene((new MainMenu()).getScene());
 					SceneController.resetGame();
+					SceneController.setScene((new MainMenu()).getScene());
 				}
 			}
 		});

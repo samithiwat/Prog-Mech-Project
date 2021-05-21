@@ -12,6 +12,7 @@ import gui.LoadingScreen1;
 import gui.LoadingScreen2;
 import gui.MainIsland;
 import gui.MapOverview;
+import gui.PauseMenu;
 import gui.PrisonIsland;
 import gui.StartMenu;
 import gui.entity.PlayerPanel;
@@ -38,10 +39,7 @@ public class SceneController {
 	private static Scene mapOverView;
 	private static Scene mainIsland;
 	private static Scene prisonIsland;
-
-	public SceneController() throws Exception {
-		mainStage.setScene((new StartMenu()).getScene());
-	}
+	private static Scene pauseMenu;
 
 	public static int getFullscreenWidth() {
 		return FULLSCREEN_WIDTH;
@@ -98,6 +96,7 @@ public class SceneController {
 
 		SceneController.prisonIsland = (new PrisonIsland()).getScene();
 		SceneController.mainIsland = (new MainIsland()).getScene();
+		SceneController.pauseMenu = (new PauseMenu()).getScene();
 	}
 
 	public static void loadingScreen() {
@@ -115,18 +114,21 @@ public class SceneController {
 	}
 
 	public static void endScene(MainCharacter winner) {
-		if (winner instanceof Teewada || winner instanceof ThousandYear) {
-			if (GameSetUp.theGovernment != winner) {
-				EndScene.setCoWinner(GameSetUp.theGovernment);
+		if(winner != null) {
+			if (winner instanceof Teewada || winner instanceof ThousandYear) {
+				if (GameSetUp.theGovernment != winner) {
+					EndScene.setCoWinner(GameSetUp.theGovernment);
+				}
 			}
+			AudioUpdate.changeCharacter(null);
+			AudioUpdate.changeEnv(AudioLoader.victorySoundTrack);
+			endScene = (new EndScene(winner)).getScene();
+			setScene(SceneController.getEndScene());
 		}
-		AudioUpdate.changeCharacter(null);
-		AudioUpdate.changeEnv(AudioLoader.victorySoundTrack);
-		endScene = (new EndScene(winner)).getScene();
-		setScene(SceneController.getEndScene());
 	}
 	
 	public static void resetGame() {
+		GameSetUp.isGameEnd = true;
 		CharacterSelectUpdate.reset();
 		GameSetUp.gameCharacter = new ArrayList<MainCharacter>();
 		SceneController.setGameSettingMenu((new GameLobbyMenu()).getScene());
@@ -134,13 +136,14 @@ public class SceneController {
 		SceneController.setMapOverView(null);
 		SceneController.setPrisonIsland(null);
 		SceneController.setEndScene(null);
+		SceneController.setPauseMenu(null);
 	}
 
 // -------------------------------------------------- Change Scene Method ---------------------------------------------------------------
 
 	public static void goToMapOverview() {
 		MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
-		setScene(SceneController.getMapOverView());
+		setScene(mapOverView);
 	}
 
 	public static void goToMainIsland() {
@@ -152,12 +155,17 @@ public class SceneController {
 		MainIsland.getSceneRoot().getChildren().set(7, PlayerPanel.getGovernmentPoint());
 		MainIsland.getSceneRoot().getChildren().set(8, PlayerPanel.getGoodnessPoint());
 
-		setScene(SceneController.getMainIsland());
+		setScene(mainIsland);
 	}
 
 	public static void goToPrisonIsland() {
 		PrisonIsland.getSceneRoot().getChildren().set(1, new PlayerPanel());
-		setScene(SceneController.getPrisonIsland());
+		setScene(prisonIsland);
+	}
+	
+	public static void goToPauseMenu() {
+		AudioUpdate.changeEnv(null);
+		setScene(pauseMenu);
 	}
 
 // --------------------------------------------------- Getter and Setter ----------------------------------------------------------------
@@ -210,7 +218,13 @@ public class SceneController {
 	public static void setPrisonIsland(Scene prisonIsland) {
 		SceneController.prisonIsland = prisonIsland;
 	}
-	
-	
+
+	public static Scene getPauseMenu() {
+		return pauseMenu;
+	}
+
+	public static void setPauseMenu(Scene pauseMenu) {
+		SceneController.pauseMenu = pauseMenu;
+	}
 
 }
