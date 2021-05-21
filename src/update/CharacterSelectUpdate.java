@@ -444,4 +444,13 @@ public class CharacterSelectUpdate implements Updateable {
 		// Empty
 	}
 
+	public static void reset() {
+		GameSettingUpdate.setNPlayer(6);
+		cBox = null;
+		portraits = null;
+		cc = new ArrayList<CharacterCard>();
+		overlayTexts = new ArrayList<TextTitle>();
+		overlayInfoTexts = new ArrayList<TextTitle>();
+	}
+	
 }

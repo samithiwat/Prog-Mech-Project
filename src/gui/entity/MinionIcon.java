@@ -158,9 +158,13 @@ public class MinionIcon extends MenuIcon {
 							}
 						}
 						MainIsland.overlayInteractMode("", true,true);
-						GameSetUp.initialTile.unhighlight();
-						GameSetUp.selectedTile.unhighlight();
-						GameSetUp.selectedTile = null;
+						if(GameSetUp.initialTile != null) {
+							GameSetUp.initialTile.unhighlight();							
+						}
+						if(GameSetUp.selectedTile != null) {
+							GameSetUp.selectedTile.unhighlight();
+							GameSetUp.selectedTile = null;							
+						}
 					});
 					confirmMove.start();
 

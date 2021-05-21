@@ -13,6 +13,7 @@ public class Collector extends MainCharacter {
 		super("Lady Collector", "");
 		this.color = Color.web("0x03728C");
 		this.selectBGM = AudioLoader.ladySelectBGM;
+		this.bgm = AudioLoader.ladyBGM;
 		this.setImg_path("img/character/LadyCollector.png");
 		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/LadyCollector.png").toString()));
 		this.winnerImg = new ImageView(

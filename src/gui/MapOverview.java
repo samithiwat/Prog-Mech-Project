@@ -156,7 +156,7 @@ public class MapOverview implements Sceneable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				AudioUpdate.change(bgm, PrisonIsland.getBgm());
+				AudioUpdate.changeEnv(PrisonIsland.getBgm());
 				SceneController.goToPrisonIsland();
 			}
 		});
@@ -167,7 +167,7 @@ public class MapOverview implements Sceneable {
 			@Override
 			public void handle(MouseEvent event) {
 
-				AudioUpdate.change(bgm, null);
+				AudioUpdate.changeEnv(null);
 
 				SceneController.goToMainIsland();
 

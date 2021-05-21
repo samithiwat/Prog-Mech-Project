@@ -10,6 +10,7 @@ import gui.MainIsland;
 import gui.entity.HexagonPane;
 import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
+import update.AudioUpdate;
 import update.GameSettingUpdate;
 import update.MainIslandUpdate;
 import update.PlayerPanelUpdate;
@@ -68,17 +69,10 @@ public class GameController {
 
 // --------------------------------------- After Player Choose Spawn Location -----------------------------------
 
-///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
-
 			spawnMinion(GameSetUp.selectedTile);
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 			GameSetUp.isReset = true;
 			GameSetUp.selectedTile = null;
 		}
-
-///////////////////////////////////////////////////////////// UNCOMMENT THIS  /////////////////////////////////////////////////////////////////////
 
 		GameSetUp.isCountDown = true;
 		GameSetUp.countDownDuration = 3;
@@ -90,7 +84,6 @@ public class GameController {
 			}
 		}
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		GameSetUp.thisTurn = GameSetUp.gameCharacter.get(0);
 		GameSetUp.isTurnChange = true;
 		GameSetUp.isHighlightSpawnable = false;
@@ -102,6 +95,7 @@ public class GameController {
 		while (!GameSetUp.isGameEnd) {
 			for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 				GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
+//				AudioUpdate.change(GameSetUp.thisTurn.getBgm());
 				GameSetUp.isDraw = true;
 				MainCharacter character = GameSetUp.thisTurn;
 				GameSetUp.gameLaw.activateEachTurn(character);
@@ -112,16 +106,7 @@ public class GameController {
 					Prison.canCapture = true;
 					Ocean.canPardon = true;
 				}
-				// what you do in a turn
-
-////////////////////////////////////////////////////////////////FOR DEBUG ONLY ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-				System.out
-						.println("------------------------------- Current Turn --------------------------------------\n"
-								+ GameSetUp.thisTurn);
-				System.out.println("Government : " + GameSetUp.theGovernment);
-
-////////////////////////////////////////////////////////////////END OF DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+				// what you do in a turn			
 
 				TradeOverlayUpdate.resetIstraded();
 				while (!GameSetUp.isEndTurn) {
@@ -151,14 +136,11 @@ public class GameController {
 				GameSetUp.canBuyMinion = true;
 				GameSetUp.isTurnChange = true;
 				MainIslandUpdate.setCenter();
-				// AudioUpdate.changeTurn(GameSetUp.thisTurn,);
 			}
-//			GameSetUp.turn++;
 			GameSetUp.cycle++;
 			GameSetUp.gameLaw.activateEachCycle();
 
 		}
-		System.out.println("END!!!");
 		Platform.runLater(new Runnable() {
 
 			@Override
@@ -188,12 +170,6 @@ public class GameController {
 		}
 
 	}
-
-//	private void checkWin() {
-//		for(MainCharacter player : GameSetUp.gameCharacter) {
-//			player.checkIsWin();
-//		}
-//	}
 
 	private MainCharacter getWinner() {
 		for (MainCharacter player : GameSetUp.gameCharacter) {

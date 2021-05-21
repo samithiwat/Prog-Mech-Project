@@ -2,6 +2,7 @@ package character;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 import logic.GameSetUp;
@@ -12,6 +13,7 @@ public class RedFox extends MainCharacter {
 		super("Mr.Red Fox", "");
 		this.color = Color.web("0xF58C4A");
 		this.selectBGM = AudioLoader.mrFoxSelectBGM;
+		this.bgm = AudioLoader.mrFoxBGM;
 		this.setImg_path("img/character/MrRedFox.png");
 		this.setMoney(11 * M);
 		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/MrRedFox.png").toString()));

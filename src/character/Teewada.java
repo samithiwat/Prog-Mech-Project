@@ -3,6 +3,7 @@ package character;
 import component.location.Council;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.AudioLoader;
 import logic.GameSetUp;
@@ -11,10 +12,12 @@ public class Teewada extends MainCharacter {
 	
 	public static boolean warCry = true;
 	public static Image ultSkill;
+	public static AudioClip ultiSoundTrack = AudioLoader.ulti1Effect;
 
 	public Teewada() {
 		super("Sir Tewada", ""); 
 		this.selectBGM = AudioLoader.sirTewadaSelectBGM;
+		this.bgm = AudioLoader.sirTewadaBGM;
 		this.color = Color.web("0xFEF67A");
 		this.setImg_path("img/character/SirTewada.png");
 		this.setPfp(new Image(ClassLoader.getSystemResource("img/character/SirTewada.png").toString()));

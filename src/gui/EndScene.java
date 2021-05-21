@@ -8,11 +8,16 @@ import component.entity.Minion;
 import component.location.Prison;
 import component.location.SecretBase;
 import component.weaponCard.WeaponCard;
+import gui.entity.HexagonPane;
+import gui.entity.MapGrid;
 import gui.entity.TextTitle;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -21,6 +26,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 import logic.SceneController;
+import update.AudioUpdate;
+import update.CharacterSelectUpdate;
 
 public class EndScene implements Sceneable {
 
@@ -81,6 +88,18 @@ public class EndScene implements Sceneable {
 
 		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
 		scene.setCursor(MOUSE_NORMAL);
+		
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ESCAPE) {
+					AudioUpdate.changeEnv(StartMenu.getMenuThemeSong());
+					SceneController.setScene((new MainMenu()).getScene());
+					SceneController.resetGame();
+				}
+			}
+		});
 	}
 
 	@Override

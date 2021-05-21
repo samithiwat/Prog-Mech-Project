@@ -99,6 +99,7 @@ public class FightController {
 					else {
 						t.setText(t.getText() + " + " + randomized_atkPoint);						
 					}
+					AudioLoader.hitEffect.play();
 				}
 				try {
 					Thread.sleep(1000);				
@@ -138,6 +139,7 @@ public class FightController {
 				else {
 					t.setText(t.getText() + " = " + challenger_atkPoint);					
 				}
+				AudioLoader.hitEffect.play();
 			}
 			try {
 				Thread.sleep(2000);				
@@ -165,6 +167,7 @@ public class FightController {
 					else {
 						t.setText(t.getText() + " + " + randomized_atkPoint);						
 					}
+					AudioLoader.hitEffect.play();
 				}
 				try {
 					Thread.sleep(1000);				
@@ -192,6 +195,7 @@ public class FightController {
 				else {
 					t.setText(t.getText() + " = " + challenged_atkPoint);					
 				}
+				AudioLoader.hitEffect.play();
 			}
 			try {
 				Thread.sleep(2000);				
@@ -250,6 +254,7 @@ public class FightController {
 					council.getMinionOnLocation().remove(0);
 					council.addMinionToLocation(challenger);
 					council.changeTheGovernment(challenger.getPossessedBy());
+					GameSetUp.theGovenment_minion = challenger;
 					if(GameSetUp.sirTeewadee!=null) {
 						GameSetUp.sirTeewadee.checkIsWin();						
 					}

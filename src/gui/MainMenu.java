@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.SceneController;
+import update.AudioUpdate;
 
 public class MainMenu implements Sceneable {
 
@@ -73,10 +74,9 @@ public class MainMenu implements Sceneable {
 			public void handle(MouseEvent event) {
 				AudioClip effect = AudioLoader.clickEffect;
 				effect.play();
+				SceneController.resetGame();
 				SceneController.setScene(SceneController.getGameSettingMenu());
-				StartMenu.getMenuThemeSong().stop();
-				GameLobbyMenu.getBGM().setCycleCount(AudioClip.INDEFINITE);
-				GameLobbyMenu.getBGM().play();
+				AudioUpdate.changeEnv(GameLobbyMenu.getBGM());
 			}
 		});
 

@@ -35,7 +35,7 @@ public class FightOverlayUpdate {
 				overlay.getchallenged_img().setImage(challenged.getPossessedBy().getPfp());
 			} else {
 				overlay.getchallenged_img()
-						.setImage(new Image(ClassLoader.getSystemResource("img/card/CouncilCard ").toString()));
+						.setImage(new Image(ClassLoader.getSystemResource("img/card/CouncilCard.png").toString()));
 			}
 			overlay.getchallenger_img().setImage(challenger.getPossessedBy().getPfp());
 			if (challenged.getPossessedBy().getName().equals("Sir Tewada")) {

@@ -143,7 +143,7 @@ public class PrisonIsland implements Sceneable {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
-					AudioUpdate.change(bgm, MapOverview.getBgm());
+					AudioUpdate.changeEnv(MapOverview.getBgm());
 					MapOverview.getSceneRoot().getChildren().set(1, new PlayerPanel());
 					SceneController.setScene(SceneController.getMapOverView());
 				}
