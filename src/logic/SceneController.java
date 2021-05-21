@@ -101,6 +101,7 @@ public class SceneController {
 	}
 
 	public static void loadingScreen() {
+		AudioLoader.mouseEnterSound.setVolume(0.6);
 		Random rand = new Random();
 		int sceneNum = rand.nextInt(2);
 

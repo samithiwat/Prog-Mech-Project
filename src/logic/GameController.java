@@ -22,7 +22,8 @@ public class GameController {
 
 		MainIsland.dataInteractMode("Select location to spawn your minion.", false, false);
 		GameSetUp.isHighlightSpawnable = true;
-
+		AudioUpdate.changeEnv(AudioLoader.selectSound);
+		
 		for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 
 			GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);

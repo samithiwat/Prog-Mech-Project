@@ -758,6 +758,7 @@ public class GameSetUp {
 			break;
 		case 1:
 			AudioUpdate.changeEnv(AudioLoader.changeTurnEffect2);
+			break;
 		}
 	}
 

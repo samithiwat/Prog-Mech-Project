@@ -1,68 +1,77 @@
 #setting-menu {
-  -fx-background-color: rgb(254, 253, 232);
+  -fx-background-color: rgb(254.0, 253.0, 232.0);
+  -fx-background-radius:30.0;
 }
 
 #button-hold-style {
-  -fx-text-fill: rgb(255, 255, 255);
-  -fx-background-color: rgb(57, 62, 70);
+	-fx-background-radius:20.0;
+  -fx-text-fill: rgb(255.0, 255.0, 255.0);
+  -fx-background-color: rgb(57.0, 62.0, 70.0);
 }
 
 #button-release-style {
-  -fx-background-color: rgba(254, 253, 232);
+	-fx-background-radius:20.0;
+  -fx-background-color: rgba(254.0, 253.0, 232.0);
 }
 
 #button-disable-style {
   -fx-text-fill: #778185;
+    -fx-background-radius:20.0;
   -fx-background-color: #a7b0b5;
 }
 
 #character-box {
-  -fx-arc-height: 30;
-  -fx-arc-width: 30;
-  -fx-fill: rgba(254, 253, 232);
+  -fx-arc-height: 30.0;
+  -fx-arc-width: 30.0;
+  -fx-fill: rgba(254.0, 253.0, 232.0);
 }
 
 #character-box-hold {
-  -fx-arc-height: 30;
-  -fx-arc-width: 30;
-  -fx-fill: rgb(57, 62, 70);
+  -fx-arc-height: 30.0;
+  -fx-arc-width: 30.0;
+  -fx-fill: rgb(57.0, 62.0, 70.0);
 }
 
 #character-box-selected {
-  -fx-arc-height: 30;
-  -fx-arc-width: 30;
+  -fx-arc-height: 30.0;
+  -fx-arc-width: 30.0;
   -fx-fill: #a5a5a5;
 }
 
 #character-box-portraits {
-  -fx-arc-height: 30;
-  -fx-arc-width: 30;
-  -fx-fill: rgb(249, 218, 158);
+  -fx-arc-height: 30.0;
+  -fx-arc-width: 30.0;
+  -fx-fill: rgb(249.0, 218.0, 158.0);
 }
 
 #character-card {
-  opacity: 1;
-  -fx-background-color: rgb(165, 165, 165);
+  opacity: 1.0;
+  -fx-background-color: rgb(165.0, 165.0, 165.0);
 }
 
 #character-card-hold {
-  opacity: 1;
-  -fx-background-color: rgb(0, 0, 0);
+  opacity: 1.0;
+  -fx-background-color: rgb(0.0, 0.0, 0.0);
 }
 
 #character-card-selected {
-  opacity: 1;
-  -fx-background-color: rgb(165, 165, 165);
+  opacity: 1.0;
+  -fx-background-color: rgb(165.0, 165.0, 165.0);
 }
 
 #character-card-bg {
-  -fx-arc-height: 30;
-  -fx-arc-width: 30;
-  -fx-fill: rgb(254, 253, 232);
+  -fx-arc-height: 30.0;
+  -fx-arc-width: 30.0;
+  -fx-fill: rgb(254.0, 253.0, 232.0);
+}
+
+#map-bg{
+  -fx-background-radius:20.0;
+  -fx-background-color: #61656B;
 }
 
 #box {
-  -fx-fill: rgb(97, 101, 107);
+  -fx-background-color: #61656B;
 }
 
 #overlay {
@@ -70,5 +79,5 @@
 }
 
 #overlay-bg {
-  -fx-fill: rgba(57, 62, 70, 0.9);
+  -fx-fill: rgba(57.0, 62.0, 70.0, 0.9);
 }

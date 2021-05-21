@@ -1,5 +1,7 @@
 package gui.entity;
 
+import java.util.Random;
+
 import character.MainCharacter;
 import exception.ExceedMinionInTileException;
 import exception.ExceedToBuyMinionException;
@@ -17,7 +19,9 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import logic.AudioLoader;
 import logic.GameSetUp;
+import update.AudioUpdate;
 import update.FightOverlayUpdate;
 import update.GameSettingUpdate;
 import update.PlayerPanelUpdate;
@@ -278,6 +282,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								break;
 							}
 							if (GameSetUp.selectedIcon.size() >= 2) {
+								fightSoundTrack();							
 								FightOverlayUpdate.updateSelectors();
 								GameSetUp.selectedTile.triggerOverlay();
 								GameSetUp.isFightTradeMode = true;
@@ -348,7 +353,8 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 				if (!key) {
 					PlayerPanelUpdate.setShowMessage("Too poor!", Color.WHITE, 100, 3000);
 					MainIsland.setShowMessage("Too poor", Color.web("0xFEFDE8"), Color.web("0x89949B"), 100, 1, 3000);
-				} else {
+				} else {		
+					fightSoundTrack();							
 					GameSetUp.selectedTile.updateMinionPane("");
 					GameSetUp.selectedTile.triggerOverlay();
 					GameSetUp.selectedTile.getOverlay().getMinionPane().setTwoMinionSelectMode();
@@ -366,6 +372,7 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 											Color.web("0x89949B"), 120, 1, 3000);
 									PlayerPanelUpdate.setShowMessage("You can not do that.", Color.WHITE, 120, 3000);
 									GameSetUp.selectedTile.triggerOverlay();
+									AudioUpdate.changeCharacter(GameSetUp.thisTurn.getBgm());
 									break;
 								}
 								GameSetUp.isChallenging = true;
@@ -446,6 +453,24 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 	@Override
 	public void triggerDisable() {
 		// Empty
+	}
+	
+	private void fightSoundTrack() {
+		Random rand = new Random();
+		int changeTurnNum = rand.nextInt(3);
+
+		switch (changeTurnNum) {
+		case 0:
+			AudioUpdate.changeCharacter(AudioLoader.challengeEffect1);
+			break;
+		case 1:
+			AudioUpdate.changeCharacter(AudioLoader.challengeEffect2);
+			break;
+		case 2:
+			AudioUpdate.changeCharacter(AudioLoader.challengeEffect3);
+			break;
+		}
+		
 	}
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------	
