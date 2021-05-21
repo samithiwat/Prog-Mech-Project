@@ -416,8 +416,6 @@ public class FightOverlay extends Overlay {
 		challenger_accept.setOnMouseClicked((MouseEvent event) -> {
 			if (!challenger_IsAccepted) {
 				challenger_IsAccepted = true;
-				System.out.println(FightOverlayUpdate.challenger.getPossessedBy().getName() + "\n"
-						+ FightOverlayUpdate.challenged.getPossessedBy().getName());
 				setId("button-hold-style");
 				challenger_accept.setStyle("-fx-background-color: #279F2B;");
 			} else {
