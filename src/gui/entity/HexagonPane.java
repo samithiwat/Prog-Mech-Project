@@ -15,6 +15,7 @@ import component.location.Incomeable;
 import component.location.Location;
 import component.location.SecretBase;
 import component.location.Water;
+import gui.MainIsland;
 import gui.overlay.TileOverlay;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

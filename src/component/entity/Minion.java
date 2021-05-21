@@ -2,6 +2,7 @@ package component.entity;
 
 import java.util.ArrayList;
 
+import character.BlackSkull;
 import character.MainCharacter;
 import component.Component;
 import component.location.BuyableLocation;
@@ -18,7 +19,9 @@ import exception.SupportArmyException;
 import exception.TooFarException;
 import exception.WaterTileException;
 import gui.entity.HexagonPane;
+import javafx.scene.paint.Color;
 import logic.GameSetUp;
+import update.PlayerPanelUpdate;
 
 public class Minion extends Component implements moveable {
 	public final static int COST = 3 * MainCharacter.M;
@@ -143,8 +146,15 @@ public class Minion extends Component implements moveable {
 			if (GameSetUp.thisTurn.getMoney() < Prison.PLEDGE) {
 				throw new LackOfMoneyException();
 			}
-
-			GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - Prison.PLEDGE);
+			
+			if(!(GameSetUp.thisTurn instanceof BlackSkull) || !BlackSkull.prisonOutBreakSkill) {
+				GameSetUp.thisTurn.setMoney(GameSetUp.thisTurn.getMoney() - Prison.PLEDGE);				
+			}
+			else {
+				PlayerPanelUpdate.setShowMessage("Prison Break!! (Black Skull Skill)", Color.web("0xFEFDE8"), 90, 2000);
+				BlackSkull.prisonOutBreakSkill = false;
+			}
+			
 		}
 
 		Prison.minionInPrison.remove(prisonerNumber);

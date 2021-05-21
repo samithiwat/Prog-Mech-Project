@@ -66,6 +66,10 @@ public class MainIsland implements Sceneable {
 	public MainIsland() {
 		root = new Pane();
 
+		bgX = BG_CENTER_X;
+		bgY = BG_CENTER_Y;
+		MainIslandUpdate.setCurrent_speed(0);
+
 		bg = new ImageView(ClassLoader.getSystemResource("img/background/MainIsland.png").toString());
 		bg.setViewport(new Rectangle2D(BG_CENTER_X, BG_CENTER_Y, SceneController.getFullscreenWidth(),
 				SceneController.getFullscreenHeight()));
@@ -299,7 +303,7 @@ public class MainIsland implements Sceneable {
 			}
 
 			if (key.getCode() == KeyCode.ESCAPE) {
-				AudioUpdate.change(null, MapOverview.getBgm());
+				AudioUpdate.changeEnv(MapOverview.getBgm());
 				SceneController.goToMapOverview();
 			}
 		});

@@ -137,10 +137,10 @@ public class FightOverlay extends Overlay {
 		challenger_ult.setOnMouseClicked((MouseEvent event) -> {
 			FightController.challenger_ult = true;
 			if (FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewada")) {
-				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti1Effect);
+				AudioUpdate.changeCharacter(Teewada.ultiSoundTrack);
 				Teewada.warCry = false;
 			} else if (FightOverlayUpdate.challenger.getPossessedBy().getName().equals("Sir Tewadee")) {
-				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti2Effect);
+				AudioUpdate.changeCharacter(Teewadee.ultiSoundTrack);
 				Teewadee.warCry = false;
 			}
 			challenger_ult.setVisible(false);
@@ -199,8 +199,6 @@ public class FightOverlay extends Overlay {
 		challenged_ult.setOnMouseEntered((MouseEvent event) -> {
 			AudioUpdate.playCharacterSelectBGM(null, null, AudioLoader.sirTewadaSelectBGM);
 			challenged_ultAnimation.playFromStart();
-			AudioClip effect = AudioLoader.sirTewadaSelectBGM;
-			effect.play();
 		});
 
 		challenged_ult.setOnMouseExited((MouseEvent evnet) -> {
@@ -211,10 +209,10 @@ public class FightOverlay extends Overlay {
 		challenged_ult.setOnMouseClicked((MouseEvent event) -> {
 			FightController.challenged_ult = true;
 			if (FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewada")) {
-				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti1Effect);
+				AudioUpdate.changeCharacter(Teewada.ultiSoundTrack);
 				Teewada.warCry = false;
 			} else if (FightOverlayUpdate.challenged.getPossessedBy().getName().equals("Sir Tewadee")) {
-				AudioUpdate.change(GameSetUp.thisTurn.getBgm(), AudioLoader.ulti2Effect);
+				AudioUpdate.changeCharacter(Teewadee.ultiSoundTrack);
 				Teewadee.warCry = false;
 			}
 			challenged_ult.setVisible(false);

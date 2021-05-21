@@ -1,15 +1,34 @@
 package update;
 
 import javafx.scene.media.AudioClip;
+import logic.GameSetUp;
 
 public class AudioUpdate {
 
 	private static Thread playSelectBGM;
 
-	public static void change(AudioClip currentBGM, AudioClip nextBGM) {
-		if (currentBGM != null) {
-			currentBGM.stop();
+	public static void changeEnv(AudioClip nextBGM) {
+
+		if (GameSetUp.currentEnvBGM != null) {
+			GameSetUp.currentEnvBGM.stop();
 		}
+		
+		GameSetUp.currentEnvBGM = nextBGM;
+		
+		if (nextBGM != null) {
+			nextBGM.setCycleCount(AudioClip.INDEFINITE);
+			nextBGM.play();
+		}
+	}
+	
+	public static void changeCharacter(AudioClip nextBGM) {
+
+		if (GameSetUp.currentCharacterBGM != null) {
+			GameSetUp.currentCharacterBGM.stop();
+		}
+		
+		GameSetUp.currentCharacterBGM = nextBGM;
+		
 		if (nextBGM != null) {
 			nextBGM.setCycleCount(AudioClip.INDEFINITE);
 			nextBGM.play();

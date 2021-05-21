@@ -34,16 +34,24 @@ public class AudioLoader {
 			ClassLoader.getSystemResource("audio/LadyCharacterSelectBG.mp3").toString());
 	public static AudioClip blackSkullSelectBGM = new AudioClip(
 			ClassLoader.getSystemResource("audio/BlackSkullCharacterSelectBG.mp3").toString());
-	public static AudioClip blackSkullBGM = new AudioClip(
-			ClassLoader.getSystemResource("audio/BlackSkullBGM.mp3").toString());
 	public static AudioClip sirThousandSelectBGM = new AudioClip(
 			ClassLoader.getSystemResource("audio/SirThousandSelectSound.mp3").toString());
-	public static AudioClip sirThousandBGM = new AudioClip(
-			ClassLoader.getSystemResource("audio/SirThousandBGM.mp3").toString());
 	public static AudioClip sirTewadaSelectBGM = new AudioClip(
 			ClassLoader.getSystemResource("audio/SirTewaSelectSound.mp3").toString());
 	public static AudioClip sirTewadeeSelectBGM = new AudioClip(
 			ClassLoader.getSystemResource("audio/SirTewaSelectSound.mp3").toString());
+	public static AudioClip mrFoxBGM = new AudioClip(
+			ClassLoader.getSystemResource("audio/MrRedFoxSoundTrack.mp3").toString());
+	public static AudioClip ladyBGM = new AudioClip(
+			ClassLoader.getSystemResource("audio/ladyBGM.mp3").toString());
+	public static AudioClip blackSkullBGM = new AudioClip(
+			ClassLoader.getSystemResource("audio/BlackSkullBGM.mp3").toString());
+	public static AudioClip sirThousandBGM = new AudioClip(
+			ClassLoader.getSystemResource("audio/SirThousandBGM.mp3").toString());
+	public static AudioClip sirTewadaBGM = new AudioClip(
+			ClassLoader.getSystemResource("audio/SirTewadaSoundTrack.mp3").toString());
+	public static AudioClip sirTewadeeBGM = new AudioClip(
+			ClassLoader.getSystemResource("audio/sirTeewadeeSoundTrack.mp3").toString());
 	public static AudioClip beachBGM = new AudioClip(
 			ClassLoader.getSystemResource("audio/BeachSoundEffect.mp3").toString());
 	public static AudioClip addGoodPointEffect = new AudioClip(
@@ -57,6 +65,10 @@ public class AudioLoader {
 			ClassLoader.getSystemResource("audio/LoseEffect.mp3").toString());
 	public static AudioClip ulti1Effect = new AudioClip(ClassLoader.getSystemResource("audio/ulti1.mp3").toString());
 	public static AudioClip ulti2Effect = new AudioClip(ClassLoader.getSystemResource("audio/ulti2.mp3").toString());
+	public static AudioClip changeTurnEffect1 = new AudioClip(ClassLoader.getSystemResource("audio/changeTurnEffect.mp3").toString());
+	public static AudioClip changeTurnEffect2 = new AudioClip(ClassLoader.getSystemResource("audio/changeTurnEffect2.mp3").toString());
+	public static AudioClip hitEffect = new AudioClip(ClassLoader.getSystemResource("audio/Hit.mp3").toString());
+	public static AudioClip victorySoundTrack = new AudioClip(ClassLoader.getSystemResource("audio/vitorySoundtrack.mp3").toString());
 
 	public static void setBGMVolume(double volume) {
 		menuThemeSong.setVolume(volume);

@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import logic.AudioLoader;
 import logic.SceneController;
+import update.AudioUpdate;
 
 public class StartMenu {
 
@@ -121,8 +122,7 @@ public class StartMenu {
 	public static Scene StartBG() {
 
 		menuThemeSong = AudioLoader.menuThemeSong;
-		menuThemeSong.setCycleCount(AudioClip.INDEFINITE);
-		menuThemeSong.play();
+		AudioUpdate.changeEnv(menuThemeSong);
 		ImageView BG = new ImageView(ClassLoader.getSystemResource("img/background/StartBg.png").toString());
 
 		AnchorPane root = new AnchorPane();

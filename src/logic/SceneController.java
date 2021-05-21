@@ -1,11 +1,13 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import character.MainCharacter;
 import character.Teewada;
 import character.ThousandYear;
 import gui.EndScene;
+import gui.GameLobbyMenu;
 import gui.LoadingScreen1;
 import gui.LoadingScreen2;
 import gui.MainIsland;
@@ -16,6 +18,8 @@ import gui.entity.PlayerPanel;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import update.AudioUpdate;
+import update.CharacterSelectUpdate;
 import update.CloseGame;
 
 public class SceneController {
@@ -34,7 +38,6 @@ public class SceneController {
 	private static Scene mapOverView;
 	private static Scene mainIsland;
 	private static Scene prisonIsland;
-	private static Scene Ocean;
 
 	public SceneController() throws Exception {
 		mainStage.setScene((new StartMenu()).getScene());
@@ -113,12 +116,23 @@ public class SceneController {
 	public static void endScene(MainCharacter winner) {
 		if (winner instanceof Teewada || winner instanceof ThousandYear) {
 			if (GameSetUp.theGovernment != winner) {
-				System.out.println("winner : " + winner);
 				EndScene.setCoWinner(GameSetUp.theGovernment);
 			}
 		}
+		AudioUpdate.changeCharacter(null);
+		AudioUpdate.changeEnv(AudioLoader.victorySoundTrack);
 		endScene = (new EndScene(winner)).getScene();
 		setScene(SceneController.getEndScene());
+	}
+	
+	public static void resetGame() {
+		CharacterSelectUpdate.reset();
+		GameSetUp.gameCharacter = new ArrayList<MainCharacter>();
+		SceneController.setGameSettingMenu((new GameLobbyMenu()).getScene());
+		SceneController.setMainIsland(null);
+		SceneController.setMapOverView(null);
+		SceneController.setPrisonIsland(null);
+		SceneController.setEndScene(null);
 	}
 
 // -------------------------------------------------- Change Scene Method ---------------------------------------------------------------
@@ -167,9 +181,6 @@ public class SceneController {
 		return prisonIsland;
 	}
 
-	public static Scene getOcean() {
-		return Ocean;
-	}
 
 	public static Stage getLoadingStage() {
 		return loadingStage;
@@ -182,5 +193,23 @@ public class SceneController {
 	public static Scene getEndScene() {
 		return endScene;
 	}
+
+	public static void setEndScene(Scene endScene) {
+		SceneController.endScene = endScene;
+	}
+
+	public static void setMapOverView(Scene mapOverView) {
+		SceneController.mapOverView = mapOverView;
+	}
+
+	public static void setMainIsland(Scene mainIsland) {
+		SceneController.mainIsland = mainIsland;
+	}
+
+	public static void setPrisonIsland(Scene prisonIsland) {
+		SceneController.prisonIsland = prisonIsland;
+	}
+	
+	
 
 }

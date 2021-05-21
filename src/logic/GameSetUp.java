@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import character.BlackSkull;
 import character.Collector;
@@ -43,6 +44,7 @@ import gui.overlay.TileOverlay;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import update.AudioUpdate;
 import update.FightOverlayUpdate;
@@ -94,6 +96,8 @@ public class GameSetUp {
 	public static boolean isFightTradeMode = false;
 	public static boolean isChallenge = false;
 	public static boolean isChallenging = false;
+	public static AudioClip currentCharacterBGM = null;
+	public static AudioClip currentEnvBGM = null;
 
 	public static RedFox redFox;
 	public static Collector ladyCollector;
@@ -104,12 +108,50 @@ public class GameSetUp {
 	
 
 	public GameSetUp() {
+// -------------------------------- Initialize Variable -------------------------------------------
+
+		gameLaw = new GameLaw();
+		weaponDeck = new WeaponDeck();
+		removedDeck = new RemovedDeck();
+		lawSlot = new LawSlot();
+		lawDeck = new LawDeck();
+		allsecretBases = new ArrayList<SecretBase>();
+		cycle = 1;
+		countDownDuration = 0;
+		canBuyMinion = true;
+		isGameEnd = false;
+		isEndTurn = false;
+		theGovernment = new Dummy_Government();
+		theGovenment_minion = null;
+		map = new Location[9][11];
+		thisTurn = null;
+		isHighlightSpawnable = false;
+		isHighlightPlain = false;
+		isReset = false;
+		isTurnChange = false;
+		isSelectMinionSpawn = false;
+		isCountDown = false;
+		isCancel = false;
+		isShowLandInfo = false;
+		initialTile = null;
+		selectedTile = null;
+		selectedIcon = new ArrayList<MinionIcon>();
+		selectedCharacter = null;
+		isDraw = true;
+		isFightOverlayOffersUpdate = false;
+		isFightTradeMode = false;
+		isChallenge = false;
+		isChallenging = false;
+		currentCharacterBGM = null;
+		currentEnvBGM = null;
+
 // -------------------------------- Character Set Up -----------------------------------------------
 		
 		setUpCharacter();
 		thisTurn = gameCharacter.get(0);
 		
 //----------------------------------Weapon Set Up---------------------------------------------------
+
 		for (int i = 0; i < DUPLICATE; i++) {
 			weaponDeck.addCard(new Axe());
 			weaponDeck.addCard(new Bow());
@@ -181,7 +223,6 @@ public class GameSetUp {
 			ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 			for (int j = 0; j < column.size(); j++) {
 				column.get(j).setLocationType(map[i][j]);
-
 				TileOverlay overlay = createTileOverlay(i, j);
 				column.get(j).setOverlay(overlay);
 			}
@@ -622,7 +663,7 @@ public class GameSetUp {
 
 						MapOverview.getTurnChangeScreen().update();
 						MapOverview.getTurnChangeScreenRoot().setVisible(true);
-						AudioUpdate.change(null, MapOverview.getBgm());
+						AudioUpdate.changeEnv(MapOverview.getBgm());
 						SceneController.goToMapOverview();
 
 						MapOverview.getMainIsland().setEffect(blur);
@@ -631,9 +672,13 @@ public class GameSetUp {
 						SceneController.getMapOverView().getRoot().setDisable(true);
 
 						PlayerPanelUpdate.setPanelVisible(false);
+						
+						changeTurnEffect();
+						AudioUpdate.changeCharacter(null);
+						
 						Thread t = new Thread(() -> {
 							try {
-								Thread.sleep(3000);
+								Thread.sleep(4000);
 							} catch (InterruptedException e) {
 
 							}
@@ -649,6 +694,8 @@ public class GameSetUp {
 									MapOverview.getTurnChangeScreenRoot().setVisible(false);
 									PlayerPanelUpdate.setPanelVisible(true);
 									SceneController.getMapOverView().getRoot().setDisable(false);
+									AudioUpdate.changeEnv(MapOverview.getBgm());
+									AudioUpdate.changeCharacter(GameSetUp.thisTurn.getBgm());
 								}
 
 							});
@@ -698,6 +745,19 @@ public class GameSetUp {
 				sirTeewadee = (Teewadee) player;
 			}
 			
+		}
+	}
+	
+	private static void changeTurnEffect() {
+		Random rand = new Random();
+		int changeTurnNum = rand.nextInt(2);
+
+		switch (changeTurnNum) {
+		case 0:
+			AudioUpdate.changeEnv(AudioLoader.changeTurnEffect1);
+			break;
+		case 1:
+			AudioUpdate.changeEnv(AudioLoader.changeTurnEffect2);
 		}
 	}
 

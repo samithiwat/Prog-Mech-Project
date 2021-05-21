@@ -22,6 +22,7 @@ import javafx.scene.text.FontWeight;
 import logic.AudioLoader;
 import logic.GameSetUp;
 import logic.SceneController;
+import update.AudioUpdate;
 
 public class GameLobbyMenu implements Sceneable {
 
@@ -73,8 +74,7 @@ public class GameLobbyMenu implements Sceneable {
 			public void handle(MouseEvent event) {
 				EFFECT_MOUSE_CLICK.play();
 				SceneController.setScene((new MainMenu()).getScene());
-				bgm.stop();
-				StartMenu.getMenuThemeSong().play();
+				AudioUpdate.changeEnv(StartMenu.getMenuThemeSong());
 			}
 		});
 
@@ -149,8 +149,7 @@ public class GameLobbyMenu implements Sceneable {
 			public void handle(KeyEvent event) {
 				if (event.getCode() == KeyCode.ESCAPE) {
 					SceneController.setScene((new MainMenu()).getScene());
-					bgm.stop();
-					StartMenu.getMenuThemeSong().play();
+					AudioUpdate.changeEnv(StartMenu.getMenuThemeSong());
 				}
 			}
 		});

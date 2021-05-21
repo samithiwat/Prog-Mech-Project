@@ -18,12 +18,16 @@ public class MapGrid extends Pane {
 	private static final int N_COLUMN = 6;
 
 	private static boolean isEnable = true;
-	private static ArrayList<ArrayList<HexagonPane>> grids = new ArrayList<ArrayList<HexagonPane>>();
-	private static ArrayList<ArrayList<GridPane>> minionIconPanes = new ArrayList<ArrayList<GridPane>>();
+	private static ArrayList<ArrayList<HexagonPane>> grids;
+	private static ArrayList<ArrayList<GridPane>> minionIconPanes;
 
 	public static HexagonPane councilTile;
-
+	
 	public MapGrid() {
+
+		grids = new ArrayList<ArrayList<HexagonPane>>();
+		minionIconPanes = new ArrayList<ArrayList<GridPane>>();
+		
 		for (int i = 0; i < N_ROW; i++) {
 
 			ArrayList<HexagonPane> column = new ArrayList<HexagonPane>();
