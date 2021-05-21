@@ -16,11 +16,6 @@ public class Dummy_Government extends MainCharacter {
 		this.getMyEntity().add(new Minion(this));
 	}
 
-	public static void beingChallenged() {
-		FightController.challenged_slot.add(GameSetUp.weaponDeck.drawCard());
-		FightController.challenged_slot.add(GameSetUp.weaponDeck.drawCard());
-	}
-
 	public int checkIsWin() {
 		return 0;
 	}

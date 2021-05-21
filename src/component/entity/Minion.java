@@ -21,8 +21,8 @@ import gui.entity.HexagonPane;
 import logic.GameSetUp;
 
 public class Minion extends Component implements moveable {
-	public static final int COST = 3 * MainCharacter.M;
-	public static final int MAX_MINION = 6;
+	public final static int COST = 3 * MainCharacter.M;
+	public final static int MAX_MINION = 6;
 
 	private MainCharacter possessedBy;
 	private int posX;
@@ -168,11 +168,7 @@ public class Minion extends Component implements moveable {
 		if (Ocean.banishedMinion.size() >= 6) {
 			throw new ExceedMinionInTileException();
 		}
-
 		Ocean.canPardon = false;
-		onLocation.removeFromLocation(this);
-		onLocation = GameSetUp.ocean;
-		Ocean.addToOcean(this);
 		this.prisonerNumber = Ocean.banishedMinion.size() - 1;
 	}
 

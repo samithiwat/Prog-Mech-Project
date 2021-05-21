@@ -247,10 +247,15 @@ public class FightController {
 			else if(GameSetUp.isChallenging == true) {
 				if(challenger_atkPoint > challenged_atkPoint) {
 					Council council = (Council)MapGrid.councilTile.getLocationType();
-					challenger.getOnLocation().removeFromLocation(challenger);
+					Ocean.banishedMinion.add(challenged);
+					try {
+						council.getMinionOnLocation().get(0).exiled();						
+					}catch(Exception e) {
+						System.out.println(e);
+					}
 					//add minion to island
-					Ocean.banishedMinion.add(council.getMinionOnLocation().get(0));
 					council.getMinionOnLocation().remove(0);
+					challenger.getOnLocation().removeFromLocation(challenger);
 					council.addMinionToLocation(challenger);
 					council.changeTheGovernment(challenger.getPossessedBy());
 					GameSetUp.theGovenment_minion = challenger;
