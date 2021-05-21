@@ -101,10 +101,6 @@ public class Minion extends Component implements moveable {
 		this.setPosX(this.getPosX() + x);
 		this.setPosY(this.getPosY() + y);
 		this.onLocation.removeFromLocation(this);
-		if (this.onLocation instanceof BuyableLocation
-				&& ((BuyableLocation) this.onLocation).getOwner().getName().equals(this.possessedBy.getName())) {
-			this.getPossessedBy().getPossessedArea().remove(this.onLocation);
-		}
 		if (this.onLocation.getName().equals("SecretBase")) {
 			this.getPossessedBy().getPossessedArea().remove(this.onLocation);
 		}

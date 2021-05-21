@@ -75,7 +75,6 @@ public class GameLaw {
 			}
 
 		}
-		System.out.println("Tax :" + tax);
 		character.setMoney(character.getMoney() - tax * MainCharacter.M);
 		GameSetUp.theGovernment.setMoney(GameSetUp.theGovernment.getMoney() + tax * MainCharacter.M);
 	}

@@ -38,7 +38,7 @@ public class InvCard extends ImageView implements Clickable {
 		}
 		if (key >= 10 && key < 15 && FightOverlayUpdate.challenger != null) {
 			character = FightOverlayUpdate.challenger.getPossessedBy();
-		} else if (key >= 15 && GameSetUp.selectedIcon.size() > 0) {
+		} else if (key >= 15 && FightOverlayUpdate.challenged != null) {
 			character = FightOverlayUpdate.challenged.getPossessedBy();
 		}
 		this.index = -1;
