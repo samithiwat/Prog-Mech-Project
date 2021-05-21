@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import character.MainCharacter;
 import component.entity.Minion;
 import component.location.Council;
+import component.location.Ocean;
 import component.weaponCard.WeaponCard;
 import gui.MapOverview;
 import gui.entity.MapGrid;
@@ -31,7 +32,7 @@ public class FightController {
 			}catch(Exception e){
 				System.out.println("error");
 			}
-			if(GameSetUp.isChallenging) {
+			if(GameSetUp.isChallenging && GameSetUp.theGovernment.getName().equals("Council")) {
 				if(challenger_slot.size() >= 1) {
 					try {
 						Thread.sleep(1000);				
@@ -232,6 +233,7 @@ public class FightController {
 					challenger.getOnLocation().removeFromLocation(challenger);
 					council.addMinionToLocation(challenger);
 					council.changeTheGovernment(challenger.getPossessedBy());
+					GameSetUp.theGovenment_minion = challenger;
 					AudioClip effect = AudioLoader.winEffect;
 					effect.play();
 					PlayerPanelUpdate.setShowMessage("Victory!", Color.WHITE, 120, 2000);
@@ -245,11 +247,18 @@ public class FightController {
 			else if(GameSetUp.isChallenging == true) {
 				if(challenger_atkPoint > challenged_atkPoint) {
 					Council council = (Council)MapGrid.councilTile.getLocationType();
-					challenger.getOnLocation().removeFromLocation(challenger);
+					Ocean.banishedMinion.add(challenged);
+					try {
+						council.getMinionOnLocation().get(0).exiled();						
+					}catch(Exception e) {
+						System.out.println(e);
+					}
 					//add minion to island
 					council.getMinionOnLocation().remove(0);
+					challenger.getOnLocation().removeFromLocation(challenger);
 					council.addMinionToLocation(challenger);
 					council.changeTheGovernment(challenger.getPossessedBy());
+					GameSetUp.theGovenment_minion = challenger;
 					if(GameSetUp.sirTeewadee!=null) {
 						GameSetUp.sirTeewadee.checkIsWin();						
 					}

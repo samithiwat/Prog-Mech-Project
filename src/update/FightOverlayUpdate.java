@@ -31,12 +31,7 @@ public class FightOverlayUpdate {
 	public static void pfpUpdate() {
 		for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
 			FightOverlay overlay = MapOverview.allFightOverlay.get(i);
-			if (challenged != null) {
-				overlay.getchallenged_img().setImage(challenged.getPossessedBy().getPfp());
-			} else {
-				overlay.getchallenged_img()
-						.setImage(new Image(ClassLoader.getSystemResource("img/card/CouncilCard ").toString()));
-			}
+			overlay.getchallenged_img().setImage(challenged.getPossessedBy().getPfp());
 			overlay.getchallenger_img().setImage(challenger.getPossessedBy().getPfp());
 			if (challenged.getPossessedBy().getName().equals("Sir Tewada")) {
 				overlay.getChallenged_ult().setImage(Teewada.ultSkill);
@@ -195,6 +190,9 @@ public class FightOverlayUpdate {
 	public static void acceptUpdate() {
 		if (challenged.getPossessedBy().getName().equals("Council")) {
 			FightOverlay.challenged_IsAccepted = true;
+			for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
+				MapOverview.allFightOverlay.get(i).getchallenged_accept().setDisable(true);
+			}
 		}
 		for (int i = 0; i < MapOverview.allFightOverlay.size(); i++) {
 			FightOverlay overlay = MapOverview.allFightOverlay.get(i);
