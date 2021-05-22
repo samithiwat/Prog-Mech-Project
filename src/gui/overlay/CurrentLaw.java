@@ -100,8 +100,6 @@ public class CurrentLaw extends Overlay {
 				img.setFitWidth(IMG_WIDTH);
 				img.setFitHeight(IMG_HEIGHT);
 				currentLawSlot.add(img, 0, i);
-
-//				TextTitle info = new TextTitle(law.getEffectCard(), Color.web("0x393E46"), FontWeight.BOLD, 36);
 				TextTitle info = new TextTitle(Util.formatDescription(law.getEffectCard(), LINE_LENGTH),
 						Color.web("0x393E46"), FontWeight.BOLD, 36);
 				StackPane infoRoot = new StackPane(info);

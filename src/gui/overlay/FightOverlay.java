@@ -39,8 +39,8 @@ import update.PlayerPanelUpdate;
 
 public class FightOverlay extends Overlay {
 
-	protected static final int HEIGHT = 800;
-	protected static final int WIDTH = 1400;
+	private static final int HEIGHT = 800;
+	private static final int WIDTH = 1400;
 
 	public ArrayList<InvCard> challenger_weaponCard;
 	public ArrayList<InvCard> challenged_weaponCard;

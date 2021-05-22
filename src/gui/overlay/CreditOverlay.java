@@ -15,8 +15,8 @@ import logic.AudioLoader;
 
 public class CreditOverlay extends Overlay {
 
-	protected static final int HEIGHT = 800;
-	protected static final int WIDTH = 1400;
+	private static final int HEIGHT = 800;
+	private static final int WIDTH = 1400;
 
 	public CreditOverlay() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -800);
