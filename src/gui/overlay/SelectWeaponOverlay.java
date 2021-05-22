@@ -41,7 +41,7 @@ public class SelectWeaponOverlay extends Overlay {
 
 	public SelectWeaponOverlay() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -850);
-		setCursor(CURSOR_NORMAL);
+		setCursor(MOUSE_NORMAL);
 
 // ---------------------------------------------------- Scene Background ----------------------------------------------------
 

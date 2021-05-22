@@ -26,13 +26,9 @@ import update.CloseGame;
 public class SceneController {
 
 	private static Stage mainStage = new Stage();
-	private final static int FULLSCREEN_WIDTH = 1540;
-	private final static int FULLSCREEN_HEIGHT = 880;
 	private static long lastTimeTrigger;
 	private static int count;
 	private static AnimationTimer animationTimer;
-
-	private static Stage loadingStage;
 
 	private static Scene endScene;
 	private static Scene gameSettingMenu;
@@ -40,14 +36,6 @@ public class SceneController {
 	private static Scene mainIsland;
 	private static Scene prisonIsland;
 	private static Scene pauseMenu;
-
-	public static int getFullscreenWidth() {
-		return FULLSCREEN_WIDTH;
-	}
-
-	public static int getFullscreenHeight() {
-		return FULLSCREEN_HEIGHT;
-	}
 
 	public static Stage getStage() {
 		return mainStage;
@@ -188,15 +176,6 @@ public class SceneController {
 
 	public static Scene getPrisonIsland() {
 		return prisonIsland;
-	}
-
-
-	public static Stage getLoadingStage() {
-		return loadingStage;
-	}
-
-	public static void setLoadingStage(Stage loadingStage) {
-		SceneController.loadingStage = loadingStage;
 	}
 
 	public static Scene getEndScene() {

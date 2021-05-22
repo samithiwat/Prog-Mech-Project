@@ -71,8 +71,7 @@ public class MainIsland implements Sceneable {
 		MainIslandUpdate.setCurrent_speed(0);
 
 		bg = new ImageView(ClassLoader.getSystemResource("img/background/MainIsland.png").toString());
-		bg.setViewport(new Rectangle2D(BG_CENTER_X, BG_CENTER_Y, SceneController.getFullscreenWidth(),
-				SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(BG_CENTER_X, BG_CENTER_Y, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT));
 
 		MapGrid grid = new MapGrid();
 
@@ -80,16 +79,16 @@ public class MainIsland implements Sceneable {
 				779);
 
 		infoRoot = new StackPane(info);
-		infoRoot.setPrefWidth(SceneController.getFullscreenWidth());
-		infoRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		infoRoot.setPrefWidth(FULLSCREEN_WIDTH);
+		infoRoot.setPrefHeight(FULLSCREEN_HEIGHT);
 		infoRoot.setPadding(new Insets(50));
 		infoRoot.setAlignment(Pos.BOTTOM_CENTER);
 
 		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
 
 		messageRoot = new StackPane(message);
-		messageRoot.setPrefWidth(SceneController.getFullscreenWidth());
-		messageRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		messageRoot.setPrefWidth(FULLSCREEN_WIDTH);
+		messageRoot.setPrefHeight(FULLSCREEN_HEIGHT);
 		messageRoot.setAlignment(Pos.CENTER);
 		messageRoot.setVisible(false);
 
@@ -132,7 +131,7 @@ public class MainIsland implements Sceneable {
 				activedLawPane, handOverlay, playerList1, playerList2, currentLaw, government, objectiveOverlay,
 				tradeOverlay, selectWeaponOverlay, fightOverlay, messageRoot);
 
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
@@ -145,36 +144,31 @@ public class MainIsland implements Sceneable {
 
 	public static void moveBgLeft(int speed) {
 		setBgX(getBgX() - speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
-				SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT));
 	}
 
 	public static void moveBgRight(int speed) {
 		setBgX(getBgX() + speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
-				SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT));
 	}
 
 	public static void moveBgDown(int speed) {
 		setBgY(getBgY() - speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
-				SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT));
 	}
 
 	public static void moveBgUp(int speed) {
 		setBgY(getBgY() + speed);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
-				SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT));
 	}
 
 	public static void setBgCenter() {
 		setBgX(BG_CENTER_X);
 		setBgY(BG_CENTER_Y);
-		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), SceneController.getFullscreenWidth(),
-				SceneController.getFullscreenHeight()));
+		bg.setViewport(new Rectangle2D(getBgX(), getBgY(), FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT));
 	}
 
-	public static void dataInteractMode(String text,boolean isControlPanelVisible,boolean isEnableESC) {
+	public static void dataInteractMode(String text, boolean isControlPanelVisible, boolean isEnableESC) {
 		turnBar.setVisible(isControlPanelVisible);
 		statusPane.setVisible(isControlPanelVisible);
 		endTurn.setVisible(isControlPanelVisible);
@@ -188,7 +182,7 @@ public class MainIsland implements Sceneable {
 		setESC(isEnableESC);
 	}
 
-	public static void overlayInteractMode(String mode, boolean isControlPanelVisible,boolean isEnableESC) {
+	public static void overlayInteractMode(String mode, boolean isControlPanelVisible, boolean isEnableESC) {
 		turnBar.setVisible(isControlPanelVisible);
 		statusPane.setVisible(isControlPanelVisible);
 		endTurn.setVisible(isControlPanelVisible);
@@ -229,7 +223,7 @@ public class MainIsland implements Sceneable {
 	}
 
 	public static void setShowMessage(String message, Color color, int size, int duration) {
-				
+
 		messageRoot.setVisible(true);
 		getMessage().setFontBold(size);
 		getMessage().setFill(color);
@@ -253,12 +247,11 @@ public class MainIsland implements Sceneable {
 		});
 		t.start();
 	}
-	
+
 	public static void setESC(boolean isEnable) {
-		if(isEnable) {
+		if (isEnable) {
 			enableESC();
-		}
-		else {
+		} else {
 			disableESC();
 		}
 	}
@@ -309,7 +302,6 @@ public class MainIsland implements Sceneable {
 			}
 		});
 	}
-	
 
 // ------------------------------------------------ Getter and Setter ------------------------------------------------------------
 

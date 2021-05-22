@@ -8,8 +8,6 @@ import javafx.scene.layout.GridPane;
 
 public class HexTileUpdate {
 
-	private static HexagonPane hexTile;
-
 // ---------------------------------------------------- Update Tile's Interact Type ----------------------------------------------------------
 
 	public static void setDataInteract() {
@@ -60,16 +58,6 @@ public class HexTileUpdate {
 				;
 			}
 		}
-	}
-
-// ---------------------------------------------------- Getter and Setter ------------------------------------------------------------
-
-	public static HexagonPane getHexTile() {
-		return hexTile;
-	}
-
-	public static void setHexTile(HexagonPane hexTile) {
-		HexTileUpdate.hexTile = hexTile;
 	}
 
 }

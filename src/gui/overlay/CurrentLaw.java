@@ -34,7 +34,7 @@ public class CurrentLaw extends Overlay {
 
 	public CurrentLaw() {
 		super((new Pane()), WIDTH_BG1, HEIGHT_BG1, 75, -860);
-		setCursor(CURSOR_NORMAL);
+		setCursor(MOUSE_NORMAL);
 
 // --------------------------------------- Scene Background -------------------------------------------------
 

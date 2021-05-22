@@ -16,8 +16,8 @@ import javafx.scene.text.FontWeight;
 import logic.GameSetUp;
 
 public class HandOverlay extends Overlay {
-	protected static final int HEIGHT = 800;
-	protected static final int WIDTH = 1400;
+	private static final int HEIGHT = 800;
+	private static final int WIDTH = 1400;
 	private TextTitle num_slot1;
 	private TextTitle num_slot2;
 	private TextTitle num_slot3;

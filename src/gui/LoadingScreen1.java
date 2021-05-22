@@ -12,7 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import logic.SceneController;
 
 public class LoadingScreen1 implements Sceneable {
 	private Scene scene;
@@ -54,11 +53,11 @@ public class LoadingScreen1 implements Sceneable {
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();
 
-		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Rectangle bg = new Rectangle(FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		bg.setFill(Color.web("0xF2A388"));
 
 		root.getChildren().addAll(bg, coconutRolling, text);
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 	}
 
 	public Scene getScene() {

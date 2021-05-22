@@ -32,7 +32,7 @@ public class ObjectiveOverlay extends Overlay {
 
 	public ObjectiveOverlay() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -850);
-		setCursor(CURSOR_NORMAL);
+		setCursor(MOUSE_NORMAL);
 
 // ------------------------------------------------ Scene Background ------------------------------------------------
 

@@ -104,7 +104,7 @@ public class GameLobbyMenu implements Sceneable {
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------		
 
-		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Rectangle bg = new Rectangle(FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		bg.setFill(Color.rgb(3, 114, 140));
 
 // -------------------------------------------- Character Select Box ----------------------------------------------------------
@@ -138,7 +138,7 @@ public class GameLobbyMenu implements Sceneable {
 		root.getChildren().addAll(start, back, title, titleBox, label, gameSetting, characterOverlay1,
 				characterOverlay2, characterInfo);
 
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/lobby-style.css").toExternalForm());
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {

@@ -83,7 +83,7 @@ public class EndScene implements Sceneable {
 
 		root.getChildren().addAll(winnerPortraits, infoPane);
 
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		scene.setCursor(MOUSE_NORMAL);
 		
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {

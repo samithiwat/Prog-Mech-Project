@@ -23,6 +23,9 @@ import logic.SceneController;
 import update.AudioUpdate;
 
 public class StartMenu {
+	
+	private static final int FULLSCREEN_WIDTH = 1540;
+	private static final int FULLSCREEN_HEIGHT = 880;
 
 	private static boolean isVisible = true;
 	private static int count;
@@ -41,7 +44,7 @@ public class StartMenu {
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
 
-		currentScene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		currentScene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		currentScene.setCursor(Cursor.DISAPPEAR);
 	}
 
@@ -79,7 +82,7 @@ public class StartMenu {
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
-		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		return new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 	}
 
 	public static Scene JavaIcon() {
@@ -87,7 +90,7 @@ public class StartMenu {
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(logo);
-		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		return new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 	}
 
 	public static Scene WelcomeText() {
@@ -116,7 +119,7 @@ public class StartMenu {
 		animation.play();
 
 		root.getChildren().add(welcome);
-		return new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		return new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 	}
 
 	public static Scene StartBG() {
@@ -154,7 +157,7 @@ public class StartMenu {
 		};
 
 		animationTimer.start();
-		Scene scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Scene scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		scene.setCursor(
 				new ImageCursor((new Image(ClassLoader.getSystemResource("img/icon/mouseCursor.png").toString()))));
 		scene.setOnKeyPressed(key -> {
