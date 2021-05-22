@@ -31,10 +31,10 @@ import update.TradeOverlayUpdate;
 
 public class PlayerListPage2 extends Overlay {
 
-	protected static final int HEIGHT = 800;
-	protected static final int WIDTH = 1400;
-	protected static final int PORTRAITS_WIDTH = 320;
-	protected static final int PORTRAITS_HEIGHT = 400;
+	private static final int HEIGHT = 800;
+	private static final int WIDTH = 1400;
+	private static final int PORTRAITS_WIDTH = 320;
+	private static final int PORTRAITS_HEIGHT = 400;
 
 	private ArrayList<TextTitle> allText;
 	private PlayerListPage2 instance = this;

@@ -19,7 +19,6 @@ public class TileOverlay extends Overlay {
 	private static final int OVERLAY_DY = 825;
 	private static final int OVERLAY_DELAY = 1000;
 
-	private AudioClip bgm;
 	private MinionPane minionPane;
 	private TileOverlay overlay = this;
 
@@ -66,10 +65,6 @@ public class TileOverlay extends Overlay {
 
 	public static int getOverlayDelay() {
 		return OVERLAY_DELAY;
-	}
-
-	public AudioClip getBgm() {
-		return bgm;
 	}
 
 }

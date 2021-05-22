@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import logic.SceneController;
 
 public class LoadingScreen2 implements Sceneable {
 
@@ -58,11 +57,11 @@ public class LoadingScreen2 implements Sceneable {
 		treeFillingAnimation.setCycleCount(Animation.INDEFINITE);
 		treeFillingAnimation.play();
 
-		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
+		Rectangle bg = new Rectangle(FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		bg.setFill(Color.web("0xFAE5CB"));
 
 		root.getChildren().addAll(bg, text, treeFilling);
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 
 	}
 

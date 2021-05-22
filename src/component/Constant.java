@@ -9,6 +9,9 @@ import logic.AudioLoader;
 
 public interface Constant {
 	
+	int FULLSCREEN_WIDTH = 1540;
+	int FULLSCREEN_HEIGHT = 880;
+	
 	String FONT_NAME = "Bai Jamjuree";
 
 	String FONT_PATH_REGULAR = "font/Bai_Jamjuree/BaiJamjuree-Regular.ttf";

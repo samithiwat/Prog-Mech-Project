@@ -21,7 +21,7 @@ public class TransitionScreen implements Sceneable {
 		AnchorPane root = new AnchorPane();
 		root.setMouseTransparent(true);
 
-		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Rectangle bg = new Rectangle(FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		bg.setFill(Color.web("0xF2A388"));
 		AudioClip effect = AudioLoader.popSound;
 		effect.play();
@@ -76,7 +76,7 @@ public class TransitionScreen implements Sceneable {
 		});
 		t.start();
 		root.getChildren().addAll(bg, coconut);
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenWidth());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 	}
 
 	@Override

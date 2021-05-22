@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import gui.MainIsland;
 import gui.entity.HexagonPane;
 import gui.entity.MapGrid;
-import logic.SceneController;
 
-public class MainIslandUpdate {
+public class MainIslandUpdate implements Updateable{
 
 	private final static int INIT_SPEED = 20;
 	private final static int MAX_SPEED = 50;
@@ -35,7 +34,7 @@ public class MainIslandUpdate {
 
 	public static void moveRight() {
 		calSpeed();
-		if (MainIsland.getBgX() + current_speed < 2250 - SceneController.getFullscreenWidth() - 10) {
+		if (MainIsland.getBgX() + current_speed < 2250 - FULLSCREEN_WIDTH - 10) {
 			for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 				ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 				for (int j = 0; j < column.size(); j++) {
@@ -63,7 +62,7 @@ public class MainIslandUpdate {
 
 	public static void moveDown() {
 		calSpeed();
-		if (MainIsland.getBgY() + current_speed < 2250 - SceneController.getFullscreenHeight()) {
+		if (MainIsland.getBgY() + current_speed < 2250 - FULLSCREEN_HEIGHT) {
 			for (int i = 0; i < MapGrid.getGrids().size(); i++) {
 				ArrayList<HexagonPane> column = MapGrid.getGrids().get(i);
 				for (int j = 0; j < column.size(); j++) {
@@ -110,6 +109,11 @@ public class MainIslandUpdate {
 			current_speed = MAX_SPEED;
 		}
 		MainIslandUpdate.current_speed = current_speed;
+	}
+
+	@Override
+	public void update() {
+		// Empty
 	}
 
 }

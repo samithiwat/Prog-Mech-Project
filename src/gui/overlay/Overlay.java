@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class Overlay extends SubScene implements Overlayable {
+public abstract class Overlay extends SubScene implements Overlayable {
 
 	protected Pane root;
 

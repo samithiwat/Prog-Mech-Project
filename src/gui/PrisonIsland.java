@@ -97,8 +97,8 @@ public class PrisonIsland implements Sceneable {
 		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
 
 		messageRoot = new StackPane(message);
-		messageRoot.setPrefWidth(SceneController.getFullscreenWidth());
-		messageRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		messageRoot.setPrefWidth(FULLSCREEN_WIDTH);
+		messageRoot.setPrefHeight(FULLSCREEN_HEIGHT);
 		messageRoot.setAlignment(Pos.CENTER);
 		messageRoot.setVisible(false);
 
@@ -134,7 +134,7 @@ public class PrisonIsland implements Sceneable {
 		root.getChildren().addAll(bg, playerPanel, prison, activedLawPane, overlay);
 		root.getChildren().addAll(handOverlay, playerList1, playerList2, currentLaw, government, objectiveOverlay,
 				tradeOverlay, selectWeaponOverlay, fightOverlay, messageRoot);
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 

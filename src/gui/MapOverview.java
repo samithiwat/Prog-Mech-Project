@@ -121,8 +121,8 @@ public class MapOverview implements Sceneable {
 		message = new TextTitle("", Color.web("0x393E46"), FontWeight.BOLD, 48, 376, 779);
 
 		messageRoot = new StackPane(message);
-		messageRoot.setPrefWidth(SceneController.getFullscreenWidth());
-		messageRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		messageRoot.setPrefWidth(FULLSCREEN_WIDTH);
+		messageRoot.setPrefHeight(FULLSCREEN_HEIGHT);
 		messageRoot.setAlignment(Pos.CENTER);
 		messageRoot.setVisible(false);
 
@@ -131,7 +131,7 @@ public class MapOverview implements Sceneable {
 		ActivedLawPane activedLawPane = new ActivedLawPane();
 		PlayerPanelUpdate.allActivedLawPanes.add(activedLawPane);
 
-		Rectangle bg = new Rectangle(SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		Rectangle bg = new Rectangle(FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		bg.setFill(Color.web("0x4DC3D3"));
 
 		int[] posXList = { 147, 384, 641, 869, 1040, 1164 };
@@ -175,8 +175,8 @@ public class MapOverview implements Sceneable {
 		});
 
 		turnChangeScreenRoot = new StackPane(turnChangeScreen);
-		turnChangeScreenRoot.setPrefWidth(SceneController.getFullscreenWidth());
-		turnChangeScreenRoot.setPrefHeight(SceneController.getFullscreenHeight());
+		turnChangeScreenRoot.setPrefWidth(FULLSCREEN_WIDTH);
+		turnChangeScreenRoot.setPrefHeight(FULLSCREEN_HEIGHT);
 		turnChangeScreenRoot.setAlignment(Pos.CENTER);
 		turnChangeScreenRoot.setVisible(false);
 
@@ -185,13 +185,14 @@ public class MapOverview implements Sceneable {
 				handOverlay, playerList1, playerList2, currentLaw, government, objectiveOverlay, tradeOverlay,
 				selectWeaponOverlay, messageRoot, turnChangeScreenRoot);
 
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/map-style.css").toExternalForm());
 
 		this.scene.setOnKeyPressed(key -> {
 			if (key.getCode() == KeyCode.ESCAPE) {
-				SceneController.goToPauseMenu();;
+				SceneController.goToPauseMenu();
+				;
 //				System.exit(0);
 			}
 		});

@@ -29,7 +29,7 @@ public class PauseMenu implements Sceneable {
 
 	private static final int BUTTON_WIDTH = 500;
 	private static final int BUTTON_HEIGHT = 90;
-	private static final int maxX = SceneController.getFullscreenWidth() - 1200;
+	private static final int maxX = FULLSCREEN_WIDTH - 1200;
 
 	private static Scene scene;
 	private ConfirmOverlay quitOverlay;
@@ -108,7 +108,7 @@ public class PauseMenu implements Sceneable {
 
 		root.getChildren().addAll(coconut, menuPane, quitOverlay);
 
-		scene = new Scene(root, SceneController.getFullscreenWidth(), SceneController.getFullscreenHeight());
+		scene = new Scene(root, FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT);
 		scene.setCursor(MOUSE_NORMAL);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("css/pausemenu-style.css").toExternalForm());
 	}

@@ -33,7 +33,7 @@ public class Government extends Overlay {
 
 	public Government() {
 		super((new Pane()), WIDTH, HEIGHT, 75, -850);
-		setCursor(CURSOR_NORMAL);
+		setCursor(MOUSE_NORMAL);
 
 // ------------------------------------ Scene Background -------------------------------------
 		Rectangle bg = new Rectangle(WIDTH, HEIGHT);
