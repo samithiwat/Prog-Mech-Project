@@ -42,13 +42,6 @@ public class Capture extends InteractLawCard {
 						GameSetUp.selectedIcon.get(0).getMinion().jailed();
 						PlayerPanelUpdate.setShowMessage("Successfully put this crime to jail.", COLOR_INFO,
 								COLOR_STROKE_INFO, 90, 1, 2000);
-						
-//////////////////////////////////////////////////DEBUG /////////////////////////////////////////////////////
-						
-						System.out.println("Successfully Capture!");
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 					} catch (ExceedMinionInTileException e) {
 						PlayerPanelUpdate.setShowMessage("Out of space to jail this crime.", COLOR_ERROR, 90, 2000);
 					} catch (OutOfActionException e) {
