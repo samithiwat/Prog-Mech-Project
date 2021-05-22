@@ -60,7 +60,7 @@ public class HandOverlay extends Overlay {
 		num_slot4 = new TextTitle("x" + GameSetUp.thisTurn.getNum_Bow(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
 		num_slot5 = new TextTitle("x" + GameSetUp.thisTurn.getNum_Gun(), Color.WHITE, FontWeight.BOLD, 50, 0, 0);
 
-		drawCard = new MenuIcon("img/icon/HandsIcon.png", 944, 439);
+		drawCard = new MenuIcon("img/icon/BuyCardIcon.png", 944, 439);
 
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
