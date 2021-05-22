@@ -168,12 +168,22 @@ public abstract class MainCharacter extends Component {
 		updateMinionLeft();
 	}
 
+//	public void updateMinionLeft() {
+//		int count = 0;
+//		Minion minion = null;
+//		for (int i = 0; i < Minion.MAX_MINION; i++) {
+//			minion = GameSetUp.thisTurn.getMyEntity().get(i);
+//			if (minion.getOnLocation() == null) {
+//				count++;
+//			}
+//		}
+//		minionLeft = count;
+//	}
+	
 	public void updateMinionLeft() {
-		int count = 0;
-		Minion minion = null;
-		for (int i = 0; i < Minion.MAX_MINION; i++) {
-			minion = GameSetUp.thisTurn.getMyEntity().get(i);
-			if (minion.getOnLocation() == null) {
+		int count=0;
+		for(Minion minion : this.getMyEntity()) {
+			if(minion.getOnLocation() == null) {
 				count++;
 			}
 		}

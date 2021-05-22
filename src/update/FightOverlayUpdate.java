@@ -8,7 +8,6 @@ import component.weaponCard.WeaponCard;
 import gui.MapOverview;
 import gui.entity.InvCard;
 import gui.overlay.FightOverlay;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import logic.FightController;

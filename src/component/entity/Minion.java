@@ -169,9 +169,9 @@ public class Minion extends Component implements moveable {
 	}
 
 	private void updateMinionLeft() {
-		for (int i = 0; i < GameSetUp.gameCharacter.size(); i++) {
-			if (GameSetUp.gameCharacter.get(i) != null) {
-				GameSetUp.gameCharacter.get(i).updateMinionLeft();
+		for (MainCharacter player : GameSetUp.gameCharacter) {
+			if (player != null) {
+				player.updateMinionLeft();
 			}
 		}
 	}
@@ -197,7 +197,6 @@ public class Minion extends Component implements moveable {
 		prisonerNumber = -1;
 		onLocation = null;
 		updateMinionLeft();
-
 	}
 
 	// ----------------------getter/setter--------------------------

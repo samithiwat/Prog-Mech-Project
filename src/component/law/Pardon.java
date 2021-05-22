@@ -2,6 +2,7 @@ package component.law;
 
 import exception.OutOfActionException;
 import gui.MainIsland;
+import gui.MapOverview;
 import logic.GameSetUp;
 import update.PlayerPanelUpdate;
 
@@ -15,8 +16,8 @@ public class Pardon extends InteractLawCard {
 
 	public void activateEffectCard() {
 		MainIsland.setESC(false);
-		MainIsland.getMessage().setText("Select minion to pardon. (ESC to cancle)");
-		MainIsland.getMessageRoot().setVisible(true);
+		MainIsland.getInfo().setText("Select minion to pardon. (ESC to cancle)");
+		MainIsland.getInfoRoot().setVisible(true);
 		PlayerPanelUpdate.setPanelVisible(false);
 		GameSetUp.selectedIcon.clear();
 		PlayerPanelUpdate.setShowMessage("Select minion to pardon", COLOR_INFO, COLOR_STROKE_INFO, 120, 1, 2000);
@@ -39,7 +40,8 @@ public class Pardon extends InteractLawCard {
 						EFFECT_ERROR.play();
 						PlayerPanelUpdate.setShowMessage("I must wait for next turn.", COLOR_ERROR, 120, 2000);
 					}
-					MainIsland.getMessageRoot().setVisible(false);
+					MapOverview.getOceanOverlay().triggerOverlay(0, 825, 1000);
+					MainIsland.getInfoRoot().setVisible(false);
 					PlayerPanelUpdate.setPanelVisible(true);
 					break;
 				}

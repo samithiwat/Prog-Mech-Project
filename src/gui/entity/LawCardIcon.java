@@ -117,6 +117,7 @@ public class LawCardIcon extends Pane implements Clickable {
 			info = new Tooltip();
 			info.setText(Util.formatDescription(law.getEffectCard(), LINE_LENGTH));
 		} else {
+			setDisable(true);
 			img = new ImageView(ClassLoader.getSystemResource("img/card/Cardback.png").toString());
 			info = new Tooltip("Empty");
 		}
@@ -383,7 +384,6 @@ public class LawCardIcon extends Pane implements Clickable {
 			overlay.updateActivedLaw();
 		}
 		PlayerPanelUpdate.updateActivedLawPane();
-		;
 	}
 
 	private void setSelectedAll(LawCardIcon lawCardIcon) {
