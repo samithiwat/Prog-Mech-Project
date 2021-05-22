@@ -1,6 +1,7 @@
 package component.law;
 
 import exception.ExceedMinionInTileException;
+import exception.InvalidActionException;
 import exception.OutOfActionException;
 import gui.MainIsland;
 import javafx.scene.paint.Color;
@@ -33,7 +34,6 @@ public class Capture extends InteractLawCard {
 				System.out.print("");
 				if (GameSetUp.isCancel) {
 					GameSetUp.isCancel = false;
-					MainIsland.setESC(true);
 					MainIsland.getMessageRoot().setVisible(false);
 					PlayerPanelUpdate.setPanelVisible(true);
 					break;
@@ -41,6 +41,13 @@ public class Capture extends InteractLawCard {
 				if (GameSetUp.selectedIcon.size() > 0) {
 					try {
 						GameSetUp.selectedIcon.get(0).getMinion().jailed();
+						
+//////////////////////////////////////////////////DEBUG /////////////////////////////////////////////////////
+						
+						System.out.println("Successfully Capture!");
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						
 						PlayerPanelUpdate.setShowMessage("Successfully put this crime to jail.", COLOR_INFO,
 								COLOR_STROKE_INFO, 90, 1, 2000);
 
@@ -48,6 +55,8 @@ public class Capture extends InteractLawCard {
 						PlayerPanelUpdate.setShowMessage("Out of space to jail this crime.", COLOR_ERROR, 90, 2000);
 					} catch (OutOfActionException e) {
 						PlayerPanelUpdate.setShowMessage("I must wait another turn.", COLOR_ERROR, 100, 2000);
+					} catch(InvalidActionException e) {
+						PlayerPanelUpdate.setShowMessage("I can't capture myself.", COLOR_ERROR, 100, 2000);
 					}
 					MainIsland.getMessageRoot().setVisible(false);
 					PlayerPanelUpdate.setPanelVisible(true);
@@ -58,6 +67,7 @@ public class Capture extends InteractLawCard {
 				}
 
 			}
+			MainIsland.setESC(true);
 
 		});
 		selectMinion.start();

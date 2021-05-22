@@ -11,6 +11,7 @@ import component.location.Prison;
 import component.location.SecretBase;
 import component.location.Water;
 import exception.ExceedMinionInTileException;
+import exception.InvalidActionException;
 import exception.InvalidOwnershipException;
 import exception.LackOfMoneyException;
 import exception.OutOfActionException;
@@ -118,7 +119,7 @@ public class Minion extends Component implements moveable {
 	}
 // -------------------------------------------------- Jail Method -------------------------------------------------------
 
-	public void jailed() throws ExceedMinionInTileException, OutOfActionException {
+	public void jailed() throws ExceedMinionInTileException, OutOfActionException, InvalidActionException {
 		// now jail all of minion in group
 
 		if (!Prison.canCapture) {
@@ -127,6 +128,10 @@ public class Minion extends Component implements moveable {
 
 		if (Prison.minionInPrison.size() >= 6) {
 			throw new ExceedMinionInTileException();
+		}
+		
+		if(this.possessedBy == GameSetUp.theGovernment) {
+			throw new InvalidActionException();
 		}
 
 		Prison.canCapture = false;

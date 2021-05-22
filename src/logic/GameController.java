@@ -96,7 +96,6 @@ public class GameController {
 		while (!GameSetUp.isGameEnd) {
 			for (int i = 0; i < GameSettingUpdate.getNPlayer(); i++) {
 				GameSetUp.thisTurn = GameSetUp.gameCharacter.get(i);
-//				AudioUpdate.change(GameSetUp.thisTurn.getBgm());
 				GameSetUp.isDraw = true;
 				MainCharacter character = GameSetUp.thisTurn;
 				GameSetUp.gameLaw.activateEachTurn(character);

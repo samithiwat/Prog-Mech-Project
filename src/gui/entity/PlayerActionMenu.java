@@ -377,12 +377,12 @@ public class PlayerActionMenu extends ContextMenu implements Clickable {
 								}
 								GameSetUp.isChallenging = true;
 								FightOverlayUpdate.challenger = GameSetUp.selectedIcon.get(0).getMinion();
-								GameSetUp.selectedTile.triggerOverlay();
 								if (GameSetUp.theGovernment.getName().equals("Council")) {
 									FightOverlayUpdate.challenged = GameSetUp.theGovernment.getMyEntity().get(0);
 								} else {
 									FightOverlayUpdate.challenged = GameSetUp.theGovenment_minion;
 								}
+								GameSetUp.selectedTile.triggerOverlay();
 								FightOverlayUpdate.pfpUpdate();
 								FightOverlayUpdate.invUpdate();
 								GameSetUp.isFightOverlayOffersUpdate = true;
