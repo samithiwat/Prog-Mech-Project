@@ -1,9 +1,10 @@
 package gui;
 
 import gui.entity.MenuButton;
-import gui.overlay.QuitOverlay;
+import gui.overlay.ConfirmOverlay;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,21 +12,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import logic.AudioLoader;
 import logic.SceneController;
 import update.AudioUpdate;
+import update.CloseGame;
 
 public class PauseMenu implements Sceneable {
 
 	private static Scene scene;
+	private ConfirmOverlay quitOverlay;
 
 	public PauseMenu() {
 
 		StackPane root = new StackPane();
 		root.setAlignment(Pos.CENTER);
 
-		QuitOverlay quitOverlay = new QuitOverlay();
+		quitOverlay = new ConfirmOverlay();
+		setUpQuitOverlay();
 
 		VBox menuPane = new VBox();
 		menuPane.setSpacing(90);
@@ -96,5 +102,65 @@ public class PauseMenu implements Sceneable {
 	@Override
 	public Scene getScene() {
 		return scene;
+	}
+	
+	private void setUpQuitOverlay() {
+		quitOverlay.getTextLine1().setText("Do you want to leave?");
+		quitOverlay.getTextLine2().setText("We will miss you.");
+		quitOverlay.getYes().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.quitSound;
+				effect.play();
+				quitOverlay.getTextLine1().setText("We hope you will be back :)");
+				quitOverlay.getTextLine2().setText("");
+				quitOverlay.getYes().setDisable(true);
+				quitOverlay.getNo().setDisable(true);
+				Thread t = new Thread(() -> {
+					try {
+						Thread.sleep(1500);
+					} catch (InterruptedException e) {
+
+					}
+
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							CloseGame.setIsCloseGame(true);
+							CloseGame.update();
+						}
+					});
+				});
+				t.start();
+			}
+		});
+
+		quitOverlay.getNo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				AudioClip effect = AudioLoader.clickEffect;
+				effect.play();
+				quitOverlay.triggerOverlay(0, 1000, 1000);
+				Thread t = new Thread(() -> {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+
+					}
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							quitOverlay.setVisible(false);
+						}
+					});
+
+				});
+				t.start();
+			}
+		});
 	}
 }
