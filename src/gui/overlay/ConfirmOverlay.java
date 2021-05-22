@@ -23,7 +23,7 @@ public class ConfirmOverlay extends Overlay {
 	private MenuButton yes;
 	private MenuButton no;
 
-	public ConfirmOverlay() {
+	public ConfirmOverlay(String releaseStyle, String holdStyle) {
 		super((new Pane()), WIDTH, HEIGHT, 250, -800);
 		prefHeight(HEIGHT);
 		prefWidth(WIDTH);
@@ -52,13 +52,13 @@ public class ConfirmOverlay extends Overlay {
 		buttonPane.setSpacing(65);
 		buttonPane.setAlignment(Pos.CENTER);
 
-		yes = new MenuButton("Yes", 50, 400, 100, Color.WHITE);
+		yes = new MenuButton("Yes", 50, 400, 100, Color.WHITE, releaseStyle, holdStyle);
 
-		no = new MenuButton("No", 50, 400, 100, Color.WHITE);
+		no = new MenuButton("No", 50, 400, 100, Color.WHITE, releaseStyle, holdStyle);
 
 		buttonPane.getChildren().addAll(yes, no);
-		
-		content.getChildren().addAll(textBox,buttonPane);
+
+		content.getChildren().addAll(textBox, buttonPane);
 
 		root.getChildren().addAll(bg, content);
 	}
@@ -86,6 +86,5 @@ public class ConfirmOverlay extends Overlay {
 	public VBox getContent() {
 		return content;
 	}
-	
 
 }

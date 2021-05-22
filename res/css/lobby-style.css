@@ -47,16 +47,20 @@
 #character-card {
   opacity: 1.0;
   -fx-background-color: rgb(165.0, 165.0, 165.0);
+    -fx-background-radius:15.0;
+  
 }
 
 #character-card-hold {
   opacity: 1.0;
-  -fx-background-color: rgb(0.0, 0.0, 0.0);
+  -fx-background-color: #03728C;
+  -fx-background-radius:15.0;
 }
 
 #character-card-selected {
   opacity: 1.0;
   -fx-background-color: rgb(165.0, 165.0, 165.0);
+  -fx-background-radius:15.0;
 }
 
 #character-card-bg {

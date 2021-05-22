@@ -3,8 +3,6 @@ package character;
 import component.entity.Minion;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import logic.FightController;
-import logic.GameSetUp;
 
 public class Dummy_Government extends MainCharacter {
 

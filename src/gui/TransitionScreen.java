@@ -14,7 +14,7 @@ import logic.SceneController;
 
 public class TransitionScreen implements Sceneable {
 
-	Scene scene;
+	private Scene scene;
 
 	public TransitionScreen() {
 

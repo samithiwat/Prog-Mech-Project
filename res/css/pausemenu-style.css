@@ -1,0 +1,27 @@
+#button-hold-style {
+  -fx-text-fill: #fefde8;
+  -fx-background-color: #393e46;
+  -fx-background-radius: 15;
+}
+
+#button-release-style {
+  -fx-background-color: #fefde8;
+  -fx-background-radius: 15;
+}
+
+#overlay-button-hold-style {
+  -fx-text-fill: #393e46;
+  -fx-background-color: #cccccc;
+  -fx-background-radius: 15;
+  -fx-opacity: 0.85;
+}
+
+#overlay-button-release-style {
+  -fx-background-color: #787878;
+  -fx-background-radius: 15;
+  -fx-opacity: 0.85;
+}
+
+#overlay-bg {
+  -fx-fill: rgba(57, 62, 70, 0.8);
+}

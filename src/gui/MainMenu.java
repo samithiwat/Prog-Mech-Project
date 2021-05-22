@@ -38,7 +38,7 @@ public class MainMenu implements Sceneable {
 // -------------------------------------------- Init Overlay --------------------------------------------------------------------
 
 		CreditOverlay creditOverlay = new CreditOverlay();
-		quitOverlay = new ConfirmOverlay();
+		quitOverlay = new ConfirmOverlay("button-release-style", "button-hold-style");
 		setUpQuitOverlay();
 
 // -------------------------------------------- Scene Background --------------------------------------------------------------	
@@ -147,7 +147,7 @@ public class MainMenu implements Sceneable {
 			continueButton.setDisable(true);
 			continueButton.setId("button-disable-style");
 		} else {
-			newGameConfirm = new ConfirmOverlay();
+			newGameConfirm = new ConfirmOverlay("button-release-style", "button-hold-style");
 			setUpNewGameConfirm();
 			root.getChildren().add(newGameConfirm);
 		}

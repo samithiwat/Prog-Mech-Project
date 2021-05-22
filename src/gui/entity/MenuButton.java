@@ -23,7 +23,7 @@ public class MenuButton extends Button implements Clickable {
 		setPrefWidth(width);
 		interact();
 	}
-	
+
 	public MenuButton(String content, int contentSize, int width, int height, Color textColor) {
 		setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
 		setTextFill(textColor);
@@ -33,6 +33,18 @@ public class MenuButton extends Button implements Clickable {
 		setPrefHeight(height);
 		setPrefWidth(width);
 		interact();
+	}
+
+	public MenuButton(String content, int contentSize, int width, int height, Color textColor, String releaseStyle,
+			String holdStyle) {
+		setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+		setTextFill(textColor);
+		setId(releaseStyle);
+		setText(content);
+		setFontRegular(contentSize);
+		setPrefHeight(height);
+		setPrefWidth(width);
+		interact(releaseStyle, holdStyle);
 	}
 
 	@Override
@@ -53,6 +65,28 @@ public class MenuButton extends Button implements Clickable {
 				setCursor(MOUSE_SELECT);
 				EFFECT_MOUSE_ENTER.play();
 				setId("button-hold-style");
+			}
+
+		});
+	}
+
+	public void interact(String releaseStyle, String holdStyle) {
+		setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				setCursor(MOUSE_NORMAL);
+				setId(releaseStyle);
+			}
+
+		});
+		setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				setCursor(MOUSE_SELECT);
+				EFFECT_MOUSE_ENTER.play();
+				setId(holdStyle);
 			}
 
 		});
